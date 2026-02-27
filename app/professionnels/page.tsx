@@ -172,7 +172,9 @@ export default function ProfessionnelsPage() {
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <div>
-              <h2 className="text-4xl font-bold text-[#0F2B46]">Méthodologie d'accompagnement</h2>
+              <h2 className="text-4xl font-bold text-[#0F2B46]">
+                Méthodologie d&apos;accompagnement
+              </h2>
               <div className="mt-6 space-y-4">
                 {[
                   "Audit initial et priorisation des gisements d'économies.",
