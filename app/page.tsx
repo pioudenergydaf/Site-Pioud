@@ -35,7 +35,7 @@ export default function Home() {
               Mandataire CEE - Accompagnement premium
             </p>
             <h1 className="text-4xl font-bold leading-tight sm:text-6xl">
-              Maximisez vos économies d&apos;énergie avec Pioud Energy
+              Maximisez vos économies d&apos;énergie avec PIOUD ENERGY
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-white/90 sm:text-xl">
               De l&apos;audit initial au versement de la prime, nous pilotons vos
