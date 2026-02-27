@@ -46,12 +46,16 @@ const localBusinessSchema = {
   email: siteConfig.email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "18 Rue de l'Énergie",
-    postalCode: "75008",
-    addressLocality: "Paris",
+    streetAddress: siteConfig.streetAddress,
+    postalCode: siteConfig.postalCode,
+    addressLocality: siteConfig.city,
     addressCountry: "FR",
   },
   url: siteConfig.url,
+  identifier: [
+    { "@type": "PropertyValue", propertyID: "SIREN", value: siteConfig.siren },
+    { "@type": "PropertyValue", propertyID: "SIRET", value: siteConfig.siret },
+  ],
 };
 
 export default function RootLayout({

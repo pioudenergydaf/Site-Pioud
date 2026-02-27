@@ -19,7 +19,7 @@ export default function ContactPage() {
         title="Parlons de votre projet CEE"
         description="Nos experts vous répondent rapidement pour cadrer votre besoin, estimer votre potentiel de prime et lancer votre accompagnement."
         imageUrl="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80"
-        primaryCta={{ href: "tel:0189704520", label: "Appeler le standard" }}
+        primaryCta={{ href: `tel:${siteConfig.phoneHref}`, label: "Appeler le standard" }}
         secondaryCta={{ href: "/simulateur", label: "Accéder au simulateur" }}
       />
 
@@ -119,7 +119,7 @@ export default function ContactPage() {
             <aside className="space-y-6">
               <div className="card-surface p-6">
                 <p className="mb-4 text-lg font-semibold text-[#0F2B46]">
-                  Numéros par service
+                  Coordonnées officielles
                 </p>
                 <ul className="space-y-3 text-sm">
                   {servicePhones.map((service) => (
@@ -134,6 +134,16 @@ export default function ContactPage() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-5 space-y-2 border-t border-slate-200 pt-4 text-sm text-slate-600">
+                  <p>
+                    <span className="font-medium text-slate-700">Email :</span>{" "}
+                    {siteConfig.email}
+                  </p>
+                  <p>
+                    <span className="font-medium text-slate-700">SIREN :</span>{" "}
+                    {siteConfig.siren}
+                  </p>
+                </div>
               </div>
 
               <div className="card-surface p-6">
@@ -233,7 +243,7 @@ export default function ContactPage() {
             <div className="card-surface overflow-hidden">
               <iframe
                 title="Carte Google Maps - PIOUD ENERGY"
-                src="https://www.google.com/maps?q=75008+Paris&output=embed"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(siteConfig.address)}&output=embed`}
                 className="h-full min-h-[430px] w-full border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

@@ -6,7 +6,16 @@ export const siteConfig = {
   simulatorUrl: "https://simulateur.pioud-energy.fr",
   email: "contact@pioud-energy.fr",
   phone: "01 89 70 45 20",
-  address: "18 Rue de l'Énergie, 75008 Paris",
+  phoneHref: "0189704520",
+  streetAddress: "8 Rue Henri Dunant",
+  postalCode: "94370",
+  city: "Sucy-en-Brie",
+  address: "8 Rue Henri Dunant, 94370 Sucy-en-Brie",
+  siren: "927 628 446",
+  siret: "927 628 446 00019",
+  legalForm: "SAS, société par actions simplifiée",
+  apeCode: "43.22A",
+  president: "Filip Chrétien",
 };
 
 export const navLinks = [
@@ -84,8 +93,5 @@ export const partners = [
 ];
 
 export const servicePhones = [
-  { service: "Service particuliers", number: "01 89 70 45 21" },
-  { service: "Service professionnels", number: "01 89 70 45 22" },
-  { service: "Service collectivités", number: "01 89 70 45 23" },
-  { service: "Service grands comptes", number: "01 89 70 45 24" },
+  { service: "Standard PIOUD ENERGY", number: "01 89 70 45 20" },
 ];

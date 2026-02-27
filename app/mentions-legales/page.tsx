@@ -13,14 +13,25 @@ export default function MentionsLegalesPage() {
         <h1 className="text-3xl font-bold text-[#0F2B46]">Mentions légales</h1>
         <div className="space-y-3 text-slate-600">
           <p>
-            <strong>Éditeur :</strong> PIOUD ENERGY SAS - 18 Rue de l&apos;Énergie,
-            75008 Paris.
+            <strong>Éditeur :</strong> {siteConfig.name} - {siteConfig.legalForm}.
+          </p>
+          <p>
+            <strong>Siège social :</strong> {siteConfig.address}
+          </p>
+          <p>
+            <strong>SIREN :</strong> {siteConfig.siren}
+          </p>
+          <p>
+            <strong>SIRET (siège) :</strong> {siteConfig.siret}
+          </p>
+          <p>
+            <strong>Code APE :</strong> {siteConfig.apeCode}
           </p>
           <p>
             <strong>Contact :</strong> {siteConfig.email} - {siteConfig.phone}
           </p>
           <p>
-            <strong>Directeur de publication :</strong> Direction générale PIOUD ENERGY.
+            <strong>Directeur de publication :</strong> {siteConfig.president}
           </p>
           <p>
             <strong>Hébergement :</strong> Infrastructure cloud sécurisée en Union Européenne.
