@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f8fafc;
+  --foreground: #1f2937;
+  --brand-blue: #0f2b46;
+  --brand-emerald: #10b981;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-manrope), Arial, sans-serif;
+}
+
+@layer components {
+  .section-shell {
+    @apply mx-auto max-w-7xl px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-[#10B981] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 rounded-full border border-[#0F2B46]/20 bg-white px-6 py-3 font-semibold text-[#0F2B46] transition hover:-translate-y-0.5 hover:border-[#0F2B46]/40 hover:bg-slate-50;
+  }
+
+  .card-surface {
+    @apply rounded-3xl border border-slate-200 bg-white shadow-lg shadow-[#0f2b46]/5;
+  }
+}
+
+.gradient-overlay {
+  background: linear-gradient(130deg, rgba(15, 43, 70, 0.9), rgba(16, 185, 129, 0.7));
+}
+
+.hero-mesh {
+  background-image: radial-gradient(circle at 25% 25%, rgba(16, 185, 129, 0.18), transparent 45%),
+    radial-gradient(circle at 75% 5%, rgba(15, 43, 70, 0.18), transparent 35%),
+    linear-gradient(120deg, #f8fafc, #eff6ff);
+}
+
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
