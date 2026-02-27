@@ -25,21 +25,18 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition ${
-        isScrolled
-          ? "border-b border-slate-200/70 bg-white/90 backdrop-blur-xl"
-          : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 bg-[#0F2B46] transition-shadow ${
+        isScrolled ? "shadow-2xl shadow-[#04121f]/35" : "shadow-md shadow-[#04121f]/20"
       }`}
     >
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[#0F2B46] to-[#10B981] text-sm font-bold text-white">
-            PE
+        <Link href="/" className="inline-flex flex-col leading-tight">
+          <span className="text-2xl font-extrabold tracking-wide text-white">
+            PIOUD ENERGY
           </span>
-          <div>
-            <p className="text-sm font-semibold text-slate-500">Groupe CEE</p>
-            <p className="text-base font-bold text-[#0F2B46]">Pioud Energy</p>
-          </div>
+          <span className="text-xs font-medium text-slate-200">
+            Certificats d&apos;Économies d&apos;Énergie
+          </span>
         </Link>
 
         <div className="hidden items-center gap-7 lg:flex">
@@ -49,8 +46,8 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition ${
-                  active ? "text-[#0F2B46]" : "text-slate-600 hover:text-[#0F2B46]"
+                className={`text-sm font-semibold transition ${
+                  active ? "text-emerald-300" : "text-slate-200 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -60,14 +57,17 @@ export function Navbar() {
         </div>
 
         <div className="hidden lg:block">
-          <Link href="/simulateur" className="btn-primary text-sm">
+          <Link
+            href="/simulateur"
+            className="inline-flex items-center rounded-full bg-[#10B981] px-6 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-500"
+          >
             Simulateur
           </Link>
         </div>
 
         <button
           type="button"
-          className="rounded-lg border border-slate-200 p-2 text-slate-700 lg:hidden"
+          className="rounded-lg border border-white/30 p-2 text-white lg:hidden"
           onClick={() => setMenuOpen((open) => !open)}
           aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={menuOpen}
@@ -83,7 +83,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="border-t border-slate-200 bg-white px-6 pb-6 pt-4 lg:hidden"
+            className="border-t border-white/15 bg-[#0B2238] px-6 pb-6 pt-4 lg:hidden"
           >
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
@@ -92,19 +92,22 @@ export function Navbar() {
                   href={link.href}
                   className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
                     pathname === link.href
-                      ? "bg-slate-100 text-[#0F2B46]"
-                      : "text-slate-700 hover:bg-slate-100"
+                      ? "bg-white/10 text-emerald-300"
+                      : "text-slate-100 hover:bg-white/10"
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
-              <Link href="/simulateur" className="btn-primary mt-1 justify-center">
+              <Link
+                href="/simulateur"
+                className="mt-1 inline-flex items-center justify-center rounded-full bg-[#10B981] px-6 py-3 font-semibold text-white transition hover:bg-emerald-500"
+              >
                 Accéder au simulateur
               </Link>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="btn-secondary justify-center"
+                className="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
               >
                 Nous écrire
               </a>

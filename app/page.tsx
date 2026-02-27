@@ -1,44 +1,61 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Building2, Factory, Landmark, Leaf, User } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  Factory,
+  Landmark,
+  Sparkles,
+  User,
+} from "lucide-react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import { PartnersMarquee } from "@/components/ui/partners-marquee";
 import { Reveal } from "@/components/ui/reveal";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { TestimonialCarousel } from "@/components/ui/testimonial-carousel";
-import { keyFigures, partners, sectors, testimonials } from "@/lib/site-data";
+import { keyFigures, sectors, testimonials } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Accueil",
   description:
-    "Pioud Energy simplifie vos démarches CEE et maximise vos primes pour tous vos projets d'efficacité énergétique.",
+    "PIOUD ENERGY simplifie vos démarches CEE et maximise vos primes pour tous vos projets d'efficacité énergétique.",
 };
 
 const sectorIcons = [User, Building2, Landmark, Factory];
+const clientLogos = [
+  "Groupe Habitat+",
+  "Indus Conseil",
+  "Ville de Saint-Maur",
+  "TransLog Europe",
+  "Bureau Pro Services",
+  "Patrimoine Public 360",
+];
 
 export default function Home() {
   return (
     <div className="overflow-x-hidden">
-      <section className="relative flex min-h-screen items-center pt-24">
+      <section className="relative flex min-h-screen items-center pt-20">
         <Image
-          src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1800&q=80"
-          alt="Bâtiments modernes et efficacité énergétique"
+          src="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=2000&q=80"
+          alt="Bâtiment rénové énergétiquement"
           fill
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 gradient-overlay" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#041224]/90 via-[#0b2540]/75 to-[#0f2b46]/65" />
         <div className="section-shell relative z-10 py-20 text-white">
-          <Reveal className="max-w-3xl">
-            <p className="mb-5 inline-flex rounded-full border border-white/30 bg-white/10 px-4 py-1 text-sm font-semibold">
+          <Reveal className="max-w-4xl">
+            <p className="mb-6 inline-flex rounded-full border border-white/30 bg-white/10 px-4 py-1 text-sm font-semibold">
               Mandataire CEE - Accompagnement premium
             </p>
-            <h1 className="text-4xl font-bold leading-tight sm:text-6xl">
-              Maximisez vos économies d&apos;énergie avec Pioud Energy
+            <h1 className="text-4xl font-bold leading-tight sm:text-6xl lg:text-7xl">
+              Maximisez vos économies d&apos;énergie avec
+              <span className="mt-2 block text-5xl font-extrabold tracking-wide text-emerald-300 sm:text-7xl lg:text-8xl">
+                PIOUD ENERGY
+              </span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-white/90 sm:text-xl">
-              De l&apos;audit initial au versement de la prime, nous pilotons vos
+              De l&apos;audit initial au versement de la prime, nos experts pilotent vos
               dossiers CEE avec précision, rapidité et transparence.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -51,94 +68,13 @@ export default function Home() {
               </Link>
             </div>
           </Reveal>
-        </div>
-      </section>
 
-      <section className="hero-mesh py-24">
-        <div className="section-shell">
-          <Reveal>
-            <SectionHeading
-              title="Qui sommes-nous ?"
-              description="Pioud Energy est un acteur expert des Certificats d'Économies d'Énergie. Notre mission : rendre les dispositifs CEE lisibles, performants et sécurisés pour chaque client."
-            />
-          </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "Expertise réglementaire",
-                description:
-                  "Veille continue sur les évolutions CEE, conformité des dossiers et sécurisation des justificatifs.",
-              },
-              {
-                title: "Accompagnement personnalisé",
-                description:
-                  "Un interlocuteur dédié pour orchestrer vos opérations, du diagnostic jusqu'à la valorisation financière.",
-              },
-              {
-                title: "Performance mesurable",
-                description:
-                  "Des tableaux de bord clairs pour suivre vos économies, vos primes et l'avancement opérationnel.",
-              },
-            ].map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.1}>
-                <article className="card-surface h-full p-7">
-                  <h3 className="text-xl font-semibold text-[#0F2B46]">{item.title}</h3>
-                  <p className="mt-3 leading-relaxed text-slate-600">{item.description}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24">
-        <div className="section-shell">
-          <Reveal>
-            <SectionHeading
-              title="Nos secteurs d'intervention"
-              description="Une expertise multi-secteurs pour adapter le dispositif CEE à vos enjeux techniques, financiers et réglementaires."
-            />
-          </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {sectors.map((sector, index) => {
-              const Icon = sectorIcons[index];
-              return (
-                <Reveal key={sector.title} delay={index * 0.1}>
-                  <Link
-                    href={sector.href}
-                    className="group card-surface block h-full p-6 transition duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-2xl"
-                  >
-                    <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">{sector.title}</h3>
-                    <p className="mt-3 leading-relaxed text-slate-600">{sector.description}</p>
-                    <span className="mt-5 inline-flex items-center text-sm font-semibold text-emerald-600">
-                      En savoir plus
-                      <ArrowRight className="ml-1 h-4 w-4 transition group-hover:translate-x-0.5" />
-                    </span>
-                  </Link>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24">
-        <div className="section-shell">
-          <Reveal>
-            <SectionHeading
-              title="Chiffres clés"
-              description="Des résultats concrets au service de votre performance énergétique."
-            />
-          </Reveal>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          <div className="mt-12 grid gap-4 sm:grid-cols-3">
             {keyFigures.map((figure, index) => (
-              <Reveal key={figure.label} delay={index * 0.15}>
-                <article className="card-surface p-8 text-center">
+              <Reveal key={figure.label} delay={0.1 + index * 0.1}>
+                <article className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur">
                   <AnimatedCounter value={figure.value} suffix={figure.suffix} />
-                  <p className="mt-3 text-sm font-medium uppercase tracking-wide text-slate-500">
+                  <p className="mt-2 text-sm font-medium uppercase tracking-wide text-white/80">
                     {figure.label}
                   </p>
                 </article>
@@ -148,36 +84,139 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24">
-        <div className="section-shell">
+      <section className="hero-mesh py-24">
+        <div className="section-shell grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
-            <SectionHeading
-              title="Ils nous font confiance"
-              description="Des clients exigeants qui recherchent un partenaire fiable pour transformer leurs ambitions énergétiques en résultats."
-            />
+            <div>
+              <p className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-1 text-sm font-semibold text-emerald-700">
+                <BadgeCheck className="h-4 w-4" />
+                Qui sommes-nous
+              </p>
+              <h2 className="mt-4 text-4xl font-bold text-[#0F2B46]">
+                Un partenaire CEE fiable, orienté résultats
+              </h2>
+              <p className="mt-4 text-lg text-slate-600">
+                PIOUD ENERGY accompagne particuliers, professionnels et acteurs
+                publics dans la valorisation des Certificats d&apos;Économies
+                d&apos;Énergie avec une approche opérationnelle et rassurante.
+              </p>
+              <ul className="mt-6 space-y-3 text-slate-700">
+                <li>• Dossiers conformes et sécurisés</li>
+                <li>• Accompagnement personnalisé de bout en bout</li>
+                <li>• Pilotage des délais jusqu&apos;au versement de la prime</li>
+              </ul>
+            </div>
           </Reveal>
-          <div className="mt-10">
-            <TestimonialCarousel items={testimonials} />
-          </div>
+          <Reveal delay={0.1}>
+            <div className="relative min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-2xl shadow-[#0f2b46]/10">
+              <Image
+                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80"
+                alt="Réunion d'équipe de conseil énergie"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="py-24">
-        <div className="section-shell space-y-8">
+        <div className="section-shell grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
-            <div className="mx-auto max-w-3xl text-center">
-              <p className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
-                <Leaf className="h-4 w-4" />
-                Réseau d&apos;experts partenaires
-              </p>
-              <h2 className="mt-4 text-3xl font-bold text-[#0F2B46] sm:text-4xl">
-                Un écosystème solide pour accélérer vos projets
-              </h2>
+            <div className="relative min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-2xl shadow-[#0f2b46]/10">
+              <Image
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1400&q=80"
+                alt="Sites multi-secteurs accompagnés"
+                fill
+                className="object-cover"
+              />
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <PartnersMarquee partners={partners} />
+            <div>
+              <p className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1 text-sm font-semibold text-[#0F2B46]">
+                <Sparkles className="h-4 w-4" />
+                Nos secteurs
+              </p>
+              <h2 className="mt-4 text-4xl font-bold text-[#0F2B46]">
+                Une expertise adaptée à chaque profil client
+              </h2>
+              <p className="mt-4 text-lg text-slate-600">
+                Nos équipes conçoivent une stratégie CEE sur mesure selon vos
+                contraintes techniques, réglementaires et budgétaires.
+              </p>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {sectors.map((sector, index) => {
+                  const Icon = sectorIcons[index];
+                  return (
+                    <Link
+                      key={sector.title}
+                      href={sector.href}
+                      className="rounded-2xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-emerald-300"
+                    >
+                      <span className="inline-flex rounded-lg bg-emerald-50 p-2 text-emerald-600">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <p className="mt-2 font-semibold text-[#0F2B46]">{sector.title}</p>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="py-24">
+        <div className="section-shell grid items-center gap-10 lg:grid-cols-2">
+          <Reveal>
+            <div>
+              <p className="inline-flex rounded-full bg-emerald-50 px-4 py-1 text-sm font-semibold text-emerald-700">
+                Nos clients nous font confiance
+              </p>
+              <h2 className="mt-4 text-4xl font-bold text-[#0F2B46]">
+                Une relation durable avec des clients exigeants
+              </h2>
+              <p className="mt-4 text-lg text-slate-600">
+                Entreprises, collectivités et propriétaires nous confient leurs
+                dossiers CEE pour notre fiabilité, notre transparence et notre
+                capacité à délivrer des résultats mesurables.
+              </p>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {clientLogos.map((client) => (
+                  <div
+                    key={client}
+                    className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600"
+                  >
+                    {client}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="relative min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-2xl shadow-[#0f2b46]/10">
+              <Image
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80"
+                alt="Siège d'une entreprise cliente"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="py-24">
+        <div className="section-shell">
+          <Reveal>
+            <h2 className="text-center text-4xl font-bold text-[#0F2B46]">
+              Témoignages clients
+            </h2>
+          </Reveal>
+          <div className="mt-10">
+            <TestimonialCarousel items={testimonials} />
+          </div>
         </div>
       </section>
 
@@ -191,7 +230,7 @@ export default function Home() {
                 </h2>
                 <p className="mt-3 text-white/90">
                   Réalisez une première estimation en ligne en quelques clics et
-                  échangez ensuite avec un expert Pioud Energy.
+                  échangez ensuite avec un expert PIOUD ENERGY.
                 </p>
               </div>
               <Link
