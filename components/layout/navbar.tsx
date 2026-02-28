@@ -48,7 +48,7 @@ export function Navbar() {
                 href={link.href}
                 className={`text-sm font-semibold transition ${
                   active ? "text-emerald-300" : "text-slate-200 hover:text-white"
-                }`}
+                } focus:outline-none focus-visible:rounded focus-visible:ring-2 focus-visible:ring-white/40`}
               >
                 {link.label}
               </Link>
@@ -94,7 +94,7 @@ export function Navbar() {
                     pathname === link.href
                       ? "bg-white/10 text-emerald-300"
                       : "text-slate-100 hover:bg-white/10"
-                  }`}
+                  } focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40`}
                 >
                   {link.label}
                 </Link>

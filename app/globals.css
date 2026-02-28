@@ -25,7 +25,7 @@ body {
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 rounded-full border border-[#0F2B46]/20 bg-white px-6 py-3 font-semibold text-[#0F2B46] transition hover:-translate-y-0.5 hover:border-[#0F2B46]/40 hover:bg-slate-50;
+    @apply inline-flex items-center gap-2 rounded-full border border-[#0F2B46]/20 bg-white px-6 py-3 font-semibold text-[#0F2B46] transition hover:-translate-y-0.5 hover:border-[#0F2B46]/40 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2B46]/30;
   }
 
   .card-surface {

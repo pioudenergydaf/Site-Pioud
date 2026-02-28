@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CalendarClock, Clock3, MapPin, PhoneCall } from "lucide-react";
+import Link from "next/link";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -108,6 +109,25 @@ export default function ContactPage() {
                   placeholder="Décrivez votre projet énergétique, vos délais et vos objectifs."
                 />
               </div>
+
+              <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                <input
+                  type="checkbox"
+                  name="privacy-consent"
+                  required
+                  className="mt-1 h-4 w-4 accent-emerald-500"
+                />
+                <span className="text-sm text-slate-600">
+                  J&apos;accepte que mes données soient traitées conformément à la{" "}
+                  <Link
+                    href="/politique-confidentialite"
+                    className="font-semibold text-[#0F2B46] underline underline-offset-2"
+                  >
+                    politique de confidentialité
+                  </Link>{" "}
+                  de PIOUD ENERGY.
+                </span>
+              </label>
 
               <button type="submit" className="btn-primary">
                 Envoyer la demande
@@ -233,6 +253,24 @@ export default function ContactPage() {
                     </select>
                   </div>
                 </div>
+                <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                  <input
+                    type="checkbox"
+                    name="callback-privacy-consent"
+                    required
+                    className="mt-1 h-4 w-4 accent-emerald-500"
+                  />
+                  <span className="text-sm text-slate-600">
+                    J&apos;accepte que mes données soient traitées conformément à la{" "}
+                    <Link
+                      href="/politique-confidentialite"
+                      className="font-semibold text-[#0F2B46] underline underline-offset-2"
+                    >
+                      politique de confidentialité
+                    </Link>{" "}
+                    de PIOUD ENERGY.
+                  </span>
+                </label>
                 <button type="submit" className="btn-secondary">
                   Planifier mon rappel
                 </button>
