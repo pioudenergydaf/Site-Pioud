@@ -88,7 +88,7 @@ export default function ParticuliersIsolationPage() {
         eyebrow="Particuliers - Isolation"
         title="Isolation thermique : les primes CEE pour votre logement"
         description="L'isolation est le geste le plus rentable en rénovation énergétique. Elle représente plus de 37% des CEE délivrés en France."
-        imageUrl="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1700&q=80"
+        imageUrl="https://images.unsplash.com/photo-1768321917437-1f1f6ae2ad28?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer ma prime isolation" }}
         secondaryCta={{ href: "/contact", label: "Être rappelé" }}
       />
@@ -150,8 +150,8 @@ export default function ParticuliersIsolationPage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[340px] overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-[#0f2b46]/10">
               <Image
-                src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1400&q=80"
-                alt="Infographie des déperditions de chaleur d'une maison"
+                src="https://images.unsplash.com/photo-1753717202579-9c6ac3592b62?auto=format&fit=crop&w=1400&q=80"
+                alt="Isolation des combles d'une maison"
                 fill
                 className="object-cover"
               />

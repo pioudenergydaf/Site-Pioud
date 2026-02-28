@@ -15,8 +15,8 @@ export const navLinks = [
   { href: "/professionnels", label: "Professionnels" },
   { href: "/collectivites", label: "Collectivités" },
   { href: "/grands-comptes", label: "Grands comptes" },
-  { href: "/contact", label: "Contact" },
   { href: "/aides", label: "Aides" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export const sectors = [

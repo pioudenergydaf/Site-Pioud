@@ -59,7 +59,7 @@ export default function ParticuliersRegulationPage() {
         eyebrow="Particuliers - Régulation"
         title="Régulation & Pilotage : consommez juste avec les CEE"
         description="Régulation pièce par pièce, programmation horaire et pilotage intelligent : diminuez vos consommations sans dégrader votre confort."
-        imageUrl="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1700&q=80"
+        imageUrl="https://images.unsplash.com/photo-1770625467384-304e461ef1be?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer votre prime" }}
         secondaryCta={{ href: "/contact", label: "Être rappelé" }}
       />

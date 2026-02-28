@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -12,6 +13,7 @@ import {
   Receipt,
   Search,
   TrendingUp,
+  type LucideIcon,
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
@@ -22,19 +24,173 @@ export const metadata: Metadata = {
     "Guide complet des aides à la rénovation énergétique 2026 : CEE, MaPrimeRénov', MaPrimeRénov' Rénovation d'ampleur, Éco-PTZ, TVA 5,5% et aides locales.",
 };
 
-function ExternalResourceLink({ href, label }: { href: string; label: string }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 text-sm font-medium text-[#1d4ed8] underline underline-offset-2"
-    >
-      {label}
-      <ExternalLink className="h-3.5 w-3.5" />
-    </a>
-  );
-}
+type MaprimerenovRow = {
+  travaux: string;
+  bleu: string;
+  jaune: string;
+  violet: string;
+  rose: string;
+};
+
+type IncomeRow = {
+  personnes: string;
+  bleu: string;
+  jaune: string;
+  violet: string;
+  rose: string;
+};
+
+type AidCardProps = {
+  borderClass: string;
+  imageUrl: string;
+  imageAlt: string;
+  icon: LucideIcon;
+  title: string;
+  badge?: string;
+  children: ReactNode;
+};
+
+const maprimerenovRows: MaprimerenovRow[] = [
+  {
+    travaux: "PAC air/eau",
+    bleu: "5 000€",
+    jaune: "4 000€",
+    violet: "3 000€",
+    rose: "Non éligible",
+  },
+  {
+    travaux: "PAC géothermique",
+    bleu: "11 000€",
+    jaune: "9 000€",
+    violet: "6 000€",
+    rose: "Non éligible",
+  },
+  {
+    travaux: "Chauffe-eau solaire",
+    bleu: "4 000€",
+    jaune: "3 000€",
+    violet: "2 000€",
+    rose: "Non éligible",
+  },
+  {
+    travaux: "Chauffe-eau thermodynamique",
+    bleu: "1 200€",
+    jaune: "800€",
+    violet: "400€",
+    rose: "Non éligible",
+  },
+  {
+    travaux: "Poêle à granulés",
+    bleu: "2 500€",
+    jaune: "2 000€",
+    violet: "1 500€",
+    rose: "Non éligible",
+  },
+  {
+    travaux: "Isolation combles",
+    bleu: "25€/m²",
+    jaune: "20€/m²",
+    violet: "15€/m²",
+    rose: "7€/m²",
+  },
+  {
+    travaux: "Isolation murs (ITE)",
+    bleu: "75€/m²",
+    jaune: "60€/m²",
+    violet: "40€/m²",
+    rose: "15€/m²",
+  },
+  {
+    travaux: "Fenêtres",
+    bleu: "100€/équipement",
+    jaune: "80€/équipement",
+    violet: "40€/équipement",
+    rose: "Non éligible",
+  },
+  {
+    travaux: "VMC double flux",
+    bleu: "2 500€",
+    jaune: "2 000€",
+    violet: "1 500€",
+    rose: "Non éligible",
+  },
+];
+
+const idfIncomeRows: IncomeRow[] = [
+  {
+    personnes: "1",
+    bleu: "jusqu'à 23 541€",
+    jaune: "jusqu'à 28 657€",
+    violet: "jusqu'à 40 018€",
+    rose: "au-dessus de 40 018€",
+  },
+  {
+    personnes: "2",
+    bleu: "jusqu'à 34 551€",
+    jaune: "jusqu'à 42 058€",
+    violet: "jusqu'à 58 827€",
+    rose: "au-dessus de 58 827€",
+  },
+  {
+    personnes: "3",
+    bleu: "jusqu'à 41 493€",
+    jaune: "jusqu'à 50 513€",
+    violet: "jusqu'à 70 382€",
+    rose: "au-dessus de 70 382€",
+  },
+  {
+    personnes: "4",
+    bleu: "jusqu'à 48 447€",
+    jaune: "jusqu'à 58 981€",
+    violet: "jusqu'à 82 839€",
+    rose: "au-dessus de 82 839€",
+  },
+  {
+    personnes: "5",
+    bleu: "jusqu'à 55 427€",
+    jaune: "jusqu'à 67 473€",
+    violet: "jusqu'à 94 844€",
+    rose: "au-dessus de 94 844€",
+  },
+];
+
+const nonIdfIncomeRows: IncomeRow[] = [
+  {
+    personnes: "1",
+    bleu: "jusqu'à 17 009€",
+    jaune: "jusqu'à 21 805€",
+    violet: "jusqu'à 30 549€",
+    rose: "au-dessus de 30 549€",
+  },
+  {
+    personnes: "2",
+    bleu: "jusqu'à 24 875€",
+    jaune: "jusqu'à 31 889€",
+    violet: "jusqu'à 44 907€",
+    rose: "au-dessus de 44 907€",
+  },
+  {
+    personnes: "3",
+    bleu: "jusqu'à 29 917€",
+    jaune: "jusqu'à 38 349€",
+    violet: "jusqu'à 54 071€",
+    rose: "au-dessus de 54 071€",
+  },
+  {
+    personnes: "4",
+    bleu: "jusqu'à 34 948€",
+    jaune: "jusqu'à 44 802€",
+    violet: "jusqu'à 63 235€",
+    rose: "au-dessus de 63 235€",
+  },
+  {
+    personnes: "5",
+    bleu: "jusqu'à 40 002€",
+    jaune: "jusqu'à 51 281€",
+    violet: "jusqu'à 72 400€",
+    rose: "au-dessus de 72 400€",
+  },
+];
 
 const usefulLinks = [
   { label: "MaPrimeRénov'", href: "https://www.maprimerenov.gouv.fr" },
@@ -51,26 +207,98 @@ const usefulLinks = [
   { label: "ANIL (aides locales)", href: "https://www.anil.org/aides-locales-travaux/" },
 ];
 
-const aidesVisuals = [
-  {
-    title: "Fiches CEE et montage administratif",
-    imageUrl:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80",
-    alt: "Documents administratifs pour dossier d'aides énergétiques",
-  },
-  {
-    title: "Analyse financière des aides",
-    imageUrl:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
-    alt: "Analyse budgétaire des subventions de rénovation énergétique",
-  },
-  {
-    title: "Travaux de rénovation éligibles",
-    imageUrl:
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
-    alt: "Chantier de rénovation énergétique d'un logement",
-  },
-];
+function ExternalResourceLink({ href, label }: { href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1.5 text-sm font-medium text-[#1d4ed8] underline underline-offset-2"
+    >
+      {label}
+      <ExternalLink className="h-3.5 w-3.5" />
+    </a>
+  );
+}
+
+function AidCard({
+  borderClass,
+  imageUrl,
+  imageAlt,
+  icon: Icon,
+  title,
+  badge,
+  children,
+}: AidCardProps) {
+  return (
+    <article className={`card-surface border-l-4 p-6 sm:p-8 ${borderClass}`}>
+      <div className="relative mb-5 h-52 overflow-hidden rounded-2xl border border-slate-200">
+        <Image src={imageUrl} alt={imageAlt} fill sizes="100vw" className="object-cover" />
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <span className="inline-flex rounded-xl bg-white/90 p-3 text-[#0F2B46] shadow-sm">
+            <Icon className="h-5 w-5" />
+          </span>
+          <h3 className="text-2xl font-bold text-[#0F2B46]">{title}</h3>
+        </div>
+        {badge ? (
+          <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+            {badge}
+          </span>
+        ) : null}
+      </div>
+      <div className="mt-4">{children}</div>
+    </article>
+  );
+}
+
+function IncomeTable({ title, rows }: { title: string; rows: IncomeRow[] }) {
+  return (
+    <div>
+      <h5 className="text-base font-semibold text-[#0F2B46]">{title}</h5>
+      <div className="mt-3 overflow-x-auto">
+        <table className="min-w-[980px] divide-y divide-slate-200 text-sm">
+          <thead>
+            <tr className="text-left">
+              <th className="bg-slate-100 px-3 py-2 font-semibold text-slate-700">
+                Nombre de personnes
+              </th>
+              <th className="bg-[#3B82F6] px-3 py-2 font-semibold text-white">
+                Bleu (très modestes)
+              </th>
+              <th className="bg-[#F59E0B] px-3 py-2 font-semibold text-white">Jaune (modestes)</th>
+              <th className="bg-[#8B5CF6] px-3 py-2 font-semibold text-white">
+                Violet (intermédiaires)
+              </th>
+              <th className="bg-[#EC4899] px-3 py-2 font-semibold text-white">
+                Rose (supérieurs)
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 text-slate-700">
+            {rows.map((row) => (
+              <tr key={`${title}-${row.personnes}`}>
+                <td className="px-3 py-2 font-medium text-slate-700">{row.personnes}</td>
+                <td className="px-3 py-2">{row.bleu}</td>
+                <td className="px-3 py-2">{row.jaune}</td>
+                <td className="px-3 py-2">{row.violet}</td>
+                <td className="px-3 py-2">{row.rose}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function maprimerenovCell(value: string) {
+  if (value === "Non éligible") {
+    return <span className="italic text-slate-400">{value}</span>;
+  }
+  return <span>{value}</span>;
+}
 
 export default function AidesPage() {
   return (
@@ -79,7 +307,7 @@ export default function AidesPage() {
         eyebrow="Aides & Subventions"
         title="Aides & Subventions 2026 : le guide complet"
         description="Découvrez toutes les aides disponibles pour financer vos travaux de rénovation énergétique. CEE, MaPrimeRénov', Éco-PTZ, TVA réduite... PIOUD ENERGY vous aide à les cumuler pour réduire votre reste à charge au maximum."
-        imageUrl="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1700&q=80"
+        imageUrl="https://images.unsplash.com/photo-1752594756894-bcf378884a09?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Simuler mes aides" }}
         secondaryCta={{ href: "/contact", label: "Être accompagné" }}
       />
@@ -88,45 +316,23 @@ export default function AidesPage() {
         <Reveal>
           <h2 className="text-4xl font-bold text-[#0F2B46]">Les principales aides en 2026</h2>
           <p className="mt-3 max-w-4xl text-lg text-slate-600">
-            {"Chaque dispositif répond à une logique spécifique. Nous vous aidons à les combiner intelligemment pour optimiser votre plan de financement."}
+            {
+              "Chaque dispositif répond à une logique spécifique. Nous vous aidons à les combiner intelligemment pour optimiser votre plan de financement."
+            }
           </p>
         </Reveal>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {aidesVisuals.map((visual, index) => (
-            <Reveal key={visual.title} delay={index * 0.06}>
-              <article className="card-surface overflow-hidden p-0">
-                <div className="relative h-44">
-                  <Image
-                    src={visual.imageUrl}
-                    alt={visual.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover"
-                  />
-                </div>
-                <p className="px-4 py-3 text-sm font-semibold text-[#0F2B46]">{visual.title}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-
         <div className="mt-10 space-y-7">
           <Reveal>
-            <article className="card-surface border-l-4 border-emerald-500 p-6 sm:p-8">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
-                    <Award className="h-5 w-5" />
-                  </span>
-                  <h3 className="text-2xl font-bold text-[#0F2B46]">Primes CEE</h3>
-                </div>
-                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
-                  💚 Notre expertise
-                </span>
-              </div>
-
-              <p className="mt-4 text-slate-700">
+            <AidCard
+              borderClass="border-emerald-500"
+              imageUrl="https://images.unsplash.com/photo-1768321917437-1f1f6ae2ad28?auto=format&fit=crop&w=1700&q=80"
+              imageAlt="Travaux d'isolation thermique pour une maison performante"
+              icon={Award}
+              title="Primes CEE"
+              badge="💚 Notre expertise"
+            >
+              <p className="text-slate-700">
                 {
                   "Les CEE sont des primes versées par les fournisseurs d'énergie (EDF, TotalEnergies, Engie...) pour financer vos travaux de rénovation. PIOUD ENERGY est mandataire CEE et vous accompagne dans l'obtention de ces primes."
                 }
@@ -179,19 +385,18 @@ export default function AidesPage() {
                   label="En savoir plus sur les CEE (Ministère)"
                 />
               </div>
-            </article>
+            </AidCard>
           </Reveal>
 
           <Reveal delay={0.04}>
-            <article className="card-surface border-l-4 border-blue-500 p-6 sm:p-8">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex rounded-xl bg-blue-50 p-3 text-blue-600">
-                  <Banknote className="h-5 w-5" />
-                </span>
-                <h3 className="text-2xl font-bold text-[#0F2B46]">MaPrimeRénov&apos;</h3>
-              </div>
-
-              <p className="mt-4 text-slate-700">
+            <AidCard
+              borderClass="border-blue-500"
+              imageUrl="https://images.unsplash.com/photo-1752594756894-bcf378884a09?auto=format&fit=crop&w=1700&q=80"
+              imageAlt="Ouvriers sur un chantier de rénovation de maison"
+              icon={Banknote}
+              title="MaPrimeRénov'"
+            >
+              <p className="text-slate-700">
                 {
                   "La principale aide de l'État pour la rénovation énergétique. Gérée par l'Anah (Agence nationale de l'habitat), elle finance l'isolation, le chauffage, la ventilation et la rénovation globale."
                 }
@@ -221,7 +426,9 @@ export default function AidesPage() {
                     <li>• Guichet rouvert le 23 février 2026</li>
                     <li>• Budget : 3,6 milliards d&apos;euros</li>
                     <li>
-                      {"• Isolation des murs : exclue en mono-geste (uniquement en rénovation d'ampleur)"}
+                      {
+                        "• Isolation des murs : exclue en mono-geste (uniquement en rénovation d'ampleur)"
+                      }
                     </li>
                     <li>• Chaudière biomasse : exclue en mono-geste</li>
                     <li>
@@ -238,56 +445,66 @@ export default function AidesPage() {
                   Montants (selon revenus)
                 </h4>
                 <div className="mt-3 overflow-x-auto">
-                  <table className="min-w-[720px] divide-y divide-slate-200 text-sm">
+                  <table className="min-w-[980px] divide-y divide-slate-200 text-sm">
                     <thead className="text-left">
                       <tr>
-                        <th className="px-3 py-2 font-semibold text-slate-700">Travaux</th>
-                        <th className="bg-blue-50 px-3 py-2 font-semibold text-blue-700">Bleu</th>
-                        <th className="bg-amber-50 px-3 py-2 font-semibold text-amber-700">Jaune</th>
-                        <th className="bg-violet-50 px-3 py-2 font-semibold text-violet-700">
-                          Violet
+                        <th className="bg-slate-100 px-3 py-2 font-semibold text-slate-700">
+                          Travaux
                         </th>
-                        <th className="bg-rose-50 px-3 py-2 font-semibold text-rose-700">Rose</th>
+                        <th className="bg-[#3B82F6] px-3 py-2 font-semibold text-white">
+                          Bleu (très modestes)
+                        </th>
+                        <th className="bg-[#F59E0B] px-3 py-2 font-semibold text-white">
+                          Jaune (modestes)
+                        </th>
+                        <th className="bg-[#8B5CF6] px-3 py-2 font-semibold text-white">
+                          Violet (intermédiaires)
+                        </th>
+                        <th className="bg-[#EC4899] px-3 py-2 font-semibold text-white">
+                          Rose (supérieurs)
+                        </th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      <tr>
-                        <td className="px-3 py-2 font-medium text-slate-700">PAC air/eau</td>
-                        <td className="px-3 py-2">5 000€</td>
-                        <td className="px-3 py-2">4 000€</td>
-                        <td className="px-3 py-2">3 000€</td>
-                        <td className="px-3 py-2">—</td>
-                      </tr>
-                      <tr>
-                        <td className="px-3 py-2 font-medium text-slate-700">Poêle à granulés</td>
-                        <td className="px-3 py-2">2 500€</td>
-                        <td className="px-3 py-2">2 000€</td>
-                        <td className="px-3 py-2">1 500€</td>
-                        <td className="px-3 py-2">—</td>
-                      </tr>
-                      <tr>
-                        <td className="px-3 py-2 font-medium text-slate-700">Isolation combles</td>
-                        <td className="px-3 py-2">Éligible</td>
-                        <td className="px-3 py-2">Éligible</td>
-                        <td className="px-3 py-2">Éligible</td>
-                        <td className="px-3 py-2">—</td>
-                      </tr>
-                      <tr>
-                        <td className="px-3 py-2 font-medium text-slate-700">Chauffe-eau solaire</td>
-                        <td className="px-3 py-2">4 000€</td>
-                        <td className="px-3 py-2">3 000€</td>
-                        <td className="px-3 py-2">2 000€</td>
-                        <td className="px-3 py-2">—</td>
-                      </tr>
+                    <tbody className="divide-y divide-slate-100 text-slate-700">
+                      {maprimerenovRows.map((row) => (
+                        <tr key={row.travaux}>
+                          <td className="px-3 py-2 font-medium text-slate-700">{row.travaux}</td>
+                          <td className="px-3 py-2">{maprimerenovCell(row.bleu)}</td>
+                          <td className="px-3 py-2">{maprimerenovCell(row.jaune)}</td>
+                          <td className="px-3 py-2">{maprimerenovCell(row.violet)}</td>
+                          <td className="px-3 py-2">{maprimerenovCell(row.rose)}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
-                <p className="mt-2 text-xs text-slate-500">
-                  {
-                    "Montants indicatifs parcours par geste 2026. Consultez le site officiel pour les montants exacts."
-                  }
+                <p className="mt-3 text-xs text-slate-600">
+                  ⚠️ Depuis 2026, l&apos;isolation des murs et les chaudières biomasse sont
+                  exclues de MaPrimeRénov&apos; en mono-geste. Elles restent éligibles en
+                  rénovation d&apos;ampleur et aux CEE. Les montants ci-dessus sont indicatifs
+                  et peuvent varier. Consultez maprimerenov.gouv.fr pour les montants exacts.
                 </p>
               </div>
+
+              <details className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 [&_summary::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer list-none text-sm font-semibold text-[#0F2B46]">
+                  📊 Voir les plafonds de revenus 2026
+                </summary>
+                <div className="mt-4 space-y-6">
+                  <IncomeTable
+                    title="Île-de-France (revenu fiscal de référence)"
+                    rows={idfIncomeRows}
+                  />
+                  <IncomeTable
+                    title="Hors Île-de-France (revenu fiscal de référence)"
+                    rows={nonIdfIncomeRows}
+                  />
+                  <p className="text-xs text-slate-600">
+                    Revenus fiscaux de référence de l&apos;année N-1 (2025 pour les demandes
+                    2026). Par personne supplémentaire, ajoutez environ 5 000€ à 6 000€.
+                  </p>
+                </div>
+              </details>
 
               <div className="mt-6">
                 <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
@@ -313,26 +530,19 @@ export default function AidesPage() {
                   label="Vérifier mon éligibilité (Service Public)"
                 />
               </div>
-            </article>
+            </AidCard>
           </Reveal>
 
           <Reveal delay={0.08}>
-            <article className="card-surface border-l-4 border-violet-500 p-6 sm:p-8">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex rounded-xl bg-violet-50 p-3 text-violet-600">
-                    <TrendingUp className="h-5 w-5" />
-                  </span>
-                  <h3 className="text-2xl font-bold text-[#0F2B46]">
-                    MaPrimeRénov&apos; Rénovation d&apos;ampleur
-                  </h3>
-                </div>
-                <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold text-violet-700">
-                  Le plus ambitieux
-                </span>
-              </div>
-
-              <p className="mt-4 text-slate-700">
+            <AidCard
+              borderClass="border-violet-500"
+              imageUrl="https://images.unsplash.com/photo-1753977725475-41b221add2c0?auto=format&fit=crop&w=1700&q=80"
+              imageAlt="Maison en rénovation d'ampleur avec extension"
+              icon={TrendingUp}
+              title="MaPrimeRénov' Rénovation d'ampleur"
+              badge="Le plus ambitieux"
+            >
+              <p className="text-slate-700">
                 {
                   "Pour les projets combinant plusieurs travaux avec un gain d'au moins 2 classes DPE. Accompagnement obligatoire par un Accompagnateur Rénov'. Réservé aux logements E, F ou G."
                 }
@@ -392,19 +602,18 @@ export default function AidesPage() {
                   label="En savoir plus (Service Public)"
                 />
               </div>
-            </article>
+            </AidCard>
           </Reveal>
 
           <Reveal delay={0.12}>
-            <article className="card-surface border-l-4 border-amber-500 p-6 sm:p-8">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex rounded-xl bg-amber-50 p-3 text-amber-600">
-                  <Landmark className="h-5 w-5" />
-                </span>
-                <h3 className="text-2xl font-bold text-[#0F2B46]">Éco-PTZ</h3>
-              </div>
-
-              <p className="mt-4 text-slate-700">
+            <AidCard
+              borderClass="border-amber-500"
+              imageUrl="https://images.unsplash.com/photo-1758518731462-d091b0b4ed0d?auto=format&fit=crop&w=1700&q=80"
+              imageAlt="Signature d'un contrat de financement en banque"
+              icon={Landmark}
+              title="Éco-PTZ"
+            >
+              <p className="text-slate-700">
                 {
                   "Un prêt bancaire à taux zéro pour financer le reste à charge de vos travaux de rénovation énergétique. Aucun intérêt à rembourser."
                 }
@@ -453,19 +662,18 @@ export default function AidesPage() {
                   label="Liste des banques partenaires (Service Public)"
                 />
               </div>
-            </article>
+            </AidCard>
           </Reveal>
 
           <Reveal delay={0.16}>
-            <article className="card-surface border-l-4 border-slate-500 p-6 sm:p-8">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex rounded-xl bg-slate-100 p-3 text-slate-600">
-                  <Receipt className="h-5 w-5" />
-                </span>
-                <h3 className="text-2xl font-bold text-[#0F2B46]">TVA à 5,5%</h3>
-              </div>
-
-              <p className="mt-4 text-slate-700">
+            <AidCard
+              borderClass="border-slate-500"
+              imageUrl="https://images.unsplash.com/photo-1725258080098-727051947997?auto=format&fit=crop&w=1700&q=80"
+              imageAlt="Calculatrice et facture de travaux de rénovation"
+              icon={Receipt}
+              title="TVA à 5,5%"
+            >
+              <p className="text-slate-700">
                 {
                   "Les travaux de rénovation énergétique bénéficient automatiquement d'une TVA réduite à 5,5% au lieu de 20%. Cette réduction est appliquée directement sur la facture par l'artisan."
                 }
@@ -503,19 +711,18 @@ export default function AidesPage() {
                   <li>⚠️ Attestation simplifiée à remplir (formulaire Cerfa)</li>
                 </ul>
               </div>
-            </article>
+            </AidCard>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <article className="card-surface border-l-4 border-orange-500 p-6 sm:p-8">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex rounded-xl bg-orange-50 p-3 text-orange-600">
-                  <MapPin className="h-5 w-5" />
-                </span>
-                <h3 className="text-2xl font-bold text-[#0F2B46]">Aides locales & complémentaires</h3>
-              </div>
-
-              <p className="mt-4 text-slate-700">
+            <AidCard
+              borderClass="border-orange-500"
+              imageUrl="https://images.unsplash.com/photo-1762231433404-04be830b0f3b?auto=format&fit=crop&w=1700&q=80"
+              imageAlt="Bâtiment public de type mairie pour aides locales"
+              icon={MapPin}
+              title="Aides locales & complémentaires"
+            >
+              <p className="text-slate-700">
                 {
                   "En plus des aides nationales, de nombreuses collectivités locales (régions, départements, communes) proposent des subventions complémentaires pour la rénovation énergétique."
                 }
@@ -556,7 +763,7 @@ export default function AidesPage() {
                   label="Contacter un conseiller France Rénov'"
                 />
               </div>
-            </article>
+            </AidCard>
           </Reveal>
         </div>
       </section>
@@ -585,7 +792,9 @@ export default function AidesPage() {
                     <td className="px-3 py-2 text-right text-slate-700">4 000€</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-medium text-slate-700">Prime CEE Coup de pouce x5</td>
+                    <td className="px-3 py-2 font-medium text-slate-700">
+                      Prime CEE Coup de pouce x5
+                    </td>
                     <td className="px-3 py-2 text-right text-slate-700">5 800€</td>
                   </tr>
                   <tr>
@@ -598,7 +807,9 @@ export default function AidesPage() {
                   </tr>
                   <tr>
                     <td className="px-3 py-2 font-medium text-slate-700">TVA 5,5%</td>
-                    <td className="px-3 py-2 text-right text-slate-700">appliquée automatiquement</td>
+                    <td className="px-3 py-2 text-right text-slate-700">
+                      appliquée automatiquement
+                    </td>
                   </tr>
                   <tr>
                     <td className="px-3 py-2 text-base font-bold text-emerald-800">
@@ -617,7 +828,9 @@ export default function AidesPage() {
                     </td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 text-base font-bold text-[#0F2B46]">Reste à charge</td>
+                    <td className="px-3 py-2 text-base font-bold text-[#0F2B46]">
+                      Reste à charge
+                    </td>
                     <td className="px-3 py-2 text-right text-base font-bold text-[#0F2B46]">
                       ~5 700€ (finançable par Éco-PTZ à 0%)
                     </td>
@@ -789,7 +1002,10 @@ export default function AidesPage() {
               >
                 Estimez toutes vos aides
               </Link>
-              <Link href="/contact" className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20">
+              <Link
+                href="/contact"
+                className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20"
+              >
                 Parler à un conseiller PIOUD ENERGY
               </Link>
             </div>

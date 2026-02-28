@@ -183,7 +183,7 @@ export default function TertiairePage() {
         eyebrow="Professionnels - Tertiaire"
         title="CEE Tertiaire : les opérations les plus performantes pour vos bâtiments"
         description="Bureaux, commerces, hôtels, établissements de santé, enseignement, collectivités... PIOUD ENERGY identifie et valorise les gisements CEE de votre parc immobilier."
-        imageUrl="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1700&q=80"
+        imageUrl="https://images.unsplash.com/photo-1742675416657-55d043ce8dce?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer mon projet" }}
         secondaryCta={{ href: "/contact", label: "Être rappelé" }}
       />
@@ -275,8 +275,8 @@ export default function TertiairePage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-[#0f2b46]/10">
               <Image
-                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80"
-                alt="Pilotage CEE d'un parc tertiaire"
+                src="https://images.unsplash.com/photo-1769699903260-ff85271faa4f?auto=format&fit=crop&w=1400&q=80"
+                alt="Bâtiment tertiaire en amélioration énergétique"
                 fill
                 className="object-cover"
               />

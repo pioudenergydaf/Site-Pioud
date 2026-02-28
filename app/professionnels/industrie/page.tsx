@@ -112,7 +112,7 @@ export default function IndustriePage() {
         eyebrow="Professionnels - Industrie"
         title="CEE Industrie : valorisez vos investissements en efficacité énergétique"
         description="Sites industriels, usines, entrepôts logistiques... PIOUD ENERGY maximise vos primes CEE sur l'ensemble de vos process et utilités."
-        imageUrl="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1700&q=80"
+        imageUrl="https://images.unsplash.com/photo-1763906265376-363d9681a3ad?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer mon projet" }}
         secondaryCta={{ href: "/contact", label: "Être rappelé" }}
       />
@@ -203,7 +203,7 @@ export default function IndustriePage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-[#0f2b46]/10">
               <Image
-                src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1400&q=80"
+                src="https://images.unsplash.com/photo-1766414629984-73a93e7caba0?auto=format&fit=crop&w=1400&q=80"
                 alt="Accompagnement d'un site industriel"
                 fill
                 className="object-cover"

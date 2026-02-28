@@ -26,7 +26,7 @@ export default function ProfessionnelsPage() {
         eyebrow="Professionnels"
         title="CEE Professionnels : financez vos travaux d'efficacité énergétique"
         description="PIOUD ENERGY accompagne les entreprises du tertiaire et de l'industrie dans l'identification des opérations éligibles, la valorisation CEE et le pilotage administratif de bout en bout."
-        imageUrl="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80"
+        imageUrl="https://images.unsplash.com/photo-1742675416657-55d043ce8dce?auto=format&fit=crop&w=1600&q=80"
         primaryCta={{ href: "/contact", label: "Parler à un expert CEE" }}
         secondaryCta={{ href: "/simulateur", label: "Estimer un projet" }}
       />
@@ -45,7 +45,7 @@ export default function ProfessionnelsPage() {
               className="group relative block min-h-[420px] overflow-hidden rounded-3xl border border-slate-200 shadow-2xl shadow-[#0f2b46]/10"
             >
               <Image
-                src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1500&q=80"
+                src="https://images.unsplash.com/photo-1742675416657-55d043ce8dce?auto=format&fit=crop&w=1500&q=80"
                 alt="Bâtiment de bureaux tertiaire"
                 fill
                 className="object-cover transition duration-500 group-hover:scale-105"
@@ -77,7 +77,7 @@ export default function ProfessionnelsPage() {
               className="group relative block min-h-[420px] overflow-hidden rounded-3xl border border-slate-200 shadow-2xl shadow-[#0f2b46]/10"
             >
               <Image
-                src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1500&q=80"
+                src="https://images.unsplash.com/photo-1763906265376-363d9681a3ad?auto=format&fit=crop&w=1500&q=80"
                 alt="Site industriel pour programme CEE"
                 fill
                 className="object-cover transition duration-500 group-hover:scale-105"
@@ -180,8 +180,8 @@ export default function ProfessionnelsPage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[350px] overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-[#0f2b46]/10">
               <Image
-                src="https://images.unsplash.com/photo-1581093588401-16ecf2f35652?auto=format&fit=crop&w=1400&q=80"
-                alt="Supervision technique d'un projet"
+                src="https://images.unsplash.com/photo-1766414629984-73a93e7caba0?auto=format&fit=crop&w=1400&q=80"
+                alt="Supervision technique d'un projet tertiaire et industriel"
                 fill
                 className="object-cover"
               />

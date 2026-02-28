@@ -51,7 +51,7 @@ export default function ParticuliersFenetresPage() {
         eyebrow="Particuliers - Fenêtres"
         title="Fenêtres & Menuiseries : améliorez votre confort avec les CEE"
         description="Remplacez vos menuiseries pour améliorer le confort hiver/été, réduire le bruit et diminuer les déperditions énergétiques."
-        imageUrl="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1700&q=80"
+        imageUrl="https://images.unsplash.com/photo-1753893558430-3abab5adf4e0?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer ma prime fenêtres" }}
         secondaryCta={{ href: "/contact", label: "Être rappelé" }}
       />
