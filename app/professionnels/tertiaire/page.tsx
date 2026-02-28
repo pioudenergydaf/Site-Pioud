@@ -21,6 +21,7 @@ import {
   Thermometer,
   Wind,
 } from "lucide-react";
+import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -38,6 +39,7 @@ const tertiaryOperations = [
     description:
       "Remplacement des luminaires existants par des modules LED performants. L'éclairage représente jusqu'à 30% de la consommation d'un bâtiment tertiaire.",
     examples: "Exemples : bureaux, parkings, commerces, entrepôts",
+    pdfUrl: "https://www.ecologie.gouv.fr/sites/default/files/documents/Fiche%20BAT-EQ-111.pdf",
   },
   {
     title: "Isolation toitures et combles",
@@ -46,6 +48,8 @@ const tertiaryOperations = [
     description:
       "Isolation thermique des combles ou toitures des bâtiments tertiaires existants. Réduction significative des déperditions par le haut du bâtiment.",
     examples: "Exemples : sièges tertiaires, écoles, bâtiments publics",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-EN-101%20vA64-4%20%C3%A0%20compter%20du%2001-01-2025.pdf",
   },
   {
     title: "Isolation toitures-terrasses",
@@ -54,6 +58,7 @@ const tertiaryOperations = [
     description:
       "Isolation des toitures-terrasses, très courante sur les bâtiments tertiaires à toit plat (bureaux, centres commerciaux, hôpitaux).",
     examples: "Exemples : plateaux de bureaux, retail parks",
+    pdfUrl: "https://www.ecologie.gouv.fr/sites/default/files/documents/Fiche%20BAT-EN-107.pdf",
   },
   {
     title: "Isolation des murs",
@@ -62,6 +67,8 @@ const tertiaryOperations = [
     description:
       "Isolation thermique par l'intérieur ou l'extérieur des murs des bâtiments tertiaires. Impact direct sur le confort et la facture énergétique.",
     examples: "Exemples : hôtels, bâtiments administratifs",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-EN-102%20vA64-3%20%C3%A0%20compter%20du%2001-01-2025.pdf",
   },
   {
     title: "Isolation des planchers",
@@ -70,6 +77,8 @@ const tertiaryOperations = [
     description:
       "Isolation des planchers bas donnant sur un local non chauffé ou sur l'extérieur.",
     examples: "Exemples : commerces en rez-de-chaussée, bureaux",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-EN-103%20vA64-4%20%C3%A0%20compter%20du%2001-01-2025.pdf",
   },
   {
     title: "Fenêtres et vitrages isolants",
@@ -78,6 +87,8 @@ const tertiaryOperations = [
     description:
       "Remplacement des fenêtres ou portes-fenêtres par des vitrages isolants performants. Amélioration du confort thermique et acoustique.",
     examples: "Exemples : écoles, établissements de santé, hôtellerie",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-EN-104%20vA54-3%20%C3%A0%20compter%20du%2001-01-2024.pdf",
   },
   {
     title: "Pompe à chaleur air/eau",
@@ -87,6 +98,8 @@ const tertiaryOperations = [
       "Installation d'une PAC air/eau performante en remplacement d'une chaudière gaz ou fioul. Bonification Coup de pouce pouvant couvrir jusqu'à 50% de l'investissement.",
     examples: "Exemples : immeubles de bureaux, établissements de soins",
     badge: "🔥 Revalorisé en 2026",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-163%20vA75-1%20%C3%A0%20compter%20du%2001-01-2026.pdf",
   },
   {
     title: "Pompe à chaleur eau/eau",
@@ -96,6 +109,8 @@ const tertiaryOperations = [
       "PAC utilisant une source d'eau (nappe phréatique) ou boucle de captage existante. Bonification jusqu'à x4.",
     examples: "Exemples : campus tertiaires, grands ensembles",
     badge: "🔥 Revalorisé en 2026",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-164%20vA75-1%20%C3%A0%20compter%20du%2001-01-2026.pdf",
   },
   {
     title: "Géothermie",
@@ -105,6 +120,8 @@ const tertiaryOperations = [
       "Système géothermique complet pour les bâtiments tertiaires. Bonification jusqu'à x5 en cas de dépose d'installation fossile.",
     examples: "Exemples : grands sites multi-bâtiments",
     badge: "🔥 Nouveau 2026",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-162%20vA75-1%20%C3%A0%20compter%20du%2001-01-2026.pdf",
   },
   {
     title: "GTB (Gestion Technique du Bâtiment)",
@@ -114,6 +131,8 @@ const tertiaryOperations = [
       "Système de gestion technique du bâtiment pour le chauffage, l'ECS, le refroidissement, l'éclairage et les auxiliaires. Obligation BACS pour les bâtiments >1000m².",
     examples: "Exemples : immeubles tertiaires, hôpitaux, campus",
     badge: "Décret BACS",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-116%20vA62-2%20%C3%A0%20compter%20du%2001-01-2025.pdf",
   },
   {
     title: "PAC réversible air/air",
@@ -122,6 +141,8 @@ const tertiaryOperations = [
     description:
       "Pompe à chaleur réversible de type air/air pour le chauffage et la climatisation des locaux tertiaires.",
     examples: "Exemples : commerces, bureaux, hôtellerie",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-158%20vA62-3%20%C3%A0%20compter%20du%2001-01-2025.pdf",
   },
   {
     title: "Fermeture meubles frigorifiques",
@@ -130,6 +151,7 @@ const tertiaryOperations = [
     description:
       "Mise en place de portes ou couvercles sur les meubles frigorifiques en température positive. Très répandu en grande distribution et commerce alimentaire.",
     examples: "Exemples : supermarchés, magasins spécialisés",
+    pdfUrl: "https://www.ecologie.gouv.fr/sites/default/files/documents/Fiche%20BAT-EQ-124.pdf",
   },
   {
     title: "Destratification d'air",
@@ -138,6 +160,7 @@ const tertiaryOperations = [
     description:
       "Système de destratification dans les locaux de grande hauteur (entrepôts, halls, gymnases). Meilleure répartition de la chaleur et économies de chauffage.",
     examples: "Exemples : entrepôts logistiques, halls sportifs",
+    pdfUrl: "https://www.ecologie.gouv.fr/sites/default/files/documents/Fiche%20BAT-TH-142.pdf",
   },
 ];
 
@@ -196,6 +219,7 @@ export default function TertiairePage() {
                   {operation.description}
                 </p>
                 <p className="mt-3 text-sm font-medium text-slate-700">{operation.examples}</p>
+                <OfficialSheetLinks pdfUrl={operation.pdfUrl} />
               </article>
             </Reveal>
           ))}

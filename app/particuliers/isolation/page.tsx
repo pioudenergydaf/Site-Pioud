@@ -1,0 +1,200 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { Building, Home, LayoutGrid, Layers, Pipette } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
+import { PageHero } from "@/components/ui/page-hero";
+import { Reveal } from "@/components/ui/reveal";
+
+export const metadata: Metadata = {
+  title: "Particuliers - Isolation",
+  description:
+    "Isolation thermique : découvrez les opérations CEE éligibles, les exigences techniques et les liens vers les fiches officielles.",
+};
+
+const operations = [
+  {
+    title: "Isolation des combles ou toitures",
+    ref: "BAR-EN-101",
+    icon: Home,
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-101%20vA64-4%20%C3%A0%20compter%20du%2001-01-2025.pdf",
+    description:
+      "Isolation des combles perdus, aménagés ou de la toiture. C'est l'opération la plus réalisée en France (16,7% des CEE délivrés). Réduction immédiate des déperditions par le toit, qui représentent jusqu'à 30% des pertes de chaleur.",
+    requirement: "Résistance thermique R ≥ 7 m².K/W en combles perdus, R ≥ 6 m².K/W en rampants",
+    badge: "⭐ Top 2 des CEE en France",
+    badgeClass: "bg-blue-100 text-blue-700",
+  },
+  {
+    title: "Isolation des murs",
+    ref: "BAR-EN-102",
+    icon: Layers,
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-102%20vA64-3%20%C3%A0%20compter%20du%2001-01-2025.pdf",
+    description:
+      "Isolation thermique des murs par l'intérieur (ITI) ou par l'extérieur (ITE). Représente 14,8% des CEE délivrés. Attention : exclue de MaPrimeRénov' en geste seul depuis 2026, mais toujours éligible aux CEE.",
+    requirement: "Résistance thermique R ≥ 3,7 m².K/W",
+    badge: "⚠️ Exclu MPR mono-geste en 2026",
+    badgeClass: "bg-amber-100 text-amber-700",
+  },
+  {
+    title: "Isolation d'un plancher",
+    ref: "BAR-EN-103",
+    icon: LayoutGrid,
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-103%20vA64-4%20%C3%A0%20compter%20du%2001-01-2025.pdf",
+    description:
+      "Isolation des planchers bas donnant sur un sous-sol, un vide sanitaire ou un passage ouvert. Représente 6% des CEE délivrés.",
+    requirement: "Résistance thermique R ≥ 3 m².K/W",
+  },
+  {
+    title: "Isolation des toitures-terrasses",
+    ref: "BAR-EN-105",
+    icon: Building,
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-105%20vA64-3%20%C3%A0%20compter%20du%2001-01-2025.pdf",
+    description:
+      "Isolation thermique des toitures-terrasses dans les bâtiments résidentiels existants.",
+    requirement: "Résistance thermique R ≥ 4,5 m².K/W",
+  },
+  {
+    title: "Isolation d'un réseau hydraulique",
+    ref: "BAR-TH-160",
+    icon: Pipette,
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-160%20vA39-2%20%C3%A0%20compter%20du%2001-04-2022.pdf",
+    description:
+      "Calorifugeage des réseaux de chauffage et d'eau chaude sanitaire hors du volume chauffé. 5,4% des CEE délivrés. Souvent oublié, pourtant très rentable.",
+    badge: "💡 Souvent oublié",
+    badgeClass: "bg-emerald-100 text-emerald-700",
+  },
+];
+
+export default function ParticuliersIsolationPage() {
+  return (
+    <div>
+      <section className="section-shell pt-28">
+        <Breadcrumbs
+          items={[
+            { label: "Accueil", href: "/" },
+            { label: "Particuliers", href: "/particuliers" },
+            { label: "Isolation" },
+          ]}
+        />
+      </section>
+
+      <PageHero
+        eyebrow="Particuliers - Isolation"
+        title="Isolation thermique : les primes CEE pour votre logement"
+        description="L'isolation est le geste le plus rentable en rénovation énergétique. Elle représente plus de 37% des CEE délivrés en France."
+        imageUrl="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1700&q=80"
+        primaryCta={{ href: "/simulateur", label: "Estimer ma prime isolation" }}
+        secondaryCta={{ href: "/contact", label: "Être rappelé" }}
+      />
+
+      <section className="section-shell py-20">
+        <Reveal>
+          <h2 className="text-4xl font-bold text-[#0F2B46]">Les opérations éligibles</h2>
+        </Reveal>
+        <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {operations.map((operation, index) => (
+            <Reveal key={operation.title} delay={(index % 3) * 0.07}>
+              <article className="card-surface h-full p-6">
+                <div className="flex items-start justify-between gap-3">
+                  <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+                    <operation.icon className="h-5 w-5" />
+                  </span>
+                  {operation.badge ? (
+                    <span
+                      className={`rounded-full px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-emerald-100 text-emerald-700"}`}
+                    >
+                      {operation.badge}
+                    </span>
+                  ) : null}
+                </div>
+                <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">{operation.title}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Fiche : {operation.ref}
+                </p>
+                <p className="mt-3 text-sm text-slate-600">{operation.description}</p>
+                {operation.requirement ? (
+                  <p className="mt-3 text-sm font-medium text-slate-700">
+                    Exigence technique : {operation.requirement}
+                  </p>
+                ) : null}
+                <OfficialSheetLinks pdfUrl={operation.pdfUrl} />
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-shell pb-20">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <Reveal>
+            <div className="card-surface p-8">
+              <h2 className="text-3xl font-bold text-[#0F2B46]">Pourquoi isoler en priorité ?</h2>
+              <p className="mt-4 text-slate-600">
+                L&apos;isolation est le geste le plus rapidement rentabilisé et améliore
+                immédiatement le confort.
+              </p>
+              <ul className="mt-5 space-y-2 text-slate-700">
+                <li>• 30% des pertes de chaleur par le toit</li>
+                <li>• 25% par les murs</li>
+                <li>• 10% par le plancher</li>
+                <li>• L&apos;isolation est le geste le plus rapidement rentabilisé</li>
+              </ul>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="relative min-h-[340px] overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-[#0f2b46]/10">
+              <Image
+                src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1400&q=80"
+                alt="Infographie des déperditions de chaleur d'une maison"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="section-shell pb-20">
+        <Reveal>
+          <div className="card-surface p-8">
+            <h2 className="text-3xl font-bold text-[#0F2B46]">Bon à savoir</h2>
+            <ul className="mt-4 space-y-2 text-slate-600">
+              <li>• Les travaux doivent être réalisés par un professionnel RGE.</li>
+              <li>• Le logement doit avoir plus de 2 ans.</li>
+              <li>• La demande CEE doit être faite AVANT la signature du devis.</li>
+            </ul>
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="section-shell pb-12">
+        <Reveal>
+          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-white">
+            <h2 className="text-3xl font-bold">Passez à l&apos;action sur l&apos;isolation</h2>
+            <p className="mt-3 text-white/90">
+              Lancez votre simulation et obtenez une estimation personnalisée de votre
+              prime CEE.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/simulateur"
+                className="inline-flex rounded-full bg-white px-6 py-3 font-semibold text-[#0F2B46]"
+              >
+                Estimez votre prime isolation
+              </Link>
+              <Link href="/particuliers" className="btn-secondary border-white/30 bg-white/10 text-white hover:bg-white/20">
+                Retour aux solutions particuliers
+              </Link>
+            </div>
+          </div>
+        </Reveal>
+      </section>
+    </div>
+  );
+}

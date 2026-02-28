@@ -12,6 +12,7 @@ import {
   Thermometer,
   Wind,
 } from "lucide-react";
+import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -56,6 +57,7 @@ const industryOperations = [
     icon: Lightbulb,
     description:
       "Éclairage LED pour entrepôts, ateliers, zones logistiques. Jusqu'à 70% d'économies sur le poste éclairage.",
+    pdfUrl: "https://www.ecologie.gouv.fr/sites/default/files/documents/Fiche%20BAT-EQ-111.pdf",
   },
   {
     title: "Isolation industrielle (calorifugeage)",
@@ -136,6 +138,7 @@ export default function IndustriePage() {
                 <p className="mt-3 text-sm leading-relaxed text-slate-600">
                   {operation.description}
                 </p>
+                <OfficialSheetLinks pdfUrl={operation.pdfUrl} />
               </article>
             </Reveal>
           ))}
