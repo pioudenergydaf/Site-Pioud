@@ -1,10 +1,11 @@
 "use client";
 
-import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/site-data";
+import NavDropdown from "@/components/layout/NavDropdown";
 
 const particuliersItems = [
   { label: "Isolation", href: "/particuliers/isolation" },
@@ -23,13 +24,9 @@ const professionalsItems = [
 export function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [professionalsMenuOpen, setProfessionalsMenuOpen] = useState(false);
-  const [particuliersMenuOpen, setParticuliersMenuOpen] = useState(false);
 
   useEffect(() => {
     setMenuOpen(false);
-    setProfessionalsMenuOpen(false);
-    setParticuliersMenuOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -69,53 +66,13 @@ export function Navbar() {
                 : pathname === item.href;
 
               if (isParticuliers || isProfessionnels) {
-                const dropdownItems = isParticuliers
-                  ? particuliersItems
-                  : professionalsItems;
-                const isOpen = isParticuliers
-                  ? particuliersMenuOpen
-                  : professionalsMenuOpen;
-                const setOpen = isParticuliers
-                  ? setParticuliersMenuOpen
-                  : setProfessionalsMenuOpen;
-
                 return (
-                  <div
+                  <NavDropdown
                     key={item.href}
-                    className="relative"
-                    onMouseEnter={() => setOpen(true)}
-                    onMouseLeave={() => setOpen(false)}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setOpen((open) => !open)}
-                      className={`inline-flex items-center gap-1 rounded-pill px-4 py-2 text-sm transition ${
-                        isActive
-                          ? "bg-emerald-50 font-medium text-emerald-600"
-                          : "text-navy-900/75 hover:bg-navy-900/5 hover:text-navy-900"
-                      }`}
-                    >
-                      {item.label}
-                      <ChevronDown className="h-3.5 w-3.5" />
-                    </button>
-                    {isOpen ? (
-                      <div className="absolute left-0 top-full mt-3 w-64 rounded-card border border-white/10 bg-navy-900 p-2 shadow-[0_16px_36px_rgba(6,78,59,0.4)]">
-                        {dropdownItems.map((subItem) => (
-                          <Link
-                            key={subItem.href}
-                            href={subItem.href}
-                            className={`mt-1 block rounded-lg px-3 py-2 text-sm transition first:mt-0 ${
-                              pathname === subItem.href
-                                ? "bg-white/10 text-emerald-300"
-                                : "text-white/80 hover:bg-white/10 hover:text-white"
-                            }`}
-                          >
-                            {subItem.label}
-                          </Link>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
+                    label={item.label}
+                    items={isParticuliers ? particuliersItems : professionalsItems}
+                    active={isActive}
+                  />
                 );
               }
 
