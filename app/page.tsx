@@ -34,7 +34,7 @@ const clientLogos = [
 export default function Home() {
   return (
     <div className="overflow-x-hidden bg-cream text-ink">
-      <section className="relative flex min-h-[90vh] items-center overflow-hidden rounded-b-[48px] px-6 pb-32 pt-32 md:px-12 lg:px-20">
+      <section className="relative flex min-h-[90vh] items-center overflow-hidden px-6 pb-32 pt-32 md:px-12 lg:px-20">
         <div className="absolute inset-0 z-0">
           <video
             autoPlay
@@ -114,9 +114,6 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
-        </div>
-        <div className="absolute bottom-4 right-4 z-20 text-[10px] text-white/40 transition hover:text-white/70">
-          Vidéo : Kelly · Pexels
         </div>
       </section>
 
