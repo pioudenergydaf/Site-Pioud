@@ -114,6 +114,7 @@ export default function Home() {
             ))}
           </div>
         </div>
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-64 bg-gradient-to-b from-transparent via-[#F4F1EA]/40 to-[#F4F1EA]" />
         <div className="absolute bottom-4 right-4 z-20 text-[10px] text-white/40 transition hover:text-white/70">
           Vidéo : Kelly · Pexels
         </div>
