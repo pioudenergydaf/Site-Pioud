@@ -36,13 +36,27 @@ export default function Home() {
     <div className="overflow-x-hidden bg-cream text-ink">
       <section className="relative flex min-h-[90vh] items-center overflow-hidden px-6 pb-20 pt-32 md:px-12 lg:px-20">
         <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=2400&q=85"
-            alt="Bâtiment rénové énergétiquement"
-            fill
-            priority
-            className="object-cover"
-          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/videos/hero-poster.jpg"
+            className="absolute inset-0 hidden h-full w-full object-cover md:block"
+          >
+            <source src="/videos/hero-bg.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 md:hidden">
+            <Image
+              src="/videos/hero-poster.jpg"
+              alt=""
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-br from-navy-900/75 via-navy-900/55 to-navy-900/40" />
           <div className="absolute bottom-0 right-0 h-[500px] w-[500px] translate-x-1/3 translate-y-1/3 rounded-pill bg-emerald-500/20 blur-3xl" />
         </div>
@@ -95,6 +109,9 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+        </div>
+        <div className="absolute bottom-4 right-4 z-20 text-[10px] text-white/40 transition hover:text-white/70">
+          Vidéo : Kenan Turguç · Pexels
         </div>
       </section>
 
