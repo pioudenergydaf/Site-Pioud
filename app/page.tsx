@@ -90,9 +90,12 @@ export default function Home() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center rounded-pill border border-white/30 bg-white/10 px-7 py-4 text-white backdrop-blur-md transition hover:bg-white/20"
+                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-pill border border-white/40 bg-white/10 py-1.5 pl-6 pr-1.5 text-base font-medium text-white backdrop-blur-md transition-all duration-300 hover:border-white/60 hover:bg-white/20"
               >
-                Nous contacter
+                <span className="relative z-10">Nous contacter</span>
+                <span className="relative z-10 flex h-9 w-9 items-center justify-center rounded-pill bg-emerald-500 transition-all duration-300 ease-out group-hover:w-[calc(100%-8px)] group-hover:-translate-x-[calc(100%-44px)]">
+                  <ArrowRight className="h-4 w-4 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
               </Link>
             </div>
           </Reveal>
