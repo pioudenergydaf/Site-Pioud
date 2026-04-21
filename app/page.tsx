@@ -34,7 +34,7 @@ const clientLogos = [
 export default function Home() {
   return (
     <div className="overflow-x-hidden bg-cream text-ink">
-      <section className="relative flex min-h-[90vh] items-center overflow-hidden px-6 pb-32 pt-32 md:px-12 lg:px-20">
+      <section className="relative flex min-h-[90vh] items-center overflow-hidden rounded-b-[48px] px-6 pb-32 pt-32 md:px-12 lg:px-20">
         <div className="absolute inset-0 z-0">
           <video
             autoPlay
@@ -104,10 +104,10 @@ export default function Home() {
                   <AnimatedCounter
                     value={figure.value}
                     suffix={figure.suffix}
-                    className="[text-shadow:_0_2px_8px_rgb(0_0_0_/_40%)]"
+                    className="font-light text-5xl text-white md:text-6xl [text-shadow:_0_2px_8px_rgb(0_0_0_/_40%)]"
                     suffixClassName="text-emerald-300"
                   />
-                  <p className="mt-2 text-xs uppercase tracking-wider text-white/90 [text-shadow:_0_1px_4px_rgb(0_0_0_/_30%)]">
+                  <p className="mt-2 text-xs uppercase tracking-wider [text-shadow:_0_1px_4px_rgb(0_0_0_/_30%)]" style={{ color: "#FFFFFFE6" }}>
                     {figure.label}
                   </p>
                 </article>
@@ -115,13 +115,12 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#F4F1EA]" />
         <div className="absolute bottom-4 right-4 z-20 text-[10px] text-white/40 transition hover:text-white/70">
           Vidéo : Kelly · Pexels
         </div>
       </section>
 
-      <section className="hero-mesh py-24">
+      <section className="bg-white py-24">
         <div className="section-shell grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <div>

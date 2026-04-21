@@ -3,6 +3,8 @@ type AnimatedCounterProps = {
   suffix?: string;
   className?: string;
   suffixClassName?: string;
+  valueStyle?: React.CSSProperties;
+  suffixStyle?: React.CSSProperties;
 };
 
 export function AnimatedCounter({
@@ -10,13 +12,20 @@ export function AnimatedCounter({
   suffix = "",
   className,
   suffixClassName = "",
+  valueStyle,
+  suffixStyle,
 }: AnimatedCounterProps) {
   const target = Math.max(0, value);
 
   return (
-    <span className={className ?? "font-display text-4xl font-light text-ink sm:text-5xl"}>
+    <span
+      className={className ?? "font-display text-4xl font-light text-ink sm:text-5xl"}
+      style={valueStyle}
+    >
       {target}
-      <span className={suffixClassName}>{suffix}</span>
+      <span className={suffixClassName} style={suffixStyle}>
+        {suffix}
+      </span>
     </span>
   );
 }
