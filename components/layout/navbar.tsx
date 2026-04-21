@@ -1,32 +1,30 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { navLinks, siteConfig } from "@/lib/site-data";
-import { NavItem } from "@/components/ui/NavItem";
+import { navLinks } from "@/lib/site-data";
+
+const particuliersItems = [
+  { label: "Isolation", href: "/particuliers/isolation" },
+  { label: "Chauffage", href: "/particuliers/chauffage" },
+  { label: "Fenêtres", href: "/particuliers/fenetres" },
+  { label: "Régulation", href: "/particuliers/regulation" },
+  { label: "Rénovation globale", href: "/particuliers/renovation-globale" },
+];
+
+const professionalsItems = [
+  { label: "Tertiaire", href: "/professionnels/tertiaire" },
+  { label: "Industrie", href: "/professionnels/industrie" },
+  { label: "Collectif", href: "/professionnels/collectif" },
+];
 
 export function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [professionalsMenuOpen, setProfessionalsMenuOpen] = useState(false);
   const [particuliersMenuOpen, setParticuliersMenuOpen] = useState(false);
-
-  const particuliersItems = [
-    { label: "Isolation", href: "/particuliers/isolation" },
-    { label: "Chauffage", href: "/particuliers/chauffage" },
-    { label: "Fenêtres", href: "/particuliers/fenetres" },
-    { label: "Régulation", href: "/particuliers/regulation" },
-    { label: "Rénovation globale", href: "/particuliers/renovation-globale" },
-  ];
-  const professionalsItems = [
-    { label: "Tertiaire", href: "/professionnels/tertiaire" },
-    { label: "Industrie", href: "/professionnels/industrie" },
-    { label: "Collectif", href: "/professionnels/collectif" },
-  ];
 
   useEffect(() => {
     setMenuOpen(false);
@@ -35,234 +33,169 @@ export function Navbar() {
   }, [pathname]);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  const desktopNavItems = navLinks.filter((item) => item.href !== "/contact");
 
   return (
-    <header className="fixed left-1/2 top-6 z-50 w-[calc(100%-2rem)] max-w-[1400px] -translate-x-1/2">
-      <nav className="flex items-center justify-between gap-3">
-        <Link
-          href="/"
-          className={`hidden flex-col items-center justify-center rounded-pill border border-white/40 px-6 py-3 transition-all duration-300 md:flex ${
-            scrolled
-              ? "bg-white shadow-lg shadow-navy-900/10"
-              : "bg-white/85 backdrop-blur-xl shadow-lg shadow-navy-900/10"
-          }`}
-        >
-          <span className="bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-center text-base font-bold leading-none tracking-tight text-transparent">
-            PIOUD ENERGY
-          </span>
-          <span className="mt-1.5 text-center text-[9px] font-medium uppercase tracking-[0.18em] text-navy-900/55">
-            Certificats d&apos;Économies d&apos;Énergie
-          </span>
-        </Link>
-        <div
-          className={`hidden items-center gap-1 rounded-pill p-1.5 transition-all duration-300 lg:flex ${
-            scrolled
-              ? "bg-white shadow-xl shadow-navy-900/10"
-              : "border border-white/40 bg-white/75 backdrop-blur-xl"
-          }`}
-        >
-          {navLinks
-            .filter((link) => link.href !== "/contact")
-            .map((link) => {
-            const isParticuliers = link.href === "/particuliers";
-            const isProfessionals = link.href === "/professionnels";
-            const active = isParticuliers
-              ? pathname.startsWith("/particuliers")
-              : isProfessionals
-              ? pathname.startsWith("/professionnels")
-              : pathname === link.href;
-
-            if (isParticuliers || isProfessionals) {
-              const isOpen = isParticuliers ? particuliersMenuOpen : professionalsMenuOpen;
-              const setOpen = isParticuliers
-                ? setParticuliersMenuOpen
-                : setProfessionalsMenuOpen;
-              const dropdownItems = isParticuliers ? particuliersItems : professionalsItems;
-
-              return (
-                <div
-                  key={link.href}
-                  className="relative"
-                  onMouseEnter={() => setOpen(true)}
-                  onMouseLeave={() => setOpen(false)}
-                >
-                  <div className="flex items-center gap-0.5">
-                    <NavItem href={link.href} active={active} hasDropdown>
-                      {link.label}
-                    </NavItem>
-                    <button
-                      type="button"
-                      aria-label={`Ouvrir le menu ${link.label}`}
-                      onClick={() => setOpen((open) => !open)}
-                      className="rounded-pill p-1 text-ink-muted transition hover:bg-white/70 hover:text-ink"
-                    >
-                      <ChevronDown className="h-3 w-3" />
-                    </button>
-                  </div>
-
-                  <AnimatePresence>
-                    {isOpen ? (
-                      <motion.div
-                        initial={{ opacity: 0, y: -6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        transition={{ duration: 0.18 }}
-                        className="absolute left-0 top-full mt-3 w-64 rounded-card border border-white/60 bg-cream-soft p-2 shadow-[0_16px_36px_rgba(31,58,46,0.12)]"
-                      >
-                        {dropdownItems.map((item, index) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className={`block rounded-lg px-3 py-2 text-sm font-medium transition ${
-                              pathname === item.href
-                                ? "bg-white text-ink"
-                                : "text-ink-muted hover:bg-white hover:text-ink"
-                            } ${index > 0 ? "mt-1" : ""}`}
-                          >
-                            {item.label}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </div>
-              );
-            }
-
-            return (
-              <NavItem key={link.href} href={link.href} active={active}>
-                {link.label}
-              </NavItem>
-            );
-          })}
-        </div>
-
-        <div className="flex items-center gap-2">
+    <>
+      <header className="fixed left-1/2 top-4 z-50 w-[calc(100%-1.5rem)] max-w-[1400px] -translate-x-1/2 md:top-6">
+        <nav className="flex items-center justify-between gap-2">
           <Link
-            href="/simulateur"
-            className="group hidden items-center gap-2 rounded-pill bg-emerald-500 pl-5 pr-1.5 py-1.5 text-sm font-medium text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition-all hover:bg-emerald-600 md:flex"
+            href="/"
+            className="flex flex-col items-center justify-center rounded-pill border border-white/40 bg-white/85 px-4 py-2 shadow-lg backdrop-blur-xl md:px-5 md:py-2.5"
+            onClick={() => setMenuOpen(false)}
           >
-            Accéder au simulateur
-            <span className="flex h-8 w-8 items-center justify-center rounded-pill bg-emerald-700 transition group-hover:translate-x-0.5">
-              <ArrowRight className="h-3.5 w-3.5 text-white" />
+            <span className="text-xs font-bold leading-none tracking-tight text-emerald-600 md:text-sm">
+              PIOUD ENERGY
+            </span>
+            <span className="mt-1 hidden text-[9px] uppercase tracking-widest text-navy-900/55 md:block">
+              Certificats d&apos;Économies d&apos;Énergie
             </span>
           </Link>
-          <button
-            type="button"
-            className={`flex h-11 w-11 items-center justify-center rounded-pill border backdrop-blur-xl transition ${
-              menuOpen
-                ? "border-white/30 bg-white/10 text-white hover:bg-white/20"
-                : "border-white/50 bg-cream/75 text-ink hover:bg-cream"
-            }`}
-            onClick={() => setMenuOpen((open) => !open)}
-            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? (
-              <X className="h-4 w-4 text-current" />
-            ) : (
-              <Menu className="h-4 w-4 text-current" />
-            )}
-          </button>
-        </div>
-      </nav>
 
-      <AnimatePresence>
-        {menuOpen ? (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-navy-900 px-6 pb-6 pt-24 backdrop-blur-xl lg:hidden"
-          >
-            <div className="mx-auto flex h-full max-w-7xl flex-col gap-2 overflow-y-auto">
-              <Link href="/" className="mb-2 inline-flex flex-col border-b border-white/10 pb-4 leading-tight">
-                <span className="font-display text-xl font-light tracking-tight text-white">PIOUD ENERGY</span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-white/80">
-                  Certificats d&apos;Économies d&apos;Énergie
-                </span>
-              </Link>
-              {navLinks.map((link) => {
-                if (link.href === "/particuliers" || link.href === "/professionnels") {
-                  const dropdownItems =
-                    link.href === "/particuliers" ? particuliersItems : professionalsItems;
-                  const startsWithPath =
-                    link.href === "/particuliers"
-                      ? pathname.startsWith("/particuliers")
-                      : pathname.startsWith("/professionnels");
-                  return (
-                    <div key={link.href} className="space-y-2 border-b border-white/10 pb-2">
-                      <Link
-                        href={link.href}
-                        className={`block min-h-11 rounded-xl border px-3 py-2.5 text-sm font-medium transition ${
-                          pathname === link.href || startsWithPath
-                            ? "border-emerald-400/30 bg-white/12 text-emerald-300"
-                            : "border-white/10 bg-white/[0.03] text-white hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
-                        } focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50`}
-                      >
-                        {link.label}
-                      </Link>
-                      <div className="ml-3 space-y-2 border-l border-white/10 pl-3">
-                        {dropdownItems.map((item) => (
+          <div className="hidden items-center gap-1 rounded-pill border border-white/10 bg-navy-900/85 p-1.5 shadow-lg backdrop-blur-xl lg:flex">
+            {desktopNavItems.map((item) => {
+              const isParticuliers = item.href === "/particuliers";
+              const isProfessionnels = item.href === "/professionnels";
+              const isActive = isParticuliers
+                ? pathname.startsWith("/particuliers")
+                : isProfessionnels
+                ? pathname.startsWith("/professionnels")
+                : pathname === item.href;
+
+              if (isParticuliers || isProfessionnels) {
+                const dropdownItems = isParticuliers
+                  ? particuliersItems
+                  : professionalsItems;
+                const isOpen = isParticuliers
+                  ? particuliersMenuOpen
+                  : professionalsMenuOpen;
+                const setOpen = isParticuliers
+                  ? setParticuliersMenuOpen
+                  : setProfessionalsMenuOpen;
+
+                return (
+                  <div
+                    key={item.href}
+                    className="relative"
+                    onMouseEnter={() => setOpen(true)}
+                    onMouseLeave={() => setOpen(false)}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setOpen((open) => !open)}
+                      className={`inline-flex items-center gap-1 rounded-pill px-4 py-2 text-sm transition ${
+                        isActive
+                          ? "bg-white/10 text-emerald-300"
+                          : "text-white/80 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      {item.label}
+                      <ChevronDown className="h-3.5 w-3.5" />
+                    </button>
+                    {isOpen ? (
+                      <div className="absolute left-0 top-full mt-3 w-64 rounded-card border border-white/10 bg-navy-900 p-2 shadow-[0_16px_36px_rgba(6,78,59,0.4)]">
+                        {dropdownItems.map((subItem) => (
                           <Link
-                            key={item.href}
-                            href={item.href}
-                            className={`block min-h-11 rounded-lg px-3 py-2.5 text-sm transition ${
-                              pathname === item.href
+                            key={subItem.href}
+                            href={subItem.href}
+                            className={`mt-1 block rounded-lg px-3 py-2 text-sm transition first:mt-0 ${
+                              pathname === subItem.href
                                 ? "bg-white/10 text-emerald-300"
-                                : "text-white/90 hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
+                                : "text-white/80 hover:bg-white/10 hover:text-white"
                             }`}
                           >
-                            {item.label}
+                            {subItem.label}
                           </Link>
                         ))}
                       </div>
-                    </div>
-                  );
-                }
-
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`min-h-11 rounded-xl border px-3 py-2.5 text-sm font-medium transition ${
-                      pathname === link.href
-                        ? "border-emerald-400/30 bg-white/12 text-emerald-300"
-                        : "border-white/10 bg-white/[0.03] text-white hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
-                    } focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50`}
-                  >
-                    {link.label}
-                  </Link>
+                    ) : null}
+                  </div>
                 );
-              })}
+              }
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-pill px-4 py-2 text-sm transition ${
+                    isActive
+                      ? "bg-white/10 text-emerald-300"
+                      : "text-white/80 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Link
+              href="/simulateur"
+              className="group flex items-center gap-2 rounded-pill bg-emerald-500 py-1.5 pl-4 pr-1.5 text-xs font-semibold text-white shadow-lg shadow-emerald-500/25 transition hover:bg-emerald-600 md:pl-5 md:text-sm"
+              onClick={() => setMenuOpen(false)}
+            >
+              <span className="hidden sm:inline">Accéder au simulateur</span>
+              <span className="sm:hidden">Simulateur</span>
+              <span className="flex h-7 w-7 items-center justify-center rounded-pill bg-white md:h-8 md:w-8">
+                <ArrowRight className="h-3.5 w-3.5 text-emerald-600" />
+              </span>
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={menuOpen}
+              className="flex h-10 w-10 items-center justify-center rounded-pill border border-white/40 bg-white/85 shadow-lg backdrop-blur-xl transition hover:bg-white lg:hidden"
+            >
+              {menuOpen ? (
+                <X className="h-5 w-5 text-navy-900" />
+              ) : (
+                <Menu className="h-5 w-5 text-navy-900" />
+              )}
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {menuOpen ? (
+        <div className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-navy-900/98 px-6 pb-8 pt-28 backdrop-blur-xl lg:hidden">
+          <nav className="flex flex-col gap-1">
+            {navLinks.map((item) => (
               <Link
-                href="/simulateur"
-                className="mt-4 inline-flex items-center justify-center rounded-pill bg-emerald-500 px-6 py-3 font-semibold text-white transition hover:bg-emerald-600"
+                key={item.href}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="group flex items-center justify-between border-b border-white/10 px-2 py-5 text-2xl font-light text-white transition hover:text-emerald-400"
               >
-                Accéder au simulateur
+                <span>{item.label}</span>
+                <ArrowRight className="h-5 w-5 text-white/40 transition group-hover:translate-x-1 group-hover:text-emerald-400" />
               </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-pill bg-emerald-500 px-6 py-3 font-semibold text-white transition hover:bg-emerald-600"
-              >
-                Contact
-              </Link>
-              <a
-                href={`mailto:${siteConfig.email}`}
-                className="inline-flex items-center justify-center rounded-pill border border-white/25 px-6 py-3 text-sm text-white/90 transition hover:bg-white/10 hover:text-white"
-              >
-                {siteConfig.email}
-              </a>
-            </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </header>
+            ))}
+          </nav>
+
+          <div className="mt-auto pt-8">
+            <Link
+              href="/simulateur"
+              onClick={() => setMenuOpen(false)}
+              className="flex w-full items-center justify-center gap-2 rounded-pill bg-emerald-500 py-4 text-lg font-semibold text-white shadow-xl shadow-emerald-500/30 transition hover:bg-emerald-600"
+            >
+              Accéder au simulateur
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+            <p className="mt-6 text-center text-xs text-white/50">
+              Pioud Energy · Mandataire CEE
+            </p>
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 }
