@@ -94,7 +94,7 @@ export default function Home() {
               >
                 <span
                   aria-hidden="true"
-                  className="absolute right-2 top-1/2 h-9 w-9 -translate-y-1/2 rounded-pill bg-emerald-500 transition-all duration-500 ease-out group-hover:right-2 group-hover:w-[calc(100%-16px)]"
+                  className="absolute right-1 top-1/2 h-9 w-9 -translate-y-1/2 rounded-pill bg-emerald-500 transition-all duration-500 ease-out group-hover:right-0 group-hover:h-full group-hover:w-full group-hover:rounded-pill"
                 />
                 <span className="relative z-10 whitespace-nowrap pr-12 text-base font-medium text-white">
                   Nous contacter
