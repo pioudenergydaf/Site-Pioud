@@ -111,7 +111,7 @@ export default function Home() {
           </div>
         </div>
         <div className="absolute bottom-4 right-4 z-20 text-[10px] text-white/40 transition hover:text-white/70">
-          Vidéo : Kenan Turguç · Pexels
+          Vidéo : Kelly · Pexels
         </div>
       </section>
 
