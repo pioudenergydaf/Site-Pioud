@@ -8,16 +8,16 @@ import { siteConfig } from "@/lib/site-data";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["300", "400"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-fraunces",
+  variable: "--font-serif",
 });
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {

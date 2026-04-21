@@ -10,7 +10,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-inter), Arial, sans-serif;
+  font-family: var(--font-sans), Arial, sans-serif;
   line-height: 1.6;
 }
 
@@ -20,7 +20,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-fraunces), Georgia, serif;
+  font-family: var(--font-serif), Georgia, serif;
   letter-spacing: -0.01em;
 }
 
@@ -63,68 +63,4 @@ h6 {
   to {
     transform: translateX(-50%);
   }
-}
-
-/* Désactive les variantes stylistiques indésirables (swash du f, etc.) */
-html,
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.font-serif,
-p,
-span,
-div {
-  font-variant-ligatures: none !important;
-  font-variant-caps: normal !important;
-  font-variant-alternates: normal !important;
-  font-variant-numeric: normal !important;
-  -webkit-font-feature-settings:
-    "liga" 0,
-    "clig" 0,
-    "dlig" 0,
-    "hlig" 0,
-    "calt" 0,
-    "salt" 0,
-    "ss01" 0,
-    "ss02" 0,
-    "ss03" 0,
-    "ss04" 0,
-    "ss05" 0,
-    "swsh" 0,
-    "cswh" 0,
-    "hist" 0 !important;
-  -moz-font-feature-settings:
-    "liga" 0,
-    "clig" 0,
-    "dlig" 0,
-    "hlig" 0,
-    "calt" 0,
-    "salt" 0,
-    "ss01" 0,
-    "ss02" 0,
-    "ss03" 0,
-    "ss04" 0,
-    "ss05" 0,
-    "swsh" 0,
-    "cswh" 0,
-    "hist" 0 !important;
-  font-feature-settings:
-    "liga" 0,
-    "clig" 0,
-    "dlig" 0,
-    "hlig" 0,
-    "calt" 0,
-    "salt" 0,
-    "ss01" 0,
-    "ss02" 0,
-    "ss03" 0,
-    "ss04" 0,
-    "ss05" 0,
-    "swsh" 0,
-    "cswh" 0,
-    "hist" 0 !important;
 }

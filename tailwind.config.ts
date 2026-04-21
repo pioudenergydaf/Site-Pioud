@@ -9,8 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["var(--font-fraunces)", "serif"],
-        sans: ["var(--font-inter)", "sans-serif"],
+        display: ["var(--font-serif)", "serif"],
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],
       },
       borderRadius: {
         pill: "9999px",
