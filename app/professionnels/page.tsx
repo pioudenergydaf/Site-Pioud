@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
+  Building,
   Building2,
   Factory,
   FileCheck2,
@@ -97,6 +98,40 @@ export default function ProfessionnelsPage() {
                 </p>
                 <span className="mt-5 inline-flex items-center text-sm font-semibold text-white">
                   Découvrir les solutions industrie
+                  <ArrowRight className="ml-1 h-4 w-4 transition group-hover:translate-x-0.5" />
+                </span>
+              </div>
+            </Link>
+          </Reveal>
+        </div>
+
+        <div className="mt-6 grid gap-6 lg:grid-cols-2">
+          <Reveal>
+            <Link
+              href="/professionnels/collectif"
+              className="group relative block min-h-[320px] overflow-hidden rounded-card border border-ink/10 shadow-2xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]"
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1500&q=80"
+                alt="Immeubles résidentiels collectifs et copropriétés"
+                fill
+                className="object-cover transition duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-forest/85 via-forest-soft/60 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-7 text-white">
+                <span className="inline-flex rounded-xl bg-white/20 p-3 text-emerald-600">
+                  <Building className="h-6 w-6" />
+                </span>
+                <h3 className="mt-4 text-3xl font-bold">CEE Collectif</h3>
+                <p className="mt-2 text-white/90">
+                  Habitat résidentiel collectif, copropriétés et ensembles d&apos;habitation :
+                  financez vos opérations CEE avec un accompagnement dédié.
+                </p>
+                <p className="mt-3 text-sm font-semibold text-emerald-400">
+                  PAC collectives, chauffage, eau chaude sanitaire
+                </p>
+                <span className="mt-5 inline-flex items-center text-sm font-semibold text-white">
+                  Découvrir les solutions collectif
                   <ArrowRight className="ml-1 h-4 w-4 transition group-hover:translate-x-0.5" />
                 </span>
               </div>
