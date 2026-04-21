@@ -154,15 +154,19 @@ export function Navbar() {
           </Link>
           <button
             type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-pill border border-white/50 bg-cream/75 backdrop-blur-xl transition hover:bg-cream"
+            className={`flex h-11 w-11 items-center justify-center rounded-pill border backdrop-blur-xl transition ${
+              menuOpen
+                ? "border-white/30 bg-white/10 text-white hover:bg-white/20"
+                : "border-white/50 bg-cream/75 text-ink hover:bg-cream"
+            }`}
             onClick={() => setMenuOpen((open) => !open)}
             aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={menuOpen}
           >
             {menuOpen ? (
-              <X className="h-4 w-4 text-ink" />
+              <X className="h-4 w-4 text-current" />
             ) : (
-              <Menu className="h-4 w-4 text-ink" />
+              <Menu className="h-4 w-4 text-current" />
             )}
           </button>
         </div>
@@ -174,13 +178,13 @@ export function Navbar() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-cream/95 px-6 pb-6 pt-24 backdrop-blur-xl lg:hidden"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-navy-900/95 px-6 pb-6 pt-24 backdrop-blur-xl lg:hidden"
           >
-            <div className="mx-auto flex h-full max-w-7xl flex-col gap-3">
+            <div className="mx-auto flex h-full max-w-7xl flex-col gap-3 overflow-y-auto">
               <Link href="/" className="mb-3 inline-flex flex-col leading-tight">
-                <span className="font-display text-xl font-light tracking-tight text-ink">PIOUD ENERGY</span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-ink-muted">
+                <span className="font-display text-xl font-light tracking-tight text-white">PIOUD ENERGY</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-white/80">
                   Certificats d&apos;Économies d&apos;Énergie
                 </span>
               </Link>
@@ -196,23 +200,23 @@ export function Navbar() {
                     <div key={link.href} className="space-y-2">
                       <Link
                         href={link.href}
-                        className={`block rounded-lg px-3 py-2 text-sm font-medium transition ${
+                        className={`block min-h-11 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
                           pathname === link.href || startsWithPath
-                            ? "bg-white text-ink"
-                            : "text-ink-muted hover:bg-white/70 hover:text-ink"
-                        } focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40`}
+                            ? "bg-white/10 text-emerald-400"
+                            : "text-white hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
+                        } focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50`}
                       >
                         {link.label}
                       </Link>
-                      <div className="ml-3 space-y-2 border-l border-white/20 pl-3">
+                      <div className="ml-3 space-y-2 border-l border-white/10 pl-3">
                         {dropdownItems.map((item) => (
                           <Link
                             key={item.href}
                             href={item.href}
-                            className={`block rounded-lg px-3 py-2 text-sm transition ${
+                            className={`block min-h-11 rounded-lg px-3 py-2.5 text-sm transition ${
                               pathname === item.href
-                                ? "bg-white text-ink"
-                                : "text-ink-muted hover:bg-white/70 hover:text-ink"
+                                ? "bg-white/10 text-emerald-300"
+                                : "text-white/80 hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
                             }`}
                           >
                             {item.label}
@@ -227,11 +231,11 @@ export function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                    className={`min-h-11 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
                       pathname === link.href
-                        ? "bg-white text-ink"
-                        : "text-ink-muted hover:bg-white/70 hover:text-ink"
-                    } focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40`}
+                        ? "bg-white/10 text-emerald-400"
+                        : "text-white hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
+                    } focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50`}
                   >
                     {link.label}
                   </Link>
@@ -245,13 +249,13 @@ export function Navbar() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-pill border border-ink/20 px-6 py-3 font-semibold text-ink transition hover:bg-white"
+                className="inline-flex items-center justify-center rounded-pill border border-white/30 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
               >
                 Contact
               </Link>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="inline-flex items-center justify-center rounded-pill border border-ink/10 px-6 py-3 text-sm text-ink-muted transition hover:bg-white hover:text-ink"
+                className="inline-flex items-center justify-center rounded-pill border border-white/20 px-6 py-3 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
               >
                 {siteConfig.email}
               </a>
