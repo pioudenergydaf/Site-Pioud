@@ -11,6 +11,7 @@ import { NavItem } from "@/components/ui/NavItem";
 export function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [professionalsMenuOpen, setProfessionalsMenuOpen] = useState(false);
   const [particuliersMenuOpen, setParticuliersMenuOpen] = useState(false);
 
@@ -32,12 +33,23 @@ export function Navbar() {
     setParticuliersMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <header className="fixed left-1/2 top-6 z-50 w-[calc(100%-2rem)] max-w-[1400px] -translate-x-1/2">
       <nav className="flex items-center justify-between gap-3">
         <Link
           href="/"
-          className="hidden flex-col rounded-pill border border-white/50 bg-cream/80 px-5 py-3 shadow-[0_4px_20px_rgba(31,58,46,0.08)] backdrop-blur-xl md:flex"
+          className={`hidden flex-col rounded-pill px-5 py-2.5 transition-all duration-300 md:flex ${
+            scrolled
+              ? "bg-white shadow-xl shadow-navy-900/10"
+              : "border border-white/50 bg-white/80 backdrop-blur-xl"
+          }`}
         >
           <span className="font-display text-base font-light leading-none tracking-tight text-ink">
             PIOUD ENERGY
@@ -46,7 +58,13 @@ export function Navbar() {
             Certificats d&apos;Économies d&apos;Énergie
           </span>
         </Link>
-        <div className="hidden items-center gap-1 rounded-pill border border-white/50 bg-cream/75 p-1.5 shadow-[0_4px_20px_rgba(31,58,46,0.08)] backdrop-blur-xl lg:flex">
+        <div
+          className={`hidden items-center gap-1 rounded-pill p-1.5 transition-all duration-300 lg:flex ${
+            scrolled
+              ? "bg-white shadow-xl shadow-navy-900/10"
+              : "border border-white/40 bg-white/75 backdrop-blur-xl"
+          }`}
+        >
           {navLinks
             .filter((link) => link.href !== "/contact")
             .map((link) => {

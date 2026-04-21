@@ -22,10 +22,10 @@ export function NavItem({
   return (
     <Link
       href={href}
-      className={`flex items-center gap-1 rounded-pill px-5 py-2 text-sm transition-all ${
+      className={`flex items-center gap-1 rounded-pill px-4 py-2 text-sm transition-all ${
         active
-          ? "bg-white text-ink font-medium shadow-sm"
-          : "text-ink/75 hover:bg-white/50 hover:text-ink"
+          ? "bg-navy-900 text-white font-medium"
+          : "text-navy-900/80 hover:bg-navy-900/5 hover:text-navy-900"
       } ${className}`}
     >
       {children}
