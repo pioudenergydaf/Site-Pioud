@@ -166,12 +166,19 @@ export default function Home() {
                     <Link
                       key={sector.title}
                       href={sector.href}
-                      className="rounded-card border border-ink/10 bg-white p-4 transition hover:-translate-y-0.5 hover:border-lime"
+                      className="group relative rounded-card border border-ink/5 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/10"
                     >
-                      <span className="inline-flex rounded-lg bg-sage p-2 text-forest">
-                        <Icon className="h-4 w-4" />
+                      <span className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 transition-colors group-hover:bg-emerald-500 group-hover:text-white">
+                        <Icon className="h-6 w-6" />
                       </span>
-                      <p className="mt-2 font-semibold text-ink">{sector.title}</p>
+                      <h3 className="text-xl font-semibold text-ink">{sector.title}</h3>
+                      <p className="mb-4 mt-2 text-sm leading-relaxed text-ink-muted">
+                        {sector.description}
+                      </p>
+                      <span className="inline-flex translate-x-[-0.5rem] items-center gap-2 text-sm font-medium text-emerald-600 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100">
+                        En savoir plus
+                        <ArrowRight className="h-4 w-4" />
+                      </span>
                     </Link>
                   );
                 })}
