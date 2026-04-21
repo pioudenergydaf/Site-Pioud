@@ -52,7 +52,7 @@ export default function ProfessionnelsPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-forest/85 via-forest-soft/60 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7 text-white">
-                <span className="inline-flex rounded-xl bg-white/20 p-3 text-lime">
+                <span className="inline-flex rounded-xl bg-white/20 p-3 text-emerald-600">
                   <Building2 className="h-6 w-6" />
                 </span>
                 <h3 className="mt-4 text-3xl font-bold">CEE Tertiaire</h3>
@@ -60,7 +60,7 @@ export default function ProfessionnelsPage() {
                   Bureaux, commerces, hôtels, santé, enseignement... Optimisez la
                   performance énergétique de vos bâtiments tertiaires grâce aux CEE.
                 </p>
-                <p className="mt-3 text-sm font-semibold text-lime-soft">
+                <p className="mt-3 text-sm font-semibold text-emerald-400">
                   LED, isolation, PAC, GTB, CVC
                 </p>
                 <span className="mt-5 inline-flex items-center text-sm font-semibold text-white">
@@ -84,7 +84,7 @@ export default function ProfessionnelsPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-forest/85 via-forest-soft/60 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7 text-white">
-                <span className="inline-flex rounded-xl bg-white/20 p-3 text-lime">
+                <span className="inline-flex rounded-xl bg-white/20 p-3 text-emerald-600">
                   <Factory className="h-6 w-6" />
                 </span>
                 <h3 className="mt-4 text-3xl font-bold">CEE Industrie</h3>
@@ -92,7 +92,7 @@ export default function ProfessionnelsPage() {
                   Sites industriels, entrepôts, usines... Réduisez vos CAPEX
                   énergétiques et valorisez vos investissements via les CEE.
                 </p>
-                <p className="mt-3 text-sm font-semibold text-lime-soft">
+                <p className="mt-3 text-sm font-semibold text-emerald-400">
                   Moteurs, variateurs, récupération de chaleur, air comprimé, process
                 </p>
                 <span className="mt-5 inline-flex items-center text-sm font-semibold text-white">

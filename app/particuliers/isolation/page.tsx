@@ -67,7 +67,7 @@ const operations = [
     description:
       "Calorifugeage des réseaux de chauffage et d'eau chaude sanitaire hors du volume chauffé. 5,4% des CEE délivrés. Souvent oublié, pourtant très rentable.",
     badge: "💡 Souvent oublié",
-    badgeClass: "bg-lime-soft text-forest",
+    badgeClass: "bg-emerald-100 text-forest",
   },
 ];
 
@@ -107,7 +107,7 @@ export default function ParticuliersIsolationPage() {
                   </span>
                   {operation.badge ? (
                     <span
-                      className={`rounded-pill px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-lime-soft text-forest"}`}
+                      className={`rounded-pill px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-emerald-100 text-forest"}`}
                     >
                       {operation.badge}
                     </span>

@@ -45,7 +45,7 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden bg-cream pt-32">
       <div className="pointer-events-none absolute -right-20 top-20 h-[360px] w-[360px] rounded-pill bg-sage/70 blur-3xl" />
-      <div className="pointer-events-none absolute -left-12 bottom-6 h-[280px] w-[280px] rounded-pill bg-lime-soft/60 blur-3xl" />
+      <div className="pointer-events-none absolute -left-12 bottom-6 h-[280px] w-[280px] rounded-pill bg-emerald-100/60 blur-3xl" />
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 pb-20 lg:grid-cols-2 lg:px-8">
         <div className="space-y-6">
           <p className="inline-flex rounded-pill border border-ink/10 bg-white px-4 py-1 text-sm font-medium text-ink-muted">

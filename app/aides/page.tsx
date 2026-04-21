@@ -243,7 +243,7 @@ function AidCard({
           <h3 className="text-2xl font-bold text-ink">{title}</h3>
         </div>
         {badge ? (
-          <span className="rounded-pill bg-lime-soft px-3 py-1 text-xs font-semibold text-forest">
+          <span className="rounded-pill bg-emerald-100 px-3 py-1 text-xs font-semibold text-forest">
             {badge}
           </span>
         ) : null}

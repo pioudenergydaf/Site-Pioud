@@ -36,7 +36,7 @@ export default function Home() {
     <div className="overflow-x-hidden bg-cream text-ink">
       <section className="relative min-h-screen overflow-hidden bg-cream px-6 pb-24 pt-40 md:px-16 lg:px-24">
         <div className="absolute right-0 top-1/4 -z-0 h-[600px] w-[600px] rounded-pill bg-sage/40 blur-3xl" />
-        <div className="absolute bottom-0 left-1/4 -z-0 h-[400px] w-[400px] rounded-pill bg-lime-soft/30 blur-3xl" />
+        <div className="absolute bottom-0 left-1/4 -z-0 h-[400px] w-[400px] rounded-pill bg-emerald-100/30 blur-3xl" />
         <div className="relative z-10 mx-auto max-w-7xl">
           <Reveal className="max-w-5xl">
             <div className="mb-10 inline-flex items-center gap-2 rounded-pill border border-ink/10 bg-white px-4 py-2">
@@ -56,11 +56,11 @@ export default function Home() {
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 href="/simulateur"
-                className="group inline-flex items-center gap-3 rounded-pill bg-lime py-2 pl-7 pr-2 font-medium text-ink shadow-[0_4px_20px_rgba(200,232,92,0.4)] transition hover:bg-lime-soft"
+                className="group inline-flex items-center gap-3 rounded-pill bg-emerald-500 py-2 pl-7 pr-2 font-medium text-white shadow-xl shadow-emerald-500/30 transition hover:bg-emerald-600"
               >
                 <span>Accéder au simulateur</span>
-                <span className="flex h-11 w-11 items-center justify-center rounded-pill bg-ink transition group-hover:scale-105">
-                  <ArrowRight className="h-4 w-4 text-lime" />
+                <span className="flex h-11 w-11 items-center justify-center rounded-pill bg-emerald-700 transition group-hover:scale-105">
+                  <ArrowRight className="h-4 w-4 text-white" />
                 </span>
               </Link>
               <Link
@@ -238,7 +238,7 @@ export default function Home() {
               </div>
               <Link
                 href="/simulateur"
-                className="inline-flex items-center justify-center rounded-pill bg-lime px-7 py-3 font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-lime-soft"
+                className="inline-flex items-center justify-center rounded-pill bg-emerald-500 px-7 py-3 font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-emerald-100"
               >
                 Estimez votre prime CEE
               </Link>

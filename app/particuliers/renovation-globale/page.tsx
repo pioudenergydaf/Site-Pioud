@@ -32,7 +32,7 @@ const operations = [
     description:
       "Rénovation d'ampleur avec gain d'au moins 2 classes DPE. Cumulable avec MaPrimeRénov' Rénovation d'ampleur pour les logements E, F ou G.",
     badge: "Nouveau",
-    badgeClass: "bg-lime-soft text-forest",
+    badgeClass: "bg-emerald-100 text-forest",
   },
   {
     title: "Rénovation globale d'un bâtiment résidentiel collectif",
@@ -43,7 +43,7 @@ const operations = [
     description:
       "Rénovation performante d'un immeuble résidentiel collectif. Coup de pouce Rénovation performante disponible.",
     badge: "Copropriétés",
-    badgeClass: "bg-lime-soft text-forest",
+    badgeClass: "bg-emerald-100 text-forest",
   },
 ];
 
@@ -71,7 +71,7 @@ export default function ParticuliersRenovationGlobalePage() {
 
       <section className="section-shell pb-10">
         <Reveal>
-          <p className="inline-flex rounded-pill bg-lime-soft px-4 py-1 text-sm font-semibold text-forest">
+          <p className="inline-flex rounded-pill bg-emerald-100 px-4 py-1 text-sm font-semibold text-forest">
             🔥 Le plus avantageux
           </p>
         </Reveal>
@@ -91,7 +91,7 @@ export default function ParticuliersRenovationGlobalePage() {
                   </span>
                   {operation.badge ? (
                     <span
-                      className={`rounded-pill px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-lime-soft text-forest"}`}
+                      className={`rounded-pill px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-emerald-100 text-forest"}`}
                     >
                       {operation.badge}
                     </span>

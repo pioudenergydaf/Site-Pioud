@@ -85,7 +85,7 @@ export function TestimonialCarousel({ items }: TestimonialCarouselProps) {
             type="button"
             onClick={() => goTo(dotIndex)}
             className={`h-2.5 w-2.5 rounded-pill transition ${
-              dotIndex === index ? "bg-lime" : "bg-sage"
+              dotIndex === index ? "bg-emerald-500" : "bg-sage"
             }`}
             aria-label={`Aller au témoignage ${dotIndex + 1}`}
           />

@@ -213,7 +213,7 @@ export function SimulatorWizard() {
         </div>
         <div className="h-2 w-full rounded-pill bg-cream-soft">
           <motion.div
-            className="h-2 rounded-pill bg-gradient-to-r from-forest to-lime"
+            className="h-2 rounded-pill bg-gradient-to-r from-forest to-emerald-500"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.35, ease: "easeOut" }}
@@ -488,7 +488,7 @@ export function SimulatorWizard() {
             type="button"
             onClick={goNext}
             disabled={!canContinue()}
-            className="rounded-pill bg-lime px-6 py-2.5 text-sm font-medium text-ink transition hover:bg-lime-soft disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-pill bg-emerald-500 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {step === 3 ? "Calculer mon estimation" : "Continuer"}
           </button>

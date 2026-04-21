@@ -208,7 +208,7 @@ export default function TertiairePage() {
                     <operation.icon className="h-5 w-5" />
                   </span>
                   {operation.badge ? (
-                    <span className="rounded-pill bg-lime-soft px-3 py-1 text-xs font-semibold text-forest">
+                    <span className="rounded-pill bg-emerald-100 px-3 py-1 text-xs font-semibold text-forest">
                       {operation.badge}
                     </span>
                   ) : null}

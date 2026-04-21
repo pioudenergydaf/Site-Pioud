@@ -30,7 +30,7 @@ const operations = [
     description:
       "Système de programmation et régulation du chauffage pièce par pièce. Permet des économies de 15 à 25% sur le poste chauffage.",
     badge: "Valable jusqu'au 31/12/2026",
-    badgeClass: "bg-lime-soft text-forest",
+    badgeClass: "bg-emerald-100 text-forest",
   },
   {
     title: "Radiateur basse température",
@@ -78,7 +78,7 @@ export default function ParticuliersRegulationPage() {
                   </span>
                   {operation.badge ? (
                     <span
-                      className={`rounded-pill px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-lime-soft text-forest"}`}
+                      className={`rounded-pill px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-emerald-100 text-forest"}`}
                     >
                       {operation.badge}
                     </span>

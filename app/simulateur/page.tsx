@@ -23,7 +23,7 @@ export default function SimulateurPage() {
       <div className="section-shell relative z-10 pb-24">
         <Reveal>
           <div className="mx-auto mb-10 max-w-4xl text-center text-white">
-            <span className="inline-flex rounded-pill border border-white/25 bg-white/10 p-3 text-lime">
+            <span className="inline-flex rounded-pill border border-white/25 bg-white/10 p-3 text-emerald-600">
               <Calculator className="h-6 w-6" />
             </span>
             <h1 className="mt-4 text-4xl font-bold sm:text-5xl">

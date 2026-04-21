@@ -121,11 +121,11 @@ export default function ParticuliersPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-forest/90 via-forest-soft/70 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="inline-flex rounded-xl bg-white/15 p-3 text-lime-soft">
+                    <span className="inline-flex rounded-xl bg-white/15 p-3 text-emerald-400">
                       <theme.icon className="h-6 w-6" />
                     </span>
                     {theme.badge ? (
-                      <span className="rounded-pill bg-lime-soft px-3 py-1 text-xs font-semibold text-forest">
+                      <span className="rounded-pill bg-emerald-100 px-3 py-1 text-xs font-semibold text-forest">
                         {theme.badge}
                       </span>
                     ) : null}

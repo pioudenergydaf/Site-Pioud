@@ -133,7 +133,7 @@ export function CookieBanner() {
         <button
           type="button"
           onClick={() => applyConsent(true, true)}
-          className="rounded-pill bg-lime px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-lime-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-soft"
+          className="rounded-pill bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
         >
           Accepter tout
         </button>

@@ -29,8 +29,8 @@ const operations = [
     description:
       "PAC air/eau pour le chauffage et/ou l'eau chaude sanitaire. Bonification Coup de pouce x5 en remplacement d'une chaudière charbon, fioul ou gaz. Primes de 5 000€ à 12 000€ selon les revenus et la zone climatique.",
     badges: [
-      { label: "🔥 Coup de pouce x5", className: "bg-lime-soft text-forest" },
-      { label: "⭐ Revalorisé en 2026", className: "bg-lime-soft text-forest" },
+      { label: "🔥 Coup de pouce x5", className: "bg-emerald-100 text-forest" },
+      { label: "⭐ Revalorisé en 2026", className: "bg-emerald-100 text-forest" },
     ],
   },
   {
@@ -41,7 +41,7 @@ const operations = [
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-172%20vA78.4%20%C3%A0%20compter%20du%2001-01-2026.pdf",
     description:
       "PAC géothermique ou sur nappe phréatique. Bonification Coup de pouce x5 en remplacement d'une chaudière fossile. Très hautes performances.",
-    badges: [{ label: "🔥 Coup de pouce x5", className: "bg-lime-soft text-forest" }],
+    badges: [{ label: "🔥 Coup de pouce x5", className: "bg-emerald-100 text-forest" }],
   },
   {
     title: "Chaudière biomasse individuelle",
@@ -75,7 +75,7 @@ const operations = [
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-143%20vA79-6%20%C3%A0%20compter%20du%2001-01-2026.pdf",
     description:
       "Système solaire thermique pour le chauffage et l'eau chaude sanitaire. Bonification x2 pour toutes les opérations engagées à compter de 2026.",
-    badges: [{ label: "🔥 Bonification x2 en 2026", className: "bg-lime-soft text-forest" }],
+    badges: [{ label: "🔥 Bonification x2 en 2026", className: "bg-emerald-100 text-forest" }],
   },
   {
     title: "Chauffe-eau solaire individuel",

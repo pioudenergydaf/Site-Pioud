@@ -126,11 +126,11 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <Link
             href="/simulateur"
-            className="group hidden items-center gap-2 rounded-pill bg-lime pl-5 pr-1.5 py-1.5 text-sm font-medium text-ink shadow-[0_4px_20px_rgba(200,232,92,0.45)] transition-all hover:bg-lime-soft md:flex"
+            className="group hidden items-center gap-2 rounded-pill bg-emerald-500 pl-5 pr-1.5 py-1.5 text-sm font-medium text-white shadow-[0_8px_24px_rgba(16,185,129,0.35)] transition-all hover:bg-emerald-600 md:flex"
           >
             Accéder au simulateur
-            <span className="flex h-8 w-8 items-center justify-center rounded-pill bg-ink transition group-hover:translate-x-0.5">
-              <ArrowRight className="h-3.5 w-3.5 text-lime" />
+            <span className="flex h-8 w-8 items-center justify-center rounded-pill bg-emerald-700 transition group-hover:translate-x-0.5">
+              <ArrowRight className="h-3.5 w-3.5 text-white" />
             </span>
           </Link>
           <button
@@ -220,7 +220,7 @@ export function Navbar() {
               })}
               <Link
                 href="/simulateur"
-                className="mt-4 inline-flex items-center justify-center rounded-pill bg-lime px-6 py-3 font-semibold text-ink transition hover:bg-lime-soft"
+                className="mt-4 inline-flex items-center justify-center rounded-pill bg-emerald-500 px-6 py-3 font-semibold text-white transition hover:bg-emerald-600"
               >
                 Accéder au simulateur
               </Link>
