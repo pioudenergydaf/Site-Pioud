@@ -34,7 +34,7 @@ const clientLogos = [
 export default function Home() {
   return (
     <div className="overflow-x-hidden bg-cream text-ink">
-      <section className="relative flex min-h-[90vh] items-center overflow-hidden px-6 pb-20 pt-32 md:px-12 lg:px-20">
+      <section className="relative flex min-h-[90vh] items-center overflow-hidden px-6 pb-32 pt-32 md:px-12 lg:px-20">
         <div className="absolute inset-0 z-0">
           <video
             autoPlay
@@ -97,16 +97,17 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="mt-20 grid max-w-4xl gap-8 border-t border-white/30 pt-12 md:grid-cols-3">
+          <div className="mt-20 grid max-w-4xl gap-8 border-t border-white/40 pt-12 md:grid-cols-3">
             {keyFigures.map((figure, index) => (
               <Reveal key={figure.label} delay={0.1 + index * 0.1}>
-                <article className={`${index > 0 ? "md:border-l md:border-white/30 md:pl-8" : ""}`}>
+                <article className={`${index > 0 ? "md:border-l md:border-white/40 md:pl-8" : ""}`}>
                   <AnimatedCounter
                     value={figure.value}
                     suffix={figure.suffix}
-                    className="drop-shadow-lg"
+                    className="[text-shadow:_0_2px_8px_rgb(0_0_0_/_40%)]"
+                    suffixClassName="text-emerald-300"
                   />
-                  <p className="mt-2 text-xs uppercase tracking-wider text-white/80">
+                  <p className="mt-2 text-xs uppercase tracking-wider text-white/90 [text-shadow:_0_1px_4px_rgb(0_0_0_/_30%)]">
                     {figure.label}
                   </p>
                 </article>
@@ -114,7 +115,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-64 bg-gradient-to-b from-transparent via-[#F4F1EA]/40 to-[#F4F1EA]" />
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 h-24 bg-gradient-to-b from-transparent to-[#F4F1EA]" />
         <div className="absolute bottom-4 right-4 z-20 text-[10px] text-white/40 transition hover:text-white/70">
           Vidéo : Kelly · Pexels
         </div>
