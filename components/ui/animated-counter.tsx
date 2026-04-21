@@ -1,5 +1,5 @@
 type AnimatedCounterProps = {
-  value: number;
+  value: number | string;
   suffix?: string;
   className?: string;
   suffixClassName?: string;
@@ -15,14 +15,15 @@ export function AnimatedCounter({
   valueStyle,
   suffixStyle,
 }: AnimatedCounterProps) {
-  const target = Math.max(0, value);
+  const displayValue =
+    typeof value === "number" ? Math.max(0, value).toString() : value;
 
   return (
     <span
       className={className ?? "font-display text-4xl font-light text-ink sm:text-5xl"}
       style={valueStyle}
     >
-      {target}
+      {displayValue}
       <span className={suffixClassName} style={suffixStyle}>
         {suffix}
       </span>

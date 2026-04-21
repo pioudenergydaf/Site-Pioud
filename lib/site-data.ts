@@ -47,9 +47,9 @@ export const sectors = [
 ];
 
 export const keyFigures = [
-  { value: 500, suffix: "+", label: "projets accompagnés" },
-  { value: 28, suffix: "M€", label: "de primes CEE mobilisées" },
-  { value: 98, suffix: "%", label: "de satisfaction client" },
+  { value: "600", suffix: "+", label: "PROJETS ACCOMPAGNÉS" },
+  { value: "100", suffix: "%", label: "FINANCÉ PAR LES CEE" },
+  { value: "35 000", suffix: "T", label: "CO₂ ÉVITÉES / AN" },
 ];
 
 export const testimonials = [

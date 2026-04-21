@@ -23,8 +23,20 @@ async function run() {
   );
   await page.screenshot({ path: openPath, fullPage: true });
 
+  const desktopPage = await browser.newPage({
+    viewport: { width: 1440, height: 1000 },
+  });
+  await desktopPage.goto("http://127.0.0.1:3000", { waitUntil: "networkidle" });
+  await desktopPage.waitForTimeout(700);
+  const heroPath = path.resolve(
+    "/opt/cursor/artifacts/screenshots/hero-stats-updated.png"
+  );
+  await desktopPage.screenshot({ path: heroPath, fullPage: false });
+
   console.log(closedPath);
   console.log(openPath);
+  console.log(heroPath);
+  await desktopPage.close();
   await browser.close();
 }
 

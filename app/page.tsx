@@ -104,10 +104,11 @@ export default function Home() {
                   <AnimatedCounter
                     value={figure.value}
                     suffix={figure.suffix}
-                    className="font-light text-5xl text-white md:text-6xl [text-shadow:_0_2px_8px_rgb(0_0_0_/_40%)]"
+                    className="whitespace-nowrap font-light text-5xl text-white md:text-6xl [text-shadow:_0_2px_8px_rgb(0_0_0_/_40%)]"
                     suffixClassName="text-emerald-300"
+                    valueStyle={{ color: "#FFFFFF" }}
                   />
-                  <p className="mt-2 text-xs uppercase tracking-wider [text-shadow:_0_1px_4px_rgb(0_0_0_/_30%)]" style={{ color: "#FFFFFFE6" }}>
+                  <p className="mt-2 text-xs uppercase tracking-wider text-emerald-300 [text-shadow:_0_1px_4px_rgb(0_0_0_/_30%)]">
                     {figure.label}
                   </p>
                 </article>
