@@ -58,7 +58,7 @@ export function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden items-center gap-1 rounded-pill border border-white/10 bg-navy-900/85 p-1.5 shadow-lg backdrop-blur-xl lg:flex">
+          <div className="hidden items-center gap-1 rounded-pill border border-white/50 bg-white/70 p-1.5 shadow-lg shadow-navy-900/10 backdrop-blur-xl lg:flex">
             {desktopNavItems.map((item) => {
               const isParticuliers = item.href === "/particuliers";
               const isProfessionnels = item.href === "/professionnels";
@@ -91,8 +91,8 @@ export function Navbar() {
                       onClick={() => setOpen((open) => !open)}
                       className={`inline-flex items-center gap-1 rounded-pill px-4 py-2 text-sm transition ${
                         isActive
-                          ? "bg-white/10 text-emerald-300"
-                          : "text-white/80 hover:bg-white/10 hover:text-white"
+                          ? "bg-emerald-50 font-medium text-emerald-600"
+                          : "text-navy-900/75 hover:bg-navy-900/5 hover:text-navy-900"
                       }`}
                     >
                       {item.label}
@@ -125,8 +125,8 @@ export function Navbar() {
                   href={item.href}
                   className={`rounded-pill px-4 py-2 text-sm transition ${
                     isActive
-                      ? "bg-white/10 text-emerald-300"
-                      : "text-white/80 hover:bg-white/10 hover:text-white"
+                      ? "bg-emerald-50 font-medium text-emerald-600"
+                      : "text-navy-900/75 hover:bg-navy-900/5 hover:text-navy-900"
                   }`}
                 >
                   {item.label}
