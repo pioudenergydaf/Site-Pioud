@@ -90,11 +90,14 @@ export default function Home() {
               </Link>
               <Link
                 href="/contact"
-                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-pill border border-white/40 bg-white/10 py-1.5 pl-6 pr-1.5 text-base font-medium text-white backdrop-blur-md transition-all duration-300 hover:border-white/60 hover:bg-white/20"
+                className="group relative inline-flex items-center overflow-hidden rounded-pill border border-white/40 bg-white/5 py-2 pl-7 pr-2 backdrop-blur-md transition-colors duration-300"
               >
-                <span className="relative z-10">Nous contacter</span>
-                <span className="relative z-10 flex h-9 w-9 items-center justify-center rounded-pill bg-emerald-500 transition-all duration-300 ease-out group-hover:w-[calc(100%-8px)] group-hover:-translate-x-[calc(100%-44px)]">
-                  <ArrowRight className="h-4 w-4 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
+                <span
+                  aria-hidden="true"
+                  className="absolute right-2 top-1/2 h-9 w-9 -translate-y-1/2 rounded-pill bg-emerald-500 transition-all duration-500 ease-out group-hover:right-2 group-hover:w-[calc(100%-16px)]"
+                />
+                <span className="relative z-10 whitespace-nowrap pr-12 text-base font-medium text-white">
+                  Nous contacter
                 </span>
               </Link>
             </div>
