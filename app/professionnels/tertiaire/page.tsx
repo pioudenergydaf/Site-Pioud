@@ -33,6 +33,16 @@ export const metadata: Metadata = {
 
 const tertiaryOperations = [
   {
+    title: "Isolation d'un réseau hydraulique",
+    reference: "BAT-TH-179",
+    icon: Thermometer,
+    description:
+      "Isolation des points singuliers d'un réseau hydraulique de chauffage ou d'eau chaude sanitaire (vannes, brides, accessoires) dans les bâtiments tertiaires existants. Réduit les pertes thermiques et améliore la performance globale du réseau.",
+    examples: "Exemples : bureaux, commerces, hôtellerie, enseignement, santé",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/operations-standardisees-deconomies-denergie",
+  },
+  {
     title: "Éclairage LED",
     reference: "BAT-EQ-111",
     icon: Lightbulb,
