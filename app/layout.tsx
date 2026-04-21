@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { DM_Serif_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { CookieBanner } from "@/components/cookies/cookie-banner";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { siteConfig } from "@/lib/site-data";
 
-const fraunces = Fraunces({
+const dmSerif = DM_Serif_Display({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: "400",
   style: ["normal", "italic"],
   display: "swap",
   variable: "--font-serif",
@@ -71,7 +71,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${fraunces.variable} ${inter.variable} bg-cream text-ink font-sans antialiased`}
+        className={`${inter.variable} ${dmSerif.variable} font-sans antialiased`}
       >
         <div className="flex min-h-screen flex-col">
           <Navbar />
