@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 
 type ContactPayload = {
-  formType?: "contact" | "callback";
+  formType?: "contact";
   [key: string]: unknown;
 };
 
 export async function POST(request: Request) {
   try {
     const payload = (await request.json()) as ContactPayload;
-    const formType = payload.formType === "callback" ? "callback" : "contact";
+    const formType = "contact";
 
     console.log(`[api/contact] ${formType} payload`, payload);
 

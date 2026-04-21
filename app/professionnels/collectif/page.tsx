@@ -72,7 +72,7 @@ export default function CollectifPage() {
         description="PIOUD ENERGY accompagne les syndics, bailleurs et copropriétés pour identifier les meilleures opérations CEE et sécuriser les primes sur les projets collectifs."
         imageUrl="https://images.unsplash.com/photo-1472220625704-91e1462799b2?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer mon projet collectif" }}
-        secondaryCta={{ href: "/contact", label: "Être rappelé" }}
+        secondaryCta={{ href: "/contact", label: "Nous contacter" }}
       />
 
       <section className="section-shell py-20">

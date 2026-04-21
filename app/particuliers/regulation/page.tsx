@@ -61,7 +61,7 @@ export default function ParticuliersRegulationPage() {
         description="Régulation pièce par pièce, programmation horaire et pilotage intelligent : diminuez vos consommations sans dégrader votre confort."
         imageUrl="https://images.unsplash.com/photo-1770625467384-304e461ef1be?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer votre prime" }}
-        secondaryCta={{ href: "/contact", label: "Être rappelé" }}
+        secondaryCta={{ href: "/contact", label: "Contacter un expert" }}
       />
 
       <section className="section-shell py-20">

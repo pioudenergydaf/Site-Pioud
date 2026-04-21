@@ -53,7 +53,7 @@ export default function ParticuliersFenetresPage() {
         description="Remplacez vos menuiseries pour améliorer le confort hiver/été, réduire le bruit et diminuer les déperditions énergétiques."
         imageUrl="https://images.unsplash.com/photo-1753893558430-3abab5adf4e0?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer ma prime fenêtres" }}
-        secondaryCta={{ href: "/contact", label: "Être rappelé" }}
+        secondaryCta={{ href: "/contact", label: "Nous contacter" }}
       />
 
       <section className="section-shell py-20">

@@ -195,7 +195,7 @@ export default function TertiairePage() {
         description="Bureaux, commerces, hôtels, établissements de santé, enseignement, collectivités... PIOUD ENERGY identifie et valorise les gisements CEE de votre parc immobilier."
         imageUrl="https://images.unsplash.com/photo-1742675416657-55d043ce8dce?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer mon projet" }}
-        secondaryCta={{ href: "/contact", label: "Être rappelé" }}
+        secondaryCta={{ href: "/contact", label: "Nous contacter" }}
       />
 
       <section className="section-shell py-20">

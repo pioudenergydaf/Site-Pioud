@@ -5,7 +5,7 @@ import { PageHero } from "@/components/ui/page-hero";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contactez Pioud Energy pour vos projets CEE : formulaire, coordonnées par service, horaires et demande de rappel.",
+    "Contactez Pioud Energy pour vos projets CEE : formulaire, coordonnées par service et horaires.",
 };
 
 export default function ContactPage() {

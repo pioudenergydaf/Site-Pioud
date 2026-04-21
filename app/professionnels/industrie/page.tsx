@@ -114,7 +114,7 @@ export default function IndustriePage() {
         description="Sites industriels, usines, entrepôts logistiques... PIOUD ENERGY maximise vos primes CEE sur l'ensemble de vos process et utilités."
         imageUrl="https://images.unsplash.com/photo-1763906265376-363d9681a3ad?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer mon projet" }}
-        secondaryCta={{ href: "/contact", label: "Être rappelé" }}
+        secondaryCta={{ href: "/contact", label: "Nous contacter" }}
       />
 
       <section className="section-shell py-20">

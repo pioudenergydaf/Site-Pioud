@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import { CalendarClock, Clock3, MapPin, PhoneCall } from "lucide-react";
+import { Clock3, MapPin, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { useConsent } from "@/components/cookies/use-consent";
 import { Reveal } from "@/components/ui/reveal";
@@ -18,12 +18,12 @@ const idleSubmissionState: SubmissionState = {
   message: "",
 };
 
-async function postFormData(formData: FormData, formType: "contact" | "callback") {
+async function postFormData(formData: FormData) {
   const payload = Object.fromEntries(formData.entries());
   const response = await fetch("/api/contact", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...payload, formType }),
+    body: JSON.stringify(payload),
   });
 
   const data = (await response.json()) as { message?: string };
@@ -38,44 +38,37 @@ export function ContactFormsSection() {
   const consent = useConsent();
   const [contactSubmission, setContactSubmission] =
     useState<SubmissionState>(idleSubmissionState);
-  const [callbackSubmission, setCallbackSubmission] =
-    useState<SubmissionState>(idleSubmissionState);
 
   const canLoadMap = useMemo(() => consent.marketing === true, [consent.marketing]);
 
-  const handleSubmit =
-    (formType: "contact" | "callback") =>
-    async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      const form = event.currentTarget;
-      const formData = new FormData(form);
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
-      const setSubmissionState =
-        formType === "contact" ? setContactSubmission : setCallbackSubmission;
+    setContactSubmission({
+      status: "sending",
+      message: "Envoi en cours...",
+    });
 
-      setSubmissionState({
-        status: "sending",
-        message: "Envoi en cours...",
+    try {
+      const message = await postFormData(formData);
+      setContactSubmission({
+        status: "success",
+        message,
       });
-
-      try {
-        const message = await postFormData(formData, formType);
-        setSubmissionState({
-          status: "success",
-          message,
-        });
-        form.reset();
-      } catch (error) {
-        const message =
-          error instanceof Error
-            ? error.message
-            : "Une erreur est survenue, merci de réessayer.";
-        setSubmissionState({
-          status: "error",
-          message,
-        });
-      }
-    };
+      form.reset();
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Une erreur est survenue, merci de réessayer.";
+      setContactSubmission({
+        status: "error",
+        message,
+      });
+    }
+  };
 
   const openCookieSettings = () => {
     window.dispatchEvent(new Event(COOKIE_CONSENT_OPEN_EVENT));
@@ -95,7 +88,7 @@ export function ContactFormsSection() {
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[2fr_1fr]">
           <Reveal>
-            <form className="card-surface space-y-5 p-7" method="post" onSubmit={handleSubmit("contact")}>
+            <form className="card-surface space-y-5 p-7" method="post" onSubmit={handleSubmit}>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="mb-2 block text-sm font-medium text-ink-muted">
@@ -260,161 +253,33 @@ export function ContactFormsSection() {
       </section>
 
       <section className="section-shell pb-20">
-        <div className="grid gap-8 lg:grid-cols-2">
-          <Reveal>
-            <div className="card-surface p-7">
-              <p className="inline-flex items-center gap-2 rounded-pill bg-sage px-3 py-1 text-sm font-semibold text-forest">
-                <CalendarClock className="h-4 w-4" />
-                Formulaire de rappel
-              </p>
-              <h2 className="mt-4 text-2xl font-bold text-ink">
-                Choisissez un créneau horaire
-              </h2>
-              <form className="mt-5 space-y-4" method="post" onSubmit={handleSubmit("callback")}>
-                <div>
-                  <label htmlFor="callback-name" className="mb-2 block text-sm font-medium text-ink-muted">
-                    Nom
-                  </label>
-                  <input
-                    id="callback-name"
-                    name="name"
-                    required
-                    className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
-                    placeholder="Votre nom"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="callback-email" className="mb-2 block text-sm font-medium text-ink-muted">
-                    Email
-                  </label>
-                  <input
-                    id="callback-email"
-                    name="email"
-                    type="email"
-                    required
-                    className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
-                    placeholder="vous@exemple.fr"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="callback-phone" className="mb-2 block text-sm font-medium text-ink-muted">
-                    Téléphone
-                  </label>
-                  <input
-                    id="callback-phone"
-                    name="phone"
-                    type="tel"
-                    required
-                    className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
-                    placeholder="06 00 00 00 00"
-                  />
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="callback-date" className="mb-2 block text-sm font-medium text-ink-muted">
-                      Date souhaitée
-                    </label>
-                    <input
-                      id="callback-date"
-                      name="date"
-                      type="date"
-                      required
-                      className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="callback-slot" className="mb-2 block text-sm font-medium text-ink-muted">
-                      Créneau
-                    </label>
-                    <select
-                      id="callback-slot"
-                      name="slot"
-                      defaultValue=""
-                      required
-                      className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
-                    >
-                      <option value="" disabled>
-                        Sélectionner
-                      </option>
-                      <option value="matin">08h30 - 12h00</option>
-                      <option value="apres-midi">12h00 - 16h00</option>
-                      <option value="fin-journee">16h00 - 19h00</option>
-                    </select>
-                  </div>
-                </div>
-                <label className="flex items-start gap-3 rounded-xl border border-ink/10 bg-cream-soft px-4 py-3">
-                  <input
-                    type="checkbox"
-                    name="privacyConsent"
-                    value="accepted"
-                    required
-                    className="mt-1 h-4 w-4 accent-emerald-500"
-                  />
-                  <span className="text-sm text-ink-muted">
-                    J&apos;accepte que mes données soient traitées conformément à la{" "}
-                    <Link
-                      href="/politique-confidentialite"
-                      className="font-semibold text-ink underline underline-offset-2"
-                    >
-                      politique de confidentialité
-                    </Link>{" "}
-                    de PIOUD ENERGY.
-                  </span>
-                </label>
+        <Reveal>
+          <div className="card-surface overflow-hidden">
+            {canLoadMap ? (
+              <iframe
+                title="Carte Google Maps - Pioud Energy"
+                src="https://www.google.com/maps?q=8+Rue+Henri+Dunant,+94370+Sucy-en-Brie&output=embed"
+                className="h-full min-h-[430px] w-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            ) : (
+              <div className="flex min-h-[430px] flex-col items-center justify-center gap-4 px-8 text-center">
+                <p className="text-lg font-semibold text-ink">Carte Google Maps</p>
+                <p className="max-w-sm text-sm text-ink-muted">
+                  Pour afficher la carte, veuillez accepter les cookies tiers.
+                </p>
                 <button
-                  type="submit"
-                  disabled={callbackSubmission.status === "sending"}
-                  className="btn-secondary disabled:cursor-not-allowed disabled:opacity-70"
+                  type="button"
+                  onClick={openCookieSettings}
+                  className="btn-primary"
                 >
-                  {callbackSubmission.status === "sending"
-                    ? "Envoi..."
-                    : "Planifier mon rappel"}
+                  Activer la carte
                 </button>
-
-                {callbackSubmission.status !== "idle" ? (
-                  <p
-                    role="status"
-                    className={`text-sm ${
-                      callbackSubmission.status === "error"
-                        ? "text-red-600"
-                        : "text-forest"
-                    }`}
-                  >
-                    {callbackSubmission.message}
-                  </p>
-                ) : null}
-              </form>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <div className="card-surface overflow-hidden">
-              {canLoadMap ? (
-                <iframe
-                  title="Carte Google Maps - Pioud Energy"
-                  src="https://www.google.com/maps?q=8+Rue+Henri+Dunant,+94370+Sucy-en-Brie&output=embed"
-                  className="h-full min-h-[430px] w-full border-0"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              ) : (
-                <div className="flex min-h-[430px] flex-col items-center justify-center gap-4 px-8 text-center">
-                  <p className="text-lg font-semibold text-ink">Carte Google Maps</p>
-                  <p className="max-w-sm text-sm text-ink-muted">
-                    Pour afficher la carte, veuillez accepter les cookies tiers.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={openCookieSettings}
-                    className="btn-primary"
-                  >
-                    Activer la carte
-                  </button>
-                </div>
-              )}
-            </div>
-          </Reveal>
-        </div>
+              </div>
+            )}
+          </div>
+        </Reveal>
       </section>
     </>
   );

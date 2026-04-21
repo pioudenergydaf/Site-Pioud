@@ -90,7 +90,7 @@ export default function ParticuliersIsolationPage() {
         description="L'isolation est le geste le plus rentable en rénovation énergétique. Elle représente plus de 37% des CEE délivrés en France."
         imageUrl="https://images.unsplash.com/photo-1768321917437-1f1f6ae2ad28?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer ma prime isolation" }}
-        secondaryCta={{ href: "/contact", label: "Être rappelé" }}
+        secondaryCta={{ href: "/contact", label: "Contacter un expert" }}
       />
 
       <section className="section-shell py-20">

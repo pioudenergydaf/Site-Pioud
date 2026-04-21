@@ -66,7 +66,7 @@ export default function ParticuliersRenovationGlobalePage() {
         description="La rénovation globale est le parcours le plus avantageux : combinez isolation, chauffage et ventilation pour gagner plusieurs classes DPE et obtenir les primes les plus élevées."
         imageUrl="https://images.unsplash.com/photo-1753893558281-9acda0662bbd?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer ma prime rénovation globale" }}
-        secondaryCta={{ href: "/contact", label: "Être rappelé" }}
+        secondaryCta={{ href: "/contact", label: "Être contacté" }}
       />
 
       <section className="section-shell pb-10">

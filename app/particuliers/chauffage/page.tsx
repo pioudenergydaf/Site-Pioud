@@ -125,7 +125,7 @@ export default function ParticuliersChauffagePage() {
         description="Les pompes à chaleur sont le pilier de la rénovation énergétique en 2026. Les primes CEE ont été massivement revalorisées avec des bonifications Coup de pouce x5."
         imageUrl="https://images.unsplash.com/photo-1554475499-4e40aa2b9e75?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "/simulateur", label: "Estimer ma prime chauffage" }}
-        secondaryCta={{ href: "/contact", label: "Être rappelé" }}
+        secondaryCta={{ href: "/contact", label: "Contacter un expert" }}
       />
 
       <section className="section-shell py-20">
