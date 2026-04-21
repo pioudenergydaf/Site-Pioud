@@ -45,16 +45,16 @@ export function Navbar() {
       <nav className="flex items-center justify-between gap-3">
         <Link
           href="/"
-          className={`hidden flex-col rounded-pill px-5 py-2.5 transition-all duration-300 md:flex ${
+          className={`hidden flex-col items-center justify-center rounded-pill border border-white/40 px-6 py-3 transition-all duration-300 md:flex ${
             scrolled
-              ? "bg-white shadow-xl shadow-navy-900/10"
-              : "border border-white/50 bg-white/80 backdrop-blur-xl"
+              ? "bg-white shadow-lg shadow-navy-900/10"
+              : "bg-white/85 backdrop-blur-xl shadow-lg shadow-navy-900/10"
           }`}
         >
-          <span className="font-display text-base font-light leading-none tracking-tight text-ink">
+          <span className="bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-center text-base font-bold leading-none tracking-tight text-transparent">
             PIOUD ENERGY
           </span>
-          <span className="mt-1 text-[9px] uppercase tracking-[0.15em] text-ink-muted">
+          <span className="mt-1.5 text-center text-[9px] font-medium uppercase tracking-[0.18em] text-navy-900/55">
             Certificats d&apos;Économies d&apos;Énergie
           </span>
         </Link>
