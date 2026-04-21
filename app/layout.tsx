@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { CookieBanner } from "@/components/cookies/cookie-banner";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { siteConfig } from "@/lib/site-data";
 
-const manrope = Manrope({
+const fraunces = Fraunces({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-manrope",
+  variable: "--font-fraunces",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -62,7 +68,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${manrope.variable} bg-[#f8fafc] text-slate-800 antialiased`}>
+      <body className={`${fraunces.variable} ${inter.variable} antialiased`}>
         <div className="flex min-h-screen flex-col">
           <Navbar />
           <main className="flex-1">{children}</main>

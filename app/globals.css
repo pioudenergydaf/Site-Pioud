@@ -3,16 +3,47 @@
 @tailwind utilities;
 
 :root {
-  --background: #f8fafc;
-  --foreground: #1f2937;
-  --brand-blue: #0f2b46;
-  --brand-emerald: #10b981;
+  --bg-primary: #f0f4ed;
+  --bg-soft: #f7faf4;
+  --bg-cream: #faf8f2;
+  --accent-lime: #d9f57c;
+  --accent-lime-soft: #e8f9a8;
+  --accent-peach: #ffc899;
+  --bg-dark: #2d4a3a;
+  --bg-dark-soft: #3d5a48;
+  --text-primary: #1e3328;
+  --text-muted: #5a6b5f;
+  --text-on-dark: #f0f4ed;
+  --brand-orange: #ff6b1a;
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-manrope), Arial, sans-serif;
+  font-family: var(--font-inter), Arial, sans-serif;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+h2,
+h3 {
+  font-weight: 400;
 }
 
 @layer components {
@@ -20,27 +51,38 @@ body {
     @apply mx-auto max-w-7xl px-6 lg:px-8;
   }
 
+  .eyebrow-label {
+    letter-spacing: 0.18em;
+    @apply text-[11px] font-medium uppercase text-[color:var(--text-muted)];
+  }
+
   .btn-primary {
-    @apply inline-flex items-center gap-2 rounded-full bg-[#10B981] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400;
+    @apply inline-flex items-center gap-2 rounded-full px-6 py-3 font-semibold text-[color:var(--text-primary)] transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-lime)];
+    background-color: var(--accent-lime);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 rounded-full border border-[#0F2B46]/20 bg-white px-6 py-3 font-semibold text-[#0F2B46] transition hover:-translate-y-0.5 hover:border-[#0F2B46]/40 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2B46]/30;
+    @apply inline-flex items-center gap-2 rounded-full border px-6 py-3 font-semibold transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--text-primary)];
+    border-color: color-mix(in oklab, var(--text-primary) 20%, white);
+    background-color: #ffffff;
+    color: var(--text-primary);
   }
 
   .card-surface {
-    @apply rounded-3xl border border-slate-200 bg-white shadow-lg shadow-[#0f2b46]/5;
+    @apply rounded-3xl border bg-white shadow-lg;
+    border-color: color-mix(in oklab, var(--text-primary) 8%, white);
+    box-shadow: 0 10px 28px rgba(30, 51, 40, 0.06);
   }
 }
 
 .gradient-overlay {
-  background: linear-gradient(130deg, rgba(15, 43, 70, 0.9), rgba(16, 185, 129, 0.7));
+  background: linear-gradient(130deg, rgba(45, 74, 58, 0.7), rgba(61, 90, 72, 0.52));
 }
 
 .hero-mesh {
-  background-image: radial-gradient(circle at 25% 25%, rgba(16, 185, 129, 0.18), transparent 45%),
-    radial-gradient(circle at 75% 5%, rgba(15, 43, 70, 0.18), transparent 35%),
-    linear-gradient(120deg, #f8fafc, #eff6ff);
+  background-image: radial-gradient(circle at 25% 25%, rgba(217, 245, 124, 0.35), transparent 45%),
+    radial-gradient(circle at 75% 5%, rgba(255, 200, 153, 0.28), transparent 35%),
+    linear-gradient(120deg, var(--bg-primary), var(--bg-soft));
 }
 
 .marquee-track {
