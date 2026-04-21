@@ -48,7 +48,7 @@ export const sectors = [
 
 export const keyFigures = [
   { value: 500, suffix: "+", label: "projets accompagnés" },
-  { value: 10, suffix: "M€", label: "de primes CEE mobilisées" },
+  { value: 28, suffix: "M€", label: "de primes CEE mobilisées" },
   { value: 98, suffix: "%", label: "de satisfaction client" },
 ];
 
