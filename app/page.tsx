@@ -97,12 +97,16 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="mt-20 grid max-w-4xl gap-8 border-t border-white/20 pt-12 md:grid-cols-3">
+          <div className="mt-20 grid max-w-4xl gap-8 border-t border-white/30 pt-12 md:grid-cols-3">
             {keyFigures.map((figure, index) => (
               <Reveal key={figure.label} delay={0.1 + index * 0.1}>
-                <article className={`${index > 0 ? "md:border-l md:border-white/20 md:pl-8" : ""}`}>
-                  <AnimatedCounter value={figure.value} suffix={figure.suffix} />
-                  <p className="mt-2 text-xs uppercase tracking-wider text-white/70">
+                <article className={`${index > 0 ? "md:border-l md:border-white/30 md:pl-8" : ""}`}>
+                  <AnimatedCounter
+                    value={figure.value}
+                    suffix={figure.suffix}
+                    className="drop-shadow-lg"
+                  />
+                  <p className="mt-2 text-xs uppercase tracking-wider text-white/80">
                     {figure.label}
                   </p>
                 </article>
