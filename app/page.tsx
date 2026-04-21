@@ -127,18 +127,50 @@ export default function Home() {
                 Qui sommes-nous
               </p>
               <h2 className="mt-4 font-display text-4xl font-light text-ink">
-                Un partenaire CEE fiable, orienté résultats
+                Votre partenaire CEE, du premier dossier au versement de la
+                prime
               </h2>
               <p className="mt-4 text-lg text-ink-muted">
-                PIOUD ENERGY accompagne particuliers, professionnels et acteurs
-                publics dans la valorisation des Certificats d&apos;Économies
-                d&apos;Énergie avec une approche opérationnelle et rassurante.
+                Pioud Energy est un mandataire CEE agréé qui accompagne
+                particuliers, entreprises et collectivités dans la mobilisation
+                des Certificats d&apos;Économies d&apos;Énergie. Nous gérons
+                l&apos;intégralité de votre dossier — audit, montage
+                administratif, dépôt auprès des obligés et suivi jusqu&apos;au
+                versement — pour que vous perceviez votre prime sans complexité
+                ni mauvaise surprise.
               </p>
-              <ul className="mt-6 space-y-3 text-ink-muted">
-                <li>• Dossiers conformes et sécurisés</li>
-                <li>• Accompagnement personnalisé de bout en bout</li>
-                <li>• Pilotage des délais jusqu&apos;au versement de la prime</li>
-              </ul>
+              <div className="mt-6 space-y-5">
+                <article>
+                  <p className="text-base font-semibold text-navy-900">
+                    • Des dossiers conformes et sécurisés
+                  </p>
+                  <p className="mt-1 text-base text-navy-900/70">
+                    Chaque dossier respecte scrupuleusement le cadre
+                    réglementaire (articles L.221-1 et suivants du Code de
+                    l&apos;énergie).
+                  </p>
+                </article>
+                <article>
+                  <p className="text-base font-semibold text-navy-900">
+                    • Un interlocuteur unique et disponible
+                  </p>
+                  <p className="mt-1 text-base text-navy-900/70">
+                    Un chargé de projet dédié vous accompagne à chaque étape,
+                    répond à vos questions et vous tient informé de
+                    l&apos;avancement.
+                  </p>
+                </article>
+                <article>
+                  <p className="text-base font-semibold text-navy-900">
+                    • Une prime versée dans les délais annoncés
+                  </p>
+                  <p className="mt-1 text-base text-navy-900/70">
+                    Nous pilotons rigoureusement les échéances avec les obligés
+                    pour garantir un versement rapide, conforme à ce qui vous a
+                    été présenté.
+                  </p>
+                </article>
+              </div>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
