@@ -54,9 +54,11 @@ export default function Home() {
                 Mandataire CEE · Accompagnement premium
               </span>
             </div>
-            <h1 className="font-display text-[clamp(2.5rem,7vw,5.5rem)] font-light leading-[1.05] tracking-tight text-white">
+            <h1 className="font-display text-[clamp(2.25rem,6vw,5rem)] font-light leading-[1.1] tracking-tight text-white">
               Maximisez vos économies d&apos;énergie avec{" "}
-              <span className="italic text-emerald-400">Pioud Energy</span>
+              <span className="whitespace-nowrap italic text-emerald-400">
+                Pioud Energy
+              </span>
             </h1>
             <p className="mb-12 mt-8 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
               De l&apos;audit initial au versement de la prime, nos experts pilotent vos
