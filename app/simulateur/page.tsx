@@ -19,11 +19,11 @@ export default function SimulateurPage() {
         fill
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0F2B46]/90 via-[#0f2b46]/80 to-[#f8fafc] to-[72%]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-forest/90 via-forest-soft/80 to-cream to-[72%]" />
       <div className="section-shell relative z-10 pb-24">
         <Reveal>
           <div className="mx-auto mb-10 max-w-4xl text-center text-white">
-            <span className="inline-flex rounded-full border border-white/25 bg-white/10 p-3 text-emerald-300">
+            <span className="inline-flex rounded-pill border border-white/25 bg-white/10 p-3 text-lime">
               <Calculator className="h-6 w-6" />
             </span>
             <h1 className="mt-4 text-4xl font-bold sm:text-5xl">

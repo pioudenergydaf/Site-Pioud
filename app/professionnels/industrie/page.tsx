@@ -119,10 +119,10 @@ export default function IndustriePage() {
 
       <section className="section-shell py-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">
+          <h2 className="text-4xl font-bold text-ink">
             Principales opérations CEE Industrie
           </h2>
-          <p className="mt-3 max-w-3xl text-lg text-slate-600">
+          <p className="mt-3 max-w-3xl text-lg text-ink-muted">
             Ciblez les gisements à plus fort impact sur vos utilités et vos process
             pour accélérer vos gains énergétiques et votre retour sur investissement.
           </p>
@@ -133,20 +133,20 @@ export default function IndustriePage() {
             <Reveal key={operation.title} delay={(index % 4) * 0.06}>
               <article className="card-surface h-full p-6">
                 <div className="flex items-start justify-between gap-3">
-                  <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+                  <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                     <operation.icon className="h-5 w-5" />
                   </span>
                   {operation.badge ? (
-                    <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                    <span className="rounded-pill bg-lime-soft px-3 py-1 text-xs font-semibold text-forest">
                       {operation.badge}
                     </span>
                   ) : null}
                 </div>
-                <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">{operation.title}</h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <h3 className="mt-4 text-xl font-semibold text-ink">{operation.title}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
                   Fiche : {operation.reference}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                <p className="mt-3 text-sm leading-relaxed text-ink-muted">
                   {operation.description}
                 </p>
                 <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
@@ -158,7 +158,7 @@ export default function IndustriePage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">
+          <h2 className="text-4xl font-bold text-ink">
             Secteurs industriels accompagnés
           </h2>
         </Reveal>
@@ -166,10 +166,10 @@ export default function IndustriePage() {
           {industrySectors.map((sector) => (
             <Reveal key={sector}>
               <article className="card-surface p-5">
-                <span className="inline-flex rounded-lg bg-blue-50 p-2 text-[#0F2B46]">
+                <span className="inline-flex rounded-lg bg-sage p-2 text-ink">
                   <Factory className="h-5 w-5" />
                 </span>
-                <p className="mt-3 font-semibold text-[#0F2B46]">{sector}</p>
+                <p className="mt-3 font-semibold text-ink">{sector}</p>
               </article>
             </Reveal>
           ))}
@@ -180,7 +180,7 @@ export default function IndustriePage() {
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <div>
-              <h2 className="text-4xl font-bold text-[#0F2B46]">
+              <h2 className="text-4xl font-bold text-ink">
                 Notre accompagnement industrie
               </h2>
               <div className="mt-6 space-y-4">
@@ -191,17 +191,17 @@ export default function IndustriePage() {
                   "Suivi versement — Contrôle de conformité et valorisation financière finale",
                 ].map((step, index) => (
                   <article key={step} className="card-surface p-5">
-                    <p className="text-sm font-semibold uppercase text-emerald-600">
+                    <p className="text-sm font-semibold uppercase text-forest-soft">
                       Étape {index + 1}
                     </p>
-                    <p className="mt-2 text-slate-700">{step}</p>
+                    <p className="mt-2 text-ink-muted">{step}</p>
                   </article>
                 ))}
               </div>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="relative min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-[#0f2b46]/10">
+            <div className="relative min-h-[360px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
                 src="https://images.unsplash.com/photo-1766414629984-73a93e7caba0?auto=format&fit=crop&w=1400&q=80"
                 alt="Accompagnement d'un site industriel"
@@ -215,7 +215,7 @@ export default function IndustriePage() {
 
       <section className="section-shell pb-10">
         <Reveal>
-          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-white">
+          <div className="card-surface bg-gradient-to-r bg-forest p-8 text-white">
             <h2 className="text-3xl font-bold">
               Financez vos investissements industriels avec les CEE
             </h2>
@@ -226,7 +226,7 @@ export default function IndustriePage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/simulateur"
-                className="inline-flex rounded-full bg-white px-6 py-3 font-semibold text-[#0F2B46]"
+                className="inline-flex rounded-pill bg-white px-6 py-3 font-semibold text-ink"
               >
                 Estimez vos primes CEE industrie
               </Link>

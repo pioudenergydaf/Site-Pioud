@@ -190,10 +190,10 @@ export default function TertiairePage() {
 
       <section className="section-shell py-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">
+          <h2 className="text-4xl font-bold text-ink">
             Top des opérations CEE Tertiaire
           </h2>
-          <p className="mt-3 max-w-3xl text-lg text-slate-600">
+          <p className="mt-3 max-w-3xl text-lg text-ink-muted">
             Des fiches standardisées à fort impact économique pour réduire vos
             consommations et financer vos investissements.
           </p>
@@ -204,23 +204,23 @@ export default function TertiairePage() {
             <Reveal key={operation.title} delay={(index % 3) * 0.06}>
               <article className="card-surface h-full p-6">
                 <div className="flex items-start justify-between gap-3">
-                  <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+                  <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                     <operation.icon className="h-5 w-5" />
                   </span>
                   {operation.badge ? (
-                    <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                    <span className="rounded-pill bg-lime-soft px-3 py-1 text-xs font-semibold text-forest">
                       {operation.badge}
                     </span>
                   ) : null}
                 </div>
-                <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">{operation.title}</h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <h3 className="mt-4 text-xl font-semibold text-ink">{operation.title}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
                   Fiche : {operation.reference}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                <p className="mt-3 text-sm leading-relaxed text-ink-muted">
                   {operation.description}
                 </p>
-                <p className="mt-3 text-sm font-medium text-slate-700">{operation.examples}</p>
+                <p className="mt-3 text-sm font-medium text-ink-muted">{operation.examples}</p>
                 <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
               </article>
             </Reveal>
@@ -230,7 +230,7 @@ export default function TertiairePage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">
+          <h2 className="text-4xl font-bold text-ink">
             Secteurs d&apos;activité concernés
           </h2>
         </Reveal>
@@ -238,10 +238,10 @@ export default function TertiairePage() {
           {tertiarySectors.map((sector) => (
             <Reveal key={sector.label}>
               <article className="card-surface p-5">
-                <span className="inline-flex rounded-lg bg-blue-50 p-2 text-[#0F2B46]">
+                <span className="inline-flex rounded-lg bg-sage p-2 text-ink">
                   <sector.icon className="h-5 w-5" />
                 </span>
-                <p className="mt-3 font-semibold text-[#0F2B46]">{sector.label}</p>
+                <p className="mt-3 font-semibold text-ink">{sector.label}</p>
               </article>
             </Reveal>
           ))}
@@ -252,7 +252,7 @@ export default function TertiairePage() {
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <div>
-              <h2 className="text-4xl font-bold text-[#0F2B46]">
+              <h2 className="text-4xl font-bold text-ink">
                 Notre accompagnement en 4 étapes
               </h2>
               <div className="mt-6 space-y-4">
@@ -263,17 +263,17 @@ export default function TertiairePage() {
                   "Suivi et versement — Contrôle de conformité et obtention de la prime",
                 ].map((step, index) => (
                   <article key={step} className="card-surface p-5">
-                    <p className="text-sm font-semibold uppercase text-emerald-600">
+                    <p className="text-sm font-semibold uppercase text-forest-soft">
                       Étape {index + 1}
                     </p>
-                    <p className="mt-2 text-slate-700">{step}</p>
+                    <p className="mt-2 text-ink-muted">{step}</p>
                   </article>
                 ))}
               </div>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="relative min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-[#0f2b46]/10">
+            <div className="relative min-h-[360px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
                 src="https://images.unsplash.com/photo-1769699903260-ff85271faa4f?auto=format&fit=crop&w=1400&q=80"
                 alt="Bâtiment tertiaire en amélioration énergétique"
@@ -288,8 +288,8 @@ export default function TertiairePage() {
       <section className="section-shell pb-20">
         <Reveal>
           <div className="card-surface p-8">
-            <h2 className="text-3xl font-bold text-[#0F2B46]">Décret Tertiaire & CEE</h2>
-            <p className="mt-3 text-slate-600">
+            <h2 className="text-3xl font-bold text-ink">Décret Tertiaire & CEE</h2>
+            <p className="mt-3 text-ink-muted">
               Le Décret Tertiaire impose une réduction progressive des consommations :
               -40% en 2030, -50% en 2040 et -60% en 2050. Les opérations financées
               par les CEE contribuent directement à l&apos;atteinte de ces objectifs et à
@@ -301,7 +301,7 @@ export default function TertiairePage() {
 
       <section className="section-shell pb-10">
         <Reveal>
-          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-white">
+          <div className="card-surface bg-gradient-to-r bg-forest p-8 text-white">
             <h2 className="text-3xl font-bold">
               Passez à l&apos;action sur votre parc tertiaire
             </h2>
@@ -312,7 +312,7 @@ export default function TertiairePage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/simulateur"
-                className="inline-flex rounded-full bg-white px-6 py-3 font-semibold text-[#0F2B46]"
+                className="inline-flex rounded-pill bg-white px-6 py-3 font-semibold text-ink"
               >
                 Estimez vos primes CEE tertiaire
               </Link>

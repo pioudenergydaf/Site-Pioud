@@ -37,16 +37,16 @@ export function Navbar() {
       <nav className="flex items-center justify-between gap-3">
         <Link
           href="/"
-          className="hidden flex-col rounded-full bg-navy-900/90 px-5 py-2.5 shadow-lg shadow-navy-900/10 backdrop-blur-xl md:flex"
+          className="hidden flex-col rounded-pill border border-white/50 bg-cream/80 px-5 py-3 shadow-[0_4px_20px_rgba(31,58,46,0.08)] backdrop-blur-xl md:flex"
         >
-          <span className="text-sm font-bold leading-none tracking-tight text-white">
+          <span className="font-display text-base font-light leading-none tracking-tight text-ink">
             PIOUD ENERGY
           </span>
-          <span className="mt-1 text-[9px] uppercase tracking-widest text-white/60">
+          <span className="mt-1 text-[9px] uppercase tracking-[0.15em] text-ink-muted">
             Certificats d&apos;Économies d&apos;Énergie
           </span>
         </Link>
-        <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-navy-900/85 p-1.5 shadow-lg shadow-navy-900/10 backdrop-blur-xl lg:flex">
+        <div className="hidden items-center gap-1 rounded-pill border border-white/50 bg-cream/75 p-1.5 shadow-[0_4px_20px_rgba(31,58,46,0.08)] backdrop-blur-xl lg:flex">
           {navLinks
             .filter((link) => link.href !== "/contact")
             .map((link) => {
@@ -80,7 +80,7 @@ export function Navbar() {
                       type="button"
                       aria-label={`Ouvrir le menu ${link.label}`}
                       onClick={() => setOpen((open) => !open)}
-                      className="rounded-full p-1 text-white/70 transition hover:bg-white/10 hover:text-white"
+                      className="rounded-pill p-1 text-ink-muted transition hover:bg-white/70 hover:text-ink"
                     >
                       <ChevronDown className="h-3 w-3" />
                     </button>
@@ -93,7 +93,7 @@ export function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.18 }}
-                        className="absolute left-0 top-full mt-3 w-64 rounded-xl border border-slate-200 bg-white p-2 shadow-2xl shadow-slate-900/15"
+                        className="absolute left-0 top-full mt-3 w-64 rounded-card border border-white/60 bg-cream-soft p-2 shadow-[0_16px_36px_rgba(31,58,46,0.12)]"
                       >
                         {dropdownItems.map((item, index) => (
                           <Link
@@ -101,8 +101,8 @@ export function Navbar() {
                             href={item.href}
                             className={`block rounded-lg px-3 py-2 text-sm font-medium transition ${
                               pathname === item.href
-                                ? "bg-slate-100 text-[#0F2B46]"
-                                : "text-slate-700 hover:bg-slate-100"
+                                ? "bg-white text-ink"
+                                : "text-ink-muted hover:bg-white hover:text-ink"
                             } ${index > 0 ? "mt-1" : ""}`}
                           >
                             {item.label}
@@ -126,16 +126,16 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <Link
             href="/simulateur"
-            className="group hidden items-center gap-2 rounded-full bg-emerald-500 pl-5 pr-1.5 py-1.5 text-sm font-semibold text-navy-900 shadow-lg shadow-emerald-500/25 transition-all hover:bg-emerald-400 md:flex"
+            className="group hidden items-center gap-2 rounded-pill bg-lime pl-5 pr-1.5 py-1.5 text-sm font-medium text-ink shadow-[0_4px_20px_rgba(200,232,92,0.45)] transition-all hover:bg-lime-soft md:flex"
           >
             Accéder au simulateur
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-navy-900 transition group-hover:translate-x-0.5">
-              <ArrowRight className="h-3.5 w-3.5 text-emerald-400" />
+            <span className="flex h-8 w-8 items-center justify-center rounded-pill bg-ink transition group-hover:translate-x-0.5">
+              <ArrowRight className="h-3.5 w-3.5 text-lime" />
             </span>
           </Link>
           <button
             type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/50 bg-cream/75 backdrop-blur-xl transition hover:bg-cream"
+            className="flex h-11 w-11 items-center justify-center rounded-pill border border-white/50 bg-cream/75 backdrop-blur-xl transition hover:bg-cream"
             onClick={() => setMenuOpen((open) => !open)}
             aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={menuOpen}
@@ -156,12 +156,12 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-navy-900/95 px-6 pb-6 pt-24 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-40 bg-cream/95 px-6 pb-6 pt-24 backdrop-blur-xl lg:hidden"
           >
             <div className="mx-auto flex h-full max-w-7xl flex-col gap-3">
               <Link href="/" className="mb-3 inline-flex flex-col leading-tight">
-                <span className="text-xl font-bold tracking-tight text-white">PIOUD ENERGY</span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-white/65">
+                <span className="font-display text-xl font-light tracking-tight text-ink">PIOUD ENERGY</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-ink-muted">
                   Certificats d&apos;Économies d&apos;Énergie
                 </span>
               </Link>
@@ -179,8 +179,8 @@ export function Navbar() {
                         href={link.href}
                         className={`block rounded-lg px-3 py-2 text-sm font-medium transition ${
                           pathname === link.href || startsWithPath
-                            ? "bg-white/10 text-emerald-300"
-                            : "text-slate-100 hover:bg-white/10"
+                            ? "bg-white text-ink"
+                            : "text-ink-muted hover:bg-white/70 hover:text-ink"
                         } focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40`}
                       >
                         {link.label}
@@ -192,8 +192,8 @@ export function Navbar() {
                             href={item.href}
                             className={`block rounded-lg px-3 py-2 text-sm transition ${
                               pathname === item.href
-                                ? "bg-white/10 text-emerald-300"
-                                : "text-slate-200 hover:bg-white/10"
+                                ? "bg-white text-ink"
+                                : "text-ink-muted hover:bg-white/70 hover:text-ink"
                             }`}
                           >
                             {item.label}
@@ -210,8 +210,8 @@ export function Navbar() {
                     href={link.href}
                     className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
                       pathname === link.href
-                        ? "bg-white/10 text-emerald-300"
-                        : "text-slate-100 hover:bg-white/10"
+                        ? "bg-white text-ink"
+                        : "text-ink-muted hover:bg-white/70 hover:text-ink"
                     } focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40`}
                   >
                     {link.label}
@@ -220,19 +220,19 @@ export function Navbar() {
               })}
               <Link
                 href="/simulateur"
-                className="mt-4 inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 font-semibold text-navy-900 transition hover:bg-emerald-400"
+                className="mt-4 inline-flex items-center justify-center rounded-pill bg-lime px-6 py-3 font-semibold text-ink transition hover:bg-lime-soft"
               >
                 Accéder au simulateur
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+                className="inline-flex items-center justify-center rounded-pill border border-ink/20 px-6 py-3 font-semibold text-ink transition hover:bg-white"
               >
                 Contact
               </Link>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm text-white/85 transition hover:bg-white/10"
+                className="inline-flex items-center justify-center rounded-pill border border-ink/10 px-6 py-3 text-sm text-ink-muted transition hover:bg-white hover:text-ink"
               >
                 {siteConfig.email}
               </a>

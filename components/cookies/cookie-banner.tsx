@@ -67,13 +67,13 @@ export function CookieBanner() {
 
   return (
     <aside
-      className="fixed inset-x-4 bottom-4 z-[60] mx-auto max-w-4xl rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-900/15 sm:inset-x-6"
+      className="fixed inset-x-4 bottom-4 z-[60] mx-auto max-w-4xl rounded-card border border-ink/10 bg-white p-5 shadow-[0_16px_36px_rgba(31,58,46,0.12)] sm:inset-x-6"
       role="dialog"
       aria-modal="true"
       aria-label="Gestion des cookies"
     >
-      <h2 className="text-lg font-bold text-[#0F2B46]">Gestion des cookies</h2>
-      <p className="mt-2 text-sm text-slate-600">
+      <h2 className="text-lg font-bold text-ink">Gestion des cookies</h2>
+      <p className="mt-2 text-sm text-ink-muted">
         Nous utilisons des cookies techniques indispensables au fonctionnement du
         site. Les cookies de mesure d&apos;audience et de personnalisation ne sont
         activés qu&apos;avec votre consentement.
@@ -81,10 +81,10 @@ export function CookieBanner() {
 
       {isCustomizing ? (
         <div className="mt-4 space-y-3">
-          <label className="flex items-start justify-between gap-4 rounded-xl border border-slate-200 p-3">
+          <label className="flex items-start justify-between gap-4 rounded-xl border border-ink/10 p-3">
             <span>
-              <span className="block font-semibold text-slate-800">Cookies essentiels</span>
-              <span className="text-sm text-slate-600">
+              <span className="block font-semibold text-ink">Cookies essentiels</span>
+              <span className="text-sm text-ink-muted">
                 Nécessaires au fonctionnement du site.
               </span>
             </span>
@@ -93,14 +93,14 @@ export function CookieBanner() {
               checked
               disabled
               aria-label="Cookies essentiels activés"
-              className="mt-1 h-4 w-4 cursor-not-allowed accent-emerald-500"
+              className="mt-1 h-4 w-4 cursor-not-allowed accent-forest"
             />
           </label>
 
-          <label className="flex items-start justify-between gap-4 rounded-xl border border-slate-200 p-3">
+          <label className="flex items-start justify-between gap-4 rounded-xl border border-ink/10 p-3">
             <span>
-              <span className="block font-semibold text-slate-800">Mesure d&apos;audience</span>
-              <span className="text-sm text-slate-600">
+              <span className="block font-semibold text-ink">Mesure d&apos;audience</span>
+              <span className="text-sm text-ink-muted">
                 Permet d&apos;améliorer le site via des statistiques anonymisées.
               </span>
             </span>
@@ -108,14 +108,14 @@ export function CookieBanner() {
               type="checkbox"
               checked={analytics}
               onChange={(e) => setAnalytics(e.target.checked)}
-              className="mt-1 h-4 w-4 accent-emerald-500"
+              className="mt-1 h-4 w-4 accent-forest"
             />
           </label>
 
-          <label className="flex items-start justify-between gap-4 rounded-xl border border-slate-200 p-3">
+          <label className="flex items-start justify-between gap-4 rounded-xl border border-ink/10 p-3">
             <span>
-              <span className="block font-semibold text-slate-800">Personnalisation</span>
-              <span className="text-sm text-slate-600">
+              <span className="block font-semibold text-ink">Personnalisation</span>
+              <span className="text-sm text-ink-muted">
                 Adapte l&apos;expérience de navigation selon vos préférences.
               </span>
             </span>
@@ -123,7 +123,7 @@ export function CookieBanner() {
               type="checkbox"
               checked={marketing}
               onChange={(e) => setMarketing(e.target.checked)}
-              className="mt-1 h-4 w-4 accent-emerald-500"
+              className="mt-1 h-4 w-4 accent-forest"
             />
           </label>
         </div>
@@ -133,14 +133,14 @@ export function CookieBanner() {
         <button
           type="button"
           onClick={() => applyConsent(true, true)}
-          className="rounded-full bg-[#10B981] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+          className="rounded-pill bg-lime px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-lime-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-soft"
         >
           Accepter tout
         </button>
         <button
           type="button"
           onClick={() => applyConsent(false, false)}
-          className="rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300"
+          className="rounded-pill border border-ink/15 px-5 py-2.5 text-sm font-semibold text-ink-muted transition hover:bg-cream-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/20"
         >
           Refuser tout
         </button>
@@ -148,7 +148,7 @@ export function CookieBanner() {
           <button
             type="button"
             onClick={() => setIsCustomizing(true)}
-            className="rounded-full border border-[#0F2B46]/20 px-5 py-2.5 text-sm font-semibold text-[#0F2B46] transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2B46]/30"
+            className="rounded-pill border border-ink/20 px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-cream-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/30"
           >
             Personnaliser
           </button>
@@ -156,7 +156,7 @@ export function CookieBanner() {
           <button
             type="button"
             onClick={() => applyConsent(analytics, marketing)}
-            className="rounded-full border border-[#0F2B46]/20 px-5 py-2.5 text-sm font-semibold text-[#0F2B46] transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2B46]/30"
+            className="rounded-pill border border-ink/20 px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-cream-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/30"
           >
             Enregistrer mes choix
           </button>

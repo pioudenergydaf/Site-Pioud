@@ -10,8 +10,8 @@ export default function MentionsLegalesPage() {
   return (
     <section className="section-shell pt-32">
       <div className="card-surface max-w-4xl space-y-6 p-8">
-        <h1 className="text-3xl font-bold text-[#0F2B46]">Mentions légales</h1>
-        <div className="space-y-4 text-slate-600">
+        <h1 className="text-3xl font-bold text-ink">Mentions légales</h1>
+        <div className="space-y-4 text-ink-muted">
           <p>
             Les présentes mentions légales sont établies conformément aux exigences
             françaises applicables aux éditeurs de services en ligne.

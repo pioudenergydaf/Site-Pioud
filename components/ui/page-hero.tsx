@@ -43,16 +43,18 @@ export function PageHero({
   secondaryCta,
 }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden pt-28">
+    <section className="relative overflow-hidden bg-cream pt-32">
+      <div className="pointer-events-none absolute -right-20 top-20 h-[360px] w-[360px] rounded-pill bg-sage/70 blur-3xl" />
+      <div className="pointer-events-none absolute -left-12 bottom-6 h-[280px] w-[280px] rounded-pill bg-lime-soft/60 blur-3xl" />
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 pb-20 lg:grid-cols-2 lg:px-8">
         <div className="space-y-6">
-          <p className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1 text-sm font-semibold text-emerald-700">
+          <p className="inline-flex rounded-pill border border-ink/10 bg-white px-4 py-1 text-sm font-medium text-ink-muted">
             {eyebrow}
           </p>
-          <h1 className="text-4xl font-bold leading-tight text-[#0F2B46] sm:text-5xl">
+          <h1 className="font-display text-4xl font-light leading-tight text-ink sm:text-5xl">
             {title}
           </h1>
-          <p className="max-w-xl text-lg leading-relaxed text-slate-600">
+          <p className="max-w-xl text-lg leading-relaxed text-ink-muted">
             {description}
           </p>
           <div className="flex flex-wrap gap-3">
@@ -66,7 +68,7 @@ export function PageHero({
             ) : null}
           </div>
         </div>
-        <div className="relative min-h-[320px] overflow-hidden rounded-3xl border border-slate-200 shadow-2xl shadow-[#0f2b46]/10">
+        <div className="relative min-h-[320px] overflow-hidden rounded-card-lg border border-ink/10 shadow-xl shadow-[0_16px_36px_rgba(31,58,46,0.12)]">
           <Image
             src={imageUrl}
             alt={title}
@@ -74,7 +76,7 @@ export function PageHero({
             sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f2b46]/45 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-forest/35 via-transparent to-transparent" />
         </div>
       </div>
     </section>

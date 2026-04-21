@@ -45,7 +45,7 @@ export function AnimatedCounter({
   }, [duration, target]);
 
   return (
-    <span className="text-4xl font-bold text-[#0F2B46] sm:text-5xl">
+    <span className="font-display text-4xl font-light text-ink sm:text-5xl">
       {displayValue}
       {suffix}
     </span>

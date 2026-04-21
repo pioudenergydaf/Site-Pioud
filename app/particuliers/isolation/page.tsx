@@ -24,7 +24,7 @@ const operations = [
       "Isolation des combles perdus, aménagés ou de la toiture. C'est l'opération la plus réalisée en France (16,7% des CEE délivrés). Réduction immédiate des déperditions par le toit, qui représentent jusqu'à 30% des pertes de chaleur.",
     requirement: "Résistance thermique R ≥ 7 m².K/W en combles perdus, R ≥ 6 m².K/W en rampants",
     badge: "⭐ Top 2 des CEE en France",
-    badgeClass: "bg-blue-100 text-blue-700",
+    badgeClass: "bg-sage text-forest",
   },
   {
     title: "Isolation des murs",
@@ -36,7 +36,7 @@ const operations = [
       "Isolation thermique des murs par l'intérieur (ITI) ou par l'extérieur (ITE). Représente 14,8% des CEE délivrés. Attention : exclue de MaPrimeRénov' en geste seul depuis 2026, mais toujours éligible aux CEE.",
     requirement: "Résistance thermique R ≥ 3,7 m².K/W",
     badge: "⚠️ Exclu MPR mono-geste en 2026",
-    badgeClass: "bg-amber-100 text-amber-700",
+    badgeClass: "bg-peach-soft text-forest-soft",
   },
   {
     title: "Isolation d'un plancher",
@@ -67,7 +67,7 @@ const operations = [
     description:
       "Calorifugeage des réseaux de chauffage et d'eau chaude sanitaire hors du volume chauffé. 5,4% des CEE délivrés. Souvent oublié, pourtant très rentable.",
     badge: "💡 Souvent oublié",
-    badgeClass: "bg-emerald-100 text-emerald-700",
+    badgeClass: "bg-lime-soft text-forest",
   },
 ];
 
@@ -95,31 +95,31 @@ export default function ParticuliersIsolationPage() {
 
       <section className="section-shell py-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">Les opérations éligibles</h2>
+          <h2 className="text-4xl font-bold text-ink">Les opérations éligibles</h2>
         </Reveal>
         <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {operations.map((operation, index) => (
             <Reveal key={operation.title} delay={(index % 3) * 0.07}>
               <article className="card-surface h-full p-6">
                 <div className="flex items-start justify-between gap-3">
-                  <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+                  <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                     <operation.icon className="h-5 w-5" />
                   </span>
                   {operation.badge ? (
                     <span
-                      className={`rounded-full px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-emerald-100 text-emerald-700"}`}
+                      className={`rounded-pill px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-lime-soft text-forest"}`}
                     >
                       {operation.badge}
                     </span>
                   ) : null}
                 </div>
-                <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">{operation.title}</h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <h3 className="mt-4 text-xl font-semibold text-ink">{operation.title}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
                   Fiche : {operation.ref}
                 </p>
-                <p className="mt-3 text-sm text-slate-600">{operation.description}</p>
+                <p className="mt-3 text-sm text-ink-muted">{operation.description}</p>
                 {operation.requirement ? (
-                  <p className="mt-3 text-sm font-medium text-slate-700">
+                  <p className="mt-3 text-sm font-medium text-ink-muted">
                     Exigence technique : {operation.requirement}
                   </p>
                 ) : null}
@@ -134,12 +134,12 @@ export default function ParticuliersIsolationPage() {
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <div className="card-surface p-8">
-              <h2 className="text-3xl font-bold text-[#0F2B46]">Pourquoi isoler en priorité ?</h2>
-              <p className="mt-4 text-slate-600">
+              <h2 className="text-3xl font-bold text-ink">Pourquoi isoler en priorité ?</h2>
+              <p className="mt-4 text-ink-muted">
                 L&apos;isolation est le geste le plus rapidement rentabilisé et améliore
                 immédiatement le confort.
               </p>
-              <ul className="mt-5 space-y-2 text-slate-700">
+              <ul className="mt-5 space-y-2 text-ink-muted">
                 <li>• 30% des pertes de chaleur par le toit</li>
                 <li>• 25% par les murs</li>
                 <li>• 10% par le plancher</li>
@@ -148,7 +148,7 @@ export default function ParticuliersIsolationPage() {
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="relative min-h-[340px] overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-[#0f2b46]/10">
+            <div className="relative min-h-[340px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
                 src="https://images.unsplash.com/photo-1753717202579-9c6ac3592b62?auto=format&fit=crop&w=1400&q=80"
                 alt="Isolation des combles d'une maison"
@@ -163,8 +163,8 @@ export default function ParticuliersIsolationPage() {
       <section className="section-shell pb-20">
         <Reveal>
           <div className="card-surface p-8">
-            <h2 className="text-3xl font-bold text-[#0F2B46]">Bon à savoir</h2>
-            <ul className="mt-4 space-y-2 text-slate-600">
+            <h2 className="text-3xl font-bold text-ink">Bon à savoir</h2>
+            <ul className="mt-4 space-y-2 text-ink-muted">
               <li>• Les travaux doivent être réalisés par un professionnel RGE.</li>
               <li>• Le logement doit avoir plus de 2 ans.</li>
               <li>• La demande CEE doit être faite AVANT la signature du devis.</li>
@@ -175,7 +175,7 @@ export default function ParticuliersIsolationPage() {
 
       <section className="section-shell pb-12">
         <Reveal>
-          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-white">
+          <div className="card-surface bg-gradient-to-r bg-forest p-8 text-white">
             <h2 className="text-3xl font-bold">Passez à l&apos;action sur l&apos;isolation</h2>
             <p className="mt-3 text-white/90">
               Lancez votre simulation et obtenez une estimation personnalisée de votre
@@ -184,7 +184,7 @@ export default function ParticuliersIsolationPage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/simulateur"
-                className="inline-flex rounded-full bg-white px-6 py-3 font-semibold text-[#0F2B46]"
+                className="inline-flex rounded-pill bg-white px-6 py-3 font-semibold text-ink"
               >
                 Estimez votre prime isolation
               </Link>

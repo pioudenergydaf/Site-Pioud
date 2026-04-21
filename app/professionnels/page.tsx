@@ -33,7 +33,7 @@ export default function ProfessionnelsPage() {
 
       <section className="section-shell py-20">
         <Reveal>
-          <h2 className="text-center text-4xl font-bold text-[#0F2B46]">
+          <h2 className="text-center text-4xl font-bold text-ink">
             Choisissez votre univers métier
           </h2>
         </Reveal>
@@ -42,7 +42,7 @@ export default function ProfessionnelsPage() {
           <Reveal>
             <Link
               href="/professionnels/tertiaire"
-              className="group relative block min-h-[420px] overflow-hidden rounded-3xl border border-slate-200 shadow-2xl shadow-[#0f2b46]/10"
+              className="group relative block min-h-[420px] overflow-hidden rounded-card border border-ink/10 shadow-2xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]"
             >
               <Image
                 src="https://images.unsplash.com/photo-1742675416657-55d043ce8dce?auto=format&fit=crop&w=1500&q=80"
@@ -50,9 +50,9 @@ export default function ProfessionnelsPage() {
                 fill
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071a2d]/90 via-[#0f2b46]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-forest/85 via-forest-soft/60 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7 text-white">
-                <span className="inline-flex rounded-xl bg-white/15 p-3 text-emerald-300">
+                <span className="inline-flex rounded-xl bg-white/20 p-3 text-lime">
                   <Building2 className="h-6 w-6" />
                 </span>
                 <h3 className="mt-4 text-3xl font-bold">CEE Tertiaire</h3>
@@ -60,7 +60,7 @@ export default function ProfessionnelsPage() {
                   Bureaux, commerces, hôtels, santé, enseignement... Optimisez la
                   performance énergétique de vos bâtiments tertiaires grâce aux CEE.
                 </p>
-                <p className="mt-3 text-sm font-semibold text-emerald-300">
+                <p className="mt-3 text-sm font-semibold text-lime-soft">
                   LED, isolation, PAC, GTB, CVC
                 </p>
                 <span className="mt-5 inline-flex items-center text-sm font-semibold text-white">
@@ -74,7 +74,7 @@ export default function ProfessionnelsPage() {
           <Reveal delay={0.08}>
             <Link
               href="/professionnels/industrie"
-              className="group relative block min-h-[420px] overflow-hidden rounded-3xl border border-slate-200 shadow-2xl shadow-[#0f2b46]/10"
+              className="group relative block min-h-[420px] overflow-hidden rounded-card border border-ink/10 shadow-2xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]"
             >
               <Image
                 src="https://images.unsplash.com/photo-1763906265376-363d9681a3ad?auto=format&fit=crop&w=1500&q=80"
@@ -82,9 +82,9 @@ export default function ProfessionnelsPage() {
                 fill
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071a2d]/90 via-[#0f2b46]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-forest/85 via-forest-soft/60 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7 text-white">
-                <span className="inline-flex rounded-xl bg-white/15 p-3 text-emerald-300">
+                <span className="inline-flex rounded-xl bg-white/20 p-3 text-lime">
                   <Factory className="h-6 w-6" />
                 </span>
                 <h3 className="mt-4 text-3xl font-bold">CEE Industrie</h3>
@@ -92,7 +92,7 @@ export default function ProfessionnelsPage() {
                   Sites industriels, entrepôts, usines... Réduisez vos CAPEX
                   énergétiques et valorisez vos investissements via les CEE.
                 </p>
-                <p className="mt-3 text-sm font-semibold text-emerald-300">
+                <p className="mt-3 text-sm font-semibold text-lime-soft">
                   Moteurs, variateurs, récupération de chaleur, air comprimé, process
                 </p>
                 <span className="mt-5 inline-flex items-center text-sm font-semibold text-white">
@@ -107,7 +107,7 @@ export default function ProfessionnelsPage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <h2 className="text-center text-4xl font-bold text-[#0F2B46]">Chiffres clés</h2>
+          <h2 className="text-center text-4xl font-bold text-ink">Chiffres clés</h2>
         </Reveal>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {[
@@ -126,8 +126,8 @@ export default function ProfessionnelsPage() {
           ].map((item, index) => (
             <Reveal key={item.label} delay={index * 0.08}>
               <article className="card-surface p-6 text-center">
-                <p className="text-4xl font-bold text-[#0F2B46]">{item.value}</p>
-                <p className="mt-2 text-sm text-slate-600">{item.label}</p>
+                <p className="text-4xl font-bold text-ink">{item.value}</p>
+                <p className="mt-2 text-sm text-ink-muted">{item.label}</p>
               </article>
             </Reveal>
           ))}
@@ -138,8 +138,8 @@ export default function ProfessionnelsPage() {
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <div>
-              <h2 className="text-4xl font-bold text-[#0F2B46]">Pourquoi choisir PIOUD ENERGY</h2>
-              <p className="mt-4 text-lg text-slate-600">
+              <h2 className="text-4xl font-bold text-ink">Pourquoi choisir PIOUD ENERGY</h2>
+              <p className="mt-4 text-lg text-ink-muted">
                 Nos équipes combinent expertise technique, maîtrise réglementaire
                 et pilotage opérationnel pour sécuriser vos primes CEE.
               </p>
@@ -167,18 +167,18 @@ export default function ProfessionnelsPage() {
                   },
                 ].map((step) => (
                   <article key={step.title} className="card-surface p-5">
-                    <span className="inline-flex rounded-lg bg-emerald-50 p-2 text-emerald-600">
+                    <span className="inline-flex rounded-lg bg-sage p-2 text-forest-soft">
                       <step.icon className="h-4 w-4" />
                     </span>
-                    <p className="mt-3 text-base font-semibold text-[#0F2B46]">{step.title}</p>
-                    <p className="mt-1 text-sm text-slate-700">{step.text}</p>
+                    <p className="mt-3 text-base font-semibold text-ink">{step.title}</p>
+                    <p className="mt-1 text-sm text-ink-muted">{step.text}</p>
                   </article>
                 ))}
               </div>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="relative min-h-[350px] overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-[#0f2b46]/10">
+            <div className="relative min-h-[350px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
                 src="https://images.unsplash.com/photo-1766414629984-73a93e7caba0?auto=format&fit=crop&w=1400&q=80"
                 alt="Supervision technique d'un projet tertiaire et industriel"
@@ -192,13 +192,13 @@ export default function ProfessionnelsPage() {
 
       <section className="section-shell pb-10">
         <Reveal>
-          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-center text-white">
+          <div className="card-surface bg-gradient-to-r bg-forest p-8 text-center text-white">
             <h2 className="text-3xl font-bold">Échangeons sur vos objectifs énergétiques</h2>
             <p className="mx-auto mt-3 max-w-2xl text-white/90">
               Nos équipes vous proposent un cadrage rapide et une feuille de route
               CEE adaptée à votre activité tertiaire ou industrielle.
             </p>
-            <Link href="/contact" className="mt-6 inline-flex rounded-full bg-white px-7 py-3 font-semibold text-[#0F2B46]">
+            <Link href="/contact" className="mt-6 inline-flex rounded-pill bg-white px-7 py-3 font-semibold text-ink">
               Contacter PIOUD ENERGY
             </Link>
           </div>

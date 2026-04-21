@@ -21,7 +21,7 @@ const operations = [
     description:
       "C'est l'opération N°1 en France avec 18,2% des CEE délivrés. Combinaison de plusieurs travaux permettant un gain énergétique global significatif.",
     badge: "⭐ N°1 des CEE en France",
-    badgeClass: "bg-blue-100 text-blue-700",
+    badgeClass: "bg-sage text-forest",
   },
   {
     title: "Rénovation d'ampleur d'une maison individuelle",
@@ -32,7 +32,7 @@ const operations = [
     description:
       "Rénovation d'ampleur avec gain d'au moins 2 classes DPE. Cumulable avec MaPrimeRénov' Rénovation d'ampleur pour les logements E, F ou G.",
     badge: "Nouveau",
-    badgeClass: "bg-emerald-100 text-emerald-700",
+    badgeClass: "bg-lime-soft text-forest",
   },
   {
     title: "Rénovation globale d'un bâtiment résidentiel collectif",
@@ -43,7 +43,7 @@ const operations = [
     description:
       "Rénovation performante d'un immeuble résidentiel collectif. Coup de pouce Rénovation performante disponible.",
     badge: "Copropriétés",
-    badgeClass: "bg-emerald-100 text-emerald-700",
+    badgeClass: "bg-lime-soft text-forest",
   },
 ];
 
@@ -71,7 +71,7 @@ export default function ParticuliersRenovationGlobalePage() {
 
       <section className="section-shell pb-10">
         <Reveal>
-          <p className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-sm font-semibold text-emerald-700">
+          <p className="inline-flex rounded-pill bg-lime-soft px-4 py-1 text-sm font-semibold text-forest">
             🔥 Le plus avantageux
           </p>
         </Reveal>
@@ -79,29 +79,29 @@ export default function ParticuliersRenovationGlobalePage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">Opérations éligibles</h2>
+          <h2 className="text-4xl font-bold text-ink">Opérations éligibles</h2>
         </Reveal>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {operations.map((operation, index) => (
             <Reveal key={operation.title} delay={index * 0.08}>
               <article className="card-surface h-full p-6">
                 <div className="flex items-start justify-between gap-3">
-                  <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+                  <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                     <operation.icon className="h-5 w-5" />
                   </span>
                   {operation.badge ? (
                     <span
-                      className={`rounded-full px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-emerald-100 text-emerald-700"}`}
+                      className={`rounded-pill px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-lime-soft text-forest"}`}
                     >
                       {operation.badge}
                     </span>
                   ) : null}
                 </div>
-                <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">{operation.title}</h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <h3 className="mt-4 text-xl font-semibold text-ink">{operation.title}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
                   Fiche : {operation.ref}
                 </p>
-                <p className="mt-3 text-sm text-slate-600">{operation.description}</p>
+                <p className="mt-3 text-sm text-ink-muted">{operation.description}</p>
                 <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
               </article>
             </Reveal>
@@ -112,10 +112,10 @@ export default function ParticuliersRenovationGlobalePage() {
       <section className="section-shell pb-20">
         <Reveal>
           <div className="card-surface p-8">
-            <h2 className="text-3xl font-bold text-[#0F2B46]">
+            <h2 className="text-3xl font-bold text-ink">
               Pourquoi choisir la rénovation globale
             </h2>
-            <ul className="mt-4 space-y-2 text-slate-600">
+            <ul className="mt-4 space-y-2 text-ink-muted">
               <li>• Primes CEE plus élevées qu&apos;en mono-geste</li>
               <li>• Cumulable avec MaPrimeRénov&apos; Rénovation d&apos;ampleur</li>
               <li>• Gain de plusieurs classes DPE = valorisation du logement</li>
@@ -127,9 +127,9 @@ export default function ParticuliersRenovationGlobalePage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <div className="card-surface border-emerald-200 bg-emerald-50/60 p-8">
-            <h2 className="text-3xl font-bold text-[#0F2B46]">Objectifs du Décret</h2>
-            <ul className="mt-4 space-y-2 text-slate-700">
+          <div className="card-surface border-emerald-200 bg-sage/60 p-8">
+            <h2 className="text-3xl font-bold text-ink">Objectifs du Décret</h2>
+            <ul className="mt-4 space-y-2 text-ink-muted">
               <li>• 120 000 rénovations d&apos;ampleur prévues en 2026</li>
               <li>• MaPrimeRénov&apos; rouverte le 23 février 2026 avec 3,6 Md€ de budget</li>
             </ul>
@@ -139,7 +139,7 @@ export default function ParticuliersRenovationGlobalePage() {
 
       <section className="section-shell pb-12">
         <Reveal>
-          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-white">
+          <div className="card-surface bg-gradient-to-r bg-forest p-8 text-white">
             <h2 className="text-3xl font-bold">Passez à la rénovation globale</h2>
             <p className="mt-3 text-white/90">
               Obtenez rapidement une estimation de vos aides et priorisez vos travaux.
@@ -147,7 +147,7 @@ export default function ParticuliersRenovationGlobalePage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/simulateur"
-                className="inline-flex rounded-full bg-white px-6 py-3 font-semibold text-[#0F2B46]"
+                className="inline-flex rounded-pill bg-white px-6 py-3 font-semibold text-ink"
               >
                 Estimez votre prime rénovation globale
               </Link>

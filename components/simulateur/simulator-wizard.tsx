@@ -204,16 +204,16 @@ export function SimulatorWizard() {
     <div className="card-surface mx-auto w-full max-w-5xl p-6 sm:p-8">
       <div className="mb-8">
         <div className="mb-3 flex items-center justify-between">
-          <p className="text-sm font-semibold text-slate-500">
+          <p className="text-sm font-semibold text-ink-soft">
             Étape {step}/{STEPS_COUNT}
           </p>
-          <p className="text-sm font-semibold text-[#0F2B46]">
+          <p className="text-sm font-semibold text-ink">
             Simulation interactive CEE
           </p>
         </div>
-        <div className="h-2 w-full rounded-full bg-slate-100">
+        <div className="h-2 w-full rounded-pill bg-cream-soft">
           <motion.div
-            className="h-2 rounded-full bg-gradient-to-r from-[#0F2B46] to-[#10B981]"
+            className="h-2 rounded-pill bg-gradient-to-r from-forest to-lime"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.35, ease: "easeOut" }}
@@ -230,7 +230,7 @@ export function SimulatorWizard() {
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.25 }}
           >
-            <h2 className="text-2xl font-bold text-[#0F2B46]">1. Vous êtes</h2>
+            <h2 className="text-2xl font-bold text-ink">1. Vous êtes</h2>
             <div className="mt-5 grid gap-4 sm:grid-cols-3">
               {profiles.map((item) => (
                 <button
@@ -239,12 +239,12 @@ export function SimulatorWizard() {
                   onClick={() => setProfile(item.id)}
                   className={`rounded-2xl border p-5 text-left transition ${
                     profile === item.id
-                      ? "border-emerald-500 bg-emerald-50"
-                      : "border-slate-200 hover:-translate-y-0.5 hover:border-emerald-300"
+                      ? "border-forest-soft bg-sage"
+                      : "border-ink/10 hover:-translate-y-0.5 hover:border-forest-soft"
                   }`}
                 >
-                  <p className="text-lg font-semibold text-[#0F2B46]">{item.label}</p>
-                  <p className="mt-1 text-sm text-slate-600">{item.description}</p>
+                  <p className="text-lg font-semibold text-ink">{item.label}</p>
+                  <p className="mt-1 text-sm text-ink-muted">{item.description}</p>
                 </button>
               ))}
             </div>
@@ -259,8 +259,8 @@ export function SimulatorWizard() {
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.25 }}
           >
-            <h2 className="text-2xl font-bold text-[#0F2B46]">2. Vos travaux</h2>
-            <p className="mt-2 text-slate-600">
+            <h2 className="text-2xl font-bold text-ink">2. Vos travaux</h2>
+            <p className="mt-2 text-ink-muted">
               Sélectionnez un ou plusieurs travaux éligibles.
             </p>
             <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -271,14 +271,14 @@ export function SimulatorWizard() {
                   onClick={() => toggleWork(work.id)}
                   className={`rounded-2xl border p-4 text-left transition ${
                     isWorkSelected(work.id)
-                      ? "border-emerald-500 bg-emerald-50"
-                      : "border-slate-200 hover:-translate-y-0.5 hover:border-emerald-300"
+                      ? "border-forest-soft bg-sage"
+                      : "border-ink/10 hover:-translate-y-0.5 hover:border-forest-soft"
                   }`}
                 >
-                  <span className="inline-flex rounded-lg bg-white p-2 text-emerald-600">
+                  <span className="inline-flex rounded-lg bg-white p-2 text-forest-soft">
                     <work.icon className="h-5 w-5" />
                   </span>
-                  <p className="mt-3 text-sm font-semibold text-[#0F2B46]">{work.label}</p>
+                  <p className="mt-3 text-sm font-semibold text-ink">{work.label}</p>
                 </button>
               ))}
             </div>
@@ -293,15 +293,15 @@ export function SimulatorWizard() {
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.25 }}
           >
-            <h2 className="text-2xl font-bold text-[#0F2B46]">3. Votre projet</h2>
+            <h2 className="text-2xl font-bold text-ink">3. Votre projet</h2>
 
             <div className="mt-6 space-y-5">
               <div className="card-surface p-5">
                 <div className="flex items-center justify-between">
-                  <label htmlFor="surface" className="font-semibold text-[#0F2B46]">
+                  <label htmlFor="surface" className="font-semibold text-ink">
                     Surface estimée (m²)
                   </label>
-                  <span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
+                  <span className="rounded-pill bg-sage px-3 py-1 text-sm font-semibold text-forest">
                     {surface} m²
                   </span>
                 </div>
@@ -312,27 +312,27 @@ export function SimulatorWizard() {
                   max={500}
                   value={surface}
                   onChange={(e) => setSurface(Number(e.target.value))}
-                  className="mt-4 w-full accent-emerald-500"
+                  className="mt-4 w-full accent-lime"
                 />
               </div>
 
               <div className="grid gap-4 md:grid-cols-2">
                 <label className="card-surface p-5">
-                  <span className="block text-sm font-semibold text-[#0F2B46]">Code postal</span>
+                  <span className="block text-sm font-semibold text-ink">Code postal</span>
                   <input
                     value={postalCode}
                     onChange={(e) => setPostalCode(e.target.value.replace(/\D/g, "").slice(0, 5))}
                     placeholder="94370"
-                    className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="mt-2 w-full rounded-xl border border-ink/10 px-4 py-3 outline-none focus:border-forest-soft focus:ring-2 focus:ring-sage"
                   />
                 </label>
 
                 <label className="card-surface p-5">
-                  <span className="block text-sm font-semibold text-[#0F2B46]">Type de logement</span>
+                  <span className="block text-sm font-semibold text-ink">Type de logement</span>
                   <select
                     value={buildingType}
                     onChange={(e) => setBuildingType(e.target.value as BuildingType)}
-                    className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="mt-2 w-full rounded-xl border border-ink/10 px-4 py-3 outline-none focus:border-forest-soft focus:ring-2 focus:ring-sage"
                   >
                     <option value="maison">Maison</option>
                     <option value="appartement">Appartement</option>
@@ -341,11 +341,11 @@ export function SimulatorWizard() {
                 </label>
 
                 <label className="card-surface p-5 md:col-span-2">
-                  <span className="block text-sm font-semibold text-[#0F2B46]">Énergie actuelle</span>
+                  <span className="block text-sm font-semibold text-ink">Énergie actuelle</span>
                   <select
                     value={currentEnergy}
                     onChange={(e) => setCurrentEnergy(e.target.value as Energy)}
-                    className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="mt-2 w-full rounded-xl border border-ink/10 px-4 py-3 outline-none focus:border-forest-soft focus:ring-2 focus:ring-sage"
                   >
                     <option value="electrique">Électrique</option>
                     <option value="gaz">Gaz</option>
@@ -358,13 +358,13 @@ export function SimulatorWizard() {
               {isWorkSelected("pac") ? (
                 <div className="grid gap-4 md:grid-cols-2">
                   <label className="card-surface p-5">
-                    <span className="block text-sm font-semibold text-[#0F2B46]">
+                    <span className="block text-sm font-semibold text-ink">
                       Type de PAC
                     </span>
                     <select
                       value={pacType}
                       onChange={(e) => setPacType(e.target.value as PacType)}
-                      className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                      className="mt-2 w-full rounded-xl border border-ink/10 px-4 py-3 outline-none focus:border-forest-soft focus:ring-2 focus:ring-sage"
                     >
                       <option value="air_eau">PAC air/eau</option>
                       <option value="air_air">PAC air/air</option>
@@ -373,7 +373,7 @@ export function SimulatorWizard() {
 
                   {pacType === "air_air" ? (
                     <label className="card-surface p-5">
-                      <span className="block text-sm font-semibold text-[#0F2B46]">
+                      <span className="block text-sm font-semibold text-ink">
                         Nombre d&apos;unités PAC air/air
                       </span>
                       <input
@@ -381,7 +381,7 @@ export function SimulatorWizard() {
                         min={1}
                         value={pacUnits}
                         onChange={(e) => setPacUnits(Math.max(1, Number(e.target.value) || 1))}
-                        className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                        className="mt-2 w-full rounded-xl border border-ink/10 px-4 py-3 outline-none focus:border-forest-soft focus:ring-2 focus:ring-sage"
                       />
                     </label>
                   ) : null}
@@ -390,7 +390,7 @@ export function SimulatorWizard() {
 
               {isWorkSelected("eclairage_led") ? (
                 <label className="card-surface block p-5">
-                  <span className="block text-sm font-semibold text-[#0F2B46]">
+                  <span className="block text-sm font-semibold text-ink">
                     Nombre de points lumineux LED
                   </span>
                   <input
@@ -398,7 +398,7 @@ export function SimulatorWizard() {
                     min={1}
                     value={ledPoints}
                     onChange={(e) => setLedPoints(Math.max(1, Number(e.target.value) || 1))}
-                    className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="mt-2 w-full rounded-xl border border-ink/10 px-4 py-3 outline-none focus:border-forest-soft focus:ring-2 focus:ring-sage"
                   />
                 </label>
               ) : null}
@@ -414,25 +414,25 @@ export function SimulatorWizard() {
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.25 }}
           >
-            <h2 className="text-2xl font-bold text-[#0F2B46]">4. Résultat</h2>
+            <h2 className="text-2xl font-bold text-ink">4. Résultat</h2>
 
             {isCalculating ? (
-              <div className="mt-8 flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 py-16">
-                <div className="h-10 w-10 animate-spin rounded-full border-4 border-emerald-200 border-t-emerald-500" />
-                <p className="mt-4 font-medium text-slate-600">
+              <div className="mt-8 flex flex-col items-center justify-center rounded-2xl border border-ink/10 bg-cream-soft py-16">
+                <div className="h-10 w-10 animate-spin rounded-pill border-4 border-sage border-t-forest-soft" />
+                <p className="mt-4 font-medium text-ink-muted">
                   Calcul de votre estimation en cours...
                 </p>
               </div>
             ) : (
               <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_320px]">
                 <div className="card-surface p-6">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-forest">
                     Prime CEE estimée
                   </p>
-                  <div className="mt-2 text-5xl font-extrabold text-[#0F2B46]">
+                  <div className="mt-2 text-5xl font-extrabold text-ink">
                     <AnimatedCounter value={result?.total ?? 0} suffix="€" />
                   </div>
-                  <p className="mt-3 text-sm text-slate-500">
+                  <p className="mt-3 text-sm text-ink-soft">
                     Estimation indicative, à confirmer après analyse du dossier et des
                     justificatifs techniques.
                   </p>
@@ -441,10 +441,10 @@ export function SimulatorWizard() {
                     {result?.breakdown.map((line) => (
                       <div
                         key={line.label}
-                        className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"
+                        className="flex items-center justify-between rounded-xl border border-ink/10 bg-cream-soft px-4 py-3"
                       >
-                        <p className="text-sm font-medium text-slate-700">{line.label}</p>
-                        <p className="text-sm font-bold text-[#0F2B46]">
+                        <p className="text-sm font-medium text-ink-muted">{line.label}</p>
+                        <p className="text-sm font-bold text-ink">
                           {line.amount.toLocaleString("fr-FR")} €
                         </p>
                       </div>
@@ -453,8 +453,8 @@ export function SimulatorWizard() {
                 </div>
 
                 <div className="card-surface p-6">
-                  <h3 className="text-xl font-bold text-[#0F2B46]">Prochaine étape</h3>
-                  <p className="mt-2 text-sm text-slate-600">
+                  <h3 className="text-xl font-bold text-ink">Prochaine étape</h3>
+                  <p className="mt-2 text-sm text-ink-muted">
                     Obtenez une estimation affinée avec un conseiller spécialisé.
                   </p>
                   <Link href="/contact" className="btn-primary mt-5 w-full justify-center">
@@ -479,7 +479,7 @@ export function SimulatorWizard() {
           type="button"
           onClick={goBack}
           disabled={step === 1 || isCalculating}
-          className="rounded-full border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-pill border border-ink/10 px-5 py-2 text-sm font-semibold text-ink-muted transition hover:border-ink/15 disabled:cursor-not-allowed disabled:opacity-40"
         >
           Retour
         </button>
@@ -488,7 +488,7 @@ export function SimulatorWizard() {
             type="button"
             onClick={goNext}
             disabled={!canContinue()}
-            className="rounded-full bg-[#10B981] px-6 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-40"
+            className="rounded-pill bg-lime px-6 py-2.5 text-sm font-medium text-ink transition hover:bg-lime-soft disabled:cursor-not-allowed disabled:opacity-40"
           >
             {step === 3 ? "Calculer mon estimation" : "Continuer"}
           </button>
@@ -496,7 +496,7 @@ export function SimulatorWizard() {
           <button
             type="button"
             onClick={resetSimulation}
-            className="rounded-full bg-[#0F2B46] px-6 py-2.5 text-sm font-bold text-white transition hover:bg-[#0d243b]"
+            className="rounded-pill bg-forest px-6 py-2.5 text-sm font-medium text-white transition hover:bg-forest-soft"
           >
             Nouvelle simulation
           </button>

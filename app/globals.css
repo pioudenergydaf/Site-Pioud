@@ -3,16 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #152b47;
-  --brand-blue: #152b47;
-  --brand-emerald: #10b981;
+  --background: #f4f1ea;
+  --foreground: #1f3a2e;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-manrope), Arial, sans-serif;
+  font-family: var(--font-inter), Arial, sans-serif;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-fraunces), Georgia, serif;
+  letter-spacing: -0.01em;
 }
 
 @layer components {
@@ -21,26 +30,26 @@ body {
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 rounded-full bg-[#10B981] px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400;
+    @apply inline-flex items-center gap-2 rounded-pill bg-lime px-6 py-3 font-medium text-ink transition hover:-translate-y-0.5 hover:bg-lime-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-soft;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 rounded-full border border-[#152B47]/20 bg-white px-6 py-3 font-semibold text-[#152B47] transition hover:-translate-y-0.5 hover:border-[#152B47]/40 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#152B47]/30;
+    @apply inline-flex items-center gap-2 rounded-pill border border-ink/10 bg-white px-6 py-3 font-medium text-ink transition hover:-translate-y-0.5 hover:bg-cream-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-soft;
   }
 
   .card-surface {
-    @apply rounded-3xl border border-slate-200 bg-white shadow-lg shadow-[#152b47]/5;
+    @apply rounded-card border border-ink/10 bg-white shadow-[0_10px_28px_rgba(31,58,46,0.06)];
   }
 }
 
 .gradient-overlay {
-  background: linear-gradient(130deg, rgba(21, 43, 71, 0.9), rgba(16, 185, 129, 0.7));
+  background: linear-gradient(130deg, rgba(31, 58, 46, 0.9), rgba(45, 74, 58, 0.65));
 }
 
 .hero-mesh {
-  background-image: radial-gradient(circle at 25% 25%, rgba(16, 185, 129, 0.18), transparent 45%),
-    radial-gradient(circle at 75% 5%, rgba(21, 43, 71, 0.18), transparent 35%),
-    linear-gradient(120deg, #f8fafc, #eff6ff);
+  background-image: radial-gradient(circle at 25% 25%, rgba(221, 240, 150, 0.45), transparent 45%),
+    radial-gradient(circle at 75% 5%, rgba(245, 185, 125, 0.3), transparent 35%),
+    linear-gradient(120deg, #f4f1ea, #faf8f2);
 }
 
 .marquee-track {

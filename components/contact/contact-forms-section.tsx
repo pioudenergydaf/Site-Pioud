@@ -86,8 +86,8 @@ export function ContactFormsSection() {
       <section className="section-shell py-20">
         <Reveal>
           <div className="max-w-3xl">
-            <h2 className="text-3xl font-bold text-[#0F2B46]">Formulaire de contact</h2>
-            <p className="mt-3 text-lg text-slate-600">
+            <h2 className="text-3xl font-bold text-ink">Formulaire de contact</h2>
+            <p className="mt-3 text-lg text-ink-muted">
               Décrivez votre besoin et nous revenons vers vous sous 24h ouvrées.
             </p>
           </div>
@@ -98,19 +98,19 @@ export function ContactFormsSection() {
             <form className="card-surface space-y-5 p-7" method="post" onSubmit={handleSubmit("contact")}>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-700">
+                  <label htmlFor="name" className="mb-2 block text-sm font-medium text-ink-muted">
                     Nom et prénom
                   </label>
                   <input
                     id="name"
                     name="name"
                     required
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     placeholder="Ex. Camille Martin"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+                  <label htmlFor="email" className="mb-2 block text-sm font-medium text-ink-muted">
                     Email professionnel
                   </label>
                   <input
@@ -118,12 +118,12 @@ export function ContactFormsSection() {
                     name="email"
                     type="email"
                     required
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     placeholder="vous@entreprise.fr"
                   />
                 </div>
                 <div>
-                  <label htmlFor="phone" className="mb-2 block text-sm font-medium text-slate-700">
+                  <label htmlFor="phone" className="mb-2 block text-sm font-medium text-ink-muted">
                     Téléphone
                   </label>
                   <input
@@ -131,18 +131,18 @@ export function ContactFormsSection() {
                     name="phone"
                     type="tel"
                     required
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     placeholder="06 12 34 56 78"
                   />
                 </div>
                 <div>
-                  <label htmlFor="clientType" className="mb-2 block text-sm font-medium text-slate-700">
+                  <label htmlFor="clientType" className="mb-2 block text-sm font-medium text-ink-muted">
                     Type de client
                   </label>
                   <select
                     id="clientType"
                     name="clientType"
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     defaultValue=""
                     required
                   >
@@ -158,7 +158,7 @@ export function ContactFormsSection() {
               </div>
 
               <div>
-                <label htmlFor="message" className="mb-2 block text-sm font-medium text-slate-700">
+                <label htmlFor="message" className="mb-2 block text-sm font-medium text-ink-muted">
                   Votre message
                 </label>
                 <textarea
@@ -166,12 +166,12 @@ export function ContactFormsSection() {
                   name="message"
                   required
                   rows={6}
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                  className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                   placeholder="Décrivez votre projet énergétique, vos délais et vos objectifs."
                 />
               </div>
 
-              <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+              <label className="flex items-start gap-3 rounded-xl border border-ink/10 bg-cream-soft px-4 py-3">
                 <input
                   type="checkbox"
                   name="privacyConsent"
@@ -179,11 +179,11 @@ export function ContactFormsSection() {
                   required
                   className="mt-1 h-4 w-4 accent-emerald-500"
                 />
-                <span className="text-sm text-slate-600">
+                <span className="text-sm text-ink-muted">
                   J&apos;accepte que mes données soient traitées conformément à la{" "}
                   <Link
                     href="/politique-confidentialite"
-                    className="font-semibold text-[#0F2B46] underline underline-offset-2"
+                    className="font-semibold text-ink underline underline-offset-2"
                   >
                     politique de confidentialité
                   </Link>{" "}
@@ -205,7 +205,7 @@ export function ContactFormsSection() {
                   className={`text-sm ${
                     contactSubmission.status === "error"
                       ? "text-red-600"
-                      : "text-emerald-700"
+                      : "text-forest"
                   }`}
                 >
                   {contactSubmission.message}
@@ -217,16 +217,16 @@ export function ContactFormsSection() {
           <Reveal delay={0.1}>
             <aside className="space-y-6">
               <div className="card-surface p-6">
-                <p className="mb-4 text-lg font-semibold text-[#0F2B46]">
+                <p className="mb-4 text-lg font-semibold text-ink">
                   Numéros par service
                 </p>
                 <ul className="space-y-3 text-sm">
                   {servicePhones.map((service) => (
                     <li key={service.service} className="flex items-start gap-3">
-                      <PhoneCall className="mt-0.5 h-4 w-4 text-emerald-600" />
+                      <PhoneCall className="mt-0.5 h-4 w-4 text-forest-soft" />
                       <div>
-                        <p className="font-medium text-slate-700">{service.service}</p>
-                        <a href={`tel:${service.number}`} className="text-slate-500 hover:text-[#0F2B46]">
+                        <p className="font-medium text-ink-muted">{service.service}</p>
+                        <a href={`tel:${service.number}`} className="text-ink-soft hover:text-ink">
                           {service.number}
                         </a>
                       </div>
@@ -236,20 +236,20 @@ export function ContactFormsSection() {
               </div>
 
               <div className="card-surface p-6">
-                <p className="mb-4 text-lg font-semibold text-[#0F2B46]">
+                <p className="mb-4 text-lg font-semibold text-ink">
                   Horaires d&apos;ouverture
                 </p>
-                <ul className="space-y-2 text-sm text-slate-600">
+                <ul className="space-y-2 text-sm text-ink-muted">
                   <li className="flex items-start gap-2">
-                    <Clock3 className="mt-0.5 h-4 w-4 text-emerald-600" />
+                    <Clock3 className="mt-0.5 h-4 w-4 text-forest-soft" />
                     Lundi - Vendredi : 8h30 - 19h00
                   </li>
                   <li className="flex items-start gap-2">
-                    <Clock3 className="mt-0.5 h-4 w-4 text-emerald-600" />
+                    <Clock3 className="mt-0.5 h-4 w-4 text-forest-soft" />
                     Samedi : 9h00 - 13h00
                   </li>
                   <li className="flex items-start gap-2">
-                    <MapPin className="mt-0.5 h-4 w-4 text-emerald-600" />
+                    <MapPin className="mt-0.5 h-4 w-4 text-forest-soft" />
                     {siteConfig.address}
                   </li>
                 </ul>
@@ -263,28 +263,28 @@ export function ContactFormsSection() {
         <div className="grid gap-8 lg:grid-cols-2">
           <Reveal>
             <div className="card-surface p-7">
-              <p className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700">
+              <p className="inline-flex items-center gap-2 rounded-pill bg-sage px-3 py-1 text-sm font-semibold text-forest">
                 <CalendarClock className="h-4 w-4" />
                 Formulaire de rappel
               </p>
-              <h2 className="mt-4 text-2xl font-bold text-[#0F2B46]">
+              <h2 className="mt-4 text-2xl font-bold text-ink">
                 Choisissez un créneau horaire
               </h2>
               <form className="mt-5 space-y-4" method="post" onSubmit={handleSubmit("callback")}>
                 <div>
-                  <label htmlFor="callback-name" className="mb-2 block text-sm font-medium text-slate-700">
+                  <label htmlFor="callback-name" className="mb-2 block text-sm font-medium text-ink-muted">
                     Nom
                   </label>
                   <input
                     id="callback-name"
                     name="name"
                     required
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     placeholder="Votre nom"
                   />
                 </div>
                 <div>
-                  <label htmlFor="callback-email" className="mb-2 block text-sm font-medium text-slate-700">
+                  <label htmlFor="callback-email" className="mb-2 block text-sm font-medium text-ink-muted">
                     Email
                   </label>
                   <input
@@ -292,12 +292,12 @@ export function ContactFormsSection() {
                     name="email"
                     type="email"
                     required
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     placeholder="vous@exemple.fr"
                   />
                 </div>
                 <div>
-                  <label htmlFor="callback-phone" className="mb-2 block text-sm font-medium text-slate-700">
+                  <label htmlFor="callback-phone" className="mb-2 block text-sm font-medium text-ink-muted">
                     Téléphone
                   </label>
                   <input
@@ -305,13 +305,13 @@ export function ContactFormsSection() {
                     name="phone"
                     type="tel"
                     required
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                    className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     placeholder="06 00 00 00 00"
                   />
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="callback-date" className="mb-2 block text-sm font-medium text-slate-700">
+                    <label htmlFor="callback-date" className="mb-2 block text-sm font-medium text-ink-muted">
                       Date souhaitée
                     </label>
                     <input
@@ -319,11 +319,11 @@ export function ContactFormsSection() {
                       name="date"
                       type="date"
                       required
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                      className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     />
                   </div>
                   <div>
-                    <label htmlFor="callback-slot" className="mb-2 block text-sm font-medium text-slate-700">
+                    <label htmlFor="callback-slot" className="mb-2 block text-sm font-medium text-ink-muted">
                       Créneau
                     </label>
                     <select
@@ -331,7 +331,7 @@ export function ContactFormsSection() {
                       name="slot"
                       defaultValue=""
                       required
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                      className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     >
                       <option value="" disabled>
                         Sélectionner
@@ -342,7 +342,7 @@ export function ContactFormsSection() {
                     </select>
                   </div>
                 </div>
-                <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                <label className="flex items-start gap-3 rounded-xl border border-ink/10 bg-cream-soft px-4 py-3">
                   <input
                     type="checkbox"
                     name="privacyConsent"
@@ -350,11 +350,11 @@ export function ContactFormsSection() {
                     required
                     className="mt-1 h-4 w-4 accent-emerald-500"
                   />
-                  <span className="text-sm text-slate-600">
+                  <span className="text-sm text-ink-muted">
                     J&apos;accepte que mes données soient traitées conformément à la{" "}
                     <Link
                       href="/politique-confidentialite"
-                      className="font-semibold text-[#0F2B46] underline underline-offset-2"
+                      className="font-semibold text-ink underline underline-offset-2"
                     >
                       politique de confidentialité
                     </Link>{" "}
@@ -377,7 +377,7 @@ export function ContactFormsSection() {
                     className={`text-sm ${
                       callbackSubmission.status === "error"
                         ? "text-red-600"
-                        : "text-emerald-700"
+                        : "text-forest"
                     }`}
                   >
                     {callbackSubmission.message}
@@ -399,8 +399,8 @@ export function ContactFormsSection() {
                 />
               ) : (
                 <div className="flex min-h-[430px] flex-col items-center justify-center gap-4 px-8 text-center">
-                  <p className="text-lg font-semibold text-[#0F2B46]">Carte Google Maps</p>
-                  <p className="max-w-sm text-sm text-slate-600">
+                  <p className="text-lg font-semibold text-ink">Carte Google Maps</p>
+                  <p className="max-w-sm text-sm text-ink-muted">
                     Pour afficher la carte, veuillez accepter les cookies tiers.
                   </p>
                   <button

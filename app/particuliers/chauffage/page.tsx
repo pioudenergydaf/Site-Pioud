@@ -29,8 +29,8 @@ const operations = [
     description:
       "PAC air/eau pour le chauffage et/ou l'eau chaude sanitaire. Bonification Coup de pouce x5 en remplacement d'une chaudière charbon, fioul ou gaz. Primes de 5 000€ à 12 000€ selon les revenus et la zone climatique.",
     badges: [
-      { label: "🔥 Coup de pouce x5", className: "bg-emerald-100 text-emerald-700" },
-      { label: "⭐ Revalorisé en 2026", className: "bg-emerald-100 text-emerald-700" },
+      { label: "🔥 Coup de pouce x5", className: "bg-lime-soft text-forest" },
+      { label: "⭐ Revalorisé en 2026", className: "bg-lime-soft text-forest" },
     ],
   },
   {
@@ -41,7 +41,7 @@ const operations = [
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-172%20vA78.4%20%C3%A0%20compter%20du%2001-01-2026.pdf",
     description:
       "PAC géothermique ou sur nappe phréatique. Bonification Coup de pouce x5 en remplacement d'une chaudière fossile. Très hautes performances.",
-    badges: [{ label: "🔥 Coup de pouce x5", className: "bg-emerald-100 text-emerald-700" }],
+    badges: [{ label: "🔥 Coup de pouce x5", className: "bg-lime-soft text-forest" }],
   },
   {
     title: "Chaudière biomasse individuelle",
@@ -54,7 +54,7 @@ const operations = [
     badges: [
       {
         label: "⚠️ Exclu MPR mono-geste en 2026",
-        className: "bg-amber-100 text-amber-700",
+        className: "bg-peach-soft text-forest-soft",
       },
     ],
   },
@@ -75,7 +75,7 @@ const operations = [
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-143%20vA79-6%20%C3%A0%20compter%20du%2001-01-2026.pdf",
     description:
       "Système solaire thermique pour le chauffage et l'eau chaude sanitaire. Bonification x2 pour toutes les opérations engagées à compter de 2026.",
-    badges: [{ label: "🔥 Bonification x2 en 2026", className: "bg-emerald-100 text-emerald-700" }],
+    badges: [{ label: "🔥 Bonification x2 en 2026", className: "bg-lime-soft text-forest" }],
   },
   {
     title: "Chauffe-eau solaire individuel",
@@ -130,27 +130,27 @@ export default function ParticuliersChauffagePage() {
 
       <section className="section-shell py-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">Les opérations éligibles</h2>
+          <h2 className="text-4xl font-bold text-ink">Les opérations éligibles</h2>
         </Reveal>
 
         <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {operations.map((operation, index) => (
             <Reveal key={operation.title} delay={(index % 3) * 0.07}>
               <article className="card-surface h-full p-6">
-                <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+                <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                   <operation.icon className="h-5 w-5" />
                 </span>
-                <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">{operation.title}</h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <h3 className="mt-4 text-xl font-semibold text-ink">{operation.title}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
                   Fiche : {operation.ref}
                 </p>
-                <p className="mt-3 text-sm text-slate-600">{operation.description}</p>
+                <p className="mt-3 text-sm text-ink-muted">{operation.description}</p>
                 {operation.badges ? (
                   <div className="mt-3 flex flex-wrap gap-2">
                     {operation.badges.map((badge) => (
                       <span
                         key={badge.label}
-                        className={`rounded-full px-3 py-1 text-xs font-semibold ${badge.className}`}
+                        className={`rounded-pill px-3 py-1 text-xs font-semibold ${badge.className}`}
                       >
                         {badge.label}
                       </span>
@@ -166,9 +166,9 @@ export default function ParticuliersChauffagePage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <div className="card-surface border-emerald-200 bg-emerald-50/60 p-8">
-            <h2 className="text-3xl font-bold text-[#0F2B46]">Coup de pouce Chauffage</h2>
-            <p className="mt-3 text-slate-700">
+          <div className="card-surface border-emerald-200 bg-sage/60 p-8">
+            <h2 className="text-3xl font-bold text-ink">Coup de pouce Chauffage</h2>
+            <p className="mt-3 text-ink-muted">
               Le Coup de pouce Chauffage multiplie par 5 le montant de votre prime
               CEE lorsque vous remplacez une chaudière charbon, fioul ou gaz par une
               PAC ou une chaudière biomasse.
@@ -177,7 +177,7 @@ export default function ParticuliersChauffagePage() {
               href="https://www.ecologie.gouv.fr/politiques-publiques/coup-pouce-chauffage"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex text-sm font-semibold text-[#1d4ed8] underline underline-offset-2"
+              className="mt-4 inline-flex text-sm font-semibold text-forest-soft underline underline-offset-2"
             >
               Consulter la page officielle Coup de pouce Chauffage
             </a>
@@ -187,7 +187,7 @@ export default function ParticuliersChauffagePage() {
 
       <section className="section-shell pb-12">
         <Reveal>
-          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-white">
+          <div className="card-surface bg-gradient-to-r bg-forest p-8 text-white">
             <h2 className="text-3xl font-bold">Passez à l&apos;action sur votre chauffage</h2>
             <p className="mt-3 text-white/90">
               Estimez immédiatement votre prime et validez les meilleures opérations
@@ -196,7 +196,7 @@ export default function ParticuliersChauffagePage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/simulateur"
-                className="inline-flex rounded-full bg-white px-6 py-3 font-semibold text-[#0F2B46]"
+                className="inline-flex rounded-pill bg-white px-6 py-3 font-semibold text-ink"
               >
                 Estimez votre prime chauffage
               </Link>

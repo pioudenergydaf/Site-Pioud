@@ -213,7 +213,7 @@ function ExternalResourceLink({ href, label }: { href: string; label: string }) 
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 text-sm font-medium text-[#1d4ed8] underline underline-offset-2"
+      className="inline-flex items-center gap-1.5 text-sm font-medium text-forest-soft underline underline-offset-2"
     >
       {label}
       <ExternalLink className="h-3.5 w-3.5" />
@@ -232,18 +232,18 @@ function AidCard({
 }: AidCardProps) {
   return (
     <article className={`card-surface border-l-4 p-6 sm:p-8 ${borderClass}`}>
-      <div className="relative mb-5 h-52 overflow-hidden rounded-2xl border border-slate-200">
+      <div className="relative mb-5 h-52 overflow-hidden rounded-2xl border border-ink/10">
         <Image src={imageUrl} alt={imageAlt} fill sizes="100vw" className="object-cover" />
       </div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <span className="inline-flex rounded-xl bg-white/90 p-3 text-[#0F2B46] shadow-sm">
+          <span className="inline-flex rounded-xl bg-white/90 p-3 text-ink shadow-sm">
             <Icon className="h-5 w-5" />
           </span>
-          <h3 className="text-2xl font-bold text-[#0F2B46]">{title}</h3>
+          <h3 className="text-2xl font-bold text-ink">{title}</h3>
         </div>
         {badge ? (
-          <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+          <span className="rounded-pill bg-lime-soft px-3 py-1 text-xs font-semibold text-forest">
             {badge}
           </span>
         ) : null}
@@ -256,12 +256,12 @@ function AidCard({
 function IncomeTable({ title, rows }: { title: string; rows: IncomeRow[] }) {
   return (
     <div>
-      <h5 className="text-base font-semibold text-[#0F2B46]">{title}</h5>
+      <h5 className="text-base font-semibold text-ink">{title}</h5>
       <div className="mt-3 overflow-x-auto">
-        <table className="min-w-[980px] divide-y divide-slate-200 text-sm">
+        <table className="min-w-[980px] divide-y divide-ink/10 text-sm">
           <thead>
             <tr className="text-left">
-              <th className="bg-slate-100 px-3 py-2 font-semibold text-slate-700">
+              <th className="bg-cream-soft px-3 py-2 font-semibold text-ink-muted">
                 Nombre de personnes
               </th>
               <th className="bg-[#3B82F6] px-3 py-2 font-semibold text-white">
@@ -276,10 +276,10 @@ function IncomeTable({ title, rows }: { title: string; rows: IncomeRow[] }) {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 text-slate-700">
+          <tbody className="divide-y divide-ink/10 text-ink-muted">
             {rows.map((row) => (
               <tr key={`${title}-${row.personnes}`}>
-                <td className="px-3 py-2 font-medium text-slate-700">{row.personnes}</td>
+                <td className="px-3 py-2 font-medium text-ink-muted">{row.personnes}</td>
                 <td className="px-3 py-2">{row.bleu}</td>
                 <td className="px-3 py-2">{row.jaune}</td>
                 <td className="px-3 py-2">{row.violet}</td>
@@ -295,7 +295,7 @@ function IncomeTable({ title, rows }: { title: string; rows: IncomeRow[] }) {
 
 function maprimerenovCell(value: string) {
   if (value === "Non éligible") {
-    return <span className="italic text-slate-400">{value}</span>;
+    return <span className="italic text-ink-soft">{value}</span>;
   }
   return <span>{value}</span>;
 }
@@ -314,8 +314,8 @@ export default function AidesPage() {
 
       <section className="section-shell py-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">Les principales aides en 2026</h2>
-          <p className="mt-3 max-w-4xl text-lg text-slate-600">
+          <h2 className="text-4xl font-bold text-ink">Les principales aides en 2026</h2>
+          <p className="mt-3 max-w-4xl text-lg text-ink-muted">
             {
               "Chaque dispositif répond à une logique spécifique. Nous vous aidons à les combiner intelligemment pour optimiser votre plan de financement."
             }
@@ -325,14 +325,14 @@ export default function AidesPage() {
         <div className="mt-10 space-y-7">
           <Reveal>
             <AidCard
-              borderClass="border-emerald-500"
+              borderClass="border-lime"
               imageUrl="https://images.unsplash.com/photo-1768321917437-1f1f6ae2ad28?auto=format&fit=crop&w=1700&q=80"
               imageAlt="Travaux d'isolation thermique pour une maison performante"
               icon={Award}
               title="Primes CEE"
               badge="💚 Notre expertise"
             >
-              <p className="text-slate-700">
+              <p className="text-ink-muted">
                 {
                   "Les CEE sont des primes versées par les fournisseurs d'énergie (EDF, TotalEnergies, Engie...) pour financer vos travaux de rénovation. PIOUD ENERGY est mandataire CEE et vous accompagne dans l'obtention de ces primes."
                 }
@@ -340,10 +340,10 @@ export default function AidesPage() {
 
               <div className="mt-6 grid gap-6 lg:grid-cols-2">
                 <div>
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                     Pour qui ?
                   </h4>
-                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                     <li>• Tous les ménages, sans condition de revenus</li>
                     <li>• Propriétaires occupants et bailleurs</li>
                     <li>• Locataires (avec accord du propriétaire)</li>
@@ -351,10 +351,10 @@ export default function AidesPage() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                     Montants indicatifs
                   </h4>
-                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                     <li>• PAC air/eau : de 5 000€ à 12 000€ (avec Coup de pouce)</li>
                     <li>• Isolation combles : variable selon surface et zone climatique</li>
                     <li>• Chaudière biomasse : de 4 000€ à 5 000€ (avec Coup de pouce)</li>
@@ -364,10 +364,10 @@ export default function AidesPage() {
               </div>
 
               <div className="mt-6">
-                <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                   Points clés
                 </h4>
-                <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                   <li>✅ Cumulable avec MaPrimeRénov&apos;, Éco-PTZ et TVA 5,5%</li>
                   <li>✅ Aucune condition de revenus</li>
                   <li>✅ Prime versée après travaux (ou déduite de la facture)</li>
@@ -390,13 +390,13 @@ export default function AidesPage() {
 
           <Reveal delay={0.04}>
             <AidCard
-              borderClass="border-blue-500"
+              borderClass="border-forest-soft"
               imageUrl="https://images.unsplash.com/photo-1752594756894-bcf378884a09?auto=format&fit=crop&w=1700&q=80"
               imageAlt="Ouvriers sur un chantier de rénovation de maison"
               icon={Banknote}
               title="MaPrimeRénov'"
             >
-              <p className="text-slate-700">
+              <p className="text-ink-muted">
                 {
                   "La principale aide de l'État pour la rénovation énergétique. Gérée par l'Anah (Agence nationale de l'habitat), elle finance l'isolation, le chauffage, la ventilation et la rénovation globale."
                 }
@@ -404,10 +404,10 @@ export default function AidesPage() {
 
               <div className="mt-6 grid gap-6 lg:grid-cols-2">
                 <div>
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                     Pour qui ?
                   </h4>
-                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                     <li>• Tous les ménages depuis la réouverture du 23 février 2026</li>
                     <li>• Propriétaires occupants et bailleurs</li>
                     <li>• Résidence principale uniquement</li>
@@ -419,10 +419,10 @@ export default function AidesPage() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                     Ce qui change en 2026
                   </h4>
-                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                     <li>• Guichet rouvert le 23 février 2026</li>
                     <li>• Budget : 3,6 milliards d&apos;euros</li>
                     <li>
@@ -441,14 +441,14 @@ export default function AidesPage() {
               </div>
 
               <div className="mt-6">
-                <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                   Montants (selon revenus)
                 </h4>
                 <div className="mt-3 overflow-x-auto">
-                  <table className="min-w-[980px] divide-y divide-slate-200 text-sm">
+                  <table className="min-w-[980px] divide-y divide-ink/10 text-sm">
                     <thead className="text-left">
                       <tr>
-                        <th className="bg-slate-100 px-3 py-2 font-semibold text-slate-700">
+                        <th className="bg-cream-soft px-3 py-2 font-semibold text-ink-muted">
                           Travaux
                         </th>
                         <th className="bg-[#3B82F6] px-3 py-2 font-semibold text-white">
@@ -465,10 +465,10 @@ export default function AidesPage() {
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100 text-slate-700">
+                    <tbody className="divide-y divide-ink/10 text-ink-muted">
                       {maprimerenovRows.map((row) => (
                         <tr key={row.travaux}>
-                          <td className="px-3 py-2 font-medium text-slate-700">{row.travaux}</td>
+                          <td className="px-3 py-2 font-medium text-ink-muted">{row.travaux}</td>
                           <td className="px-3 py-2">{maprimerenovCell(row.bleu)}</td>
                           <td className="px-3 py-2">{maprimerenovCell(row.jaune)}</td>
                           <td className="px-3 py-2">{maprimerenovCell(row.violet)}</td>
@@ -478,7 +478,7 @@ export default function AidesPage() {
                     </tbody>
                   </table>
                 </div>
-                <p className="mt-3 text-xs text-slate-600">
+                <p className="mt-3 text-xs text-ink-muted">
                   ⚠️ Depuis 2026, l&apos;isolation des murs et les chaudières biomasse sont
                   exclues de MaPrimeRénov&apos; en mono-geste. Elles restent éligibles en
                   rénovation d&apos;ampleur et aux CEE. Les montants ci-dessus sont indicatifs
@@ -486,8 +486,8 @@ export default function AidesPage() {
                 </p>
               </div>
 
-              <details className="mt-5 rounded-2xl border border-slate-200 bg-slate-50/70 p-4 [&_summary::-webkit-details-marker]:hidden">
-                <summary className="cursor-pointer list-none text-sm font-semibold text-[#0F2B46]">
+              <details className="mt-5 rounded-2xl border border-ink/10 bg-cream-soft/70 p-4 [&_summary::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer list-none text-sm font-semibold text-ink">
                   📊 Voir les plafonds de revenus 2026
                 </summary>
                 <div className="mt-4 space-y-6">
@@ -499,7 +499,7 @@ export default function AidesPage() {
                     title="Hors Île-de-France (revenu fiscal de référence)"
                     rows={nonIdfIncomeRows}
                   />
-                  <p className="text-xs text-slate-600">
+                  <p className="text-xs text-ink-muted">
                     Revenus fiscaux de référence de l&apos;année N-1 (2025 pour les demandes
                     2026). Par personne supplémentaire, ajoutez environ 5 000€ à 6 000€.
                   </p>
@@ -507,10 +507,10 @@ export default function AidesPage() {
               </details>
 
               <div className="mt-6">
-                <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                   Points clés
                 </h4>
-                <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                   <li>✅ Cumulable avec les CEE</li>
                   <li>✅ Cumulable avec l&apos;Éco-PTZ</li>
                   <li>
@@ -535,14 +535,14 @@ export default function AidesPage() {
 
           <Reveal delay={0.08}>
             <AidCard
-              borderClass="border-violet-500"
+              borderClass="border-peach"
               imageUrl="https://images.unsplash.com/photo-1753977725475-41b221add2c0?auto=format&fit=crop&w=1700&q=80"
               imageAlt="Maison en rénovation d'ampleur avec extension"
               icon={TrendingUp}
               title="MaPrimeRénov' Rénovation d'ampleur"
               badge="Le plus ambitieux"
             >
-              <p className="text-slate-700">
+              <p className="text-ink-muted">
                 {
                   "Pour les projets combinant plusieurs travaux avec un gain d'au moins 2 classes DPE. Accompagnement obligatoire par un Accompagnateur Rénov'. Réservé aux logements E, F ou G."
                 }
@@ -550,10 +550,10 @@ export default function AidesPage() {
 
               <div className="mt-6 grid gap-6 lg:grid-cols-2">
                 <div>
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                     Pour qui ?
                   </h4>
-                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                     <li>• Propriétaires occupants ou bailleurs</li>
                     <li>• Logements classés E, F ou G au DPE</li>
                     <li>• Accompagnement obligatoire par un Accompagnateur Rénov&apos;</li>
@@ -565,10 +565,10 @@ export default function AidesPage() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                     Montants
                   </h4>
-                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                     <li>
                       {
                         "• Taux de prise en charge de 30% à 90% selon revenus et gain de classes"
@@ -585,10 +585,10 @@ export default function AidesPage() {
               </div>
 
               <div className="mt-6">
-                <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                   Points clés
                 </h4>
-                <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                   <li>✅ Cumulable avec les CEE (prime Coup de pouce Rénovation d&apos;ampleur)</li>
                   <li>✅ Très forte prise en charge pour ménages modestes</li>
                   <li>⚠️ Audit énergétique obligatoire</li>
@@ -607,13 +607,13 @@ export default function AidesPage() {
 
           <Reveal delay={0.12}>
             <AidCard
-              borderClass="border-amber-500"
+              borderClass="border-pioud-orange"
               imageUrl="https://images.unsplash.com/photo-1758518731462-d091b0b4ed0d?auto=format&fit=crop&w=1700&q=80"
               imageAlt="Signature d'un contrat de financement en banque"
               icon={Landmark}
               title="Éco-PTZ"
             >
-              <p className="text-slate-700">
+              <p className="text-ink-muted">
                 {
                   "Un prêt bancaire à taux zéro pour financer le reste à charge de vos travaux de rénovation énergétique. Aucun intérêt à rembourser."
                 }
@@ -621,20 +621,20 @@ export default function AidesPage() {
 
               <div className="mt-6 grid gap-6 lg:grid-cols-2">
                 <div>
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                     Pour qui ?
                   </h4>
-                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                     <li>• Propriétaires occupants ou bailleurs</li>
                     <li>• Pas de condition de revenus</li>
                     <li>• Logement de plus de 2 ans</li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                     Montants
                   </h4>
-                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                     <li>• Jusqu&apos;à 15 000€ pour un geste seul</li>
                     <li>• Jusqu&apos;à 25 000€ pour 2 gestes</li>
                     <li>• Jusqu&apos;à 30 000€ pour 3 gestes ou plus</li>
@@ -645,10 +645,10 @@ export default function AidesPage() {
               </div>
 
               <div className="mt-6">
-                <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                   Points clés
                 </h4>
-                <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                   <li>✅ Cumulable avec CEE et MaPrimeRénov&apos;</li>
                   <li>✅ Taux 0% : vous ne payez aucun intérêt</li>
                   <li>⚠️ À demander auprès d&apos;une banque partenaire</li>
@@ -667,13 +667,13 @@ export default function AidesPage() {
 
           <Reveal delay={0.16}>
             <AidCard
-              borderClass="border-slate-500"
+              borderClass="border-ink/30"
               imageUrl="https://images.unsplash.com/photo-1725258080098-727051947997?auto=format&fit=crop&w=1700&q=80"
               imageAlt="Calculatrice et facture de travaux de rénovation"
               icon={Receipt}
               title="TVA à 5,5%"
             >
-              <p className="text-slate-700">
+              <p className="text-ink-muted">
                 {
                   "Les travaux de rénovation énergétique bénéficient automatiquement d'une TVA réduite à 5,5% au lieu de 20%. Cette réduction est appliquée directement sur la facture par l'artisan."
                 }
@@ -681,20 +681,20 @@ export default function AidesPage() {
 
               <div className="mt-6 grid gap-6 lg:grid-cols-2">
                 <div>
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                     Pour qui ?
                   </h4>
-                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                     <li>• Tous les ménages</li>
                     <li>• Logement de plus de 2 ans</li>
                     <li>• Résidence principale ou secondaire</li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                  <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                     Montant
                   </h4>
-                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                  <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                     <li>• Économie automatique de 14,5% sur le montant TTC des travaux</li>
                     <li>• Appliquée directement par le professionnel sur la facture</li>
                   </ul>
@@ -702,10 +702,10 @@ export default function AidesPage() {
               </div>
 
               <div className="mt-6">
-                <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                   Points clés
                 </h4>
-                <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                   <li>✅ Automatique, pas de demande à faire</li>
                   <li>✅ Cumulable avec toutes les autres aides</li>
                   <li>⚠️ Attestation simplifiée à remplir (formulaire Cerfa)</li>
@@ -716,23 +716,23 @@ export default function AidesPage() {
 
           <Reveal delay={0.2}>
             <AidCard
-              borderClass="border-orange-500"
+              borderClass="border-pioud-orange"
               imageUrl="https://images.unsplash.com/photo-1762231433404-04be830b0f3b?auto=format&fit=crop&w=1700&q=80"
               imageAlt="Bâtiment public de type mairie pour aides locales"
               icon={MapPin}
               title="Aides locales & complémentaires"
             >
-              <p className="text-slate-700">
+              <p className="text-ink-muted">
                 {
                   "En plus des aides nationales, de nombreuses collectivités locales (régions, départements, communes) proposent des subventions complémentaires pour la rénovation énergétique."
                 }
               </p>
 
               <div className="mt-6">
-                <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                <h4 className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                   Exemples
                 </h4>
-                <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                <ul className="mt-2 space-y-2 text-sm text-ink-muted">
                   <li>• Aides régionales : certaines régions proposent des primes additionnelles</li>
                   <li>
                     {
@@ -770,10 +770,10 @@ export default function AidesPage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">
+          <h2 className="text-4xl font-bold text-ink">
             Comment cumuler les aides : exemple concret
           </h2>
-          <p className="mt-3 max-w-3xl text-slate-600">
+          <p className="mt-3 max-w-3xl text-ink-muted">
             {
               "Exemple : Installation d'une PAC air/eau en remplacement d'une chaudière gaz (ménage aux revenus modestes, maison de 130m² en zone H1)."
             }
@@ -781,64 +781,64 @@ export default function AidesPage() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <div className="card-surface mt-8 border border-emerald-200 bg-emerald-50/70 p-6 sm:p-8">
+          <div className="card-surface mt-8 border border-forest/15 bg-sage/70 p-6 sm:p-8">
             <div className="overflow-x-auto">
-              <table className="min-w-[640px] divide-y divide-emerald-200 text-sm">
-                <tbody className="divide-y divide-emerald-100">
+              <table className="min-w-[640px] divide-y divide-forest/15 text-sm">
+                <tbody className="divide-y divide-forest/10">
                   <tr>
-                    <td className="px-3 py-2 font-medium text-slate-700">
+                    <td className="px-3 py-2 font-medium text-ink-muted">
                       MaPrimeRénov&apos; (Jaune)
                     </td>
-                    <td className="px-3 py-2 text-right text-slate-700">4 000€</td>
+                    <td className="px-3 py-2 text-right text-ink-muted">4 000€</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-medium text-slate-700">
+                    <td className="px-3 py-2 font-medium text-ink-muted">
                       Prime CEE Coup de pouce x5
                     </td>
-                    <td className="px-3 py-2 text-right text-slate-700">5 800€</td>
+                    <td className="px-3 py-2 text-right text-ink-muted">5 800€</td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-medium text-slate-700">
+                    <td className="px-3 py-2 font-medium text-ink-muted">
                       Éco-PTZ (reste à charge)
                     </td>
-                    <td className="px-3 py-2 text-right text-slate-700">
+                    <td className="px-3 py-2 text-right text-ink-muted">
                       jusqu&apos;à 15 000€ à taux 0%
                     </td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-medium text-slate-700">TVA 5,5%</td>
-                    <td className="px-3 py-2 text-right text-slate-700">
+                    <td className="px-3 py-2 font-medium text-ink-muted">TVA 5,5%</td>
+                    <td className="px-3 py-2 text-right text-ink-muted">
                       appliquée automatiquement
                     </td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 text-base font-bold text-emerald-800">
+                    <td className="px-3 py-2 text-base font-bold text-forest">
                       Total des aides
                     </td>
-                    <td className="px-3 py-2 text-right text-base font-bold text-emerald-800">
+                    <td className="px-3 py-2 text-right text-base font-bold text-forest">
                       ~9 800€
                     </td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 text-base font-semibold text-slate-800">
+                    <td className="px-3 py-2 text-base font-semibold text-ink">
                       Coût de la PAC
                     </td>
-                    <td className="px-3 py-2 text-right text-base font-semibold text-slate-800">
+                    <td className="px-3 py-2 text-right text-base font-semibold text-ink">
                       ~15 500€ TTC
                     </td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 text-base font-bold text-[#0F2B46]">
+                    <td className="px-3 py-2 text-base font-bold text-ink">
                       Reste à charge
                     </td>
-                    <td className="px-3 py-2 text-right text-base font-bold text-[#0F2B46]">
+                    <td className="px-3 py-2 text-right text-base font-bold text-ink">
                       ~5 700€ (finançable par Éco-PTZ à 0%)
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <p className="mt-4 text-xs text-slate-600">
+            <p className="mt-4 text-xs text-ink-muted">
               {
                 "Montants indicatifs. Le montant réel dépend de votre situation. Contactez PIOUD ENERGY pour une estimation personnalisée."
               }
@@ -849,13 +849,13 @@ export default function AidesPage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">Tableau récapitulatif des aides</h2>
+          <h2 className="text-4xl font-bold text-ink">Tableau récapitulatif des aides</h2>
         </Reveal>
         <Reveal delay={0.08}>
           <div className="card-surface mt-8 overflow-x-auto p-2">
-            <table className="min-w-[900px] divide-y divide-slate-200 text-sm">
+            <table className="min-w-[900px] divide-y divide-ink/10 text-sm">
               <thead>
-                <tr className="text-left text-slate-700">
+                <tr className="text-left text-ink-muted">
                   <th className="px-4 py-3 font-semibold">Aide</th>
                   <th className="px-4 py-3 font-semibold">Qui peut en bénéficier</th>
                   <th className="px-4 py-3 font-semibold">Montant max</th>
@@ -863,23 +863,23 @@ export default function AidesPage() {
                   <th className="px-4 py-3 font-semibold">Demande</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-slate-700">
+              <tbody className="divide-y divide-ink/10 text-ink-muted">
                 <tr>
-                  <td className="px-4 py-3 font-medium text-[#0F2B46]">CEE</td>
+                  <td className="px-4 py-3 font-medium text-ink">CEE</td>
                   <td className="px-4 py-3">Tous, sans condition de revenus</td>
                   <td className="px-4 py-3">Variable (jusqu&apos;à 12 000€)</td>
                   <td className="px-4 py-3">—</td>
                   <td className="px-4 py-3">Avant devis</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 font-medium text-[#0F2B46]">MaPrimeRénov&apos;</td>
+                  <td className="px-4 py-3 font-medium text-ink">MaPrimeRénov&apos;</td>
                   <td className="px-4 py-3">Tous (depuis fév. 2026)</td>
                   <td className="px-4 py-3">Variable selon revenus</td>
                   <td className="px-4 py-3">✅ Oui</td>
                   <td className="px-4 py-3">En ligne avant travaux</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 font-medium text-[#0F2B46]">
+                  <td className="px-4 py-3 font-medium text-ink">
                     MaPrimeRénov&apos; Ampleur
                   </td>
                   <td className="px-4 py-3">E, F, G au DPE</td>
@@ -888,21 +888,21 @@ export default function AidesPage() {
                   <td className="px-4 py-3">En ligne + accompagnateur</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 font-medium text-[#0F2B46]">Éco-PTZ</td>
+                  <td className="px-4 py-3 font-medium text-ink">Éco-PTZ</td>
                   <td className="px-4 py-3">Tous, sans condition</td>
                   <td className="px-4 py-3">50 000€</td>
                   <td className="px-4 py-3">✅ Oui</td>
                   <td className="px-4 py-3">Auprès d&apos;une banque</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 font-medium text-[#0F2B46]">TVA 5,5%</td>
+                  <td className="px-4 py-3 font-medium text-ink">TVA 5,5%</td>
                   <td className="px-4 py-3">Tous, logement &gt; 2 ans</td>
                   <td className="px-4 py-3">-14,5% sur facture</td>
                   <td className="px-4 py-3">✅ Oui</td>
                   <td className="px-4 py-3">Automatique</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 font-medium text-[#0F2B46]">Aides locales</td>
+                  <td className="px-4 py-3 font-medium text-ink">Aides locales</td>
                   <td className="px-4 py-3">Variable</td>
                   <td className="px-4 py-3">Variable</td>
                   <td className="px-4 py-3">✅ Souvent</td>
@@ -916,8 +916,8 @@ export default function AidesPage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">L&apos;accompagnement PIOUD ENERGY</h2>
-          <p className="mt-3 max-w-3xl text-slate-600">
+          <h2 className="text-4xl font-bold text-ink">L&apos;accompagnement PIOUD ENERGY</h2>
+          <p className="mt-3 max-w-3xl text-ink-muted">
             {
               "Nos experts vous accompagnent du diagnostic initial jusqu'au versement effectif des primes pour sécuriser vos démarches."
             }
@@ -927,13 +927,13 @@ export default function AidesPage() {
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           <Reveal>
             <article className="card-surface p-6">
-              <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+              <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                 <Search className="h-5 w-5" />
               </span>
-              <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">
+              <h3 className="mt-4 text-xl font-semibold text-ink">
                 Identification des aides
               </h3>
-              <p className="mt-2 text-sm text-slate-700">
+              <p className="mt-2 text-sm text-ink-muted">
                 {
                   "Nous analysons votre situation et identifions toutes les aides auxquelles vous avez droit."
                 }
@@ -943,11 +943,11 @@ export default function AidesPage() {
 
           <Reveal delay={0.08}>
             <article className="card-surface p-6">
-              <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+              <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                 <FileText className="h-5 w-5" />
               </span>
-              <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">Montage des dossiers</h3>
-              <p className="mt-2 text-sm text-slate-700">
+              <h3 className="mt-4 text-xl font-semibold text-ink">Montage des dossiers</h3>
+              <p className="mt-2 text-sm text-ink-muted">
                 {
                   "Nous constituons vos dossiers CEE et vous guidons pour les demandes MaPrimeRénov' et Éco-PTZ."
                 }
@@ -957,13 +957,13 @@ export default function AidesPage() {
 
           <Reveal delay={0.16}>
             <article className="card-surface p-6">
-              <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+              <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                 <CheckCircle className="h-5 w-5" />
               </span>
-              <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">
+              <h3 className="mt-4 text-xl font-semibold text-ink">
                 Suivi jusqu&apos;au versement
               </h3>
-              <p className="mt-2 text-sm text-slate-700">
+              <p className="mt-2 text-sm text-ink-muted">
                 {"Nous suivons vos dossiers jusqu'au versement effectif de toutes vos primes."}
               </p>
             </article>
@@ -973,7 +973,7 @@ export default function AidesPage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">Liens utiles</h2>
+          <h2 className="text-4xl font-bold text-ink">Liens utiles</h2>
         </Reveal>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {usefulLinks.map((resource, index) => (
@@ -988,7 +988,7 @@ export default function AidesPage() {
 
       <section className="section-shell pb-10">
         <Reveal>
-          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-white">
+          <div className="card-surface bg-gradient-to-r bg-forest p-8 text-white">
             <h2 className="text-3xl font-bold">Passez à l&apos;action avec un plan de financement clair</h2>
             <p className="mt-3 max-w-3xl text-white/90">
               {
@@ -998,7 +998,7 @@ export default function AidesPage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/simulateur"
-                className="inline-flex rounded-full bg-white px-6 py-3 font-semibold text-[#0F2B46]"
+                className="inline-flex rounded-pill bg-white px-6 py-3 font-semibold text-ink"
               >
                 Estimez toutes vos aides
               </Link>

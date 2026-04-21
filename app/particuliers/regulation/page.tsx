@@ -30,7 +30,7 @@ const operations = [
     description:
       "Système de programmation et régulation du chauffage pièce par pièce. Permet des économies de 15 à 25% sur le poste chauffage.",
     badge: "Valable jusqu'au 31/12/2026",
-    badgeClass: "bg-emerald-100 text-emerald-700",
+    badgeClass: "bg-lime-soft text-forest",
   },
   {
     title: "Radiateur basse température",
@@ -66,29 +66,29 @@ export default function ParticuliersRegulationPage() {
 
       <section className="section-shell py-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">Opérations éligibles</h2>
+          <h2 className="text-4xl font-bold text-ink">Opérations éligibles</h2>
         </Reveal>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {operations.map((operation, index) => (
             <Reveal key={operation.title} delay={index * 0.08}>
               <article className="card-surface h-full p-6">
                 <div className="flex items-start justify-between gap-3">
-                  <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+                  <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                     <operation.icon className="h-5 w-5" />
                   </span>
                   {operation.badge ? (
                     <span
-                      className={`rounded-full px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-emerald-100 text-emerald-700"}`}
+                      className={`rounded-pill px-3 py-1 text-xs font-semibold ${operation.badgeClass ?? "bg-lime-soft text-forest"}`}
                     >
                       {operation.badge}
                     </span>
                   ) : null}
                 </div>
-                <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">{operation.title}</h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <h3 className="mt-4 text-xl font-semibold text-ink">{operation.title}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
                   Fiche : {operation.ref}
                 </p>
-                <p className="mt-3 text-sm text-slate-600">{operation.description}</p>
+                <p className="mt-3 text-sm text-ink-muted">{operation.description}</p>
                 <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
               </article>
             </Reveal>
@@ -98,7 +98,7 @@ export default function ParticuliersRegulationPage() {
 
       <section className="section-shell pb-12">
         <Reveal>
-          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-white">
+          <div className="card-surface bg-gradient-to-r bg-forest p-8 text-white">
             <h2 className="text-3xl font-bold">Optimisez votre pilotage énergétique</h2>
             <p className="mt-3 text-white/90">
               Lancez votre simulation de prime CEE et identifiez rapidement les
@@ -107,7 +107,7 @@ export default function ParticuliersRegulationPage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/simulateur"
-                className="inline-flex rounded-full bg-white px-6 py-3 font-semibold text-[#0F2B46]"
+                className="inline-flex rounded-pill bg-white px-6 py-3 font-semibold text-ink"
               >
                 Estimez votre prime
               </Link>

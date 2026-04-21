@@ -97,10 +97,10 @@ export default function ParticuliersPage() {
 
       <section className="section-shell py-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">
+          <h2 className="text-4xl font-bold text-ink">
             Choisissez votre type de travaux
           </h2>
-          <p className="mt-3 max-w-3xl text-lg text-slate-600">
+          <p className="mt-3 max-w-3xl text-lg text-ink-muted">
             Explorez les solutions les plus pertinentes selon votre projet et accédez
             à nos guides dédiés par thématique.
           </p>
@@ -110,7 +110,7 @@ export default function ParticuliersPage() {
             <Reveal key={theme.title} delay={(index % 3) * 0.07}>
               <Link
                 href={theme.href}
-                className="group relative block min-h-[360px] overflow-hidden rounded-3xl border border-slate-200 shadow-2xl shadow-[#0f2b46]/10"
+                className="group relative block min-h-[360px] overflow-hidden rounded-card border border-ink/10 shadow-2xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]"
               >
                 <Image
                   src={theme.image}
@@ -118,21 +118,21 @@ export default function ParticuliersPage() {
                   fill
                   className="object-cover transition duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071a2d]/90 via-[#0f2b46]/65 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-forest/90 via-forest-soft/70 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6 text-white">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="inline-flex rounded-xl bg-white/15 p-3 text-emerald-300">
+                    <span className="inline-flex rounded-xl bg-white/15 p-3 text-lime-soft">
                       <theme.icon className="h-6 w-6" />
                     </span>
                     {theme.badge ? (
-                      <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
+                      <span className="rounded-pill bg-lime-soft px-3 py-1 text-xs font-semibold text-forest">
                         {theme.badge}
                       </span>
                     ) : null}
                   </div>
                   <h3 className="mt-4 text-2xl font-bold">{theme.title}</h3>
                   <p className="mt-2 text-sm text-white/90">{theme.description}</p>
-                  <span className="mt-5 inline-flex rounded-full border border-white/35 px-4 py-2 text-sm font-semibold">
+                  <span className="mt-5 inline-flex rounded-pill border border-white/35 px-4 py-2 text-sm font-semibold">
                     {theme.cta}
                   </span>
                 </div>
@@ -144,14 +144,14 @@ export default function ParticuliersPage() {
 
       <section className="section-shell pb-10">
         <Reveal>
-          <h2 className="text-center text-4xl font-bold text-[#0F2B46]">Les CEE en chiffres</h2>
+          <h2 className="text-center text-4xl font-bold text-ink">Les CEE en chiffres</h2>
         </Reveal>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {particulierStats.map((stat, index) => (
             <Reveal key={stat.label} delay={index * 0.06}>
               <article className="card-surface p-6 text-center">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                <p className="mt-3 text-sm text-slate-600">{stat.label}</p>
+                <p className="mt-3 text-sm text-ink-muted">{stat.label}</p>
               </article>
             </Reveal>
           ))}
@@ -160,7 +160,7 @@ export default function ParticuliersPage() {
 
       <section className="section-shell py-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">Comment ça marche</h2>
+          <h2 className="text-4xl font-bold text-ink">Comment ça marche</h2>
         </Reveal>
         <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {[
@@ -183,10 +183,10 @@ export default function ParticuliersPage() {
           ].map((step, index) => (
             <Reveal key={step.text} delay={index * 0.07}>
               <article className="card-surface h-full p-6">
-                <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+                <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                   <step.icon className="h-6 w-6" />
                 </span>
-                <p className="mt-4 font-medium text-slate-700">{step.text}</p>
+                <p className="mt-4 font-medium text-ink-muted">{step.text}</p>
               </article>
             </Reveal>
           ))}
@@ -195,7 +195,7 @@ export default function ParticuliersPage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">FAQ rapide</h2>
+          <h2 className="text-4xl font-bold text-ink">FAQ rapide</h2>
         </Reveal>
         <div className="mt-8 space-y-3">
           {[
@@ -222,10 +222,10 @@ export default function ParticuliersPage() {
           ].map((faq) => (
             <Reveal key={faq.q}>
               <details className="card-surface rounded-2xl px-5 py-4 [&_summary::-webkit-details-marker]:hidden">
-                <summary className="cursor-pointer list-none font-semibold text-[#0F2B46]">
+                <summary className="cursor-pointer list-none font-semibold text-ink">
                   {faq.q}
                 </summary>
-                <p className="mt-3 text-slate-600">{faq.a}</p>
+                <p className="mt-3 text-ink-muted">{faq.a}</p>
               </details>
             </Reveal>
           ))}
@@ -234,12 +234,12 @@ export default function ParticuliersPage() {
 
       <section className="section-shell pb-12">
         <Reveal>
-          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-center text-white">
+          <div className="card-surface bg-gradient-to-r bg-forest p-8 text-center text-white">
             <h2 className="text-3xl font-bold">Estimez vos primes CEE</h2>
             <p className="mx-auto mt-3 max-w-2xl text-white/90">
               Lancez votre simulation pour obtenir une première estimation de vos aides.
             </p>
-            <Link href="/simulateur" className="mt-6 inline-flex rounded-full bg-white px-7 py-3 font-semibold text-[#0F2B46]">
+            <Link href="/simulateur" className="mt-6 inline-flex rounded-pill bg-white px-7 py-3 font-semibold text-ink">
               Estimez vos primes CEE
             </Link>
           </div>

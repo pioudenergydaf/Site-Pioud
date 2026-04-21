@@ -58,22 +58,22 @@ export default function ParticuliersFenetresPage() {
 
       <section className="section-shell py-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-[#0F2B46]">Opérations éligibles</h2>
+          <h2 className="text-4xl font-bold text-ink">Opérations éligibles</h2>
         </Reveal>
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {operations.map((operation, index) => (
             <Reveal key={operation.title} delay={index * 0.08}>
               <article className="card-surface h-full p-6">
-                <span className="inline-flex rounded-xl bg-emerald-50 p-3 text-emerald-600">
+                <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                   <operation.icon className="h-5 w-5" />
                 </span>
-                <h3 className="mt-4 text-xl font-semibold text-[#0F2B46]">{operation.title}</h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <h3 className="mt-4 text-xl font-semibold text-ink">{operation.title}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
                   Fiche : {operation.ref}
                 </p>
-                <p className="mt-3 text-sm text-slate-600">{operation.description}</p>
+                <p className="mt-3 text-sm text-ink-muted">{operation.description}</p>
                 {operation.requirement ? (
-                  <p className="mt-3 text-sm font-medium text-slate-700">
+                  <p className="mt-3 text-sm font-medium text-ink-muted">
                     Exigence technique : {operation.requirement}
                   </p>
                 ) : null}
@@ -87,8 +87,8 @@ export default function ParticuliersFenetresPage() {
       <section className="section-shell pb-20">
         <Reveal>
           <div className="card-surface p-8">
-            <h2 className="text-3xl font-bold text-[#0F2B46]">Pourquoi changer vos fenêtres</h2>
-            <ul className="mt-4 space-y-2 text-slate-600">
+            <h2 className="text-3xl font-bold text-ink">Pourquoi changer vos fenêtres</h2>
+            <ul className="mt-4 space-y-2 text-ink-muted">
               <li>• Confort hiver ET été</li>
               <li>• Réduction du bruit extérieur</li>
               <li>• Valorisation du logement</li>
@@ -100,7 +100,7 @@ export default function ParticuliersFenetresPage() {
 
       <section className="section-shell pb-12">
         <Reveal>
-          <div className="card-surface bg-gradient-to-r from-[#0F2B46] to-[#0E7B6D] p-8 text-white">
+          <div className="card-surface bg-gradient-to-r bg-forest p-8 text-white">
             <h2 className="text-3xl font-bold">Démarrez votre projet menuiseries</h2>
             <p className="mt-3 text-white/90">
               Obtenez une estimation de vos aides CEE et validez la faisabilité avec
@@ -109,7 +109,7 @@ export default function ParticuliersFenetresPage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/simulateur"
-                className="inline-flex rounded-full bg-white px-6 py-3 font-semibold text-[#0F2B46]"
+                className="inline-flex rounded-pill bg-white px-6 py-3 font-semibold text-ink"
               >
                 Estimez votre prime fenêtres
               </Link>

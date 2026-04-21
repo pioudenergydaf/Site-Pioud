@@ -11,7 +11,7 @@ export function ManageCookiesButton() {
     <button
       type="button"
       onClick={openBanner}
-      className="text-slate-300 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+      className="text-cream-soft/85 transition hover:text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-cream-soft/50"
     >
       Gestion des cookies
     </button>
