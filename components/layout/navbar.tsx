@@ -179,10 +179,10 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-navy-900/95 px-6 pb-6 pt-24 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-40 bg-navy-900 px-6 pb-6 pt-24 backdrop-blur-xl lg:hidden"
           >
-            <div className="mx-auto flex h-full max-w-7xl flex-col gap-3 overflow-y-auto">
-              <Link href="/" className="mb-3 inline-flex flex-col leading-tight">
+            <div className="mx-auto flex h-full max-w-7xl flex-col gap-2 overflow-y-auto">
+              <Link href="/" className="mb-2 inline-flex flex-col border-b border-white/10 pb-4 leading-tight">
                 <span className="font-display text-xl font-light tracking-tight text-white">PIOUD ENERGY</span>
                 <span className="text-[10px] uppercase tracking-[0.2em] text-white/80">
                   Certificats d&apos;Économies d&apos;Énergie
@@ -197,13 +197,13 @@ export function Navbar() {
                       ? pathname.startsWith("/particuliers")
                       : pathname.startsWith("/professionnels");
                   return (
-                    <div key={link.href} className="space-y-2">
+                    <div key={link.href} className="space-y-2 border-b border-white/10 pb-2">
                       <Link
                         href={link.href}
-                        className={`block min-h-11 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                        className={`block min-h-11 rounded-xl border px-3 py-2.5 text-sm font-medium transition ${
                           pathname === link.href || startsWithPath
-                            ? "bg-white/10 text-emerald-400"
-                            : "text-white hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
+                            ? "border-emerald-400/30 bg-white/12 text-emerald-300"
+                            : "border-white/10 bg-white/[0.03] text-white hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
                         } focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50`}
                       >
                         {link.label}
@@ -216,7 +216,7 @@ export function Navbar() {
                             className={`block min-h-11 rounded-lg px-3 py-2.5 text-sm transition ${
                               pathname === item.href
                                 ? "bg-white/10 text-emerald-300"
-                                : "text-white/80 hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
+                                : "text-white/90 hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
                             }`}
                           >
                             {item.label}
@@ -231,10 +231,10 @@ export function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`min-h-11 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                    className={`min-h-11 rounded-xl border px-3 py-2.5 text-sm font-medium transition ${
                       pathname === link.href
-                        ? "bg-white/10 text-emerald-400"
-                        : "text-white hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
+                        ? "border-emerald-400/30 bg-white/12 text-emerald-300"
+                        : "border-white/10 bg-white/[0.03] text-white hover:bg-white/10 hover:text-white active:bg-emerald-500/20"
                     } focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50`}
                   >
                     {link.label}
@@ -249,13 +249,13 @@ export function Navbar() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-pill border border-white/30 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+                className="inline-flex items-center justify-center rounded-pill bg-emerald-500 px-6 py-3 font-semibold text-white transition hover:bg-emerald-600"
               >
                 Contact
               </Link>
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="inline-flex items-center justify-center rounded-pill border border-white/20 px-6 py-3 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
+                className="inline-flex items-center justify-center rounded-pill border border-white/25 px-6 py-3 text-sm text-white/90 transition hover:bg-white/10 hover:text-white"
               >
                 {siteConfig.email}
               </a>
