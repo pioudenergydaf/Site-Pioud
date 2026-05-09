@@ -41,7 +41,7 @@ export default function OpengraphImage() {
             d&apos;Énergie pour particuliers, professionnels et collectivités.
           </div>
         </div>
-        <div style={{ fontSize: 28, opacity: 0.7 }}>pioud-energy.fr</div>
+        <div style={{ fontSize: 28, opacity: 0.7 }}>pioudenergy.fr</div>
       </div>
     ),
     { ...size },
