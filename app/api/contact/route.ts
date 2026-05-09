@@ -102,6 +102,46 @@ export async function POST(request: Request) {
     );
   }
 
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+  if (turnstileSecret) {
+    const token = isString(payload["cf-turnstile-response"])
+      ? payload["cf-turnstile-response"].trim()
+      : "";
+    if (!token) {
+      return NextResponse.json(
+        { success: false, message: "Vérification anti-spam manquante." },
+        { status: 422 },
+      );
+    }
+    try {
+      const verifyBody = new URLSearchParams({
+        secret: turnstileSecret,
+        response: token,
+      });
+      const verifyResponse = await fetch(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: verifyBody.toString(),
+        },
+      );
+      const verifyJson = (await verifyResponse.json()) as { success?: boolean };
+      if (!verifyJson.success) {
+        return NextResponse.json(
+          { success: false, message: "Vérification anti-spam échouée." },
+          { status: 422 },
+        );
+      }
+    } catch (err) {
+      console.error("[api/contact] turnstile verify exception:", err);
+      return NextResponse.json(
+        { success: false, message: "Vérification anti-spam indisponible." },
+        { status: 502 },
+      );
+    }
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   const recipient = process.env.CONTACT_RECIPIENT_EMAIL;
   const sender = process.env.CONTACT_SENDER_EMAIL;

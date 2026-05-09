@@ -4,9 +4,12 @@ import { FormEvent, useMemo, useState } from "react";
 import { Clock3, MapPin, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { useConsent } from "@/components/cookies/use-consent";
+import { TurnstileWidget } from "@/components/contact/turnstile-widget";
 import { Reveal } from "@/components/ui/reveal";
 import { COOKIE_CONSENT_OPEN_EVENT } from "@/lib/cookie-consent";
 import { servicePhones, siteConfig } from "@/lib/site-data";
+
+const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 type SubmissionState = {
   status: "idle" | "sending" | "success" | "error";
@@ -183,6 +186,10 @@ export function ContactFormsSection() {
                   de PIOUD ENERGY.
                 </span>
               </label>
+
+              {turnstileSiteKey ? (
+                <TurnstileWidget siteKey={turnstileSiteKey} />
+              ) : null}
 
               <button
                 type="submit"
