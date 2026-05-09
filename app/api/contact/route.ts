@@ -106,39 +106,58 @@ export async function POST(request: Request) {
   const recipient = process.env.CONTACT_RECIPIENT_EMAIL;
   const sender = process.env.CONTACT_SENDER_EMAIL;
 
-  if (apiKey && recipient && sender) {
-    try {
-      const resend = new Resend(apiKey);
-      const email = buildEmail(payload);
-      const replyTo = isString(payload.email) ? payload.email.trim() : undefined;
+  const missingEnv: string[] = [];
+  if (!apiKey) missingEnv.push("RESEND_API_KEY");
+  if (!recipient) missingEnv.push("CONTACT_RECIPIENT_EMAIL");
+  if (!sender) missingEnv.push("CONTACT_SENDER_EMAIL");
 
-      const { error } = await resend.emails.send({
-        from: sender,
-        to: recipient,
-        subject: `[Site Pioud] ${email.subject}`,
-        html: email.html,
-        text: email.text,
-        replyTo,
-      });
+  if (missingEnv.length > 0) {
+    console.error("[api/contact] missing env vars:", missingEnv.join(", "));
+    return NextResponse.json(
+      {
+        success: false,
+        message: `Configuration serveur incomplète (manque: ${missingEnv.join(", ")}). Contactez l'administrateur.`,
+      },
+      { status: 500 },
+    );
+  }
 
-      if (error) {
-        return NextResponse.json(
-          {
-            success: false,
-            message: "L'envoi a échoué. Merci de réessayer ou de nous appeler.",
-          },
-          { status: 502 },
-        );
-      }
-    } catch {
+  try {
+    const resend = new Resend(apiKey);
+    const email = buildEmail(payload);
+    const replyTo = isString(payload.email) ? payload.email.trim() : undefined;
+
+    const { error } = await resend.emails.send({
+      from: sender!,
+      to: recipient!,
+      subject: `[Site Pioud] ${email.subject}`,
+      html: email.html,
+      text: email.text,
+      replyTo,
+    });
+
+    if (error) {
+      console.error("[api/contact] resend error:", error);
       return NextResponse.json(
         {
           success: false,
-          message: "L'envoi a échoué. Merci de réessayer ou de nous appeler.",
+          message: `Envoi refusé par Resend: ${error.message ?? "erreur inconnue"}`,
         },
         { status: 502 },
       );
     }
+  } catch (err) {
+    console.error("[api/contact] resend exception:", err);
+    return NextResponse.json(
+      {
+        success: false,
+        message:
+          err instanceof Error
+            ? `Erreur d'envoi: ${err.message}`
+            : "L'envoi a échoué. Merci de réessayer ou de nous appeler.",
+      },
+      { status: 502 },
+    );
   }
 
   return NextResponse.json({
