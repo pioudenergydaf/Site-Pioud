@@ -44,6 +44,16 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pioud Energy - Votre partenaire expert CEE",
+    description:
+      "Accélérez vos projets d'efficacité énergétique grâce à un accompagnement CEE premium et personnalisé.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 const localBusinessSchema = {
