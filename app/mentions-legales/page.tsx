@@ -42,11 +42,10 @@ export default function MentionsLegalesPage() {
             <strong>Contact :</strong> {siteConfig.email} - {siteConfig.phone}
           </p>
           <p>
-            <strong>Numéro de TVA intracommunautaire :</strong> FR XX 927 628 446
-            (à compléter)
+            <strong>Numéro de TVA intracommunautaire :</strong> FR67927628446
           </p>
           <p>
-            <strong>Capital social :</strong> [À compléter]
+            <strong>Capital social :</strong> 10 000 €
           </p>
           <p>
             <strong>Hébergeur :</strong> Vercel Inc., 440 N Barranca Ave #4133,

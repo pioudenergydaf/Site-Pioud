@@ -81,10 +81,10 @@ export default function PolitiqueConfidentialitePage() {
           <p className="text-ink-muted">
             Pour exercer vos droits :{" "}
             <a
-              href="mailto:contact@pioud-energy.fr"
+              href="mailto:contact@pioudenergy.fr"
               className="font-semibold text-ink underline underline-offset-2"
             >
-              contact@pioud-energy.fr
+              contact@pioudenergy.fr
             </a>
             .
           </p>

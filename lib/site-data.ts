@@ -2,9 +2,9 @@ export const siteConfig = {
   name: "Pioud Energy",
   description:
     "Pioud Energy accompagne particuliers, professionnels, collectivités et grands comptes dans la valorisation des Certificats d'Économies d'Énergie.",
-  url: "https://pioud-energy.fr",
-  simulatorUrl: "https://simulateur.pioud-energy.fr",
-  email: "contact@pioud-energy.fr",
+  url: "https://pioudenergy.fr",
+  simulatorUrl: "https://simulateur.pioudenergy.fr",
+  email: "contact@pioudenergy.fr",
   phone: "01 89 70 45 20",
   phoneE164: "+33189704520",
   address: "8 Rue Henri Dunant, 94370 Sucy-en-Brie",
