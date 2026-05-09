@@ -219,7 +219,10 @@ export function ContactFormsSection() {
                       <PhoneCall className="mt-0.5 h-4 w-4 text-forest-soft" />
                       <div>
                         <p className="font-medium text-ink-muted">{service.service}</p>
-                        <a href={`tel:${service.number}`} className="text-ink-soft hover:text-ink">
+                        <a
+                          href={`tel:+33${service.number.replace(/\s+/g, "").slice(1)}`}
+                          className="text-ink-soft hover:text-ink"
+                        >
                           {service.number}
                         </a>
                       </div>

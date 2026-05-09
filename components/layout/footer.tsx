@@ -61,7 +61,7 @@ export function Footer() {
           <ul className="space-y-2 text-sm text-cream-soft/85">
             <li>{siteConfig.address}</li>
             <li>
-              <a href={`tel:${siteConfig.phone}`} className="transition hover:text-cream">
+              <a href={`tel:${siteConfig.phoneE164}`} className="transition hover:text-cream">
                 {siteConfig.phone}
               </a>
             </li>
@@ -74,23 +74,37 @@ export function Footer() {
         </div>
 
         <div className="space-y-4">
-          <p className="font-display text-lg font-light text-cream">Réseaux sociaux</p>
+          <p className="font-display text-lg font-light text-cream">Suivez-nous</p>
           <ul className="space-y-2 text-sm text-cream-soft/85">
-            <li>
-              <a href="#" className="transition hover:text-cream">
-                LinkedIn
-              </a>
-            </li>
-            <li>
-              <a href="#" className="transition hover:text-cream">
-                X (Twitter)
-              </a>
-            </li>
-            <li>
-              <a href="#" className="transition hover:text-cream">
-                YouTube
-              </a>
-            </li>
+            {siteConfig.socials.linkedin ? (
+              <li>
+                <a
+                  href={siteConfig.socials.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition hover:text-cream"
+                >
+                  LinkedIn
+                </a>
+              </li>
+            ) : null}
+            {siteConfig.socials.youtube ? (
+              <li>
+                <a
+                  href={siteConfig.socials.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition hover:text-cream"
+                >
+                  YouTube
+                </a>
+              </li>
+            ) : null}
+            {!siteConfig.socials.linkedin && !siteConfig.socials.youtube ? (
+              <li className="text-cream-soft/70">
+                Bientôt disponibles.
+              </li>
+            ) : null}
           </ul>
         </div>
       </div>
