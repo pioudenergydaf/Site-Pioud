@@ -20,8 +20,11 @@ import {
   XCircle,
   Zap,
 } from "lucide-react";
+import { AnimatedLine } from "@/components/ui/animated-line";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ContactFormsSection } from "@/components/contact/contact-forms-section";
+import { CountUp } from "@/components/ui/count-up";
+import { PopIn } from "@/components/ui/pop-in";
 import { Reveal } from "@/components/ui/reveal";
 
 export const metadata: Metadata = {
@@ -151,20 +154,26 @@ export default function BarTh179Page() {
         <div className="pointer-events-none absolute -right-20 top-10 h-[420px] w-[420px] rounded-pill bg-sage/70 blur-3xl" />
         <div className="pointer-events-none absolute -left-16 bottom-0 h-[320px] w-[320px] rounded-pill bg-emerald-100/60 blur-3xl" />
         <div className="section-shell relative grid items-center gap-14 lg:grid-cols-2">
-          <Reveal>
-            <div className="space-y-8">
+          <div className="space-y-8">
+            <Reveal delay={0}>
               <p className="inline-flex rounded-pill border border-ink/10 bg-white px-4 py-1.5 text-sm font-medium text-ink-muted shadow-sm">
                 ✨ Nouvelle fiche CEE 2026
               </p>
+            </Reveal>
+            <Reveal delay={0.12}>
               <h1 className="font-display text-[clamp(2.5rem,5.5vw,4.5rem)] font-light leading-[1.05] tracking-tight text-ink">
                 Pompe à chaleur collective air/eau : jusqu&apos;à{" "}
                 <span className="whitespace-nowrap italic text-emerald-600">3x plus</span> de
                 CEE en copropriété
               </h1>
+            </Reveal>
+            <Reveal delay={0.24}>
               <p className="max-w-xl text-xl leading-relaxed text-ink-muted">
                 Fiche BAR-TH-179 — financez le remplacement de votre chaufferie fossile par
                 une PAC collective air/eau.
               </p>
+            </Reveal>
+            <Reveal delay={0.36}>
               <div className="flex flex-wrap gap-3">
                 <Link href="#contact" className="btn-primary">
                   Estimer ma prime CEE
@@ -179,6 +188,8 @@ export default function BarTh179Page() {
                   <ExternalLink className="h-4 w-4" />
                 </a>
               </div>
+            </Reveal>
+            <Reveal delay={0.48}>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-ink/10 pt-6">
                 {reassuranceStrip.map((item) => (
                   <span
@@ -190,9 +201,9 @@ export default function BarTh179Page() {
                   </span>
                 ))}
               </div>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
+            </Reveal>
+          </div>
+          <Reveal delay={0.6}>
             <div className="relative min-h-[380px] overflow-hidden rounded-card-lg border border-white/60 shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
               <Image
                 src="https://images.unsplash.com/photo-1699564625068-803d1c7fcfbc?auto=format&fit=crop&w=1700&q=80"
@@ -267,9 +278,9 @@ export default function BarTh179Page() {
           </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {eligibilityItems.map((item, index) => (
-              <Reveal key={item.text} delay={(index % 2) * 0.06}>
+              <Reveal key={item.text} delay={(index % 2) * 0.08}>
                 <div
-                  className={`card-surface flex items-start gap-3 border-l-4 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                  className={`card-surface flex items-start gap-3 border-l-4 p-5 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
                     item.ok ? "border-l-emerald-400" : "border-l-pioud-orange bg-peach-soft/30"
                   }`}
                 >
@@ -297,9 +308,9 @@ export default function BarTh179Page() {
         <Reveal>
           <div className="relative overflow-hidden rounded-card-lg border-2 border-emerald-300/70 bg-gradient-to-br from-sage via-white to-emerald-50 p-8 shadow-[0_24px_56px_rgba(16,129,86,0.14)] sm:p-12">
             <div className="flex flex-col gap-8 sm:flex-row sm:items-center">
-              <div className="flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-full bg-forest text-white shadow-lg shadow-forest/30">
-                <span className="font-display text-4xl font-bold">×3</span>
-              </div>
+              <PopIn className="flex h-28 w-28 flex-shrink-0 items-center justify-center rounded-full bg-forest text-white shadow-lg shadow-forest/30">
+                <CountUp to={3} prefix="×" className="font-display text-4xl font-bold" />
+              </PopIn>
               <div>
                 <p className="inline-flex items-center gap-2 rounded-pill bg-emerald-100 px-4 py-1 text-sm font-semibold text-forest">
                   <Flame className="h-4 w-4" />
@@ -394,14 +405,24 @@ export default function BarTh179Page() {
                   </div>
 
                   <div className="relative mt-4 grid grid-cols-3 gap-6">
-                    <div className="pointer-events-none absolute left-0 right-6 top-1/2 h-0.5 -translate-y-1/2 bg-gradient-to-r from-emerald-200 via-emerald-500 to-forest" />
-                    <ArrowRight className="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-forest" />
-                    {dpeCalendar.map((item) => (
+                    <AnimatedLine
+                      axis="x"
+                      className="pointer-events-none absolute left-0 right-6 top-1/2 h-0.5 -translate-y-1/2 bg-gradient-to-r from-emerald-200 via-emerald-500 to-forest"
+                    />
+                    <Reveal
+                      delay={0.6}
+                      className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2"
+                    >
+                      <ArrowRight className="h-4 w-4 text-forest" />
+                    </Reveal>
+                    {dpeCalendar.map((item, index) => (
                       <div key={item.year} className="relative z-10 flex justify-center">
-                        <span
-                          className="h-5 w-5 rounded-full border-4 border-white shadow-md"
-                          style={{ backgroundColor: item.color }}
-                        />
+                        <Reveal delay={0.1 + index * 0.2}>
+                          <span
+                            className="block h-5 w-5 rounded-full border-4 border-white shadow-md"
+                            style={{ backgroundColor: item.color }}
+                          />
+                        </Reveal>
                       </div>
                     ))}
                   </div>
@@ -410,7 +431,7 @@ export default function BarTh179Page() {
                     {dpeCalendar.map((item) => (
                       <div key={item.year} className="flex flex-col items-center">
                         <div className="h-6 w-px bg-forest-soft/30" />
-                        <article className="card-surface mt-1 w-full p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                        <article className="card-surface mt-1 w-full p-5 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
                           <p className="text-sm text-ink-muted">{item.text}</p>
                         </article>
                       </div>
@@ -425,7 +446,10 @@ export default function BarTh179Page() {
                   <Reveal key={item.year}>
                     <div className="relative flex gap-4">
                       {index < dpeCalendar.length - 1 ? (
-                        <div className="absolute left-[9px] top-8 h-[calc(100%+0.5rem)] w-0.5 bg-forest-soft/30" />
+                        <AnimatedLine
+                          axis="y"
+                          className="absolute left-[9px] top-8 h-[calc(100%+0.5rem)] w-0.5 bg-forest-soft/30"
+                        />
                       ) : null}
                       <span
                         className="relative z-10 mt-1 h-5 w-5 flex-shrink-0 rounded-full border-4 border-white shadow-md"
@@ -486,7 +510,7 @@ export default function BarTh179Page() {
                   </thead>
                   <tbody className="divide-y divide-ink/10 text-ink-muted">
                     {comparisonRows.map((row) => (
-                      <tr key={row.criterion}>
+                      <tr key={row.criterion} className="transition-colors duration-200 hover:bg-emerald-50/40">
                         <td className="px-4 py-3 font-medium text-ink">{row.criterion}</td>
                         <td className="px-4 py-3">
                           <span className="inline-flex items-start gap-2">
@@ -521,8 +545,8 @@ export default function BarTh179Page() {
           </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {benefits.map((benefit, index) => (
-              <Reveal key={benefit.text} delay={(index % 2) * 0.06}>
-                <div className="card-surface flex items-start gap-4 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <Reveal key={benefit.text} delay={(index % 2) * 0.08}>
+                <div className="card-surface flex items-start gap-4 p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
                   <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                     <benefit.icon className="h-6 w-6" />
                   </span>
@@ -543,26 +567,31 @@ export default function BarTh179Page() {
           </Reveal>
           {/* Desktop: connected horizontal journey */}
           <div className="relative mt-14 hidden sm:grid sm:grid-cols-4 sm:gap-6">
-            <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-7 border-t-2 border-dashed border-ink/15" />
-            {steps.map((step) => (
+            <AnimatedLine
+              axis="x"
+              className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-7 border-t-2 border-dashed border-ink/15"
+            />
+            {steps.map((step, index) => (
               <div key={step.text} className="relative z-10 flex justify-center">
-                <span
-                  className={`flex h-14 w-14 items-center justify-center rounded-full shadow-lg ${
-                    step.final
-                      ? "bg-emerald-500 shadow-emerald-500/30"
-                      : "bg-forest shadow-forest/20"
-                  }`}
-                >
-                  <step.icon className="h-6 w-6 text-white" />
-                </span>
+                <Reveal delay={0.08 + index * 0.15}>
+                  <span
+                    className={`flex h-14 w-14 items-center justify-center rounded-full shadow-lg ${
+                      step.final
+                        ? "bg-emerald-500 shadow-emerald-500/30"
+                        : "bg-forest shadow-forest/20"
+                    }`}
+                  >
+                    <step.icon className="h-6 w-6 text-white" />
+                  </span>
+                </Reveal>
               </div>
             ))}
           </div>
           <div className="hidden sm:mt-6 sm:grid sm:grid-cols-4 sm:gap-6">
             {steps.map((step, index) => (
-              <Reveal key={step.text} delay={index * 0.06}>
+              <Reveal key={step.text} delay={index * 0.08}>
                 <article
-                  className={`card-surface h-full p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                  className={`card-surface h-full p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
                     step.final ? "border-emerald-300 bg-emerald-50/50" : ""
                   }`}
                 >
@@ -575,10 +604,13 @@ export default function BarTh179Page() {
           {/* Mobile: connected vertical journey */}
           <div className="relative mt-10 space-y-6 sm:hidden">
             {steps.map((step, index) => (
-              <Reveal key={step.text} delay={index * 0.06}>
+              <Reveal key={step.text} delay={index * 0.08}>
                 <div className="relative flex gap-4">
                   {index < steps.length - 1 ? (
-                    <div className="absolute left-7 top-14 h-[calc(100%+1.5rem)] border-l-2 border-dashed border-ink/15" />
+                    <AnimatedLine
+                      axis="y"
+                      className="absolute left-7 top-14 h-[calc(100%+1.5rem)] border-l-2 border-dashed border-ink/15"
+                    />
                   ) : null}
                   <span
                     className={`relative z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full shadow-lg ${
@@ -608,8 +640,8 @@ export default function BarTh179Page() {
         <div className="section-shell">
           <div className="grid gap-4 sm:grid-cols-3">
             {trustPoints.map((point, index) => (
-              <Reveal key={point.text} delay={index * 0.06}>
-                <div className="flex h-full items-center gap-4 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <Reveal key={point.text} delay={index * 0.08}>
+                <div className="flex h-full items-center gap-4 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
                   <span className="inline-flex flex-shrink-0 rounded-full border border-emerald-200 bg-emerald-50 p-3 text-forest-soft">
                     <point.icon className="h-6 w-6" />
                   </span>
