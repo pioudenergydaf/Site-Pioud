@@ -210,21 +210,24 @@ export default function BarTh179Page() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              {[
-                { code: "BAR", label: "Bâtiment résidentiel" },
-                { code: "TH", label: "Thermique" },
-                { code: "179", label: "PAC collective air/eau" },
-              ].map((item) => (
-                <div
-                  key={item.code}
-                  className="card-surface border-t-4 border-t-emerald-400 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                >
-                  <p className="text-3xl font-bold text-forest">{item.code}</p>
-                  <p className="mt-1 text-sm text-ink-muted">{item.label}</p>
-                </div>
-              ))}
+            <div className="mt-10 overflow-hidden rounded-card-lg border border-white/60 shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
+              <div className="relative h-[320px] w-full sm:h-[420px]">
+                <Image
+                  src="/images/pac-collective-bar-th-179.webp"
+                  alt="Pompe à chaleur air/eau collective installée sur un immeuble résidentiel"
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
+            <p className="mt-4 text-sm text-ink-soft">
+              <span className="font-semibold text-forest-soft">BAR</span> Bâtiment résidentiel
+              <span className="mx-2">·</span>
+              <span className="font-semibold text-forest-soft">TH</span> Thermique
+              <span className="mx-2">·</span>
+              <span className="font-semibold text-forest-soft">179</span> PAC collective air/eau
+            </p>
           </Reveal>
 
           <Reveal delay={0.1}>
