@@ -6,6 +6,7 @@ import {
   Network,
   Sun,
   Thermometer,
+  Wind,
   Zap,
 } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -42,6 +43,16 @@ const operations = [
     description:
       "PAC géothermique ou sur nappe phréatique. Bonification Coup de pouce x5 en remplacement d'une chaudière fossile. Très hautes performances.",
     badges: [{ label: "🔥 Coup de pouce x5", className: "bg-emerald-100 text-forest" }],
+  },
+  {
+    title: "Pompe à chaleur air/air",
+    ref: "BAR-TH-179",
+    icon: Wind,
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-179%20vA79-4%20%C3%A0%20compter%20du%2001-01-2026.pdf",
+    description:
+      "PAC air/air pour le chauffage des logements existants. Solution rapide à installer et adaptée aux petites surfaces ou aux résidences secondaires. Éligible aux primes CEE classiques.",
+    badges: [{ label: "✨ Nouvelle fiche", className: "bg-emerald-100 text-forest" }],
   },
   {
     title: "Chaudière biomasse individuelle",
