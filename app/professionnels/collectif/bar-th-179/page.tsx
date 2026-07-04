@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  ArrowRight,
   Award,
   BadgeCheck,
   CalendarCheck,
@@ -48,9 +49,21 @@ const eligibilityItems: Array<{ text: string; ok: boolean }> = [
 ];
 
 const dpeCalendar = [
-  { year: "2025", text: "Interdiction de louer les logements classés G au DPE." },
-  { year: "2028", text: "Extension de l'interdiction aux logements classés F." },
-  { year: "2034", text: "Extension de l'interdiction aux logements classés E." },
+  {
+    year: "2025",
+    text: "Interdiction de louer les logements classés G au DPE.",
+    color: "#6EE7B7",
+  },
+  {
+    year: "2028",
+    text: "Extension de l'interdiction aux logements classés F.",
+    color: "#10B981",
+  },
+  {
+    year: "2034",
+    text: "Extension de l'interdiction aux logements classés E.",
+    color: "#1F3A2E",
+  },
 ];
 
 const comparisonRows = [
@@ -366,15 +379,62 @@ export default function BarTh179Page() {
                 pour l&apos;ensemble de vos copropriétés.
               </p>
 
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                {dpeCalendar.map((item) => (
-                  <Reveal key={item.year}>
-                    <article className="card-surface border-t-4 border-t-forest-soft/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                      <p className="text-sm font-semibold uppercase tracking-wide text-forest-soft">
+              {/* Desktop: horizontal timeline */}
+              <Reveal>
+                <div className="relative mt-12 hidden sm:block">
+                  <div className="grid grid-cols-3 gap-6">
+                    {dpeCalendar.map((item) => (
+                      <p key={item.year} className="text-center text-3xl font-bold text-forest">
                         {item.year}
                       </p>
-                      <p className="mt-2 text-ink-muted">{item.text}</p>
-                    </article>
+                    ))}
+                  </div>
+
+                  <div className="relative mt-4 grid grid-cols-3 gap-6">
+                    <div className="pointer-events-none absolute left-0 right-6 top-1/2 h-0.5 -translate-y-1/2 bg-gradient-to-r from-emerald-200 via-emerald-500 to-forest" />
+                    <ArrowRight className="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-forest" />
+                    {dpeCalendar.map((item) => (
+                      <div key={item.year} className="relative z-10 flex justify-center">
+                        <span
+                          className="h-5 w-5 rounded-full border-4 border-white shadow-md"
+                          style={{ backgroundColor: item.color }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-6">
+                    {dpeCalendar.map((item) => (
+                      <div key={item.year} className="flex flex-col items-center">
+                        <div className="h-6 w-px bg-forest-soft/30" />
+                        <article className="card-surface mt-1 w-full p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                          <p className="text-sm text-ink-muted">{item.text}</p>
+                        </article>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* Mobile: vertical timeline */}
+              <div className="relative mt-10 space-y-6 sm:hidden">
+                {dpeCalendar.map((item, index) => (
+                  <Reveal key={item.year}>
+                    <div className="relative flex gap-4">
+                      {index < dpeCalendar.length - 1 ? (
+                        <div className="absolute left-[9px] top-8 h-[calc(100%+0.5rem)] w-0.5 bg-forest-soft/30" />
+                      ) : null}
+                      <span
+                        className="relative z-10 mt-1 h-5 w-5 flex-shrink-0 rounded-full border-4 border-white shadow-md"
+                        style={{ backgroundColor: item.color }}
+                      />
+                      <div className="flex-1">
+                        <p className="text-2xl font-bold text-forest">{item.year}</p>
+                        <article className="card-surface mt-2 p-4">
+                          <p className="text-sm text-ink-muted">{item.text}</p>
+                        </article>
+                      </div>
+                    </div>
                   </Reveal>
                 ))}
               </div>
