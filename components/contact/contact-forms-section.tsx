@@ -42,6 +42,8 @@ type ContactFormsSectionProps = {
   heading?: string;
   subheading?: string;
   defaultMessage?: string;
+  emphasized?: boolean;
+  submitNote?: string;
 };
 
 export function ContactFormsSection({
@@ -49,6 +51,8 @@ export function ContactFormsSection({
   heading = "Formulaire de contact",
   subheading = "Décrivez votre besoin et nous revenons vers vous sous 24h ouvrées.",
   defaultMessage,
+  emphasized = false,
+  submitNote,
 }: ContactFormsSectionProps = {}) {
   const consent = useConsent();
   const [contactSubmission, setContactSubmission] =
@@ -101,7 +105,13 @@ export function ContactFormsSection({
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[2fr_1fr]">
           <Reveal>
-            <form className="card-surface space-y-5 p-7" method="post" onSubmit={handleSubmit}>
+            <form
+              className={`card-surface space-y-5 p-7 ${
+                emphasized ? "shadow-2xl shadow-[0_24px_56px_rgba(31,58,46,0.16)] ring-1 ring-emerald-100" : ""
+              }`}
+              method="post"
+              onSubmit={handleSubmit}
+            >
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="mb-2 block text-sm font-medium text-ink-muted">
@@ -209,6 +219,10 @@ export function ContactFormsSection({
               >
                 {contactSubmission.status === "sending" ? "Envoi..." : "Envoyer la demande"}
               </button>
+
+              {submitNote ? (
+                <p className="text-xs text-ink-soft">{submitNote}</p>
+              ) : null}
 
               {contactSubmission.status !== "idle" ? (
                 <p
