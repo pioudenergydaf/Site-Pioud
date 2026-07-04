@@ -1,13 +1,13 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import { Clock3, MapPin, PhoneCall } from "lucide-react";
+import { Clock3, MapPin } from "lucide-react";
 import Link from "next/link";
 import { useConsent } from "@/components/cookies/use-consent";
 import { TurnstileWidget } from "@/components/contact/turnstile-widget";
 import { Reveal } from "@/components/ui/reveal";
 import { COOKIE_CONSENT_OPEN_EVENT } from "@/lib/cookie-consent";
-import { servicePhones, siteConfig } from "@/lib/site-data";
+import { siteConfig } from "@/lib/site-data";
 
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
@@ -37,7 +37,23 @@ async function postFormData(formData: FormData) {
   return data.message ?? "Votre message a bien été envoyé";
 }
 
-export function ContactFormsSection() {
+type ContactFormsSectionProps = {
+  id?: string;
+  heading?: string;
+  subheading?: string;
+  defaultMessage?: string;
+  emphasized?: boolean;
+  submitNote?: string;
+};
+
+export function ContactFormsSection({
+  id,
+  heading = "Formulaire de contact",
+  subheading = "Décrivez votre besoin et nous revenons vers vous sous 24h ouvrées.",
+  defaultMessage,
+  emphasized = false,
+  submitNote,
+}: ContactFormsSectionProps = {}) {
   const consent = useConsent();
   const [contactSubmission, setContactSubmission] =
     useState<SubmissionState>(idleSubmissionState);
@@ -79,19 +95,23 @@ export function ContactFormsSection() {
 
   return (
     <>
-      <section className="section-shell py-20">
+      <section id={id} className="section-shell py-20">
         <Reveal>
           <div className="max-w-3xl">
-            <h2 className="text-3xl font-bold text-ink">Formulaire de contact</h2>
-            <p className="mt-3 text-lg text-ink-muted">
-              Décrivez votre besoin et nous revenons vers vous sous 24h ouvrées.
-            </p>
+            <h2 className="text-3xl font-bold text-ink">{heading}</h2>
+            <p className="mt-3 text-lg text-ink-muted">{subheading}</p>
           </div>
         </Reveal>
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[2fr_1fr]">
           <Reveal>
-            <form className="card-surface space-y-5 p-7" method="post" onSubmit={handleSubmit}>
+            <form
+              className={`card-surface space-y-5 p-7 ${
+                emphasized ? "shadow-2xl shadow-[0_24px_56px_rgba(31,58,46,0.16)] ring-1 ring-emerald-100" : ""
+              }`}
+              method="post"
+              onSubmit={handleSubmit}
+            >
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className="mb-2 block text-sm font-medium text-ink-muted">
@@ -162,6 +182,7 @@ export function ContactFormsSection() {
                   name="message"
                   required
                   rows={6}
+                  defaultValue={defaultMessage}
                   className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                   placeholder="Décrivez votre projet énergétique, vos délais et vos objectifs."
                 />
@@ -199,6 +220,10 @@ export function ContactFormsSection() {
                 {contactSubmission.status === "sending" ? "Envoi..." : "Envoyer la demande"}
               </button>
 
+              {submitNote ? (
+                <p className="text-xs text-ink-soft">{submitNote}</p>
+              ) : null}
+
               {contactSubmission.status !== "idle" ? (
                 <p
                   role="status"
@@ -218,38 +243,12 @@ export function ContactFormsSection() {
             <aside className="space-y-6">
               <div className="card-surface p-6">
                 <p className="mb-4 text-lg font-semibold text-ink">
-                  Numéros par service
-                </p>
-                <ul className="space-y-3 text-sm">
-                  {servicePhones.map((service) => (
-                    <li key={service.service} className="flex items-start gap-3">
-                      <PhoneCall className="mt-0.5 h-4 w-4 text-forest-soft" />
-                      <div>
-                        <p className="font-medium text-ink-muted">{service.service}</p>
-                        <a
-                          href={`tel:+33${service.number.replace(/\s+/g, "").slice(1)}`}
-                          className="text-ink-soft hover:text-ink"
-                        >
-                          {service.number}
-                        </a>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="card-surface p-6">
-                <p className="mb-4 text-lg font-semibold text-ink">
                   Horaires d&apos;ouverture
                 </p>
                 <ul className="space-y-2 text-sm text-ink-muted">
                   <li className="flex items-start gap-2">
                     <Clock3 className="mt-0.5 h-4 w-4 text-forest-soft" />
                     Lundi - Vendredi : 8h30 - 19h00
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Clock3 className="mt-0.5 h-4 w-4 text-forest-soft" />
-                    Samedi : 9h00 - 13h00
                   </li>
                   <li className="flex items-start gap-2">
                     <MapPin className="mt-0.5 h-4 w-4 text-forest-soft" />

@@ -6,6 +6,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/site-data";
 import NavDropdown from "@/components/layout/NavDropdown";
+import { LandingNavbar } from "@/components/layout/landing-navbar";
+
+const LANDING_PAGES: Record<string, string> = {
+  "/professionnels/collectif/bar-th-179": "/professionnels/collectif",
+};
 
 const particuliersItems = [
   { label: "Isolation", href: "/particuliers/isolation" },
@@ -37,6 +42,11 @@ export function Navbar() {
   }, [menuOpen]);
 
   const desktopNavItems = navLinks.filter((item) => item.href !== "/contact");
+
+  const landingBackHref = LANDING_PAGES[pathname];
+  if (landingBackHref) {
+    return <LandingNavbar backHref={landingBackHref} />;
+  }
 
   return (
     <>

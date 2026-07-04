@@ -13,6 +13,7 @@ const routes = [
   "/professionnels/tertiaire",
   "/professionnels/industrie",
   "/professionnels/collectif",
+  "/professionnels/collectif/bar-th-179",
   "/collectivites",
   "/grands-comptes",
   "/aides",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Building2, Home, Layers, Thermometer } from "lucide-react";
+import { ArrowRight, Building2, Home, Layers, Thermometer } from "lucide-react";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
@@ -23,13 +23,15 @@ const collectiveOperations = [
     pdfUrl: "https://www.ecologie.gouv.fr/operations-standardisees-deconomies-denergie",
   },
   {
-    title: "Pompe à chaleur collective de type air/eau",
+    title: "Pompe à chaleur collective air/eau",
     reference: "BAR-TH-179",
     icon: Thermometer,
     description:
-      "Mise en place d'une ou plusieurs PAC collectives air/eau pour un système de chauffage collectif en bâtiment résidentiel existant. Permet de réduire durablement les consommations et les émissions associées au chauffage central.",
+      "PAC collective air/eau pour le chauffage collectif des bâtiments résidentiels existants (copropriétés). Puissance thermique nominale ≤ 400 kW par PAC. Éligible pour chauffage seul ou chauffage + ECS (PAC pour ECS seule non éligible). Pose par un professionnel RGE. Applicable depuis le 1er janvier 2026, engagement jusqu'au 31 décembre 2030. Bonification Coup de pouce x3 en remplacement d'une chaudière charbon, fioul ou gaz.",
     examples: "Exemples : logements collectifs, copropriétés, immeubles",
+    badge: "✨ Nouvelle fiche",
     pdfUrl: "https://www.ecologie.gouv.fr/operations-standardisees-deconomies-denergie",
+    internalUrl: "/professionnels/collectif/bar-th-179",
   },
   {
     title: "Rénovation globale d'un bâtiment résidentiel collectif",
@@ -94,6 +96,11 @@ export default function CollectifPage() {
                   <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                     <operation.icon className="h-5 w-5" />
                   </span>
+                  {operation.badge ? (
+                    <span className="rounded-pill bg-emerald-100 px-3 py-1 text-xs font-semibold text-forest">
+                      {operation.badge}
+                    </span>
+                  ) : null}
                 </div>
                 <h3 className="mt-4 text-xl font-semibold text-ink">{operation.title}</h3>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
@@ -104,6 +111,15 @@ export default function CollectifPage() {
                 </p>
                 <p className="mt-3 text-sm font-medium text-ink-muted">{operation.examples}</p>
                 <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
+                {operation.internalUrl ? (
+                  <Link
+                    href={operation.internalUrl}
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-forest-soft transition hover:text-forest"
+                  >
+                    En savoir plus
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                ) : null}
               </article>
             </Reveal>
           ))}

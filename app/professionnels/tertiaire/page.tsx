@@ -106,9 +106,9 @@ const tertiaryOperations = [
     reference: "BAT-TH-163",
     icon: Thermometer,
     description:
-      "Installation d'une PAC air/eau performante en remplacement d'une chaudière gaz ou fioul. Bonification Coup de pouce pouvant couvrir jusqu'à 50% de l'investissement.",
+      "PAC air/eau pour le chauffage des bâtiments tertiaires existants. Remplace l'ancienne fiche BAT-TH-113. Pose par un professionnel RGE. Applicable depuis le 1er janvier 2026, engagement jusqu'au 31 décembre 2030. Bonification Coup de pouce x3 en remplacement d'une chaudière charbon, fioul ou gaz.",
     examples: "Exemples : immeubles de bureaux, établissements de soins",
-    badge: "🔥 Revalorisé en 2026",
+    badge: "✨ Nouvelle fiche",
     pdfUrl:
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-163%20vA75-1%20%C3%A0%20compter%20du%2001-01-2026.pdf",
   },
