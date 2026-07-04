@@ -127,7 +127,20 @@ const trustPoints = [
   { icon: BadgeCheck, text: "Professionnels RGE uniquement" },
 ];
 
-const partnerLogos = [
+type PartnerLogo = {
+  name: string;
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  // Pour les certifications (Qualibat, Qualit'EnR) : la charte impose
+  // d'afficher le numéro de qualification avec le logo. Tant que ce champ
+  // est vide, le logo est masqué ; renseigner le numéro le réactive.
+  qualificationNumber?: string;
+  requiresQualificationNumber?: boolean;
+};
+
+const partnerLogos: PartnerLogo[] = [
   {
     name: "TotalEnergies",
     src: "/images/partenaires/totalenergies.png",
@@ -141,7 +154,8 @@ const partnerLogos = [
     alt: "Logo Qualibat - certification RGE",
     width: 664,
     height: 492,
-    qualificationNumber: "", // ex: "N° de qualification : XXXXX" — à compléter
+    qualificationNumber: "", // ex: "N° 12345" — le renseigner réaffiche le logo
+    requiresQualificationNumber: true,
   },
   {
     name: "Qualit'EnR",
@@ -149,9 +163,14 @@ const partnerLogos = [
     alt: "Logo Qualit'EnR - certification RGE",
     width: 824,
     height: 756,
-    qualificationNumber: "", // ex: "N° de qualification : XXXXX" — à compléter
+    qualificationNumber: "", // ex: "N° 12345" — le renseigner réaffiche le logo
+    requiresQualificationNumber: true,
   },
 ];
+
+const visiblePartnerLogos = partnerLogos.filter(
+  (logo) => !logo.requiresQualificationNumber || logo.qualificationNumber,
+);
 
 function SectionEyebrow({ children }: { children: string }) {
   return (
@@ -680,7 +699,7 @@ export default function BarTh179Page() {
       </section>
 
       {/* PARTENAIRES ET CERTIFICATIONS */}
-      <section className="pb-20">
+      <section className="bg-white py-16">
         <div className="section-shell">
           <Reveal>
             <p className="text-center text-sm font-semibold uppercase tracking-wide text-ink-soft">
@@ -688,22 +707,20 @@ export default function BarTh179Page() {
             </p>
           </Reveal>
           <Reveal delay={0.08}>
-            <div className="mt-8 flex flex-wrap items-end justify-center gap-x-10 gap-y-6 sm:gap-x-14">
-              {partnerLogos.map((logo) => (
-                <div key={logo.name} className="flex flex-col items-center gap-2">
-                  <div className="flex h-16 items-center justify-center rounded-2xl bg-white px-6 shadow-sm">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-20 gap-y-10">
+              {visiblePartnerLogos.map((logo) => (
+                <div key={logo.name} className="flex flex-col items-center gap-3">
+                  <div className="flex h-28 items-center justify-center">
                     <Image
                       src={logo.src}
                       alt={logo.alt}
                       width={logo.width}
                       height={logo.height}
-                      className="h-10 w-auto grayscale transition-all duration-300 hover:grayscale-0"
+                      className="h-24 w-auto sm:h-28"
                     />
                   </div>
-                  {"qualificationNumber" in logo ? (
-                    <p className="text-xs text-ink-soft">
-                      {logo.qualificationNumber || "N° de qualification à venir"}
-                    </p>
+                  {logo.qualificationNumber ? (
+                    <p className="text-xs text-ink-soft">{logo.qualificationNumber}</p>
                   ) : null}
                 </div>
               ))}
