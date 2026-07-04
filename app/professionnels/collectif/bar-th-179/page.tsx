@@ -107,7 +107,7 @@ export default function BarTh179Page() {
         eyebrow="✨ Nouvelle fiche CEE 2026"
         title="Pompe à chaleur collective air/eau : jusqu'à 3x plus de CEE en copropriété"
         description="Fiche BAR-TH-179 — financez le remplacement de votre chaufferie fossile par une PAC collective air/eau."
-        imageUrl="https://images.unsplash.com/photo-1472220625704-91e1462799b2?auto=format&fit=crop&w=1700&q=80"
+        imageUrl="https://images.unsplash.com/photo-1699564625068-803d1c7fcfbc?auto=format&fit=crop&w=1700&q=80"
         primaryCta={{ href: "#contact", label: "Estimer ma prime CEE" }}
       />
 
