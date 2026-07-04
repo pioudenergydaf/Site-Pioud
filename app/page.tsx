@@ -34,7 +34,7 @@ const clientLogos = [
 export default function Home() {
   return (
     <div className="overflow-x-hidden bg-cream text-ink">
-      <section className="relative flex min-h-[90vh] items-center overflow-hidden px-6 pb-32 pt-32 md:px-12 lg:px-20">
+      <section className="relative flex min-h-[90vh] items-center overflow-hidden px-6 pb-16 pt-28 md:pb-32 md:pt-32 md:px-12 lg:px-20">
         <div className="absolute inset-0 z-0">
           <video
             autoPlay
@@ -74,7 +74,7 @@ export default function Home() {
                 Pioud Energy
               </span>
             </h1>
-            <p className="mb-12 mt-8 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
+            <p className="mb-8 mt-6 max-w-2xl md:mb-12 md:mt-8 text-lg leading-relaxed text-white/85 md:text-xl">
               De l&apos;audit initial au versement de la prime, nos experts pilotent vos
               dossiers CEE avec précision, rapidité et transparence.
             </p>
@@ -103,7 +103,7 @@ export default function Home() {
             </div>
           </Reveal>
 
-          <div className="mt-20 grid max-w-4xl gap-8 border-t border-white/40 pt-12 md:grid-cols-3">
+          <div className="mt-12 grid max-w-4xl gap-8 border-t border-white/40 pt-8 md:mt-20 md:grid-cols-3 md:pt-12">
             {keyFigures.map((figure, index) => (
               <Reveal key={figure.label} delay={0.1 + index * 0.1}>
                 <article className={`${index > 0 ? "md:border-l md:border-white/40 md:pl-8" : ""}`}>
@@ -124,8 +124,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="qui-sommes-nous" className="bg-white py-24">
-        <div className="section-shell grid items-center gap-10 lg:grid-cols-2">
+      <section id="qui-sommes-nous" className="bg-white py-12 md:py-24">
+        <div className="section-shell grid items-center gap-8 md:gap-10 lg:grid-cols-2">
           <Reveal>
             <div>
               <p className="inline-flex items-center gap-2 rounded-pill bg-sage px-4 py-1 text-sm font-semibold text-forest">
@@ -192,8 +192,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24">
-        <div className="section-shell grid items-center gap-10 lg:grid-cols-2">
+      <section className="py-12 md:py-24">
+        <div className="section-shell grid items-center gap-8 md:gap-10 lg:grid-cols-2">
           <Reveal>
             <div className="relative min-h-[360px] overflow-hidden rounded-card border border-ink/10 shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
@@ -246,8 +246,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24">
-        <div className="section-shell grid items-center gap-10 lg:grid-cols-2">
+      <section className="py-12 md:py-24">
+        <div className="section-shell grid items-center gap-8 md:gap-10 lg:grid-cols-2">
           <Reveal>
             <div>
               <p className="inline-flex rounded-pill bg-sage px-4 py-1 text-sm font-semibold text-forest">
@@ -286,20 +286,20 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24">
+      <section className="py-12 md:py-24">
         <div className="section-shell">
           <Reveal>
             <h2 className="text-center font-display text-4xl font-light text-ink">
               Témoignages clients
             </h2>
           </Reveal>
-          <div className="mt-10">
+          <div className="mt-8 md:mt-10">
             <TestimonialCarousel items={testimonials} />
           </div>
         </div>
       </section>
 
-      <section className="section-shell pb-16">
+      <section className="section-shell pb-12 md:pb-16">
         <Reveal>
           <div className="rounded-card-lg bg-forest px-8 py-12 text-white shadow-[0_12px_34px_rgba(31,58,46,0.18)] sm:px-12">
             <div className="flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between">

@@ -6,7 +6,7 @@ const footerLinks = navLinks.filter((link) => link.href !== "/");
 
 export function Footer() {
   return (
-    <footer className="mt-24 bg-forest text-cream-soft">
+    <footer className="mt-12 bg-forest text-cream-soft md:mt-24">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 sm:grid-cols-2 lg:grid-cols-5 lg:px-8">
         <div className="space-y-4">
           <p className="font-display text-lg font-light text-cream">À propos</p>
