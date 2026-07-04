@@ -2,14 +2,18 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  ArrowRight,
   Award,
   BadgeCheck,
+  Banknote,
   CalendarCheck,
   CheckCircle,
   ExternalLink,
+  FileText,
   Flame,
   Leaf,
   Network,
+  Search,
   ShieldCheck,
   TrendingDown,
   Wrench,
@@ -48,9 +52,21 @@ const eligibilityItems: Array<{ text: string; ok: boolean }> = [
 ];
 
 const dpeCalendar = [
-  { year: "2025", text: "Interdiction de louer les logements classés G au DPE." },
-  { year: "2028", text: "Extension de l'interdiction aux logements classés F." },
-  { year: "2034", text: "Extension de l'interdiction aux logements classés E." },
+  {
+    year: "2025",
+    text: "Interdiction de louer les logements classés G au DPE.",
+    color: "#6EE7B7",
+  },
+  {
+    year: "2028",
+    text: "Extension de l'interdiction aux logements classés F.",
+    color: "#10B981",
+  },
+  {
+    year: "2034",
+    text: "Extension de l'interdiction aux logements classés E.",
+    color: "#1F3A2E",
+  },
 ];
 
 const comparisonRows = [
@@ -96,10 +112,10 @@ const benefits = [
 ];
 
 const steps = [
-  "Étude d'éligibilité et estimation de la prime.",
-  "Montage du dossier CEE par nos soins.",
-  "Installation par un professionnel RGE.",
-  "Versement de la prime.",
+  { icon: Search, text: "Étude d'éligibilité et estimation de la prime." },
+  { icon: FileText, text: "Montage du dossier CEE par nos soins." },
+  { icon: Wrench, text: "Installation par un professionnel RGE." },
+  { icon: Banknote, text: "Versement de la prime.", final: true },
 ];
 
 const trustPoints = [
@@ -210,21 +226,24 @@ export default function BarTh179Page() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              {[
-                { code: "BAR", label: "Bâtiment résidentiel" },
-                { code: "TH", label: "Thermique" },
-                { code: "179", label: "PAC collective air/eau" },
-              ].map((item) => (
-                <div
-                  key={item.code}
-                  className="card-surface border-t-4 border-t-emerald-400 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                >
-                  <p className="text-3xl font-bold text-forest">{item.code}</p>
-                  <p className="mt-1 text-sm text-ink-muted">{item.label}</p>
-                </div>
-              ))}
+            <div className="mt-10 overflow-hidden rounded-card-lg border border-white/60 shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
+              <div className="relative h-[320px] w-full sm:h-[420px]">
+                <Image
+                  src="/images/pac-collective-bar-th-179.webp"
+                  alt="Pompe à chaleur air/eau collective installée sur un immeuble résidentiel"
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
+            <p className="mt-4 text-sm text-ink-soft">
+              <span className="font-semibold text-forest-soft">BAR</span> Bâtiment résidentiel
+              <span className="mx-2">·</span>
+              <span className="font-semibold text-forest-soft">TH</span> Thermique
+              <span className="mx-2">·</span>
+              <span className="font-semibold text-forest-soft">179</span> PAC collective air/eau
+            </p>
           </Reveal>
 
           <Reveal delay={0.1}>
@@ -363,15 +382,62 @@ export default function BarTh179Page() {
                 pour l&apos;ensemble de vos copropriétés.
               </p>
 
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                {dpeCalendar.map((item) => (
-                  <Reveal key={item.year}>
-                    <article className="card-surface border-t-4 border-t-forest-soft/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                      <p className="text-sm font-semibold uppercase tracking-wide text-forest-soft">
+              {/* Desktop: horizontal timeline */}
+              <Reveal>
+                <div className="relative mt-12 hidden sm:block">
+                  <div className="grid grid-cols-3 gap-6">
+                    {dpeCalendar.map((item) => (
+                      <p key={item.year} className="text-center text-3xl font-bold text-forest">
                         {item.year}
                       </p>
-                      <p className="mt-2 text-ink-muted">{item.text}</p>
-                    </article>
+                    ))}
+                  </div>
+
+                  <div className="relative mt-4 grid grid-cols-3 gap-6">
+                    <div className="pointer-events-none absolute left-0 right-6 top-1/2 h-0.5 -translate-y-1/2 bg-gradient-to-r from-emerald-200 via-emerald-500 to-forest" />
+                    <ArrowRight className="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-forest" />
+                    {dpeCalendar.map((item) => (
+                      <div key={item.year} className="relative z-10 flex justify-center">
+                        <span
+                          className="h-5 w-5 rounded-full border-4 border-white shadow-md"
+                          style={{ backgroundColor: item.color }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-6">
+                    {dpeCalendar.map((item) => (
+                      <div key={item.year} className="flex flex-col items-center">
+                        <div className="h-6 w-px bg-forest-soft/30" />
+                        <article className="card-surface mt-1 w-full p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                          <p className="text-sm text-ink-muted">{item.text}</p>
+                        </article>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* Mobile: vertical timeline */}
+              <div className="relative mt-10 space-y-6 sm:hidden">
+                {dpeCalendar.map((item, index) => (
+                  <Reveal key={item.year}>
+                    <div className="relative flex gap-4">
+                      {index < dpeCalendar.length - 1 ? (
+                        <div className="absolute left-[9px] top-8 h-[calc(100%+0.5rem)] w-0.5 bg-forest-soft/30" />
+                      ) : null}
+                      <span
+                        className="relative z-10 mt-1 h-5 w-5 flex-shrink-0 rounded-full border-4 border-white shadow-md"
+                        style={{ backgroundColor: item.color }}
+                      />
+                      <div className="flex-1">
+                        <p className="text-2xl font-bold text-forest">{item.year}</p>
+                        <article className="card-surface mt-2 p-4">
+                          <p className="text-sm text-ink-muted">{item.text}</p>
+                        </article>
+                      </div>
+                    </div>
                   </Reveal>
                 ))}
               </div>
@@ -475,15 +541,62 @@ export default function BarTh179Page() {
             <SectionEyebrow>Méthode</SectionEyebrow>
             <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl">Comment ça marche</h2>
           </Reveal>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Desktop: connected horizontal journey */}
+          <div className="relative mt-14 hidden sm:grid sm:grid-cols-4 sm:gap-6">
+            <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-7 border-t-2 border-dashed border-ink/15" />
+            {steps.map((step) => (
+              <div key={step.text} className="relative z-10 flex justify-center">
+                <span
+                  className={`flex h-14 w-14 items-center justify-center rounded-full shadow-lg ${
+                    step.final
+                      ? "bg-emerald-500 shadow-emerald-500/30"
+                      : "bg-forest shadow-forest/20"
+                  }`}
+                >
+                  <step.icon className="h-6 w-6 text-white" />
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="hidden sm:mt-6 sm:grid sm:grid-cols-4 sm:gap-6">
             {steps.map((step, index) => (
-              <Reveal key={step} delay={(index % 4) * 0.06}>
-                <article className="card-surface h-full p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-forest text-sm font-bold text-white">
-                    {index + 1}
-                  </span>
-                  <p className="mt-4 text-ink-muted">{step}</p>
+              <Reveal key={step.text} delay={index * 0.06}>
+                <article
+                  className={`card-surface h-full p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                    step.final ? "border-emerald-300 bg-emerald-50/50" : ""
+                  }`}
+                >
+                  <p className="text-ink-muted">{step.text}</p>
                 </article>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Mobile: connected vertical journey */}
+          <div className="relative mt-10 space-y-6 sm:hidden">
+            {steps.map((step, index) => (
+              <Reveal key={step.text} delay={index * 0.06}>
+                <div className="relative flex gap-4">
+                  {index < steps.length - 1 ? (
+                    <div className="absolute left-7 top-14 h-[calc(100%+1.5rem)] border-l-2 border-dashed border-ink/15" />
+                  ) : null}
+                  <span
+                    className={`relative z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full shadow-lg ${
+                      step.final
+                        ? "bg-emerald-500 shadow-emerald-500/30"
+                        : "bg-forest shadow-forest/20"
+                    }`}
+                  >
+                    <step.icon className="h-6 w-6 text-white" />
+                  </span>
+                  <article
+                    className={`card-surface flex-1 p-5 ${
+                      step.final ? "border-emerald-300 bg-emerald-50/50" : ""
+                    }`}
+                  >
+                    <p className="text-ink-muted">{step.text}</p>
+                  </article>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -493,21 +606,18 @@ export default function BarTh179Page() {
       {/* RÉASSURANCE AVANT FORMULAIRE */}
       <section className="py-20">
         <div className="section-shell">
-          <Reveal>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {trustPoints.map((point) => (
-                <div
-                  key={point.text}
-                  className="flex items-center gap-3 rounded-2xl border border-ink/10 bg-white px-5 py-4 shadow-sm"
-                >
-                  <span className="inline-flex rounded-full bg-sage p-2 text-forest-soft">
-                    <point.icon className="h-5 w-5" />
+          <div className="grid gap-4 sm:grid-cols-3">
+            {trustPoints.map((point, index) => (
+              <Reveal key={point.text} delay={index * 0.06}>
+                <div className="flex h-full items-center gap-4 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  <span className="inline-flex flex-shrink-0 rounded-full border border-emerald-200 bg-emerald-50 p-3 text-forest-soft">
+                    <point.icon className="h-6 w-6" />
                   </span>
                   <p className="text-sm font-semibold text-ink">{point.text}</p>
                 </div>
-              ))}
-            </div>
-          </Reveal>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
