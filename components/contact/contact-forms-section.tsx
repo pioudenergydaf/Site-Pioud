@@ -1,13 +1,13 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import { Clock3, MapPin, PhoneCall } from "lucide-react";
+import { Clock3, MapPin } from "lucide-react";
 import Link from "next/link";
 import { useConsent } from "@/components/cookies/use-consent";
 import { TurnstileWidget } from "@/components/contact/turnstile-widget";
 import { Reveal } from "@/components/ui/reveal";
 import { COOKIE_CONSENT_OPEN_EVENT } from "@/lib/cookie-consent";
-import { servicePhones, siteConfig } from "@/lib/site-data";
+import { siteConfig } from "@/lib/site-data";
 
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
@@ -229,38 +229,12 @@ export function ContactFormsSection({
             <aside className="space-y-6">
               <div className="card-surface p-6">
                 <p className="mb-4 text-lg font-semibold text-ink">
-                  Numéros par service
-                </p>
-                <ul className="space-y-3 text-sm">
-                  {servicePhones.map((service) => (
-                    <li key={service.service} className="flex items-start gap-3">
-                      <PhoneCall className="mt-0.5 h-4 w-4 text-forest-soft" />
-                      <div>
-                        <p className="font-medium text-ink-muted">{service.service}</p>
-                        <a
-                          href={`tel:+33${service.number.replace(/\s+/g, "").slice(1)}`}
-                          className="text-ink-soft hover:text-ink"
-                        >
-                          {service.number}
-                        </a>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="card-surface p-6">
-                <p className="mb-4 text-lg font-semibold text-ink">
                   Horaires d&apos;ouverture
                 </p>
                 <ul className="space-y-2 text-sm text-ink-muted">
                   <li className="flex items-start gap-2">
                     <Clock3 className="mt-0.5 h-4 w-4 text-forest-soft" />
                     Lundi - Vendredi : 8h30 - 19h00
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Clock3 className="mt-0.5 h-4 w-4 text-forest-soft" />
-                    Samedi : 9h00 - 13h00
                   </li>
                   <li className="flex items-start gap-2">
                     <MapPin className="mt-0.5 h-4 w-4 text-forest-soft" />

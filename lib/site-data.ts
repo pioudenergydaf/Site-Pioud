@@ -88,10 +88,3 @@ export const partners = [
   "Atlantic",
   "Daikin",
 ];
-
-export const servicePhones = [
-  { service: "Service particuliers", number: "01 89 70 45 21" },
-  { service: "Service professionnels", number: "01 89 70 45 22" },
-  { service: "Service collectivités", number: "01 89 70 45 23" },
-  { service: "Service grands comptes", number: "01 89 70 45 24" },
-];
