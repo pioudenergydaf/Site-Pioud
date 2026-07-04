@@ -23,12 +23,13 @@ const collectiveOperations = [
     pdfUrl: "https://www.ecologie.gouv.fr/operations-standardisees-deconomies-denergie",
   },
   {
-    title: "Pompe à chaleur collective de type air/eau",
+    title: "Pompe à chaleur collective air/eau",
     reference: "BAR-TH-179",
     icon: Thermometer,
     description:
-      "Mise en place d'une ou plusieurs PAC collectives air/eau pour un système de chauffage collectif en bâtiment résidentiel existant. Permet de réduire durablement les consommations et les émissions associées au chauffage central.",
+      "PAC collective air/eau pour le chauffage collectif des bâtiments résidentiels existants (copropriétés). Puissance thermique nominale ≤ 400 kW par PAC. Éligible pour chauffage seul ou chauffage + ECS (PAC pour ECS seule non éligible). Pose par un professionnel RGE. Applicable depuis le 1er janvier 2026, engagement jusqu'au 31 décembre 2030. Bonification Coup de pouce x3 en remplacement d'une chaudière charbon, fioul ou gaz.",
     examples: "Exemples : logements collectifs, copropriétés, immeubles",
+    badge: "✨ Nouvelle fiche",
     pdfUrl: "https://www.ecologie.gouv.fr/operations-standardisees-deconomies-denergie",
   },
   {
@@ -94,6 +95,11 @@ export default function CollectifPage() {
                   <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
                     <operation.icon className="h-5 w-5" />
                   </span>
+                  {operation.badge ? (
+                    <span className="rounded-pill bg-emerald-100 px-3 py-1 text-xs font-semibold text-forest">
+                      {operation.badge}
+                    </span>
+                  ) : null}
                 </div>
                 <h3 className="mt-4 text-xl font-semibold text-ink">{operation.title}</h3>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
