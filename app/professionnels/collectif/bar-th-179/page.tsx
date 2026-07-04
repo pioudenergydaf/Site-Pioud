@@ -5,12 +5,15 @@ import {
   ArrowRight,
   Award,
   BadgeCheck,
+  Banknote,
   CalendarCheck,
   CheckCircle,
   ExternalLink,
+  FileText,
   Flame,
   Leaf,
   Network,
+  Search,
   ShieldCheck,
   TrendingDown,
   Wrench,
@@ -109,10 +112,10 @@ const benefits = [
 ];
 
 const steps = [
-  "Étude d'éligibilité et estimation de la prime.",
-  "Montage du dossier CEE par nos soins.",
-  "Installation par un professionnel RGE.",
-  "Versement de la prime.",
+  { icon: Search, text: "Étude d'éligibilité et estimation de la prime." },
+  { icon: FileText, text: "Montage du dossier CEE par nos soins." },
+  { icon: Wrench, text: "Installation par un professionnel RGE." },
+  { icon: Banknote, text: "Versement de la prime.", final: true },
 ];
 
 const trustPoints = [
@@ -538,15 +541,62 @@ export default function BarTh179Page() {
             <SectionEyebrow>Méthode</SectionEyebrow>
             <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl">Comment ça marche</h2>
           </Reveal>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Desktop: connected horizontal journey */}
+          <div className="relative mt-14 hidden sm:grid sm:grid-cols-4 sm:gap-6">
+            <div className="pointer-events-none absolute left-[12.5%] right-[12.5%] top-7 border-t-2 border-dashed border-ink/15" />
+            {steps.map((step) => (
+              <div key={step.text} className="relative z-10 flex justify-center">
+                <span
+                  className={`flex h-14 w-14 items-center justify-center rounded-full shadow-lg ${
+                    step.final
+                      ? "bg-emerald-500 shadow-emerald-500/30"
+                      : "bg-forest shadow-forest/20"
+                  }`}
+                >
+                  <step.icon className="h-6 w-6 text-white" />
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="hidden sm:mt-6 sm:grid sm:grid-cols-4 sm:gap-6">
             {steps.map((step, index) => (
-              <Reveal key={step} delay={(index % 4) * 0.06}>
-                <article className="card-surface h-full p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-forest text-sm font-bold text-white">
-                    {index + 1}
-                  </span>
-                  <p className="mt-4 text-ink-muted">{step}</p>
+              <Reveal key={step.text} delay={index * 0.06}>
+                <article
+                  className={`card-surface h-full p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                    step.final ? "border-emerald-300 bg-emerald-50/50" : ""
+                  }`}
+                >
+                  <p className="text-ink-muted">{step.text}</p>
                 </article>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Mobile: connected vertical journey */}
+          <div className="relative mt-10 space-y-6 sm:hidden">
+            {steps.map((step, index) => (
+              <Reveal key={step.text} delay={index * 0.06}>
+                <div className="relative flex gap-4">
+                  {index < steps.length - 1 ? (
+                    <div className="absolute left-7 top-14 h-[calc(100%+1.5rem)] border-l-2 border-dashed border-ink/15" />
+                  ) : null}
+                  <span
+                    className={`relative z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full shadow-lg ${
+                      step.final
+                        ? "bg-emerald-500 shadow-emerald-500/30"
+                        : "bg-forest shadow-forest/20"
+                    }`}
+                  >
+                    <step.icon className="h-6 w-6 text-white" />
+                  </span>
+                  <article
+                    className={`card-surface flex-1 p-5 ${
+                      step.final ? "border-emerald-300 bg-emerald-50/50" : ""
+                    }`}
+                  >
+                    <p className="text-ink-muted">{step.text}</p>
+                  </article>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -556,21 +606,18 @@ export default function BarTh179Page() {
       {/* RÉASSURANCE AVANT FORMULAIRE */}
       <section className="py-20">
         <div className="section-shell">
-          <Reveal>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {trustPoints.map((point) => (
-                <div
-                  key={point.text}
-                  className="flex items-center gap-3 rounded-2xl border border-ink/10 bg-white px-5 py-4 shadow-sm"
-                >
-                  <span className="inline-flex rounded-full bg-sage p-2 text-forest-soft">
-                    <point.icon className="h-5 w-5" />
+          <div className="grid gap-4 sm:grid-cols-3">
+            {trustPoints.map((point, index) => (
+              <Reveal key={point.text} delay={index * 0.06}>
+                <div className="flex h-full items-center gap-4 rounded-2xl border border-ink/10 bg-white px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  <span className="inline-flex flex-shrink-0 rounded-full border border-emerald-200 bg-emerald-50 p-3 text-forest-soft">
+                    <point.icon className="h-6 w-6" />
                   </span>
                   <p className="text-sm font-semibold text-ink">{point.text}</p>
                 </div>
-              ))}
-            </div>
-          </Reveal>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
