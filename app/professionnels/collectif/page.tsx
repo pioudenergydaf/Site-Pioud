@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Building2, Home, Layers, Thermometer } from "lucide-react";
+import { ArrowRight, Building2, Home, Layers, Thermometer } from "lucide-react";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
@@ -31,6 +31,7 @@ const collectiveOperations = [
     examples: "Exemples : logements collectifs, copropriétés, immeubles",
     badge: "✨ Nouvelle fiche",
     pdfUrl: "https://www.ecologie.gouv.fr/operations-standardisees-deconomies-denergie",
+    internalUrl: "/professionnels/collectif/bar-th-179",
   },
   {
     title: "Rénovation globale d'un bâtiment résidentiel collectif",
@@ -110,6 +111,15 @@ export default function CollectifPage() {
                 </p>
                 <p className="mt-3 text-sm font-medium text-ink-muted">{operation.examples}</p>
                 <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
+                {operation.internalUrl ? (
+                  <Link
+                    href={operation.internalUrl}
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-forest-soft transition hover:text-forest"
+                  >
+                    En savoir plus
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                ) : null}
               </article>
             </Reveal>
           ))}

@@ -124,7 +124,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white py-24">
+      <section id="qui-sommes-nous" className="bg-white py-24">
         <div className="section-shell grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <div>
