@@ -127,6 +127,32 @@ const trustPoints = [
   { icon: BadgeCheck, text: "Professionnels RGE uniquement" },
 ];
 
+const partnerLogos = [
+  {
+    name: "TotalEnergies",
+    src: "/images/partenaires/totalenergies.png",
+    alt: "Logo TotalEnergies - partenaire CEE",
+    width: 534,
+    height: 360,
+  },
+  {
+    name: "Qualibat",
+    src: "/images/partenaires/qualibat.png",
+    alt: "Logo Qualibat - certification RGE",
+    width: 664,
+    height: 492,
+    qualificationNumber: "", // ex: "N° de qualification : XXXXX" — à compléter
+  },
+  {
+    name: "Qualit'EnR",
+    src: "/images/partenaires/qualit-enr.png",
+    alt: "Logo Qualit'EnR - certification RGE",
+    width: 824,
+    height: 756,
+    qualificationNumber: "", // ex: "N° de qualification : XXXXX" — à compléter
+  },
+];
+
 function SectionEyebrow({ children }: { children: string }) {
   return (
     <p className="inline-flex rounded-pill bg-sage px-4 py-1 text-sm font-semibold text-forest">
@@ -650,6 +676,39 @@ export default function BarTh179Page() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* PARTENAIRES ET CERTIFICATIONS */}
+      <section className="pb-20">
+        <div className="section-shell">
+          <Reveal>
+            <p className="text-center text-sm font-semibold uppercase tracking-wide text-ink-soft">
+              Nos partenaires et certifications
+            </p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <div className="mt-8 flex flex-wrap items-end justify-center gap-x-10 gap-y-6 sm:gap-x-14">
+              {partnerLogos.map((logo) => (
+                <div key={logo.name} className="flex flex-col items-center gap-2">
+                  <div className="flex h-16 items-center justify-center rounded-2xl bg-white px-6 shadow-sm">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={logo.width}
+                      height={logo.height}
+                      className="h-10 w-auto grayscale transition-all duration-300 hover:grayscale-0"
+                    />
+                  </div>
+                  {"qualificationNumber" in logo ? (
+                    <p className="text-xs text-ink-soft">
+                      {logo.qualificationNumber || "N° de qualification à venir"}
+                    </p>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
