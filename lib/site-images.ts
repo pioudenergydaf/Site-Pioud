@@ -344,7 +344,7 @@ export const SITE_IMAGES = {
   //  thème changent. Le détail des cartes concernées est en commentaire.
   // ═════════════════════════════════════════════════════════════
   fiches: {
-    // Cartes : BAR-EN-101 (particuliers) · BAT-EN-101 (tertiaire)
+    // Cartes : BAR-EN-101 (particuliers) · BAT-EN-101 (tertiaire) · IND-EN-101/102 (industrie)
     isolationCombles: {
       src: "/images/souffler-101.jpeg",
       alt: "Isolation des combles et toitures d'un bâtiment",
@@ -472,15 +472,10 @@ export const SITE_IMAGES = {
       src: U("1460317442991-0ec209397118", 800),
       alt: "Immeuble résidentiel collectif",
     },
-    // Cartes industrie : IND-UT-102 (moteurs, variateurs, air comprimé), IND-UT-139 (stockage)
+    // Cartes industrie : moteurs, variateurs, air comprimé, récupération compresseur, stockage chaleur fatale
     industrie: {
       src: U("1763906265376-363d9681a3ad", 800),
       alt: "Site industriel",
-    },
-    // Cartes : BAT-EQ-111 (LED tertiaire + industrie)
-    supervision: {
-      src: U("1766414629984-73a93e7caba0", 800),
-      alt: "Supervision technique d'une installation",
     },
     // Cartes : BAR-EN-104 (fenêtres) · BAT-EN-104 (tertiaire) — « vitrage isolant »
     fenetreVitrageIsolant: {
@@ -517,7 +512,7 @@ export const SITE_IMAGES = {
       src: "/images/systeme-solaire-combine.jpg",
       alt: "Système solaire combiné",
     },
-    // Cartes : BAT-TH-116 (GTB)
+    // Cartes : BAT-TH-116 (GTB tertiaire + industrie)
     pilotageData: {
       src: U("1460925895917-afdab827c52f", 800),
       alt: "Gestion technique et supervision des données",

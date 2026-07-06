@@ -6,9 +6,11 @@ import {
   Cog,
   Factory,
   Flame,
-  Lightbulb,
   Package,
+  RefreshCw,
+  Settings,
   Settings2,
+  Warehouse,
   Wind,
 } from "lucide-react";
 import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
@@ -26,14 +28,6 @@ export const metadata: Metadata = {
 
 const industryOperations = [
   {
-    title: "Moteurs haut rendement",
-    reference: "IND-UT-102",
-    icon: Cog,
-    description:
-      "Remplacement de moteurs asynchrones par des moteurs à haut rendement IE3/IE4.",
-    pdfUrl: "https://www.ecologie.gouv.fr/sites/default/files/documents/IND-UT-102%20v%20A19-2.pdf",
-  },
-  {
     title: "Variateurs de vitesse",
     reference: "IND-UT-102 / BAT-TH-112",
     icon: Settings2,
@@ -44,20 +38,20 @@ const industryOperations = [
   },
   {
     title: "Air comprimé",
-    reference: "IND-UT-102 / IND-UT-140",
+    reference: "IND-UT-140",
     icon: Wind,
     description:
       "Optimisation des réseaux d'air comprimé : mise en veille automatique des machines, récupération de chaleur sur compresseurs.",
-    pdfUrl:
-      "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=IND-UT-102%20IND-UT-140",
+    pdfUrl: "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=IND-UT-140",
   },
   {
-    title: "Éclairage LED industriel",
-    reference: "BAT-EQ-111",
-    icon: Lightbulb,
+    title: "Récupération de chaleur sur compresseur",
+    reference: "IND-UT-103",
+    icon: RefreshCw,
     description:
-      "Éclairage LED pour entrepôts, ateliers, zones logistiques. Jusqu'à 70% d'économies sur le poste éclairage.",
-    pdfUrl: "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=BAT-EQ-111",
+      "Récupération de la chaleur produite par les compresseurs d'air pour préchauffer eau ou air process. Complémentaire à l'optimisation de l'air comprimé.",
+    examples: "Exemples : ateliers avec compresseurs, sites industriels",
+    pdfUrl: "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=IND-UT-103",
   },
   {
     title: "Isolation industrielle (calorifugeage)",
@@ -71,12 +65,44 @@ const industryOperations = [
       "https://www.ecologie.gouv.fr/sites/default/files/documents/IND-UT-131%20vA37-2%20%C3%A0%20compter%20du%2001-04-2021.pdf",
   },
   {
+    title: "Isolation des bâtiments industriels",
+    reference: "IND-EN-101 / IND-EN-102",
+    icon: Warehouse,
+    description:
+      "Isolation des combles, toitures et murs des bâtiments industriels existants. Réduction des déperditions de chauffage des ateliers et entrepôts.",
+    examples: "Exemples : ateliers, entrepôts chauffés",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=IND-EN-101%20IND-EN-102",
+  },
+  {
+    title: "Moteurs haut rendement",
+    reference: "IND-UT-102",
+    icon: Cog,
+    description:
+      "Remplacement de moteurs asynchrones par des moteurs à haut rendement IE3/IE4.",
+    badge: "⏳ Statut à confirmer",
+    pending: true,
+    pdfUrl: "https://www.ecologie.gouv.fr/sites/default/files/documents/IND-UT-102%20v%20A19-2.pdf",
+  },
+  {
     title: "Chaudière biomasse industrielle",
     reference: "IND-UT-104",
     icon: Flame,
     description:
       "Remplacement de chaudières fossiles par des chaudières biomasse pour la production de chaleur industrielle.",
+    badge: "⏳ Statut à confirmer",
+    pending: true,
     pdfUrl: "https://www.ecologie.gouv.fr/sites/default/files/documents/IND-UT-104.pdf",
+  },
+  {
+    title: "GTB pour bâtiments industriels",
+    reference: "BAT-TH-116",
+    icon: Settings,
+    description:
+      "Système de gestion technique du bâtiment applicable aux locaux annexes à la production (bureaux, locaux sociaux d'un site industriel).",
+    examples: "Exemples : bureaux d'usine, locaux sociaux",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-116%20vA62-6%20%C3%A0%20compter%20du%2001-01-2025_0.pdf",
   },
   {
     title: "Stockage de chaleur fatale",
@@ -139,6 +165,11 @@ export default function IndustriePage() {
                 <p className="mt-3 text-sm leading-relaxed text-ink-muted">
                   {operation.description}
                 </p>
+                {"examples" in operation && operation.examples ? (
+                  <p className="mt-3 text-sm font-medium text-ink-muted">
+                    {operation.examples}
+                  </p>
+                ) : null}
                 {"pending" in operation && operation.pending ? (
                   <p className="mt-4 rounded-xl border border-ink/10 bg-cream-soft/70 px-3 py-2 text-xs font-medium text-ink-soft">
                     Éligibilité CEE en cours de vérification — nous confirmons le

@@ -55,7 +55,6 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "GTB (Gestion Technique du Bâtiment)": "pilotageData",
   // --- Éclairage LED ---
   "Éclairage LED": "eclairageLed",
-  "Éclairage LED industriel": "supervision",
   // --- Rénovation globale ---
   "Rénovation d'ampleur d'une maison individuelle": "renovationAmpleurMaison",
   "Rénovation globale d'un bâtiment résidentiel collectif": "renovationGlobaleCollectif",
@@ -70,6 +69,9 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Récupération de chaleur fatale": "industrie",
   "Stockage de chaleur fatale": "industrie",
   "Air comprimé": "industrie",
+  "Récupération de chaleur sur compresseur": "industrie",
+  "Isolation des bâtiments industriels": "isolationCombles",
+  "GTB pour bâtiments industriels": "pilotageData",
 };
 
 // Retourne la vignette d'une carte de fiche CEE à partir de son titre.
