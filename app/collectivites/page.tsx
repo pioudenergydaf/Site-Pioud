@@ -26,7 +26,7 @@ export default function CollectivitesPage() {
         eyebrow="Collectivités"
         title="Financez vos projets publics de transition énergétique"
         description="PIOUD ENERGY accompagne les collectivités dans la structuration, la conformité et la valorisation des opérations CEE à fort impact territorial."
-        imageUrl="https://images.unsplash.com/photo-1762231433404-04be830b0f3b?auto=format&fit=crop&w=1600&q=80"
+        imageUrl="/images/mairie.jpg"
         primaryCta={{ href: "/contact", label: "Parler à un expert public" }}
         secondaryCta={{ href: "/simulateur", label: "Découvrir le simulateur" }}
       />
@@ -184,8 +184,8 @@ export default function CollectivitesPage() {
             </div>
             <div className="relative min-h-[340px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1768321917437-1f1f6ae2ad28?auto=format&fit=crop&w=1400&q=80"
-                alt="Travaux d'isolation thermique dans le cadre d'un programme public"
+                src="/images/methode-pilotage.jpg"
+                alt="Techniciens pilotant le suivi d'un chantier de rénovation énergétique publique"
                 fill
                 className="object-cover"
               />
