@@ -15,6 +15,7 @@ import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 import { getFicheImage } from "@/lib/fiche-thumbnails";
 
 export const metadata: Metadata = {
@@ -107,7 +108,7 @@ export default function IndustriePage() {
         eyebrow="Professionnels - Industrie"
         title="CEE Industrie : valorisez vos investissements en efficacité énergétique"
         description="Sites industriels, usines, entrepôts logistiques... PIOUD ENERGY maximise vos primes CEE sur l'ensemble de vos process et utilités."
-        imageUrl="https://images.unsplash.com/photo-1763906265376-363d9681a3ad?auto=format&fit=crop&w=1700&q=80"
+        imageUrl={SITE_IMAGES.industrie.hero.src}
         primaryCta={{ href: "/simulateur", label: "Estimer mon projet" }}
         secondaryCta={{ href: "/contact", label: "Nous contacter" }}
       />
@@ -199,8 +200,8 @@ export default function IndustriePage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[360px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1766414629984-73a93e7caba0?auto=format&fit=crop&w=1400&q=80"
-                alt="Accompagnement d'un site industriel"
+                src={SITE_IMAGES.industrie.accompagnement.src}
+                alt={SITE_IMAGES.industrie.accompagnement.alt}
                 fill
                 className="object-cover"
               />

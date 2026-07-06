@@ -6,6 +6,7 @@ import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 import { getFicheImage } from "@/lib/fiche-thumbnails";
 
 export const metadata: Metadata = {
@@ -76,7 +77,7 @@ export default function CollectifPage() {
         eyebrow="Professionnels - Collectif"
         title="CEE Collectif : financez vos travaux en copropriété et habitat résidentiel collectif"
         description="PIOUD ENERGY accompagne les syndics, bailleurs et copropriétés pour identifier les meilleures opérations CEE et sécuriser les primes sur les projets collectifs."
-        imageUrl="https://images.unsplash.com/photo-1472220625704-91e1462799b2?auto=format&fit=crop&w=1700&q=80"
+        imageUrl={SITE_IMAGES.collectif.hero.src}
         primaryCta={{ href: "/simulateur", label: "Estimer mon projet collectif" }}
         secondaryCta={{ href: "/contact", label: "Nous contacter" }}
       />
@@ -149,8 +150,8 @@ export default function CollectifPage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[360px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1400&q=80"
-                alt="Copropriété en projet de rénovation énergétique"
+                src={SITE_IMAGES.collectif.accompagnement.src}
+                alt={SITE_IMAGES.collectif.accompagnement.alt}
                 fill
                 className="object-cover"
               />

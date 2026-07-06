@@ -6,6 +6,7 @@ import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 import { getFicheImage } from "@/lib/fiche-thumbnails";
 
 export const metadata: Metadata = {
@@ -61,7 +62,7 @@ export default function ParticuliersRegulationPage() {
         eyebrow="Particuliers - Régulation"
         title="Régulation & Pilotage : consommez juste avec les CEE"
         description="Régulation pièce par pièce, programmation horaire et pilotage intelligent : diminuez vos consommations sans dégrader votre confort."
-        imageUrl="https://images.unsplash.com/photo-1770625467384-304e461ef1be?auto=format&fit=crop&w=1700&q=80"
+        imageUrl={SITE_IMAGES.regulation.hero.src}
         primaryCta={{ href: "/simulateur", label: "Estimer votre prime" }}
         secondaryCta={{ href: "/contact", label: "Contacter un expert" }}
       />

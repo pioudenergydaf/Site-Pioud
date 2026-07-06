@@ -21,6 +21,7 @@ import { AnimatedLine } from "@/components/ui/animated-line";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ContactFormsSection } from "@/components/contact/contact-forms-section";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "Isolation de points singuliers en copropriété – Fiche CEE BAR-TH-161",
@@ -170,8 +171,8 @@ export default function PointsSinguliersPage() {
           <Reveal delay={0.6}>
             <div className="relative min-h-[380px] overflow-hidden rounded-card-lg border border-white/60 shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
               <Image
-                src="/images/point-singulier-3.jpeg"
-                alt="Housse isolante démontable posée sur une vanne de chaufferie collective"
+                src={SITE_IMAGES.pointsSinguliers.hero.src}
+                alt={SITE_IMAGES.pointsSinguliers.hero.alt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
@@ -213,8 +214,8 @@ export default function PointsSinguliersPage() {
             <Reveal delay={0.1}>
               <div className="overflow-hidden rounded-card-lg border border-white/60 bg-cream-soft shadow-xl shadow-[0_16px_40px_rgba(31,58,46,0.12)] ring-1 ring-black/5">
                 <Image
-                  src="/images/point-singulier-1.jpeg"
-                  alt="Housse isolante démontable posée sur un point singulier de chaufferie collective"
+                  src={SITE_IMAGES.pointsSinguliers.definition.src}
+                  alt={SITE_IMAGES.pointsSinguliers.definition.alt}
                   width={899}
                   height={899}
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -233,8 +234,8 @@ export default function PointsSinguliersPage() {
             <Reveal delay={0.1} className="order-last lg:order-first">
               <div className="overflow-hidden rounded-card-lg border border-white/60 bg-cream-soft shadow-xl shadow-[0_16px_40px_rgba(31,58,46,0.12)] ring-1 ring-black/5">
                 <Image
-                  src="/images/point-singulier-2.jpeg"
-                  alt="Vannes de chaufferie collective équipées de housses isolantes sur mesure"
+                  src={SITE_IMAGES.pointsSinguliers.benefices.src}
+                  alt={SITE_IMAGES.pointsSinguliers.benefices.alt}
                   width={899}
                   height={900}
                   sizes="(max-width: 1024px) 100vw, 50vw"

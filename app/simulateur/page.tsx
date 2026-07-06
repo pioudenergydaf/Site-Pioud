@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Calculator } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 import { SimulatorWizard } from "@/components/simulateur/simulator-wizard";
 
 export const metadata: Metadata = {
@@ -14,8 +15,8 @@ export default function SimulateurPage() {
   return (
     <section className="relative overflow-hidden pt-28">
       <Image
-        src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1800&q=80"
-        alt="Simulation de budget énergétique"
+        src={SITE_IMAGES.simulateur.hero.src}
+        alt={SITE_IMAGES.simulateur.hero.alt}
         fill
         className="object-cover"
       />

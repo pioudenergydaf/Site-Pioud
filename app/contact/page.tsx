@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactFormsSection } from "@/components/contact/contact-forms-section";
+import { SITE_IMAGES } from "@/lib/site-images";
 import { PageHero } from "@/components/ui/page-hero";
 import { siteConfig } from "@/lib/site-data";
 
@@ -16,7 +17,7 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Parlons de votre projet CEE"
         description="Nos experts vous répondent rapidement pour cadrer votre besoin, estimer votre potentiel de prime et lancer votre accompagnement."
-        imageUrl="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80"
+        imageUrl={SITE_IMAGES.contact.hero.src}
         primaryCta={{ href: `tel:${siteConfig.phoneE164}`, label: "Appeler le standard" }}
         secondaryCta={{ href: "/simulateur", label: "Accéder au simulateur" }}
       />

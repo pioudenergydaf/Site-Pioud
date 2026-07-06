@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "CEE pour les grands comptes",
@@ -26,7 +27,7 @@ export default function GrandsComptesPage() {
         eyebrow="Grands comptes"
         title="Un accompagnement CEE sur mesure à l'échelle nationale"
         description="PIOUD ENERGY déploie des stratégies CEE premium pour les organisations multi-entités : gouvernance, pilotage data et valorisation optimisée."
-        imageUrl="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80"
+        imageUrl={SITE_IMAGES.grandsComptes.hero.src}
         primaryCta={{ href: "/contact", label: "Contacter l'équipe dédiée" }}
         secondaryCta={{ href: "/simulateur", label: "Tester le simulateur" }}
       />
@@ -60,8 +61,8 @@ export default function GrandsComptesPage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[350px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1400&q=80"
-                alt="Siège d'un grand compte"
+                src={SITE_IMAGES.grandsComptes.siege.src}
+                alt={SITE_IMAGES.grandsComptes.siege.alt}
                 fill
                 className="object-cover"
               />
@@ -75,8 +76,8 @@ export default function GrandsComptesPage() {
           <Reveal>
             <div className="relative min-h-[350px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80"
-                alt="Pilotage de données et reporting"
+                src={SITE_IMAGES.grandsComptes.pilotage.src}
+                alt={SITE_IMAGES.grandsComptes.pilotage.alt}
                 fill
                 className="object-cover"
               />
@@ -187,8 +188,8 @@ export default function GrandsComptesPage() {
             </div>
             <div className="relative min-h-[350px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&w=1400&q=80"
-                alt="Direction projet grand compte"
+                src={SITE_IMAGES.grandsComptes.directionProjet.src}
+                alt={SITE_IMAGES.grandsComptes.directionProjet.alt}
                 fill
                 className="object-cover"
               />

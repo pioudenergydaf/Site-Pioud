@@ -6,6 +6,7 @@ import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 import { getFicheImage } from "@/lib/fiche-thumbnails";
 
 export const metadata: Metadata = {
@@ -66,7 +67,7 @@ export default function ParticuliersRenovationGlobalePage() {
         eyebrow="Particuliers - Rénovation globale"
         title="Rénovation globale : maximisez vos primes en combinant les travaux"
         description="La rénovation globale est le parcours le plus avantageux : combinez isolation, chauffage et ventilation pour gagner plusieurs classes DPE et obtenir les primes les plus élevées."
-        imageUrl="https://images.unsplash.com/photo-1753893558281-9acda0662bbd?auto=format&fit=crop&w=1700&q=80"
+        imageUrl={SITE_IMAGES.renovationGlobale.hero.src}
         primaryCta={{ href: "/simulateur", label: "Estimer ma prime rénovation globale" }}
         secondaryCta={{ href: "/contact", label: "Être contacté" }}
       />

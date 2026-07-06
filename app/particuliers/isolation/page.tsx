@@ -7,6 +7,7 @@ import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 import { getFicheImage } from "@/lib/fiche-thumbnails";
 
 export const metadata: Metadata = {
@@ -79,7 +80,7 @@ export default function ParticuliersIsolationPage() {
         eyebrow="Particuliers - Isolation"
         title="Isolation thermique : les primes CEE pour votre logement"
         description="L'isolation est le geste le plus rentable en rénovation énergétique. Elle représente plus de 37% des CEE délivrés en France."
-        imageUrl="https://images.unsplash.com/photo-1768321917437-1f1f6ae2ad28?auto=format&fit=crop&w=1700&q=80"
+        imageUrl={SITE_IMAGES.isolation.hero.src}
         primaryCta={{ href: "/simulateur", label: "Estimer ma prime isolation" }}
         secondaryCta={{ href: "/contact", label: "Contacter un expert" }}
       />
@@ -134,8 +135,8 @@ export default function ParticuliersIsolationPage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[340px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1753717202579-9c6ac3592b62?auto=format&fit=crop&w=1400&q=80"
-                alt="Isolation des combles d'une maison"
+                src={SITE_IMAGES.isolation.combles.src}
+                alt={SITE_IMAGES.isolation.combles.alt}
                 fill
                 className="object-cover"
               />

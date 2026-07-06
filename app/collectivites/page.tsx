@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "CEE pour les collectivités",
@@ -26,7 +27,7 @@ export default function CollectivitesPage() {
         eyebrow="Collectivités"
         title="Financez vos projets publics de transition énergétique"
         description="PIOUD ENERGY accompagne les collectivités dans la structuration, la conformité et la valorisation des opérations CEE à fort impact territorial."
-        imageUrl="/images/mairie.jpg"
+        imageUrl={SITE_IMAGES.collectivites.hero.src}
         primaryCta={{ href: "/contact", label: "Parler à un expert public" }}
         secondaryCta={{ href: "/simulateur", label: "Découvrir le simulateur" }}
       />
@@ -60,8 +61,8 @@ export default function CollectivitesPage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[340px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1742675416657-55d043ce8dce?auto=format&fit=crop&w=1400&q=80"
-                alt="Bâtiment public moderne accompagné dans sa rénovation énergétique"
+                src={SITE_IMAGES.collectivites.accompagnement.src}
+                alt={SITE_IMAGES.collectivites.accompagnement.alt}
                 fill
                 className="object-cover"
               />
@@ -75,8 +76,8 @@ export default function CollectivitesPage() {
           <Reveal>
             <div className="relative min-h-[340px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80"
-                alt="Chantier de rénovation d'un équipement public"
+                src={SITE_IMAGES.collectivites.typesProjets.src}
+                alt={SITE_IMAGES.collectivites.typesProjets.alt}
                 fill
                 className="object-cover"
               />
@@ -184,8 +185,8 @@ export default function CollectivitesPage() {
             </div>
             <div className="relative min-h-[340px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="/images/methode-pilotage.jpg"
-                alt="Techniciens pilotant le suivi d'un chantier de rénovation énergétique publique"
+                src={SITE_IMAGES.collectivites.methode.src}
+                alt={SITE_IMAGES.collectivites.methode.alt}
                 fill
                 className="object-cover"
               />

@@ -6,6 +6,7 @@ import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 import { getFicheImage } from "@/lib/fiche-thumbnails";
 
 export const metadata: Metadata = {
@@ -53,7 +54,7 @@ export default function ParticuliersFenetresPage() {
         eyebrow="Particuliers - Fenêtres"
         title="Fenêtres & Menuiseries : améliorez votre confort avec les CEE"
         description="Remplacez vos menuiseries pour améliorer le confort hiver/été, réduire le bruit et diminuer les déperditions énergétiques."
-        imageUrl="https://images.unsplash.com/photo-1753893558430-3abab5adf4e0?auto=format&fit=crop&w=1700&q=80"
+        imageUrl={SITE_IMAGES.fenetres.hero.src}
         primaryCta={{ href: "/simulateur", label: "Estimer ma prime fenêtres" }}
         secondaryCta={{ href: "/contact", label: "Nous contacter" }}
       />

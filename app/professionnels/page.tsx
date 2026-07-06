@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "CEE pour les professionnels",
@@ -27,7 +28,7 @@ export default function ProfessionnelsPage() {
         eyebrow="Professionnels"
         title="CEE Professionnels : financez vos travaux d'efficacité énergétique"
         description="PIOUD ENERGY accompagne les entreprises du tertiaire et de l'industrie dans l'identification des opérations éligibles, la valorisation CEE et le pilotage administratif de bout en bout."
-        imageUrl="https://images.unsplash.com/photo-1742675416657-55d043ce8dce?auto=format&fit=crop&w=1600&q=80"
+        imageUrl={SITE_IMAGES.professionnels.hero.src}
         primaryCta={{ href: "/contact", label: "Parler à un expert CEE" }}
         secondaryCta={{ href: "/simulateur", label: "Estimer un projet" }}
       />
@@ -46,8 +47,8 @@ export default function ProfessionnelsPage() {
               className="group relative block min-h-[420px] overflow-hidden rounded-card border border-ink/10 shadow-2xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]"
             >
               <Image
-                src="https://images.unsplash.com/photo-1742675416657-55d043ce8dce?auto=format&fit=crop&w=1500&q=80"
-                alt="Bâtiment de bureaux tertiaire"
+                src={SITE_IMAGES.professionnels.tertiaire.src}
+                alt={SITE_IMAGES.professionnels.tertiaire.alt}
                 fill
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
@@ -78,8 +79,8 @@ export default function ProfessionnelsPage() {
               className="group relative block min-h-[420px] overflow-hidden rounded-card border border-ink/10 shadow-2xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]"
             >
               <Image
-                src="https://images.unsplash.com/photo-1763906265376-363d9681a3ad?auto=format&fit=crop&w=1500&q=80"
-                alt="Site industriel pour programme CEE"
+                src={SITE_IMAGES.professionnels.industrie.src}
+                alt={SITE_IMAGES.professionnels.industrie.alt}
                 fill
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
@@ -112,8 +113,8 @@ export default function ProfessionnelsPage() {
               className="group relative block min-h-[320px] overflow-hidden rounded-card border border-ink/10 shadow-2xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]"
             >
               <Image
-                src="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1500&q=80"
-                alt="Immeubles résidentiels collectifs et copropriétés"
+                src={SITE_IMAGES.professionnels.collectif.src}
+                alt={SITE_IMAGES.professionnels.collectif.alt}
                 fill
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
@@ -215,8 +216,8 @@ export default function ProfessionnelsPage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[350px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1766414629984-73a93e7caba0?auto=format&fit=crop&w=1400&q=80"
-                alt="Supervision technique d'un projet tertiaire et industriel"
+                src={SITE_IMAGES.professionnels.supervision.src}
+                alt={SITE_IMAGES.professionnels.supervision.alt}
                 fill
                 className="object-cover"
               />

@@ -15,6 +15,7 @@ import {
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "CEE pour les particuliers",
@@ -31,7 +32,7 @@ const particuliersThemes = [
     href: "/particuliers/isolation",
     cta: "Voir les solutions isolation",
     image:
-      "https://images.unsplash.com/photo-1768321917437-1f1f6ae2ad28?auto=format&fit=crop&w=1500&q=80",
+      SITE_IMAGES.particuliers.themeIsolation.src,
   },
   {
     title: "Chauffage & Eau chaude",
@@ -41,7 +42,7 @@ const particuliersThemes = [
     href: "/particuliers/chauffage",
     cta: "Voir les solutions chauffage",
     image:
-      "https://images.unsplash.com/photo-1554475499-4e40aa2b9e75?auto=format&fit=crop&w=1500&q=80",
+      SITE_IMAGES.particuliers.themeChauffage.src,
   },
   {
     title: "Fenêtres & Menuiseries",
@@ -51,7 +52,7 @@ const particuliersThemes = [
     href: "/particuliers/fenetres",
     cta: "Voir les solutions menuiseries",
     image:
-      "https://images.unsplash.com/photo-1753893558430-3abab5adf4e0?auto=format&fit=crop&w=1500&q=80",
+      SITE_IMAGES.particuliers.themeFenetres.src,
   },
   {
     title: "Régulation & Pilotage",
@@ -61,7 +62,7 @@ const particuliersThemes = [
     href: "/particuliers/regulation",
     cta: "Voir les solutions régulation",
     image:
-      "https://images.unsplash.com/photo-1770625467384-304e461ef1be?auto=format&fit=crop&w=1500&q=80",
+      SITE_IMAGES.particuliers.themeRegulation.src,
   },
   {
     title: "Rénovation globale",
@@ -71,7 +72,7 @@ const particuliersThemes = [
     href: "/particuliers/renovation-globale",
     cta: "Voir la rénovation globale",
     image:
-      "https://images.unsplash.com/photo-1753893558281-9acda0662bbd?auto=format&fit=crop&w=1500&q=80",
+      SITE_IMAGES.particuliers.themeRenovation.src,
     badge: "🔥 Le plus avantageux",
   },
 ];
@@ -90,7 +91,7 @@ export default function ParticuliersPage() {
         eyebrow="Particuliers"
         title="CEE Particuliers : financez vos travaux de rénovation énergétique"
         description="PIOUD ENERGY vous accompagne pour identifier les travaux éligibles, constituer votre dossier et obtenir vos primes CEE. Tous les ménages sont éligibles, sans condition de revenus."
-        imageUrl="https://images.unsplash.com/photo-1752594756894-bcf378884a09?auto=format&fit=crop&w=1700&q=80"
+        imageUrl={SITE_IMAGES.particuliers.hero.src}
         primaryCta={{ href: "/simulateur", label: "Estimer ma prime" }}
         secondaryCta={{ href: "/contact", label: "Parler à un conseiller" }}
       />

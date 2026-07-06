@@ -24,6 +24,7 @@ import { AnimatedLine } from "@/components/ui/animated-line";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { ContactFormsSection } from "@/components/contact/contact-forms-section";
 import { CountUp } from "@/components/ui/count-up";
+import { SITE_IMAGES } from "@/lib/site-images";
 import { PopIn } from "@/components/ui/pop-in";
 import { Reveal } from "@/components/ui/reveal";
 
@@ -206,8 +207,8 @@ export default function BarTh179Page() {
           <Reveal delay={0.6}>
             <div className="relative min-h-[380px] overflow-hidden rounded-card-lg border border-white/60 shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
               <Image
-                src="https://images.unsplash.com/photo-1699564625068-803d1c7fcfbc?auto=format&fit=crop&w=1700&q=80"
-                alt="Immeuble résidentiel collectif, copropriété candidate à une PAC collective air/eau"
+                src={SITE_IMAGES.barTh179.hero.src}
+                alt={SITE_IMAGES.barTh179.hero.alt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
@@ -239,8 +240,8 @@ export default function BarTh179Page() {
           <Reveal delay={0.06}>
             <div className="mt-10 overflow-hidden rounded-card-lg border border-white/60 bg-cream-soft shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
               <Image
-                src="/images/pac-chaufferie.jpg"
-                alt="Pompe à chaleur en chaufferie collective"
+                src={SITE_IMAGES.barTh179.chaufferie.src}
+                alt={SITE_IMAGES.barTh179.chaufferie.alt}
                 width={1200}
                 height={920}
                 sizes="(max-width: 1024px) 100vw, 1024px"

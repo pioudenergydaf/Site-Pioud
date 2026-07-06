@@ -25,6 +25,7 @@ import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 import { getFicheImage } from "@/lib/fiche-thumbnails";
 
 export const metadata: Metadata = {
@@ -185,7 +186,7 @@ export default function TertiairePage() {
         eyebrow="Professionnels - Tertiaire"
         title="CEE Tertiaire : les opérations les plus performantes pour vos bâtiments"
         description="Bureaux, commerces, hôtels, établissements de santé, enseignement, collectivités... PIOUD ENERGY identifie et valorise les gisements CEE de votre parc immobilier."
-        imageUrl="https://images.unsplash.com/photo-1742675416657-55d043ce8dce?auto=format&fit=crop&w=1700&q=80"
+        imageUrl={SITE_IMAGES.tertiaire.hero.src}
         primaryCta={{ href: "/simulateur", label: "Estimer mon projet" }}
         secondaryCta={{ href: "/contact", label: "Nous contacter" }}
       />
@@ -271,8 +272,8 @@ export default function TertiairePage() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[360px] overflow-hidden rounded-card border border-ink/10 shadow-xl shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1769699903260-ff85271faa4f?auto=format&fit=crop&w=1400&q=80"
-                alt="Bâtiment tertiaire en amélioration énergétique"
+                src={SITE_IMAGES.tertiaire.accompagnement.src}
+                alt={SITE_IMAGES.tertiaire.accompagnement.alt}
                 fill
                 className="object-cover"
               />

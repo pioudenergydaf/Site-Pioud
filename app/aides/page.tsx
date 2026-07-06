@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "Aides & Subventions 2026",
@@ -307,7 +308,7 @@ export default function AidesPage() {
         eyebrow="Aides & Subventions"
         title="Aides & Subventions 2026 : le guide complet"
         description="Découvrez toutes les aides disponibles pour financer vos travaux de rénovation énergétique. CEE, MaPrimeRénov', Éco-PTZ, TVA réduite... PIOUD ENERGY vous aide à les cumuler pour réduire votre reste à charge au maximum."
-        imageUrl="https://images.unsplash.com/photo-1752594756894-bcf378884a09?auto=format&fit=crop&w=1700&q=80"
+        imageUrl={SITE_IMAGES.aides.hero.src}
         primaryCta={{ href: "/simulateur", label: "Simuler mes aides" }}
         secondaryCta={{ href: "/contact", label: "Être accompagné" }}
       />
@@ -326,8 +327,8 @@ export default function AidesPage() {
           <Reveal>
             <AidCard
               borderClass="border-lime"
-              imageUrl="https://images.unsplash.com/photo-1768321917437-1f1f6ae2ad28?auto=format&fit=crop&w=1700&q=80"
-              imageAlt="Travaux d'isolation thermique pour une maison performante"
+              imageUrl={SITE_IMAGES.aides.cardCEE.src}
+              imageAlt={SITE_IMAGES.aides.cardCEE.alt}
               icon={Award}
               title="Primes CEE"
               badge="💚 Notre expertise"
@@ -391,8 +392,8 @@ export default function AidesPage() {
           <Reveal delay={0.04}>
             <AidCard
               borderClass="border-forest-soft"
-              imageUrl="https://images.unsplash.com/photo-1752594756894-bcf378884a09?auto=format&fit=crop&w=1700&q=80"
-              imageAlt="Ouvriers sur un chantier de rénovation de maison"
+              imageUrl={SITE_IMAGES.aides.cardMaPrimeRenov.src}
+              imageAlt={SITE_IMAGES.aides.cardMaPrimeRenov.alt}
               icon={Banknote}
               title="MaPrimeRénov'"
             >
@@ -536,8 +537,8 @@ export default function AidesPage() {
           <Reveal delay={0.08}>
             <AidCard
               borderClass="border-peach"
-              imageUrl="https://images.unsplash.com/photo-1753977725475-41b221add2c0?auto=format&fit=crop&w=1700&q=80"
-              imageAlt="Maison en rénovation d'ampleur avec extension"
+              imageUrl={SITE_IMAGES.aides.cardAmpleur.src}
+              imageAlt={SITE_IMAGES.aides.cardAmpleur.alt}
               icon={TrendingUp}
               title="MaPrimeRénov' Rénovation d'ampleur"
               badge="Le plus ambitieux"
@@ -608,8 +609,8 @@ export default function AidesPage() {
           <Reveal delay={0.12}>
             <AidCard
               borderClass="border-pioud-orange"
-              imageUrl="https://images.unsplash.com/photo-1758518731462-d091b0b4ed0d?auto=format&fit=crop&w=1700&q=80"
-              imageAlt="Signature d'un contrat de financement en banque"
+              imageUrl={SITE_IMAGES.aides.cardEcoPtz.src}
+              imageAlt={SITE_IMAGES.aides.cardEcoPtz.alt}
               icon={Landmark}
               title="Éco-PTZ"
             >
@@ -668,8 +669,8 @@ export default function AidesPage() {
           <Reveal delay={0.16}>
             <AidCard
               borderClass="border-ink/30"
-              imageUrl="https://images.unsplash.com/photo-1725258080098-727051947997?auto=format&fit=crop&w=1700&q=80"
-              imageAlt="Calculatrice et facture de travaux de rénovation"
+              imageUrl={SITE_IMAGES.aides.cardTva.src}
+              imageAlt={SITE_IMAGES.aides.cardTva.alt}
               icon={Receipt}
               title="TVA à 5,5%"
             >
@@ -717,8 +718,8 @@ export default function AidesPage() {
           <Reveal delay={0.2}>
             <AidCard
               borderClass="border-pioud-orange"
-              imageUrl="https://images.unsplash.com/photo-1762231433404-04be830b0f3b?auto=format&fit=crop&w=1700&q=80"
-              imageAlt="Bâtiment public de type mairie pour aides locales"
+              imageUrl={SITE_IMAGES.aides.cardAidesLocales.src}
+              imageAlt={SITE_IMAGES.aides.cardAidesLocales.alt}
               icon={MapPin}
               title="Aides locales & complémentaires"
             >

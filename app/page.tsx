@@ -14,6 +14,7 @@ import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { Reveal } from "@/components/ui/reveal";
 import { TestimonialCarousel } from "@/components/ui/testimonial-carousel";
 import { keyFigures, sectors, testimonials } from "@/lib/site-data";
+import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "Accueil",
@@ -182,8 +183,8 @@ export default function Home() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[360px] overflow-hidden rounded-card border border-ink/10 shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1565599573128-ae3ef5c9f478?auto=format&fit=crop&w=1400&q=80"
-                alt="Immeuble végétalisé de type Bosco Verticale, symbole de la transition énergétique des bâtiments"
+                src={SITE_IMAGES.accueil.quiSommesNous.src}
+                alt={SITE_IMAGES.accueil.quiSommesNous.alt}
                 fill
                 className="object-cover"
               />
@@ -197,8 +198,8 @@ export default function Home() {
           <Reveal>
             <div className="relative min-h-[360px] overflow-hidden rounded-card border border-ink/10 shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1400&q=80"
-                alt="Sites multi-secteurs accompagnés"
+                src={SITE_IMAGES.accueil.nosSecteurs.src}
+                alt={SITE_IMAGES.accueil.nosSecteurs.alt}
                 fill
                 className="object-cover"
               />
@@ -276,8 +277,8 @@ export default function Home() {
           <Reveal delay={0.1}>
             <div className="relative min-h-[360px] overflow-hidden rounded-card border border-ink/10 shadow-[0_10px_28px_rgba(31,58,46,0.06)]">
               <Image
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80"
-                alt="Siège d'une entreprise cliente"
+                src={SITE_IMAGES.accueil.nosClients.src}
+                alt={SITE_IMAGES.accueil.nosClients.alt}
                 fill
                 className="object-cover"
               />
