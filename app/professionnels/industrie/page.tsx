@@ -73,6 +73,8 @@ const industryOperations = [
     icon: Package,
     description:
       "Calorifugeage des réseaux de chaleur, vapeur et fluides thermiques. Réduction des pertes en ligne.",
+    badge: "⏳ Statut à confirmer",
+    pending: true,
     pdfUrl:
       "https://www.ecologie.gouv.fr/sites/default/files/documents/IND-UT-131%20vA37-2%20%C3%A0%20compter%20du%2001-04-2021.pdf",
   },
@@ -145,7 +147,14 @@ export default function IndustriePage() {
                 <p className="mt-3 text-sm leading-relaxed text-ink-muted">
                   {operation.description}
                 </p>
-                <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
+                {"pending" in operation && operation.pending ? (
+                  <p className="mt-4 rounded-xl border border-ink/10 bg-cream-soft/70 px-3 py-2 text-xs font-medium text-ink-soft">
+                    Éligibilité CEE en cours de vérification — nous confirmons le
+                    financement lors de l&apos;étude.
+                  </p>
+                ) : (
+                  <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
+                )}
               </article>
             </Reveal>
           ))}

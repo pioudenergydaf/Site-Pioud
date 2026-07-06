@@ -60,10 +60,12 @@ const collectiveOperations = [
     reference: "BAR-TH-161",
     icon: Layers,
     description:
-      "Calorifugeage des points singuliers des réseaux hydrauliques de chauffage et d'eau chaude sanitaire pour limiter les pertes thermiques.",
+      "Isolation des points singuliers (vannes, brides, robinets) des réseaux hydrauliques de chauffage et d'eau chaude sanitaire par housses isolantes démontables, pour limiter les pertes thermiques.",
     examples: "Exemples : chaufferies collectives, réseaux ECS de copropriétés",
+    badge: "✨ Notre expertise",
     pdfUrl:
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-161%20vA71-3%20%C3%A0%20compter%20du%2001-08-2025.pdf",
+    internalUrl: "/professionnels/collectif/points-singuliers",
   },
 ];
 

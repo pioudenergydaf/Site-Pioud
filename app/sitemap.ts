@@ -14,6 +14,7 @@ const routes = [
   "/professionnels/industrie",
   "/professionnels/collectif",
   "/professionnels/collectif/bar-th-179",
+  "/professionnels/collectif/points-singuliers",
   "/collectivites",
   "/grands-comptes",
   "/aides",

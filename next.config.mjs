@@ -15,9 +15,10 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        // Fiche BAT-TH-146 / BAT-TH-155 abrogée (01/08/2025), sans remplaçante.
+        // Fiche BAT-TH-146/155 (tertiaire) abrogée le 01/08/2025. L'opération
+        // a été réorientée vers l'équivalent résidentiel collectif BAR-TH-161.
         source: "/professionnels/tertiaire/matelas-isolant",
-        destination: "/professionnels/tertiaire",
+        destination: "/professionnels/collectif/points-singuliers",
         permanent: true,
       },
     ];
