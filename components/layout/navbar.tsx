@@ -10,6 +10,7 @@ import { LandingNavbar } from "@/components/layout/landing-navbar";
 
 const LANDING_PAGES: Record<string, string> = {
   "/professionnels/collectif/bar-th-179": "/professionnels/collectif",
+  "/professionnels/tertiaire/matelas-isolant": "/professionnels/tertiaire",
 };
 
 const particuliersItems = [

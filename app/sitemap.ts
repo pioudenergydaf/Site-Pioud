@@ -11,6 +11,7 @@ const routes = [
   "/particuliers/renovation-globale",
   "/professionnels",
   "/professionnels/tertiaire",
+  "/professionnels/tertiaire/matelas-isolant",
   "/professionnels/industrie",
   "/professionnels/collectif",
   "/professionnels/collectif/bar-th-179",

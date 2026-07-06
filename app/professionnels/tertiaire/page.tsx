@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  ArrowRight,
   ArrowUpDown,
   Building,
   Building2,
@@ -32,6 +33,17 @@ export const metadata: Metadata = {
 };
 
 const tertiaryOperations = [
+  {
+    title: "Matelas isolant / Points singuliers",
+    reference: "BAT-TH-146",
+    icon: Thermometer,
+    description:
+      "Isolation des points singuliers (vannes, brides, robinets) de vos chaufferies et réseaux à l'aide de matelas isolants démontables. Supprime les déperditions sur les organes techniques non calorifugés.",
+    examples: "Exemples : chaufferies tertiaires, réseaux hydrauliques et vapeur",
+    badge: "✨ Notre expertise",
+    pdfUrl: "https://www.ecologie.gouv.fr/operations-standardisees-deconomies-denergie",
+    internalUrl: "/professionnels/tertiaire/matelas-isolant",
+  },
   {
     title: "Isolation d'un réseau hydraulique",
     reference: "BAT-TH-179",
@@ -232,6 +244,15 @@ export default function TertiairePage() {
                 </p>
                 <p className="mt-3 text-sm font-medium text-ink-muted">{operation.examples}</p>
                 <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
+                {"internalUrl" in operation && operation.internalUrl ? (
+                  <Link
+                    href={operation.internalUrl}
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-forest-soft transition hover:text-forest"
+                  >
+                    En savoir plus
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                ) : null}
               </article>
             </Reveal>
           ))}
