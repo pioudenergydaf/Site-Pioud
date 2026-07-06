@@ -185,7 +185,7 @@ export const SITE_IMAGES = {
   // ─────────────────────────────────────────────────────────────
   collectif: {
     hero: {
-      src: U("1472220625704-91e1462799b2", 1700),
+      src: "/images/cee-collectif-hero.jpg",
       alt: "Copropriété et habitat résidentiel collectif",
     },
     // Section « Notre accompagnement collectif »
@@ -369,15 +369,10 @@ export const SITE_IMAGES = {
       src: "/images/isolation-toitures-terrasses.png",
       alt: "Isolation d'une toiture-terrasse",
     },
-    // Cartes : BAR-TH-161 (collectif) · BAT-TH-179 (retirée) · IND-UT-131 (industrie)
+    // Carte : BAR-TH-161 (collectif)
     pointsSinguliers: {
       src: "/images/point-singulier-2.jpeg",
       alt: "Housses isolantes posées sur les points singuliers d'un réseau",
-    },
-    // Carte repli : BAT-TH-104 (chaudière biomasse industrielle)
-    chaufferie: {
-      src: "/images/pac-chaufferie.jpg",
-      alt: "Chaufferie équipée de pompes à chaleur",
     },
     // Cartes : BAR-TH-171 (chauffage) · « Pompe à chaleur air/eau » (tertiaire)
     pompeAirEau: {
@@ -411,10 +406,15 @@ export const SITE_IMAGES = {
       alt: "Chauffe-eau thermodynamique",
       position: "center 35%",
     },
-    // Cartes : BAR-TH-169, BAR-TH-179 (collectif)
-    pacCollective: {
-      src: "/images/pac-collective-bar-th-179.webp",
-      alt: "Pompe à chaleur collective en chaufferie",
+    // Carte : BAR-TH-169 (collectif) — « PAC collective ECS »
+    pacCollectiveEcs: {
+      src: "/images/pompe-collective-ecs.jpg",
+      alt: "Pompe à chaleur collective pour eau chaude sanitaire",
+    },
+    // Carte : BAR-TH-179 (collectif) — « PAC collective air/eau »
+    pacCollectiveAirEau: {
+      src: "/images/pompe-collective-air-eau.jpg",
+      alt: "Pompe à chaleur collective air/eau en toiture d'immeuble",
     },
     // Carte : BAR-TH-174 (rénovation globale) — « Rénovation d'ampleur d'une maison individuelle »
     renovationAmpleurMaison: {
@@ -472,10 +472,40 @@ export const SITE_IMAGES = {
       src: U("1460317442991-0ec209397118", 800),
       alt: "Immeuble résidentiel collectif",
     },
-    // Cartes industrie : moteurs, variateurs, air comprimé, récupération compresseur, stockage chaleur fatale
+    // Carte repli : Récupération de chaleur sur compresseur (IND-UT-103, pas encore de photo dédiée)
     industrie: {
       src: U("1763906265376-363d9681a3ad", 800),
       alt: "Site industriel",
+    },
+    // Carte : IND-UT-102 / BAT-TH-112 (industrie) — « Variateurs de vitesse »
+    variateursVitesse: {
+      src: "/images/variateurs-vitesse.jpeg",
+      alt: "Variateur de vitesse électronique sur moteur industriel",
+    },
+    // Carte : IND-UT-140 (industrie) — « Air comprimé »
+    airComprime: {
+      src: "/images/air-comprime.jpg",
+      alt: "Réseau d'air comprimé industriel",
+    },
+    // Carte : IND-UT-131 (industrie) — « Isolation industrielle (calorifugeage) »
+    isolationIndustrielleCalorifugeage: {
+      src: "/images/isolation-industrielle-calorifugeage.jpg",
+      alt: "Calorifugeage d'un réseau de vapeur industriel",
+    },
+    // Carte : IND-UT-102 (industrie, statut à confirmer) — « Moteurs haut rendement »
+    moteursHautRendement: {
+      src: "/images/moteurs-haut-rendement.webp",
+      alt: "Moteur électrique industriel haut rendement",
+    },
+    // Carte : IND-UT-104 (industrie, statut à confirmer) — « Chaudière biomasse industrielle »
+    chaudiereBiomasseIndustrielle: {
+      src: "/images/chaudiere-biomasse-industrielle.webp",
+      alt: "Chaudière biomasse industrielle",
+    },
+    // Carte : IND-UT-139 (industrie) — « Stockage de chaleur fatale »
+    stockageChaleurFatale: {
+      src: "/images/stockage-chaleur-fatale.jpg",
+      alt: "Réseau de tuyauteries industrielles pour stockage de chaleur fatale",
     },
     // Cartes : BAR-EN-104 (fenêtres) · BAT-EN-104 (tertiaire) — « vitrage isolant »
     fenetreVitrageIsolant: {

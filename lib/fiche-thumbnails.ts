@@ -17,7 +17,7 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Matelas isolant / Points singuliers": "pointsSinguliers",
   "Isolation d'un réseau hydraulique": "pointsSinguliers",
   "Isolation de points singuliers d'un réseau": "pointsSinguliers",
-  "Isolation industrielle (calorifugeage)": "pointsSinguliers",
+  "Isolation industrielle (calorifugeage)": "isolationIndustrielleCalorifugeage",
   "Raccordement réseau de chaleur": "pointsSinguliers",
   // --- Isolation combles / toitures / terrasses ---
   "Isolation toitures et combles": "isolationCombles",
@@ -40,12 +40,12 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Chauffe-eau thermodynamique": "chauffeEauThermodynamique",
   // --- PAC collective ---
   "Pompe à chaleur collective de type air/eau ou eau/eau pour l’eau chaude sanitaire":
-    "pacCollective",
-  "Pompe à chaleur collective air/eau": "pacCollective",
+    "pacCollectiveEcs",
+  "Pompe à chaleur collective air/eau": "pacCollectiveAirEau",
   // --- Chaudière / bois / solaire / radiateur ---
   "Chaudière biomasse individuelle": "chaudiereBiomasseIndividuelle",
   "Appareil indépendant de chauffage au bois": "poeleBois",
-  "Chaudière biomasse industrielle": "chaufferie",
+  "Chaudière biomasse industrielle": "chaudiereBiomasseIndustrielle",
   "Système solaire combiné": "systemeSolaireCombine",
   "Chauffe-eau solaire individuel": "chauffeEauSolaire",
   "Radiateur basse température": "radiateurBasseTemperature",
@@ -64,11 +64,10 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Fermeture meubles frigorifiques": "fermetureMeublesFrigorifiques",
   "Destratification d'air": "destratificationAir",
   // --- Industrie (moteurs / procédés) ---
-  "Moteurs haut rendement": "industrie",
-  "Variateurs de vitesse": "industrie",
-  "Récupération de chaleur fatale": "industrie",
-  "Stockage de chaleur fatale": "industrie",
-  "Air comprimé": "industrie",
+  "Moteurs haut rendement": "moteursHautRendement",
+  "Variateurs de vitesse": "variateursVitesse",
+  "Stockage de chaleur fatale": "stockageChaleurFatale",
+  "Air comprimé": "airComprime",
   "Récupération de chaleur sur compresseur": "industrie",
   "Isolation des bâtiments industriels": "isolationCombles",
   "GTB pour bâtiments industriels": "pilotageData",
