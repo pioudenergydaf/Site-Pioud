@@ -3,7 +3,6 @@ import Link from "next/link";
 import {
   Droplets,
   Flame,
-  Network,
   Sun,
   Thermometer,
   Zap,
@@ -97,15 +96,6 @@ const operations = [
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-148%20vA78.4%20%C3%A0%20compter%20du%2001-01-2026.pdf",
     description:
       "Chauffe-eau thermodynamique à accumulation. Divise par 2 à 3 la consommation liée à l'eau chaude.",
-  },
-  {
-    title: "Raccordement réseau de chaleur",
-    ref: "BAR-TH-137",
-    icon: Network,
-    pdfUrl:
-      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-137%20vA79-4%20%C3%A0%20compter%20du%2001-01-2026.pdf",
-    description:
-      "Raccordement d'une maison individuelle à un réseau de chaleur efficace. Bonification Coup de pouce en remplacement d'une chaudière fossile.",
   },
 ];
 

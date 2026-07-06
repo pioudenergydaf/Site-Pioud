@@ -367,10 +367,40 @@ export const SITE_IMAGES = {
       src: "/images/point-singulier-2.jpeg",
       alt: "Housses isolantes posées sur les points singuliers d'un réseau",
     },
-    // Cartes PAC / chaudière : BAR-TH-171/172/113/112/148 (chauffage) · BAT-TH-163/164/162/158 (tertiaire)
+    // Carte repli PAC / chaudière sans photo dédiée : BAT-TH-163/164/162/158 (tertiaire) · Géothermie, PAC réversible air/air (chauffage)
     chaufferie: {
       src: "/images/pac-chaufferie.jpg",
       alt: "Chaufferie équipée de pompes à chaleur",
+    },
+    // Cartes : BAR-TH-171 (chauffage) · « Pompe à chaleur air/eau » (tertiaire)
+    pompeAirEau: {
+      src: "/images/pompe-air-eau.jpg",
+      alt: "Pompe à chaleur air/eau",
+    },
+    // Carte : BAR-TH-172 (chauffage) — « Pompe à chaleur eau/eau ou sol/eau »
+    pompeEauEauSolEau: {
+      src: "/images/pompe-eau-eau-sol-eau.jpg",
+      alt: "Pompe à chaleur eau/eau ou sol/eau",
+    },
+    // Carte : BAR-TH-113 (chauffage) — « Chaudière biomasse individuelle »
+    chaudiereBiomasseIndividuelle: {
+      src: "/images/chaudiere-biomasse-individuelle.jpeg",
+      alt: "Chaudière biomasse individuelle",
+    },
+    // Carte : BAR-TH-112 (chauffage) — « Appareil indépendant de chauffage au bois »
+    poeleBois: {
+      src: "/images/poele-bois.webp",
+      alt: "Poêle à bois ou à granulés",
+    },
+    // Carte : BAR-TH-101 (chauffage) — « Chauffe-eau solaire individuel »
+    chauffeEauSolaire: {
+      src: "/images/chauffe-eau-solaire.jpg",
+      alt: "Chauffe-eau solaire individuel",
+    },
+    // Carte : BAR-TH-148 (chauffage) — « Chauffe-eau thermodynamique »
+    chauffeEauThermodynamique: {
+      src: "/images/chauffe-eau-thermodynamique.webp",
+      alt: "Chauffe-eau thermodynamique",
     },
     // Cartes : BAR-TH-169, BAR-TH-179 (collectif)
     pacCollective: {
@@ -417,10 +447,15 @@ export const SITE_IMAGES = {
       src: U("1770625467384-304e461ef1be", 800),
       alt: "Régulation et pilotage du chauffage",
     },
-    // Cartes : BAR-TH-143, BAR-TH-101 (solaire), BAR-TH-110 (radiateur BT)
+    // Carte repli : BAR-TH-110 (radiateur basse température)
     chauffage: {
       src: U("1554475499-4e40aa2b9e75", 800),
       alt: "Système de chauffage performant",
+    },
+    // Carte : BAR-TH-143 (chauffage) — « Système solaire combiné »
+    systemeSolaireCombine: {
+      src: "/images/systeme-solaire-combine.jpg",
+      alt: "Système solaire combiné",
     },
     // Cartes : BAT-TH-116 (GTB)
     pilotageData: {

@@ -34,22 +34,22 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Fenêtre ou porte-fenêtre avec vitrage isolant": "fenetres",
   "Fermeture isolante (volets)": "fenetres",
   // --- Pompes à chaleur / chaufferie ---
-  "Pompe à chaleur air/eau": "chaufferie",
+  "Pompe à chaleur air/eau": "pompeAirEau",
   "Pompe à chaleur eau/eau": "chaufferie",
-  "Pompe à chaleur eau/eau ou sol/eau": "chaufferie",
+  "Pompe à chaleur eau/eau ou sol/eau": "pompeEauEauSolEau",
   "Géothermie": "chaufferie",
   "PAC réversible air/air": "chaufferie",
-  "Chauffe-eau thermodynamique": "chaufferie",
+  "Chauffe-eau thermodynamique": "chauffeEauThermodynamique",
   // --- PAC collective ---
   "Pompe à chaleur collective de type air/eau ou eau/eau pour l’eau chaude sanitaire":
     "pacCollective",
   "Pompe à chaleur collective air/eau": "pacCollective",
   // --- Chaudière / bois / solaire / radiateur ---
-  "Chaudière biomasse individuelle": "chaufferie",
-  "Appareil indépendant de chauffage au bois": "chaufferie",
+  "Chaudière biomasse individuelle": "chaudiereBiomasseIndividuelle",
+  "Appareil indépendant de chauffage au bois": "poeleBois",
   "Chaudière biomasse industrielle": "chaufferie",
-  "Système solaire combiné": "chauffage",
-  "Chauffe-eau solaire individuel": "chauffage",
+  "Système solaire combiné": "systemeSolaireCombine",
+  "Chauffe-eau solaire individuel": "chauffeEauSolaire",
   "Radiateur basse température": "chauffage",
   // --- Régulation / GTB ---
   "Régulation par sonde de température extérieure": "regulation",
