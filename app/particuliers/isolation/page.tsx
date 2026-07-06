@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Building, Home, LayoutGrid, Layers, Pipette } from "lucide-react";
+import { Building, Home, LayoutGrid, Layers } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
@@ -59,17 +59,6 @@ const operations = [
     description:
       "Isolation thermique des toitures-terrasses dans les bâtiments résidentiels existants.",
     requirement: "Résistance thermique R ≥ 4,5 m².K/W",
-  },
-  {
-    title: "Isolation d'un réseau hydraulique",
-    ref: "BAR-TH-160",
-    icon: Pipette,
-    pdfUrl:
-      "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=BAR-TH-160",
-    description:
-      "Calorifugeage des réseaux de chauffage et d'eau chaude sanitaire hors du volume chauffé. 5,4% des CEE délivrés. Souvent oublié, pourtant très rentable.",
-    badge: "💡 Souvent oublié",
-    badgeClass: "bg-emerald-100 text-forest",
   },
 ];
 

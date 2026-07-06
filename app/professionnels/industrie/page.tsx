@@ -9,7 +9,6 @@ import {
   Lightbulb,
   Package,
   Settings2,
-  Thermometer,
   Wind,
 } from "lucide-react";
 import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
@@ -41,14 +40,6 @@ const industryOperations = [
       "Variation électronique de vitesse sur moteurs asynchrones. Économies de 20 à 50% sur les applications de pompage et ventilation.",
     pdfUrl:
       "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=IND-UT-102%20BAT-TH-112",
-  },
-  {
-    title: "Récupération de chaleur fatale",
-    reference: "IND-UT-117",
-    icon: Thermometer,
-    description:
-      "Récupération et valorisation de la chaleur perdue sur les process industriels (fumées, eaux de refroidissement, air comprimé).",
-    pdfUrl: "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=IND-UT-117",
   },
   {
     title: "Air comprimé",
