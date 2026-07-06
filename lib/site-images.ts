@@ -344,7 +344,7 @@ export const SITE_IMAGES = {
   //  thème changent. Le détail des cartes concernées est en commentaire.
   // ═════════════════════════════════════════════════════════════
   fiches: {
-    // Cartes : BAR-EN-101, BAR-EN-105 (particuliers) · BAT-EN-101, BAT-EN-107 (tertiaire)
+    // Cartes : BAR-EN-101 (particuliers) · BAT-EN-101 (tertiaire)
     isolationCombles: {
       src: "/images/souffler-101.jpeg",
       alt: "Isolation des combles et toitures d'un bâtiment",
@@ -364,7 +364,7 @@ export const SITE_IMAGES = {
       src: "/images/isolation-plancher.png",
       alt: "Isolation d'un plancher bas",
     },
-    // Carte : BAR-EN-105 (particuliers) — « Isolation des toitures-terrasses »
+    // Cartes : BAR-EN-105 (particuliers) · BAT-EN-107 (tertiaire) — toitures-terrasses
     isolationToituresTerrasses: {
       src: "/images/isolation-toitures-terrasses.png",
       alt: "Isolation d'une toiture-terrasse",
@@ -384,7 +384,7 @@ export const SITE_IMAGES = {
       src: "/images/pompe-air-eau.jpg",
       alt: "Pompe à chaleur air/eau",
     },
-    // Carte : BAR-TH-172 (chauffage) — « Pompe à chaleur eau/eau ou sol/eau »
+    // Cartes : BAR-TH-172 (chauffage) · BAT-TH-164 (tertiaire) — PAC eau/eau
     pompeEauEauSolEau: {
       src: "/images/pompe-eau-eau-sol-eau.jpg",
       alt: "Pompe à chaleur eau/eau ou sol/eau",
@@ -451,12 +451,7 @@ export const SITE_IMAGES = {
       src: U("1766414629984-73a93e7caba0", 800),
       alt: "Supervision technique d'une installation",
     },
-    // Carte repli : BAT-EN-104 (tertiaire)
-    fenetres: {
-      src: U("1753893558430-3abab5adf4e0", 800),
-      alt: "Fenêtres et vitrages isolants",
-    },
-    // Carte : BAR-EN-104 (fenêtres) — « Fenêtre ou porte-fenêtre avec vitrage isolant »
+    // Cartes : BAR-EN-104 (fenêtres) · BAT-EN-104 (tertiaire) — « vitrage isolant »
     fenetreVitrageIsolant: {
       src: "/images/fenetre-vitrage-isolant.jpg",
       alt: "Fenêtre ou porte-fenêtre avec vitrage isolant",

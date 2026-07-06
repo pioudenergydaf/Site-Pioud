@@ -21,7 +21,7 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Raccordement réseau de chaleur": "pointsSinguliers",
   // --- Isolation combles / toitures / terrasses ---
   "Isolation toitures et combles": "isolationCombles",
-  "Isolation toitures-terrasses": "isolationCombles",
+  "Isolation toitures-terrasses": "isolationToituresTerrasses",
   "Isolation des toitures-terrasses": "isolationToituresTerrasses",
   "Isolation des combles ou toitures": "isolationCombles",
   "Isolation de combles ou de toitures": "isolationCombles",
@@ -30,12 +30,12 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Isolation des planchers": "isolationPlancher",
   "Isolation d'un plancher": "isolationPlancher",
   // --- Fenêtres / vitrages ---
-  "Fenêtres et vitrages isolants": "fenetres",
+  "Fenêtres et vitrages isolants": "fenetreVitrageIsolant",
   "Fenêtre ou porte-fenêtre avec vitrage isolant": "fenetreVitrageIsolant",
   "Fenêtre ou porte-fenêtre à vitrage pariétodynamique": "vitragePariodynamique",
   // --- Pompes à chaleur / chaufferie ---
   "Pompe à chaleur air/eau": "pompeAirEau",
-  "Pompe à chaleur eau/eau": "chaufferie",
+  "Pompe à chaleur eau/eau": "pompeEauEauSolEau",
   "Pompe à chaleur eau/eau ou sol/eau": "pompeEauEauSolEau",
   "Géothermie": "chaufferie",
   "PAC réversible air/air": "chaufferie",

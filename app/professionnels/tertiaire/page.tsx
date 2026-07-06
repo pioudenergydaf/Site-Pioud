@@ -36,15 +36,6 @@ export const metadata: Metadata = {
 
 const tertiaryOperations = [
   {
-    title: "Éclairage LED",
-    reference: "BAT-EQ-111",
-    icon: Lightbulb,
-    description:
-      "Remplacement des luminaires existants par des modules LED performants. L'éclairage représente jusqu'à 30% de la consommation d'un bâtiment tertiaire.",
-    examples: "Exemples : bureaux, parkings, commerces, entrepôts",
-    pdfUrl: "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=BAT-EQ-111",
-  },
-  {
     title: "Isolation toitures et combles",
     reference: "BAT-EN-101",
     icon: Home,
@@ -55,14 +46,25 @@ const tertiaryOperations = [
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-EN-101%20vA64-4%20%C3%A0%20compter%20du%2001-01-2025.pdf",
   },
   {
-    title: "Isolation toitures-terrasses",
-    reference: "BAT-EN-107",
-    icon: Building,
+    title: "Éclairage LED",
+    reference: "BAT-EQ-111",
+    icon: Lightbulb,
     description:
-      "Isolation des toitures-terrasses, très courante sur les bâtiments tertiaires à toit plat (bureaux, centres commerciaux, hôpitaux).",
-    examples: "Exemples : plateaux de bureaux, retail parks",
+      "Remplacement des luminaires par des modules LED performants dans les commerces de 400 m² et plus. Réduction significative de la consommation d'éclairage, poste pouvant représenter jusqu'à 30% de la consommation d'un commerce.",
+    examples: "Exemples : grandes surfaces, supermarchés, magasins de plus de 400 m²",
+    note: "Depuis le 25 février 2026, la fiche générale BAT-EQ-127 (bureaux, parkings, entrepôts) a été abrogée par arrêté du 23 février 2026, sans fiche de remplacement. Seuls les commerces de 400 m² et plus restent éligibles au financement CEE pour l'éclairage LED.",
+    pdfUrl: "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=BAT-EQ-111",
+  },
+  {
+    title: "Pompe à chaleur air/eau",
+    reference: "BAT-TH-163",
+    icon: Thermometer,
+    description:
+      "PAC air/eau pour le chauffage des bâtiments tertiaires existants. Remplace l'ancienne fiche BAT-TH-113. Pose par un professionnel RGE. Applicable depuis le 1er janvier 2026, engagement jusqu'au 31 décembre 2030. Bonification Coup de pouce x3 en remplacement d'une chaudière charbon, fioul ou gaz.",
+    examples: "Exemples : immeubles de bureaux, établissements de soins",
+    badge: "✨ Nouvelle fiche",
     pdfUrl:
-      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-EN-107%20vA64-3%20%C3%A0%20compter%20du%2001-01-2025_0.pdf",
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-163%20vA75-1%20%C3%A0%20compter%20du%2001-01-2026.pdf",
   },
   {
     title: "Isolation des murs",
@@ -95,15 +97,25 @@ const tertiaryOperations = [
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-EN-104%20vA54-3%20%C3%A0%20compter%20du%2001-01-2024.pdf",
   },
   {
-    title: "Pompe à chaleur air/eau",
-    reference: "BAT-TH-163",
-    icon: Thermometer,
+    title: "GTB (Gestion Technique du Bâtiment)",
+    reference: "BAT-TH-116",
+    icon: Settings,
     description:
-      "PAC air/eau pour le chauffage des bâtiments tertiaires existants. Remplace l'ancienne fiche BAT-TH-113. Pose par un professionnel RGE. Applicable depuis le 1er janvier 2026, engagement jusqu'au 31 décembre 2030. Bonification Coup de pouce x3 en remplacement d'une chaudière charbon, fioul ou gaz.",
-    examples: "Exemples : immeubles de bureaux, établissements de soins",
-    badge: "✨ Nouvelle fiche",
+      "Système de gestion technique du bâtiment pour le chauffage, l'ECS, le refroidissement, l'éclairage et les auxiliaires. Obligation BACS pour les bâtiments >1000m².",
+    examples: "Exemples : immeubles tertiaires, hôpitaux, campus",
+    badge: "Décret BACS",
     pdfUrl:
-      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-163%20vA75-1%20%C3%A0%20compter%20du%2001-01-2026.pdf",
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-116%20vA62-6%20%C3%A0%20compter%20du%2001-01-2025_0.pdf",
+  },
+  {
+    title: "Isolation toitures-terrasses",
+    reference: "BAT-EN-107",
+    icon: Building,
+    description:
+      "Isolation des toitures-terrasses, très courante sur les bâtiments tertiaires à toit plat (bureaux, centres commerciaux, hôpitaux).",
+    examples: "Exemples : plateaux de bureaux, retail parks",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-EN-107%20vA64-3%20%C3%A0%20compter%20du%2001-01-2025_0.pdf",
   },
   {
     title: "Pompe à chaleur eau/eau",
@@ -115,28 +127,6 @@ const tertiaryOperations = [
     badge: "🔥 Revalorisé en 2026",
     pdfUrl:
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-164%20vA75-1%20%C3%A0%20compter%20du%2001-01-2026.pdf",
-  },
-  {
-    title: "Géothermie",
-    reference: "BAT-TH-162",
-    icon: Globe,
-    description:
-      "Système géothermique complet pour les bâtiments tertiaires. Bonification jusqu'à x5 en cas de dépose d'installation fossile.",
-    examples: "Exemples : grands sites multi-bâtiments",
-    badge: "🔥 Nouveau 2026",
-    pdfUrl:
-      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-162%20vA75-1%20%C3%A0%20compter%20du%2001-01-2026.pdf",
-  },
-  {
-    title: "GTB (Gestion Technique du Bâtiment)",
-    reference: "BAT-TH-116",
-    icon: Settings,
-    description:
-      "Système de gestion technique du bâtiment pour le chauffage, l'ECS, le refroidissement, l'éclairage et les auxiliaires. Obligation BACS pour les bâtiments >1000m².",
-    examples: "Exemples : immeubles tertiaires, hôpitaux, campus",
-    badge: "Décret BACS",
-    pdfUrl:
-      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-116%20vA62-6%20%C3%A0%20compter%20du%2001-01-2025_0.pdf",
   },
   {
     title: "PAC réversible air/air",
@@ -156,6 +146,17 @@ const tertiaryOperations = [
       "Mise en place de portes ou couvercles sur les meubles frigorifiques en température positive. Très répandu en grande distribution et commerce alimentaire.",
     examples: "Exemples : supermarchés, magasins spécialisés",
     pdfUrl: "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-EQ-124.pdf",
+  },
+  {
+    title: "Géothermie",
+    reference: "BAT-TH-162",
+    icon: Globe,
+    description:
+      "Système géothermique complet pour les bâtiments tertiaires. Bonification jusqu'à x5 en cas de dépose d'installation fossile.",
+    examples: "Exemples : grands sites multi-bâtiments",
+    badge: "🔥 Nouveau 2026",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-162%20vA75-1%20%C3%A0%20compter%20du%2001-01-2026.pdf",
   },
   {
     title: "Destratification d'air",
@@ -218,6 +219,11 @@ export default function TertiairePage() {
                   {operation.description}
                 </p>
                 <p className="mt-3 text-sm font-medium text-ink-muted">{operation.examples}</p>
+                {"note" in operation && operation.note ? (
+                  <p className="mt-3 rounded-xl border border-ink/10 bg-cream-soft/70 px-3 py-2 text-xs font-medium text-ink-soft">
+                    {operation.note}
+                  </p>
+                ) : null}
                 <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
               </article>
             </Reveal>
