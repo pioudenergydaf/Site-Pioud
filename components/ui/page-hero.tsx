@@ -6,6 +6,9 @@ type PageHeroProps = {
   title: string;
   description: string;
   imageUrl: string;
+  // Optionnel : ajuste le cadrage si l'image est mal centrée en recadrage
+  // automatique (ex: "center 30%").
+  imagePosition?: string;
   primaryCta: { href: string; label: string };
   secondaryCta?: { href: string; label: string };
 };
@@ -39,6 +42,7 @@ export function PageHero({
   title,
   description,
   imageUrl,
+  imagePosition,
   primaryCta,
   secondaryCta,
 }: PageHeroProps) {
@@ -75,6 +79,7 @@ export function PageHero({
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
+            style={imagePosition ? { objectPosition: imagePosition } : undefined}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-forest/35 via-transparent to-transparent" />
         </div>

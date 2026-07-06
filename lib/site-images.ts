@@ -104,12 +104,13 @@ export const SITE_IMAGES = {
     hero: {
       src: "/images/fenetres-menuiseries.webp",
       alt: "Fenêtres et menuiseries",
+      position: "center 30%",
     },
   },
   regulation: {
     hero: {
-      src: U("1770625467384-304e461ef1be", 1700),
-      alt: "Régulation et pilotage du chauffage",
+      src: "/images/regulation-pilotage.jpeg",
+      alt: "Main réglant un thermostat de régulation du chauffage",
     },
   },
   renovationGlobale: {
@@ -454,21 +455,32 @@ export const SITE_IMAGES = {
     fenetreVitrageIsolant: {
       src: "/images/fenetre-vitrage-isolant.jpg",
       alt: "Fenêtre ou porte-fenêtre avec vitrage isolant",
+      position: "center 40%",
     },
     // Carte : BAR-EN-110 (fenêtres) — « Fenêtre ou porte-fenêtre à vitrage pariétodynamique »
     vitragePariodynamique: {
       src: "/images/fenetre-vitrage-parietodynamique.webp",
       alt: "Fenêtre à vitrage pariétodynamique laissant circuler l'air entre les vitres",
     },
-    // Cartes : BAR-TH-111, BAR-TH-173 (régulation)
+    // Carte : BAR-TH-111 (régulation) — « Régulation par sonde de température extérieure »
     regulation: {
       src: U("1770625467384-304e461ef1be", 800),
       alt: "Régulation et pilotage du chauffage",
     },
-    // Carte repli : BAR-TH-110 (radiateur basse température)
+    // Carte : BAR-TH-173 (régulation) — « Régulation par programmation horaire pièce par pièce »
+    regulationHorairePiece: {
+      src: "/images/regulation-horaire-piece.jpeg",
+      alt: "Programmation d'un thermostat de régulation pièce par pièce",
+    },
+    // Carte repli chauffage sans photo dédiée
     chauffage: {
       src: U("1554475499-4e40aa2b9e75", 800),
       alt: "Système de chauffage performant",
+    },
+    // Carte : BAR-TH-110 (régulation) — « Radiateur basse température »
+    radiateurBasseTemperature: {
+      src: "/images/radiateur-basse-temperature.jpg",
+      alt: "Radiateur basse température",
     },
     // Carte : BAR-TH-143 (chauffage) — « Système solaire combiné »
     systemeSolaireCombine: {

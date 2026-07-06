@@ -50,10 +50,10 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Chaudière biomasse industrielle": "chaufferie",
   "Système solaire combiné": "systemeSolaireCombine",
   "Chauffe-eau solaire individuel": "chauffeEauSolaire",
-  "Radiateur basse température": "chauffage",
+  "Radiateur basse température": "radiateurBasseTemperature",
   // --- Régulation / GTB ---
   "Régulation par sonde de température extérieure": "regulation",
-  "Régulation par programmation horaire pièce par pièce": "regulation",
+  "Régulation par programmation horaire pièce par pièce": "regulationHorairePiece",
   "GTB (Gestion Technique du Bâtiment)": "pilotageData",
   // --- Éclairage LED ---
   "Éclairage LED": "supervision",
