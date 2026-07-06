@@ -203,27 +203,38 @@ export default function MatelasIsolantPage() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
               {[
                 {
                   src: "/images/point-singulier-1.jpeg",
                   alt: "Matelas isolant démontable posé sur un point singulier de chaufferie",
+                  width: 899,
+                  height: 899,
                 },
                 {
                   src: "/images/point-singulier-2.jpeg",
                   alt: "Vannes de chaufferie équipées de matelas isolants sur mesure",
+                  width: 899,
+                  height: 900,
+                },
+                {
+                  src: "/images/point-singulier-3.jpeg",
+                  alt: "Matelas isolant posé sur une vanne de chaufferie tertiaire",
+                  width: 768,
+                  height: 1024,
                 },
               ].map((img) => (
                 <div
                   key={img.src}
-                  className="relative h-64 overflow-hidden rounded-card-lg border border-white/60 shadow-lg shadow-[0_10px_28px_rgba(31,58,46,0.08)] ring-1 ring-black/5 sm:h-72"
+                  className="flex h-72 items-center justify-center overflow-hidden rounded-card-lg border border-white/60 bg-cream-soft shadow-lg shadow-[0_10px_28px_rgba(31,58,46,0.08)] ring-1 ring-black/5"
                 >
                   <Image
                     src={img.src}
                     alt={img.alt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover"
+                    width={img.width}
+                    height={img.height}
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    className="max-h-full w-auto object-contain"
                   />
                 </div>
               ))}
