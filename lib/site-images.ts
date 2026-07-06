@@ -96,8 +96,8 @@ export const SITE_IMAGES = {
   },
   chauffage: {
     hero: {
-      src: "/images/pompe-air-eau.jpg",
-      alt: "Pompe à chaleur air/eau installée à l'extérieur d'une maison",
+      src: "/images/chauffage-eau-chaude.png",
+      alt: "Pieds au chaud devant un feu de cheminée",
     },
   },
   fenetres: {

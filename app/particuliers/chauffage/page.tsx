@@ -36,16 +36,6 @@ const operations = [
     ],
   },
   {
-    title: "Pompe à chaleur eau/eau ou sol/eau",
-    ref: "BAR-TH-172",
-    icon: Droplets,
-    pdfUrl:
-      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-172%20vA78.4%20%C3%A0%20compter%20du%2001-01-2026.pdf",
-    description:
-      "PAC géothermique ou sur nappe phréatique. Bonification Coup de pouce x5 en remplacement d'une chaudière fossile. Très hautes performances.",
-    badges: [{ label: "🔥 Coup de pouce x5", className: "bg-emerald-100 text-forest" }],
-  },
-  {
     title: "Chaudière biomasse individuelle",
     ref: "BAR-TH-113",
     icon: Flame,
@@ -96,6 +86,16 @@ const operations = [
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-148%20vA78.4%20%C3%A0%20compter%20du%2001-01-2026.pdf",
     description:
       "Chauffe-eau thermodynamique à accumulation. Divise par 2 à 3 la consommation liée à l'eau chaude.",
+  },
+  {
+    title: "Pompe à chaleur eau/eau ou sol/eau",
+    ref: "BAR-TH-172",
+    icon: Droplets,
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-172%20vA78.4%20%C3%A0%20compter%20du%2001-01-2026.pdf",
+    description:
+      "PAC géothermique ou sur nappe phréatique. Bonification Coup de pouce x5 en remplacement d'une chaudière fossile. Très hautes performances.",
+    badges: [{ label: "🔥 Coup de pouce x5", className: "bg-emerald-100 text-forest" }],
   },
 ];
 
