@@ -127,51 +127,6 @@ const trustPoints = [
   { icon: BadgeCheck, text: "Professionnels RGE uniquement" },
 ];
 
-type PartnerLogo = {
-  name: string;
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  // Pour les certifications (Qualibat, Qualit'EnR) : la charte impose
-  // d'afficher le numéro de qualification avec le logo. Tant que ce champ
-  // est vide, le logo est masqué ; renseigner le numéro le réactive.
-  qualificationNumber?: string;
-  requiresQualificationNumber?: boolean;
-};
-
-const partnerLogos: PartnerLogo[] = [
-  {
-    name: "TotalEnergies",
-    src: "/images/partenaires/totalenergies.png",
-    alt: "Logo TotalEnergies - partenaire CEE",
-    width: 534,
-    height: 360,
-  },
-  {
-    name: "Qualibat",
-    src: "/images/partenaires/qualibat.png",
-    alt: "Logo Qualibat - certification RGE",
-    width: 664,
-    height: 492,
-    qualificationNumber: "", // ex: "N° 12345" — le renseigner réaffiche le logo
-    requiresQualificationNumber: true,
-  },
-  {
-    name: "Qualit'EnR",
-    src: "/images/partenaires/qualit-enr.png",
-    alt: "Logo Qualit'EnR - certification RGE",
-    width: 824,
-    height: 756,
-    qualificationNumber: "", // ex: "N° 12345" — le renseigner réaffiche le logo
-    requiresQualificationNumber: true,
-  },
-];
-
-const visiblePartnerLogos = partnerLogos.filter(
-  (logo) => !logo.requiresQualificationNumber || logo.qualificationNumber,
-);
-
 function SectionEyebrow({ children }: { children: string }) {
   return (
     <p className="inline-flex rounded-pill bg-sage px-4 py-1 text-sm font-semibold text-forest">
@@ -694,37 +649,6 @@ export default function BarTh179Page() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* PARTENAIRES ET CERTIFICATIONS */}
-      <section className="bg-white py-16">
-        <div className="section-shell">
-          <Reveal>
-            <p className="text-center text-sm font-semibold uppercase tracking-wide text-ink-soft">
-              Nos partenaires et certifications
-            </p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-20 gap-y-10">
-              {visiblePartnerLogos.map((logo) => (
-                <div key={logo.name} className="flex flex-col items-center gap-3">
-                  <div className="flex h-28 items-center justify-center">
-                    <Image
-                      src={logo.src}
-                      alt={logo.alt}
-                      width={logo.width}
-                      height={logo.height}
-                      className="h-24 w-auto sm:h-28"
-                    />
-                  </div>
-                  {logo.qualificationNumber ? (
-                    <p className="text-xs text-ink-soft">{logo.qualificationNumber}</p>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          </Reveal>
         </div>
       </section>
 
