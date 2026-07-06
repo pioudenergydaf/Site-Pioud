@@ -128,7 +128,7 @@ export default function CollectivitesPage() {
 
       <section className="section-shell pb-20">
         <Reveal>
-          <h2 className="text-4xl font-bold text-ink">Exemples de projets (fictifs)</h2>
+          <h2 className="text-4xl font-bold text-ink">Exemples de projets</h2>
         </Reveal>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {[
