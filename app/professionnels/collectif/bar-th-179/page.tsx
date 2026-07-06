@@ -282,16 +282,15 @@ export default function BarTh179Page() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <div className="mt-10 overflow-hidden rounded-card-lg border border-white/60 shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
-              <div className="relative h-[320px] w-full sm:h-[420px]">
-                <Image
-                  src="/images/pac-chaufferie.jpg"
-                  alt="Pompe à chaleur en chaufferie collective"
-                  fill
-                  sizes="100vw"
-                  className="object-cover"
-                />
-              </div>
+            <div className="mt-10 overflow-hidden rounded-card-lg border border-white/60 bg-cream-soft shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
+              <Image
+                src="/images/pac-chaufferie.jpg"
+                alt="Pompe à chaleur en chaufferie collective"
+                width={1200}
+                height={920}
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                className="h-auto w-full"
+              />
             </div>
             <p className="mt-4 text-sm text-ink-soft">
               <span className="font-semibold text-forest-soft">BAR</span> Bâtiment résidentiel
