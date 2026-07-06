@@ -29,10 +29,10 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Isolation des murs": "isolationMurs",
   "Isolation des planchers": "isolationPlancher",
   "Isolation d'un plancher": "isolationPlancher",
-  // --- Fenêtres / vitrages / volets ---
+  // --- Fenêtres / vitrages ---
   "Fenêtres et vitrages isolants": "fenetres",
   "Fenêtre ou porte-fenêtre avec vitrage isolant": "fenetres",
-  "Fermeture isolante (volets)": "fenetres",
+  "Fenêtre ou porte-fenêtre à vitrage pariétodynamique": "vitragePariodynamique",
   // --- Pompes à chaleur / chaufferie ---
   "Pompe à chaleur air/eau": "pompeAirEau",
   "Pompe à chaleur eau/eau": "chaufferie",

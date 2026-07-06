@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PanelLeftClose, Square } from "lucide-react";
+import { Square, Wind } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
@@ -27,13 +27,13 @@ const operations = [
     requirement: "Uw ≤ 1,3 W/m².K et Sw ≥ 0,3 (ou Uw ≤ 1,7 et Sw ≥ 0,36)",
   },
   {
-    title: "Fermeture isolante (volets)",
-    ref: "BAR-EN-106",
-    icon: PanelLeftClose,
+    title: "Fenêtre ou porte-fenêtre à vitrage pariétodynamique",
+    ref: "BAR-EN-110",
+    icon: Wind,
     pdfUrl:
-      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-106%20vA64-5%20%C3%A0%20compter%20du%2001-01-2025_0.pdf",
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-110%20v%20A35-1.pdf",
     description:
-      "Volets isolants pour réduire les déperditions thermiques nocturnes et les apports solaires estivaux.",
+      "Pose de fenêtres ou portes-fenêtres complètes à vitrage pariétodynamique (triple vitrage à air circulant qui récupère la chaleur naturelle). Améliore le confort thermique toute l'année et la qualité de l'air intérieur. Bâtiments résidentiels existants.",
   },
 ];
 
