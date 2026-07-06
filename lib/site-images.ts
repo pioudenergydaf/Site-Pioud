@@ -102,8 +102,8 @@ export const SITE_IMAGES = {
   },
   fenetres: {
     hero: {
-      src: U("1753893558430-3abab5adf4e0", 1700),
-      alt: "Fenêtres et vitrages isolants",
+      src: "/images/fenetres-menuiseries.webp",
+      alt: "Fenêtres et menuiseries",
     },
   },
   regulation: {
@@ -445,14 +445,19 @@ export const SITE_IMAGES = {
       src: U("1766414629984-73a93e7caba0", 800),
       alt: "Supervision technique d'une installation",
     },
-    // Cartes : BAT-EN-104 (tertiaire) · BAR-EN-104 (fenêtres)
+    // Carte repli : BAT-EN-104 (tertiaire)
     fenetres: {
       src: U("1753893558430-3abab5adf4e0", 800),
       alt: "Fenêtres et vitrages isolants",
     },
+    // Carte : BAR-EN-104 (fenêtres) — « Fenêtre ou porte-fenêtre avec vitrage isolant »
+    fenetreVitrageIsolant: {
+      src: "/images/fenetre-vitrage-isolant.jpg",
+      alt: "Fenêtre ou porte-fenêtre avec vitrage isolant",
+    },
     // Carte : BAR-EN-110 (fenêtres) — « Fenêtre ou porte-fenêtre à vitrage pariétodynamique »
     vitragePariodynamique: {
-      src: U("1554475499-4e40aa2b9e75", 800),
+      src: "/images/fenetre-vitrage-parietodynamique.webp",
       alt: "Fenêtre à vitrage pariétodynamique laissant circuler l'air entre les vitres",
     },
     // Cartes : BAR-TH-111, BAR-TH-173 (régulation)
