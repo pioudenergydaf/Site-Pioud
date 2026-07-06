@@ -22,9 +22,9 @@ const particuliersItems = [
 ];
 
 const professionalsItems = [
+  { label: "Collectif", href: "/professionnels/collectif" },
   { label: "Tertiaire", href: "/professionnels/tertiaire" },
   { label: "Industrie", href: "/professionnels/industrie" },
-  { label: "Collectif", href: "/professionnels/collectif" },
 ];
 
 export function Navbar() {

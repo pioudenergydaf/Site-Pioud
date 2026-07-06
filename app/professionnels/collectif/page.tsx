@@ -17,6 +17,28 @@ export const metadata: Metadata = {
 
 const collectiveOperations = [
   {
+    title: "Isolation de points singuliers d'un réseau",
+    reference: "BAR-TH-161",
+    icon: Layers,
+    description:
+      "Isolation des points singuliers (vannes, brides, robinets) des réseaux hydrauliques de chauffage et d'eau chaude sanitaire par housses isolantes démontables, pour limiter les pertes thermiques.",
+    examples: "Exemples : chaufferies collectives, réseaux ECS de copropriétés",
+    badge: "✨ Notre expertise",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-161%20vA71-3%20%C3%A0%20compter%20du%2001-08-2025.pdf",
+    internalUrl: "/professionnels/collectif/points-singuliers",
+  },
+  {
+    title: "Isolation de combles ou de toitures",
+    reference: "BAR-EN-101",
+    icon: Home,
+    description:
+      "Isolation thermique des combles ou de la toiture d'immeubles résidentiels pour réduire les déperditions de chaleur.",
+    examples: "Exemples : copropriétés avec combles perdus, résidences collectives",
+    pdfUrl:
+      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-101%20vA64-4%20%C3%A0%20compter%20du%2001-01-2025.pdf",
+  },
+  {
     title: "Pompe à chaleur collective de type air/eau ou eau/eau pour l’eau chaude sanitaire",
     reference: "BAR-TH-169",
     icon: Thermometer,
@@ -45,28 +67,6 @@ const collectiveOperations = [
     examples: "Exemples : copropriétés, résidences de logements, ensembles collectifs",
     pdfUrl:
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-177%20vA80-2%20%C3%A0%20compter%20du%2017-01-2026.pdf",
-  },
-  {
-    title: "Isolation de combles ou de toitures",
-    reference: "BAR-EN-101",
-    icon: Home,
-    description:
-      "Isolation thermique des combles ou de la toiture d'immeubles résidentiels pour réduire les déperditions de chaleur.",
-    examples: "Exemples : copropriétés avec combles perdus, résidences collectives",
-    pdfUrl:
-      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-EN-101%20vA64-4%20%C3%A0%20compter%20du%2001-01-2025.pdf",
-  },
-  {
-    title: "Isolation de points singuliers d'un réseau",
-    reference: "BAR-TH-161",
-    icon: Layers,
-    description:
-      "Isolation des points singuliers (vannes, brides, robinets) des réseaux hydrauliques de chauffage et d'eau chaude sanitaire par housses isolantes démontables, pour limiter les pertes thermiques.",
-    examples: "Exemples : chaufferies collectives, réseaux ECS de copropriétés",
-    badge: "✨ Notre expertise",
-    pdfUrl:
-      "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-161%20vA71-3%20%C3%A0%20compter%20du%2001-08-2025.pdf",
-    internalUrl: "/professionnels/collectif/points-singuliers",
   },
 ];
 
