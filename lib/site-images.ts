@@ -173,10 +173,10 @@ export const SITE_IMAGES = {
       src: U("1763906265376-363d9681a3ad", 1700),
       alt: "Site industriel accompagné en CEE",
     },
-    // Section « Accompagnement »
+    // Section « Notre accompagnement industrie »
     accompagnement: {
-      src: U("1766414629984-73a93e7caba0"),
-      alt: "Accompagnement d'un site industriel",
+      src: "/images/accompagnement-industrie.webp",
+      alt: "Échange sur site avec des experts autour d'une ligne de production robotisée",
     },
   },
 
@@ -472,10 +472,15 @@ export const SITE_IMAGES = {
       src: U("1460317442991-0ec209397118", 800),
       alt: "Immeuble résidentiel collectif",
     },
-    // Carte repli : Récupération de chaleur sur compresseur (IND-UT-103, pas encore de photo dédiée)
+    // Carte repli : sans photo dédiée
     industrie: {
       src: U("1763906265376-363d9681a3ad", 800),
       alt: "Site industriel",
+    },
+    // Carte : IND-UT-103 (industrie) — « Récupération de chaleur sur compresseur »
+    recuperationChaleurCompresseur: {
+      src: "/images/recuperation-chaleur-compresseur.jpeg",
+      alt: "Récupération de chaleur sur un réseau de compresseurs industriels",
     },
     // Carte : IND-UT-102 / BAT-TH-112 (industrie) — « Variateurs de vitesse »
     variateursVitesse: {

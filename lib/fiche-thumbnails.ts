@@ -68,7 +68,7 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Variateurs de vitesse": "variateursVitesse",
   "Stockage de chaleur fatale": "stockageChaleurFatale",
   "Air comprimé": "airComprime",
-  "Récupération de chaleur sur compresseur": "industrie",
+  "Récupération de chaleur sur compresseur": "recuperationChaleurCompresseur",
   "Isolation des bâtiments industriels": "isolationCombles",
   "GTB pour bâtiments industriels": "pilotageData",
 };
