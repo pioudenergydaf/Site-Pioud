@@ -21,7 +21,7 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Raccordement réseau de chaleur": "pointsSinguliers",
   // --- Isolation combles / toitures / terrasses ---
   "Isolation toitures et combles": "isolationCombles",
-  "Isolation toitures-terrasses": "isolationToituresTerrasses",
+  "Isolation toitures-terrasses": "isolationToituresTerrasseTertiaire",
   "Isolation des toitures-terrasses": "isolationToituresTerrasses",
   "Isolation des combles ou toitures": "isolationCombles",
   "Isolation de combles ou de toitures": "isolationCombles",
@@ -37,8 +37,6 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Pompe à chaleur air/eau": "pompeAirEau",
   "Pompe à chaleur eau/eau": "pompeEauEauSolEau",
   "Pompe à chaleur eau/eau ou sol/eau": "pompeEauEauSolEau",
-  "Géothermie": "chaufferie",
-  "PAC réversible air/air": "chaufferie",
   "Chauffe-eau thermodynamique": "chauffeEauThermodynamique",
   // --- PAC collective ---
   "Pompe à chaleur collective de type air/eau ou eau/eau pour l’eau chaude sanitaire":
@@ -56,19 +54,22 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Régulation par programmation horaire pièce par pièce": "regulationHorairePiece",
   "GTB (Gestion Technique du Bâtiment)": "pilotageData",
   // --- Éclairage LED ---
-  "Éclairage LED": "supervision",
+  "Éclairage LED": "eclairageLed",
   "Éclairage LED industriel": "supervision",
   // --- Rénovation globale ---
   "Rénovation d'ampleur d'une maison individuelle": "renovationAmpleurMaison",
   "Rénovation globale d'un bâtiment résidentiel collectif": "renovationGlobaleCollectif",
-  // --- Industrie (moteurs / procédés / frigo / air) ---
+  // --- Tertiaire (PAC réversible, géothermie, frigo, destratification) ---
+  "Géothermie": "geothermieTertiaire",
+  "PAC réversible air/air": "pacReversibleAirAir",
+  "Fermeture meubles frigorifiques": "fermetureMeublesFrigorifiques",
+  "Destratification d'air": "destratificationAir",
+  // --- Industrie (moteurs / procédés) ---
   "Moteurs haut rendement": "industrie",
   "Variateurs de vitesse": "industrie",
   "Récupération de chaleur fatale": "industrie",
   "Stockage de chaleur fatale": "industrie",
   "Air comprimé": "industrie",
-  "Fermeture meubles frigorifiques": "industrie",
-  "Destratification d'air": "industrie",
 };
 
 // Retourne la vignette d'une carte de fiche CEE à partir de son titre.

@@ -374,7 +374,7 @@ export const SITE_IMAGES = {
       src: "/images/point-singulier-2.jpeg",
       alt: "Housses isolantes posées sur les points singuliers d'un réseau",
     },
-    // Carte repli PAC / chaudière sans photo dédiée : BAT-TH-163/164/162/158 (tertiaire) · Géothermie, PAC réversible air/air (chauffage)
+    // Carte repli : BAT-TH-104 (chaudière biomasse industrielle)
     chaufferie: {
       src: "/images/pac-chaufferie.jpg",
       alt: "Chaufferie équipée de pompes à chaleur",
@@ -425,6 +425,37 @@ export const SITE_IMAGES = {
     renovationGlobaleCollectif: {
       src: "/images/renovation-globale-collectif.jpeg",
       alt: "Immeuble résidentiel collectif en rénovation globale",
+    },
+    // Carte : BAT-EQ-111 (tertiaire) — « Éclairage LED »
+    eclairageLed: {
+      src: "/images/eclairage-led.jpg",
+      alt: "Éclairage LED dans un commerce de grande surface",
+      position: "center 30%",
+    },
+    // Carte : BAT-EN-107 (tertiaire) — « Isolation toitures-terrasses »
+    isolationToituresTerrasseTertiaire: {
+      src: "/images/isolation-toitures-terrasses-tertiaire.jpeg",
+      alt: "Pose d'une membrane d'étanchéité sur une toiture-terrasse",
+    },
+    // Carte : BAT-TH-158 (tertiaire) — « PAC réversible air/air »
+    pacReversibleAirAir: {
+      src: "/images/pac-reversible-air-air.jpg",
+      alt: "Pompe à chaleur réversible air/air en plafond",
+    },
+    // Carte : BAT-EQ-124 (tertiaire) — « Fermeture meubles frigorifiques »
+    fermetureMeublesFrigorifiques: {
+      src: "/images/fermeture-meubles-frigorifiques.jpg",
+      alt: "Meuble frigorifique fermé par des portes vitrées",
+    },
+    // Carte : BAT-TH-162 (tertiaire) — « Géothermie »
+    geothermieTertiaire: {
+      src: "/images/geothermie-tertiaire.png",
+      alt: "Unités géothermiques extérieures pour bâtiments tertiaires",
+    },
+    // Carte : BAT-TH-142 (tertiaire) — « Destratification d'air »
+    destratificationAir: {
+      src: "/images/destratification-air.webp",
+      alt: "Technicien installant un destratificateur d'air en hauteur",
     },
     // Repli générique (carte sans thème dédié)
     chantier: {
