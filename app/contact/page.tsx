@@ -18,8 +18,8 @@ export default function ContactPage() {
         title="Parlons de votre projet CEE"
         description="Nos experts vous répondent rapidement pour cadrer votre besoin, estimer votre potentiel de prime et lancer votre accompagnement."
         imageUrl={SITE_IMAGES.contact.hero.src}
-        primaryCta={{ href: `tel:${siteConfig.phoneE164}`, label: "Appeler le standard" }}
-        secondaryCta={{ href: "/simulateur", label: "Accéder au simulateur" }}
+        primaryCta={{ href: "/simulateur", label: "Accéder au simulateur" }}
+        secondaryCta={{ href: `mailto:${siteConfig.email}`, label: "Nous écrire" }}
       />
       <ContactFormsSection />
     </div>

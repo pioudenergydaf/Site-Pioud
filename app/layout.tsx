@@ -68,7 +68,6 @@ const localBusinessSchema = {
   "@type": "LocalBusiness",
   name: siteConfig.name,
   description: siteConfig.description,
-  telephone: siteConfig.phone,
   email: siteConfig.email,
   address: {
     "@type": "PostalAddress",

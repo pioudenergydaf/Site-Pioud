@@ -39,7 +39,7 @@ export default function MentionsLegalesPage() {
             <strong>Directeur de publication :</strong> Filip Chrétien
           </p>
           <p>
-            <strong>Contact :</strong> {siteConfig.email} - {siteConfig.phone}
+            <strong>Contact :</strong> {siteConfig.email}
           </p>
           <p>
             <strong>Numéro de TVA intracommunautaire :</strong> FR67927628446

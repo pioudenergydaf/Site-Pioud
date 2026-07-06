@@ -61,11 +61,6 @@ export function Footer() {
           <ul className="space-y-2 text-sm text-cream-soft/85">
             <li>{siteConfig.address}</li>
             <li>
-              <a href={`tel:${siteConfig.phoneE164}`} className="transition hover:text-cream">
-                {siteConfig.phone}
-              </a>
-            </li>
-            <li>
               <a href={`mailto:${siteConfig.email}`} className="transition hover:text-cream">
                 {siteConfig.email}
               </a>
