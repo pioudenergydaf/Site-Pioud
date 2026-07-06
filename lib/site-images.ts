@@ -339,7 +339,7 @@ export const SITE_IMAGES = {
   fiches: {
     // Cartes : BAR-EN-101, BAR-EN-105 (particuliers) · BAT-EN-101, BAT-EN-107 (tertiaire)
     isolationCombles: {
-      src: U("1753717202579-9c6ac3592b62", 800),
+      src: "/images/souffler-101.jpeg",
       alt: "Isolation des combles et toitures d'un bâtiment",
     },
     // Cartes : BAR-EN-102, BAR-EN-103 (particuliers) · BAT-EN-102, BAT-EN-103 (tertiaire)

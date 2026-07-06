@@ -1,78 +1,12 @@
 // Vignettes photo des cartes de fiches CEE (affichées en bandeau haut de carte).
-// Chaque entrée = { src, alt }. On réutilise des visuels déjà présents dans le
-// projet (donc garantis fonctionnels) + les photos locales dans /public/images.
-//
-// Pour affiner une vignette : déposer une photo dans public/images/fiches/ et
-// remplacer le `src` du thème correspondant ci-dessous — toutes les cartes qui
-// utilisent ce thème seront mises à jour d'un coup.
+// Les images sont définies dans lib/site-images.ts (SITE_IMAGES.fiches) —
+// c'est là qu'il faut aller pour changer une vignette.
 
-export type FicheImage = { src: string; alt: string };
+import { SITE_IMAGES, type SiteImage } from "@/lib/site-images";
 
-const U = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=70`;
+export type FicheImage = SiteImage;
 
-export const FICHE_IMG = {
-  isolationCombles: {
-    src: /images/souffler-101.jpeg,
-    alt: "Isolation des combles et toitures d'un bâtiment",
-  },
-  isolationThermique: {
-    src: U("1768321917437-1f1f6ae2ad28"),
-    alt: "Travaux d'isolation thermique",
-  },
-  pointsSinguliers: {
-    src: "/images/point-singulier-2.jpeg",
-    alt: "Matelas isolants posés sur les points singuliers d'un réseau",
-  },
-  chaufferie: {
-    src: "/images/pac-chaufferie.jpg",
-    alt: "Chaufferie équipée de pompes à chaleur",
-  },
-  pacCollective: {
-    src: "/images/pac-collective-bar-th-179.webp",
-    alt: "Pompe à chaleur collective en chaufferie",
-  },
-  renovation: {
-    src: U("1753977725475-41b221add2c0"),
-    alt: "Chantier de rénovation énergétique",
-  },
-  chantier: {
-    src: U("1752594756894-bcf378884a09"),
-    alt: "Ouvriers sur un chantier de rénovation",
-  },
-  batimentModerne: {
-    src: U("1742675416657-55d043ce8dce"),
-    alt: "Bâtiment moderne à haute performance énergétique",
-  },
-  immeubleCollectif: {
-    src: U("1460317442991-0ec209397118"),
-    alt: "Immeuble résidentiel collectif",
-  },
-  industrie: {
-    src: U("1763906265376-363d9681a3ad"),
-    alt: "Site industriel",
-  },
-  supervision: {
-    src: U("1766414629984-73a93e7caba0"),
-    alt: "Supervision technique d'une installation",
-  },
-  fenetres: {
-    src: U("1753893558430-3abab5adf4e0"),
-    alt: "Fenêtres et vitrages isolants",
-  },
-  regulation: {
-    src: U("1770625467384-304e461ef1be"),
-    alt: "Régulation et pilotage du chauffage",
-  },
-  chauffage: {
-    src: U("1554475499-4e40aa2b9e75"),
-    alt: "Système de chauffage performant",
-  },
-  pilotageData: {
-    src: U("1460925895917-afdab827c52f"),
-    alt: "Gestion technique et supervision des données",
-  },
-} as const;
+export const FICHE_IMG = SITE_IMAGES.fiches;
 
 export type FicheTheme = keyof typeof FICHE_IMG;
 
