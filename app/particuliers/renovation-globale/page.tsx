@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Building2, Home, Wrench } from "lucide-react";
+import { Building2, Wrench } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
@@ -17,23 +17,13 @@ export const metadata: Metadata = {
 
 const operations = [
   {
-    title: "Rénovation globale d'une maison individuelle",
-    ref: "BAR-TH-164",
-    icon: Home,
-    pdfUrl: "https://www.ecologie.gouv.fr/recherche?search_api_fulltext=BAR-TH-164",
-    description:
-      "C'est l'opération N°1 en France avec 18,2% des CEE délivrés. Combinaison de plusieurs travaux permettant un gain énergétique global significatif.",
-    badge: "⭐ N°1 des CEE en France",
-    badgeClass: "bg-sage text-forest",
-  },
-  {
     title: "Rénovation d'ampleur d'une maison individuelle",
     ref: "BAR-TH-174",
     icon: Wrench,
     pdfUrl:
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAR-TH-174%20vA80-3%20%C3%A0%20compter%20du%2017-01-2026.pdf",
     description:
-      "Rénovation d'ampleur avec gain d'au moins 2 classes DPE. Cumulable avec MaPrimeRénov' Rénovation d'ampleur pour les logements E, F ou G.",
+      "Rénovation d'ampleur avec gain d'au moins 2 classes DPE. Remplace l'ancienne fiche BAR-TH-164 (rénovation globale), abrogée depuis le 1er janvier 2024. Cumulable avec MaPrimeRénov' Rénovation d'ampleur pour les logements E, F ou G.",
     badge: "Nouveau",
     badgeClass: "bg-emerald-100 text-forest",
   },
@@ -84,7 +74,7 @@ export default function ParticuliersRenovationGlobalePage() {
         <Reveal>
           <h2 className="text-4xl font-bold text-ink">Opérations éligibles</h2>
         </Reveal>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
           {operations.map((operation, index) => (
             <Reveal key={operation.title} delay={index * 0.08}>
               <article className="card-surface h-full p-6">

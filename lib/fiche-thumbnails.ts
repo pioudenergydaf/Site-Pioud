@@ -59,9 +59,8 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   "Éclairage LED": "supervision",
   "Éclairage LED industriel": "supervision",
   // --- Rénovation globale ---
-  "Rénovation globale d'une maison individuelle": "renovation",
-  "Rénovation d'ampleur d'une maison individuelle": "renovation",
-  "Rénovation globale d'un bâtiment résidentiel collectif": "renovation",
+  "Rénovation d'ampleur d'une maison individuelle": "renovationAmpleurMaison",
+  "Rénovation globale d'un bâtiment résidentiel collectif": "renovationGlobaleCollectif",
   // --- Industrie (moteurs / procédés / frigo / air) ---
   "Moteurs haut rendement": "industrie",
   "Variateurs de vitesse": "industrie",

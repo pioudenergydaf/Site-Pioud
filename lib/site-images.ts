@@ -115,8 +115,8 @@ export const SITE_IMAGES = {
   },
   renovationGlobale: {
     hero: {
-      src: U("1753893558281-9acda0662bbd", 1700),
-      alt: "Rénovation globale d'une maison",
+      src: "/images/renovation-globale-hero.webp",
+      alt: "Chantier de rénovation globale d'une maison individuelle",
     },
   },
 
@@ -416,10 +416,15 @@ export const SITE_IMAGES = {
       src: "/images/pac-collective-bar-th-179.webp",
       alt: "Pompe à chaleur collective en chaufferie",
     },
-    // Cartes : BAR-TH-164/174/177 (rénovation globale) · BAR-TH-177 (collectif)
-    renovation: {
-      src: U("1753977725475-41b221add2c0", 800),
-      alt: "Chantier de rénovation énergétique",
+    // Carte : BAR-TH-174 (rénovation globale) — « Rénovation d'ampleur d'une maison individuelle »
+    renovationAmpleurMaison: {
+      src: "/images/renovation-ampleur-maison.jpg",
+      alt: "Maison individuelle en rénovation d'ampleur",
+    },
+    // Cartes : BAR-TH-177 (rénovation globale, collectif) — « Rénovation globale d'un bâtiment résidentiel collectif »
+    renovationGlobaleCollectif: {
+      src: "/images/renovation-globale-collectif.jpeg",
+      alt: "Immeuble résidentiel collectif en rénovation globale",
     },
     // Repli générique (carte sans thème dédié)
     chantier: {
@@ -455,7 +460,6 @@ export const SITE_IMAGES = {
     fenetreVitrageIsolant: {
       src: "/images/fenetre-vitrage-isolant.jpg",
       alt: "Fenêtre ou porte-fenêtre avec vitrage isolant",
-      position: "center 40%",
     },
     // Carte : BAR-EN-110 (fenêtres) — « Fenêtre ou porte-fenêtre à vitrage pariétodynamique »
     vitragePariodynamique: {
