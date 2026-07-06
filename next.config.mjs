@@ -12,6 +12,16 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        // Fiche BAT-TH-146 / BAT-TH-155 abrogée (01/08/2025), sans remplaçante.
+        source: "/professionnels/tertiaire/matelas-isolant",
+        destination: "/professionnels/tertiaire",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

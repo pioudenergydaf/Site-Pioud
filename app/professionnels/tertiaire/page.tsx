@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowRight,
   ArrowUpDown,
   Building,
   Building2,
@@ -35,27 +34,6 @@ export const metadata: Metadata = {
 };
 
 const tertiaryOperations = [
-  {
-    title: "Matelas isolant / Points singuliers",
-    reference: "BAT-TH-146",
-    icon: Thermometer,
-    description:
-      "Isolation des points singuliers (vannes, brides, robinets) de vos chaufferies et réseaux à l'aide de matelas isolants démontables. Supprime les déperditions sur les organes techniques non calorifugés.",
-    examples: "Exemples : chaufferies tertiaires, réseaux hydrauliques et vapeur",
-    badge: "✨ Notre expertise",
-    pdfUrl: "https://www.ecologie.gouv.fr/operations-standardisees-deconomies-denergie",
-    internalUrl: "/professionnels/tertiaire/matelas-isolant",
-  },
-  {
-    title: "Isolation d'un réseau hydraulique",
-    reference: "BAT-TH-179",
-    icon: Thermometer,
-    description:
-      "Isolation des points singuliers d'un réseau hydraulique de chauffage ou d'eau chaude sanitaire (vannes, brides, accessoires) dans les bâtiments tertiaires existants. Réduit les pertes thermiques et améliore la performance globale du réseau.",
-    examples: "Exemples : bureaux, commerces, hôtellerie, enseignement, santé",
-    pdfUrl:
-      "https://www.ecologie.gouv.fr/operations-standardisees-deconomies-denergie",
-  },
   {
     title: "Éclairage LED",
     reference: "BAT-EQ-111",
@@ -183,8 +161,8 @@ const tertiaryOperations = [
     reference: "BAT-TH-142",
     icon: ArrowUpDown,
     description:
-      "Système de destratification dans les locaux de grande hauteur (entrepôts, halls, gymnases). Meilleure répartition de la chaleur et économies de chauffage.",
-    examples: "Exemples : entrepôts logistiques, halls sportifs",
+      "Système de destratification dans les locaux chauffés de grande hauteur (gymnases, halls, ateliers). Meilleure répartition de la chaleur et économies de chauffage. Exclut les entrepôts, réserves et locaux de stockage, ainsi que les locaux à température de consigne inférieure à 15°C.",
+    examples: "Exemples : gymnases, halls sportifs, ateliers chauffés",
     pdfUrl:
       "https://www.ecologie.gouv.fr/sites/default/files/documents/BAT-TH-142%20vA71-4%20%C3%A0%20compter%20du%2001-08-2025%20-%20Syst%C3%A8me%20de%20d%C3%A9stratification%20d%E2%80%99air_1.pdf",
   },
@@ -240,15 +218,6 @@ export default function TertiairePage() {
                 </p>
                 <p className="mt-3 text-sm font-medium text-ink-muted">{operation.examples}</p>
                 <OfficialSheetLinks sheetUrl={operation.pdfUrl} />
-                {"internalUrl" in operation && operation.internalUrl ? (
-                  <Link
-                    href={operation.internalUrl}
-                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-forest-soft transition hover:text-forest"
-                  >
-                    En savoir plus
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                ) : null}
               </article>
             </Reveal>
           ))}
