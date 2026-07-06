@@ -169,8 +169,8 @@ export default function MatelasIsolantPage() {
           <Reveal delay={0.6}>
             <div className="relative min-h-[380px] overflow-hidden rounded-card-lg border border-white/60 shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
               <Image
-                src="/images/point-singulier-3.jpeg"
-                alt="Matelas isolant posé sur une vanne de chaufferie tertiaire"
+                src="/images/pac-chaufferie.jpg"
+                alt="Chaufferie tertiaire avec réseau de tuyauteries et organes techniques à isoler"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
@@ -185,81 +185,75 @@ export default function MatelasIsolantPage() {
       {/* QU'EST-CE QU'UN POINT SINGULIER */}
       <section className="bg-white py-12 md:py-24">
         <div className="section-shell">
-          <Reveal>
-            <SectionEyebrow>Définition</SectionEyebrow>
-            <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl">
-              Qu&apos;est-ce qu&apos;un point singulier ?
-            </h2>
-            <p className="mt-5 max-w-3xl text-lg leading-relaxed text-ink-muted">
-              Sur un réseau de chauffage, d&apos;eau chaude ou de vapeur, les tuyauteries
-              droites sont généralement calorifugées. Mais les organes techniques — vannes,
-              brides, robinets, clapets, filtres — restent souvent nus. Ces « points
-              singuliers » interrompent la continuité de l&apos;isolation et concentrent des
-              déperditions de chaleur importantes, invisibles mais coûteuses. Les isoler
-              avec des matelas isolants démontables permet de rétablir la performance
-              thermique du réseau tout en gardant l&apos;accès aux équipements pour la
-              maintenance.
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.06}>
-            <div className="mt-8 grid gap-4 sm:grid-cols-3">
-              {[
-                {
-                  src: "/images/point-singulier-1.jpeg",
-                  alt: "Matelas isolant démontable posé sur un point singulier de chaufferie",
-                  width: 899,
-                  height: 899,
-                },
-                {
-                  src: "/images/point-singulier-2.jpeg",
-                  alt: "Vannes de chaufferie équipées de matelas isolants sur mesure",
-                  width: 899,
-                  height: 900,
-                },
-                {
-                  src: "/images/point-singulier-3.jpeg",
-                  alt: "Matelas isolant posé sur une vanne de chaufferie tertiaire",
-                  width: 768,
-                  height: 1024,
-                },
-              ].map((img) => (
-                <div
-                  key={img.src}
-                  className="flex h-72 items-center justify-center overflow-hidden rounded-card-lg border border-white/60 bg-cream-soft shadow-lg shadow-[0_10px_28px_rgba(31,58,46,0.08)] ring-1 ring-black/5"
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={img.width}
-                    height={img.height}
-                    sizes="(max-width: 640px) 100vw, 33vw"
-                    className="max-h-full w-auto object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <p className="mt-8 inline-flex items-center gap-2 rounded-pill bg-sage px-4 py-2 text-sm font-semibold text-forest">
-              <FileText className="h-4 w-4" />
-              Fiche BAT-TH-146 · Opération standardisée CEE — bâtiment tertiaire
-            </p>
-          </Reveal>
+          <div className="grid items-center gap-8 md:gap-12 lg:grid-cols-2">
+            <Reveal>
+              <div>
+                <SectionEyebrow>Définition</SectionEyebrow>
+                <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl">
+                  Qu&apos;est-ce qu&apos;un point singulier ?
+                </h2>
+                <p className="mt-5 text-lg leading-relaxed text-ink-muted">
+                  Sur un réseau de chauffage, d&apos;eau chaude ou de vapeur, les tuyauteries
+                  droites sont généralement calorifugées. Mais les organes techniques —
+                  vannes, brides, robinets, clapets, filtres — restent souvent nus. Ces
+                  « points singuliers » interrompent la continuité de l&apos;isolation et
+                  concentrent des déperditions de chaleur importantes, invisibles mais
+                  coûteuses. Les isoler avec des matelas isolants démontables permet de
+                  rétablir la performance thermique du réseau tout en gardant l&apos;accès aux
+                  équipements pour la maintenance.
+                </p>
+                <p className="mt-6 inline-flex items-center gap-2 rounded-pill bg-sage px-4 py-2 text-sm font-semibold text-forest">
+                  <FileText className="h-4 w-4" />
+                  Fiche BAT-TH-146 · Opération standardisée CEE — bâtiment tertiaire
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="overflow-hidden rounded-card-lg border border-white/60 bg-cream-soft shadow-xl shadow-[0_16px_40px_rgba(31,58,46,0.12)] ring-1 ring-black/5">
+                <Image
+                  src="/images/point-singulier-1.jpeg"
+                  alt="Matelas isolant démontable posé sur un point singulier de chaufferie"
+                  width={899}
+                  height={899}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="h-auto w-full"
+                />
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
       {/* POURQUOI LES ISOLER */}
       <section className="py-12 md:py-24">
         <div className="section-shell">
-          <Reveal>
-            <SectionEyebrow>Bénéfices</SectionEyebrow>
-            <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl">
-              Pourquoi isoler vos points singuliers
-            </h2>
-          </Reveal>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 md:mt-10 lg:grid-cols-3">
+          <div className="grid items-center gap-8 md:gap-12 lg:grid-cols-2">
+            <Reveal delay={0.1} className="order-last lg:order-first">
+              <div className="overflow-hidden rounded-card-lg border border-white/60 bg-cream-soft shadow-xl shadow-[0_16px_40px_rgba(31,58,46,0.12)] ring-1 ring-black/5">
+                <Image
+                  src="/images/point-singulier-2.jpeg"
+                  alt="Vannes de chaufferie équipées de matelas isolants sur mesure"
+                  width={899}
+                  height={900}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="h-auto w-full"
+                />
+              </div>
+            </Reveal>
+            <Reveal>
+              <div>
+                <SectionEyebrow>Bénéfices</SectionEyebrow>
+                <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl">
+                  Pourquoi isoler vos points singuliers
+                </h2>
+                <p className="mt-5 text-lg leading-relaxed text-ink-muted">
+                  Quelques mètres carrés de matelas isolants suffisent à récupérer des pertes
+                  de chaleur concentrées sur les organes les plus exposés de votre réseau.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-14 lg:grid-cols-3">
             {benefits.map((benefit, index) => (
               <Reveal key={benefit.title} delay={(index % 3) * 0.08}>
                 <div className="card-surface h-full p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
@@ -278,10 +272,33 @@ export default function MatelasIsolantPage() {
       {/* COMMENT ÇA MARCHE */}
       <section className="bg-white py-12 md:py-24">
         <div className="section-shell">
-          <Reveal>
-            <SectionEyebrow>Méthode</SectionEyebrow>
-            <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl">Comment ça marche</h2>
-          </Reveal>
+          <div className="grid items-center gap-8 md:gap-12 lg:grid-cols-2">
+            <Reveal>
+              <div>
+                <SectionEyebrow>Méthode</SectionEyebrow>
+                <h2 className="mt-4 text-4xl font-bold text-ink sm:text-5xl">
+                  Comment ça marche
+                </h2>
+                <p className="mt-5 text-lg leading-relaxed text-ink-muted">
+                  De l&apos;audit sur site à la pose sur mesure, chaque matelas est conçu pour
+                  épouser précisément votre point singulier — vanne, bride ou robinet — et se
+                  démonter en quelques gestes pour la maintenance.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="mx-auto max-w-sm overflow-hidden rounded-card-lg border border-white/60 bg-cream-soft shadow-xl shadow-[0_16px_40px_rgba(31,58,46,0.12)] ring-1 ring-black/5">
+                <Image
+                  src="/images/point-singulier-3.jpeg"
+                  alt="Matelas isolant posé sur une vanne à volant de chaufferie tertiaire"
+                  width={768}
+                  height={1024}
+                  sizes="(max-width: 1024px) 100vw, 384px"
+                  className="h-auto w-full"
+                />
+              </div>
+            </Reveal>
+          </div>
           {/* Desktop: connected horizontal journey */}
           <div className="relative mt-14 hidden sm:grid sm:grid-cols-4 sm:gap-6">
             <AnimatedLine
