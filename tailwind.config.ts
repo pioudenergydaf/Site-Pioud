@@ -12,6 +12,7 @@ const config: Config = {
         display: ["var(--font-serif)", "serif"],
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
         serif: ["var(--font-serif)", "ui-serif", "Georgia", "serif"],
+        brand: ["var(--font-brand)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       borderRadius: {
         pill: "9999px",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Inter } from "next/font/google";
+import { DM_Serif_Display, Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { CookieBanner } from "@/components/cookies/cookie-banner";
 import { Footer } from "@/components/layout/footer";
@@ -18,6 +18,13 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  display: "swap",
+  variable: "--font-brand",
 });
 
 export const metadata: Metadata = {
@@ -81,7 +88,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${inter.variable} ${dmSerif.variable} font-sans antialiased`}
+        className={`${inter.variable} ${dmSerif.variable} ${manrope.variable} font-sans antialiased`}
       >
         <div className="flex min-h-screen flex-col">
           <Navbar />

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/site-data";
 import NavDropdown from "@/components/layout/NavDropdown";
 import { LandingNavbar } from "@/components/layout/landing-navbar";
+import { BrandWordmark } from "@/components/layout/brand-wordmark";
 
 const LANDING_PAGES: Record<string, string> = {
   "/professionnels/collectif/bar-th-179": "/professionnels/collectif",
@@ -58,12 +59,7 @@ export function Navbar() {
             className="flex flex-col items-center justify-center rounded-pill border border-white/40 bg-white/85 px-4 py-2 shadow-lg backdrop-blur-xl md:px-5 md:py-2.5"
             onClick={() => setMenuOpen(false)}
           >
-            <span className="text-xs font-bold leading-none tracking-tight text-emerald-600 md:text-sm">
-              PIOUD ENERGY
-            </span>
-            <span className="mt-1 hidden text-[9px] uppercase tracking-widest text-navy-900/55 md:block">
-              Certificats d&apos;Économies d&apos;Énergie
-            </span>
+            <BrandWordmark />
           </Link>
 
           <div className="hidden items-center gap-1 rounded-pill border border-white/50 bg-white/70 p-1.5 shadow-lg shadow-navy-900/10 backdrop-blur-xl lg:flex">
