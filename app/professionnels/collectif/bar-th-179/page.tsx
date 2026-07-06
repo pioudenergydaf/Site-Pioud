@@ -285,8 +285,8 @@ export default function BarTh179Page() {
             <div className="mt-10 overflow-hidden rounded-card-lg border border-white/60 shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
               <div className="relative h-[320px] w-full sm:h-[420px]">
                 <Image
-                  src="/images/pac-collective-bar-th-179.webp"
-                  alt="Pompe à chaleur air/eau collective installée sur un immeuble résidentiel"
+                  src="/images/pac-chaufferie.jpg"
+                  alt="Pompe à chaleur en chaufferie collective"
                   fill
                   sizes="100vw"
                   className="object-cover"

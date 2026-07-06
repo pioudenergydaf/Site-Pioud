@@ -168,10 +168,9 @@ export default function MatelasIsolantPage() {
           </div>
           <Reveal delay={0.6}>
             <div className="relative min-h-[380px] overflow-hidden rounded-card-lg border border-white/60 shadow-2xl shadow-[0_28px_64px_rgba(31,58,46,0.2)] ring-1 ring-black/5">
-              {/* IMAGE À REMPLACER — placeholder Unsplash temporaire (thème tuyauterie / chaufferie industrielle). */}
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1700&q=80"
-                alt="Tuyauterie et organes techniques d'une chaufferie tertiaire"
+                src="/images/point-singulier-3.jpeg"
+                alt="Matelas isolant posé sur une vanne de chaufferie tertiaire"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
@@ -201,6 +200,34 @@ export default function MatelasIsolantPage() {
               thermique du réseau tout en gardant l&apos;accès aux équipements pour la
               maintenance.
             </p>
+          </Reveal>
+
+          <Reveal delay={0.06}>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {[
+                {
+                  src: "/images/point-singulier-1.jpeg",
+                  alt: "Matelas isolant démontable posé sur un point singulier de chaufferie",
+                },
+                {
+                  src: "/images/point-singulier-2.jpeg",
+                  alt: "Vannes de chaufferie équipées de matelas isolants sur mesure",
+                },
+              ].map((img) => (
+                <div
+                  key={img.src}
+                  className="relative h-64 overflow-hidden rounded-card-lg border border-white/60 shadow-lg shadow-[0_10px_28px_rgba(31,58,46,0.08)] ring-1 ring-black/5 sm:h-72"
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
           </Reveal>
 
           <Reveal delay={0.1}>
