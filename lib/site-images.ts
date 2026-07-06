@@ -13,7 +13,13 @@
 //
 // ════════════════════════════════════════════════════════════════════════
 
-export type SiteImage = { src: string; alt: string };
+export type SiteImage = {
+  src: string;
+  alt: string;
+  // Optionnel : ajuste le cadrage si l'image est mal centrée en recadrage
+  // automatique (ex: "center 20%", "center top").
+  position?: string;
+};
 
 // Raccourci pour les URLs Unsplash (garde une taille/qualité homogène).
 const U = (id: string, w = 1400) =>
@@ -90,8 +96,8 @@ export const SITE_IMAGES = {
   },
   chauffage: {
     hero: {
-      src: U("1554475499-4e40aa2b9e75", 1700),
-      alt: "Système de chauffage performant",
+      src: "/images/pompe-air-eau.jpg",
+      alt: "Pompe à chaleur air/eau installée à l'extérieur d'une maison",
     },
   },
   fenetres: {
@@ -384,13 +390,14 @@ export const SITE_IMAGES = {
     },
     // Carte : BAR-TH-113 (chauffage) — « Chaudière biomasse individuelle »
     chaudiereBiomasseIndividuelle: {
-      src: "/images/chaudiere-biomasse-individuelle.jpeg",
+      src: "/images/chaudiere-biomasse-individuelle.jpg",
       alt: "Chaudière biomasse individuelle",
     },
     // Carte : BAR-TH-112 (chauffage) — « Appareil indépendant de chauffage au bois »
     poeleBois: {
       src: "/images/poele-bois.webp",
       alt: "Poêle à bois ou à granulés",
+      position: "center 38%",
     },
     // Carte : BAR-TH-101 (chauffage) — « Chauffe-eau solaire individuel »
     chauffeEauSolaire: {
@@ -401,6 +408,7 @@ export const SITE_IMAGES = {
     chauffeEauThermodynamique: {
       src: "/images/chauffe-eau-thermodynamique.webp",
       alt: "Chauffe-eau thermodynamique",
+      position: "center 35%",
     },
     // Cartes : BAR-TH-169, BAR-TH-179 (collectif)
     pacCollective: {

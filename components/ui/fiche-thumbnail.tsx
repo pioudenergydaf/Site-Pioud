@@ -18,6 +18,7 @@ export function FicheThumbnail({ image, badge, badgeClassName }: FicheThumbnailP
         fill
         sizes="(max-width: 768px) 100vw, 380px"
         className="object-cover"
+        style={image.position ? { objectPosition: image.position } : undefined}
       />
       {badge ? (
         <span
