@@ -155,8 +155,8 @@ export const SITE_IMAGES = {
   // ─────────────────────────────────────────────────────────────
   tertiaire: {
     hero: {
-      src: U("1742675416657-55d043ce8dce", 1700),
-      alt: "Bâtiment tertiaire performant",
+      src: "/images/tertiaire-hero.jpeg",
+      alt: "Immeubles de bureaux tertiaires vus depuis le sol",
     },
     // Section « Notre accompagnement »
     accompagnement: {
