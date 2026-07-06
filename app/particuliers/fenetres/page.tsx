@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PanelLeftClose, Square } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
+import { FicheThumbnail } from "@/components/ui/fiche-thumbnail";
 import { OfficialSheetLinks } from "@/components/ui/official-sheet-links";
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
+import { getFicheImage } from "@/lib/fiche-thumbnails";
 
 export const metadata: Metadata = {
   title: "Particuliers - Fenêtres",
@@ -64,9 +66,7 @@ export default function ParticuliersFenetresPage() {
           {operations.map((operation, index) => (
             <Reveal key={operation.title} delay={index * 0.08}>
               <article className="card-surface h-full p-6">
-                <span className="inline-flex rounded-xl bg-sage p-3 text-forest-soft">
-                  <operation.icon className="h-5 w-5" />
-                </span>
+                <FicheThumbnail image={getFicheImage(operation.title)} />
                 <h3 className="mt-4 text-xl font-semibold text-ink">{operation.title}</h3>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-ink-soft">
                   Fiche : {operation.ref}
