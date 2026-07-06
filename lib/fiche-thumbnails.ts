@@ -13,7 +13,7 @@ const U = (id: string) =>
 
 export const FICHE_IMG = {
   isolationCombles: {
-    src: U("1753717202579-9c6ac3592b62"),
+    src: /images/SOuffler 101.jpeg,
     alt: "Isolation des combles et toitures d'un bâtiment",
   },
   isolationThermique: {
