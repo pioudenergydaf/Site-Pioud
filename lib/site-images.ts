@@ -57,25 +57,25 @@ export const SITE_IMAGES = {
       src: U("1752594756894-bcf378884a09", 1700),
       alt: "Accompagnement des particuliers en rénovation énergétique",
     },
-    // Vignettes des 5 thématiques (grille de navigation)
+    // Vignettes des 5 thématiques (grille de navigation) — mêmes photos que les héros des sous-pages
     themeIsolation: {
-      src: U("1768321917437-1f1f6ae2ad28", 1500),
+      src: "/images/souffler-101.jpeg",
       alt: "Isolation thermique",
     },
     themeChauffage: {
-      src: U("1554475499-4e40aa2b9e75", 1500),
+      src: "/images/chauffage-eau-chaude.png",
       alt: "Chauffage et eau chaude",
     },
     themeFenetres: {
-      src: U("1753893558430-3abab5adf4e0", 1500),
+      src: "/images/fenetres-menuiseries.webp",
       alt: "Fenêtres et menuiseries",
     },
     themeRegulation: {
-      src: U("1770625467384-304e461ef1be", 1500),
+      src: "/images/regulation-pilotage.jpeg",
       alt: "Régulation et pilotage",
     },
     themeRenovation: {
-      src: U("1753893558281-9acda0662bbd", 1500),
+      src: "/images/renovation-globale-hero.webp",
       alt: "Rénovation globale",
     },
   },
@@ -85,10 +85,10 @@ export const SITE_IMAGES = {
   // ─────────────────────────────────────────────────────────────
   isolation: {
     hero: {
-      src: U("1768321917437-1f1f6ae2ad28", 1700),
+      src: "/images/souffler-101.jpeg",
       alt: "Travaux d'isolation thermique d'une maison",
     },
-    // Section « Isolation des combles »
+    // Section « Pourquoi isoler en priorité »
     combles: {
       src: U("1753717202579-9c6ac3592b62"),
       alt: "Isolation des combles d'une maison",
@@ -130,17 +130,17 @@ export const SITE_IMAGES = {
     },
     // Bloc « Tertiaire »
     tertiaire: {
-      src: U("1742675416657-55d043ce8dce", 1500),
+      src: "/images/tertiaire-hero.jpeg",
       alt: "Bâtiment de bureaux tertiaire",
     },
     // Bloc « Industrie »
     industrie: {
-      src: U("1763906265376-363d9681a3ad", 1500),
+      src: "/images/accompagnement-industrie.webp",
       alt: "Site industriel pour programme CEE",
     },
     // Bloc « Collectif »
     collectif: {
-      src: U("1460317442991-0ec209397118", 1500),
+      src: "/images/cee-collectif-hero.jpg",
       alt: "Immeubles résidentiels collectifs et copropriétés",
     },
     // Section « Supervision »
@@ -160,7 +160,7 @@ export const SITE_IMAGES = {
     },
     // Section « Notre accompagnement »
     accompagnement: {
-      src: U("1769699903260-ff85271faa4f"),
+      src: "/images/tertiaire-hero.jpeg",
       alt: "Bâtiment tertiaire en amélioration énergétique",
     },
   },
@@ -170,7 +170,7 @@ export const SITE_IMAGES = {
   // ─────────────────────────────────────────────────────────────
   industrie: {
     hero: {
-      src: U("1763906265376-363d9681a3ad", 1700),
+      src: "/images/stockage-chaleur-fatale.jpg",
       alt: "Site industriel accompagné en CEE",
     },
     // Section « Notre accompagnement industrie »
@@ -190,7 +190,7 @@ export const SITE_IMAGES = {
     },
     // Section « Notre accompagnement collectif »
     accompagnement: {
-      src: U("1460317442991-0ec209397118"),
+      src: "/images/cee-collectif-hero.jpg",
       alt: "Copropriété en projet de rénovation énergétique",
     },
   },
@@ -200,7 +200,7 @@ export const SITE_IMAGES = {
   // ─────────────────────────────────────────────────────────────
   barTh179: {
     hero: {
-      src: U("1699564625068-803d1c7fcfbc", 1700),
+      src: "/images/cee-collectif-hero.jpg",
       alt: "Immeuble résidentiel collectif, copropriété candidate à une PAC collective air/eau",
     },
     // Section « Qu'est-ce que la fiche » — photo de chaufferie
@@ -288,19 +288,19 @@ export const SITE_IMAGES = {
   // ─────────────────────────────────────────────────────────────
   aides: {
     hero: {
-      src: U("1752594756894-bcf378884a09", 1700),
+      src: "/images/renovation-globale-hero.webp",
       alt: "Aides et subventions à la rénovation énergétique",
     },
     cardCEE: {
-      src: U("1768321917437-1f1f6ae2ad28", 1700),
+      src: "/images/souffler-101.jpeg",
       alt: "Travaux d'isolation thermique pour une maison performante",
     },
     cardMaPrimeRenov: {
-      src: U("1752594756894-bcf378884a09", 1700),
+      src: "/images/renovation-globale-hero.webp",
       alt: "Ouvriers sur un chantier de rénovation de maison",
     },
     cardAmpleur: {
-      src: U("1753977725475-41b221add2c0", 1700),
+      src: "/images/renovation-ampleur-maison.jpg",
       alt: "Maison en rénovation d'ampleur avec extension",
     },
     cardEcoPtz: {
@@ -312,7 +312,7 @@ export const SITE_IMAGES = {
       alt: "Calculatrice et facture de travaux de rénovation",
     },
     cardAidesLocales: {
-      src: U("1762231433404-04be830b0f3b", 1700),
+      src: "/images/mairie.jpg",
       alt: "Bâtiment public de type mairie pour aides locales",
     },
   },
@@ -322,7 +322,7 @@ export const SITE_IMAGES = {
   // ─────────────────────────────────────────────────────────────
   contact: {
     hero: {
-      src: U("1486406146926-c627a92ad1ab", 1600),
+      src: "/images/accompagnement-secteur-public.webp",
       alt: "Contactez Pioud Energy",
     },
   },
