@@ -342,10 +342,25 @@ export const SITE_IMAGES = {
       src: "/images/souffler-101.jpeg",
       alt: "Isolation des combles et toitures d'un bâtiment",
     },
-    // Cartes : BAR-EN-102, BAR-EN-103 (particuliers) · BAT-EN-102, BAT-EN-103 (tertiaire)
+    // Carte repli : autres opérations d'isolation thermique sans photo dédiée
     isolationThermique: {
       src: U("1768321917437-1f1f6ae2ad28", 800),
       alt: "Travaux d'isolation thermique",
+    },
+    // Cartes : BAR-EN-102 (particuliers) · BAT-EN-102 (tertiaire) — « Isolation des murs »
+    isolationMurs: {
+      src: "/images/isolation-murs.webp",
+      alt: "Isolation thermique des murs",
+    },
+    // Cartes : BAR-EN-103 (particuliers) · BAT-EN-103 (tertiaire) — « Isolation d'un plancher »
+    isolationPlancher: {
+      src: "/images/isolation-plancher.png",
+      alt: "Isolation d'un plancher bas",
+    },
+    // Carte : BAR-EN-105 (particuliers) — « Isolation des toitures-terrasses »
+    isolationToituresTerrasses: {
+      src: "/images/isolation-toitures-terrasses.png",
+      alt: "Isolation d'une toiture-terrasse",
     },
     // Cartes : BAR-TH-161 (collectif) · BAT-TH-179 (retirée) · IND-UT-131 (industrie)
     pointsSinguliers: {

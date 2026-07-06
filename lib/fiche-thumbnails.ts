@@ -22,13 +22,13 @@ const FICHE_THEME_BY_TITLE: Record<string, FicheTheme> = {
   // --- Isolation combles / toitures / terrasses ---
   "Isolation toitures et combles": "isolationCombles",
   "Isolation toitures-terrasses": "isolationCombles",
-  "Isolation des toitures-terrasses": "isolationCombles",
+  "Isolation des toitures-terrasses": "isolationToituresTerrasses",
   "Isolation des combles ou toitures": "isolationCombles",
   "Isolation de combles ou de toitures": "isolationCombles",
   // --- Isolation murs / planchers ---
-  "Isolation des murs": "isolationThermique",
-  "Isolation des planchers": "isolationThermique",
-  "Isolation d'un plancher": "isolationThermique",
+  "Isolation des murs": "isolationMurs",
+  "Isolation des planchers": "isolationPlancher",
+  "Isolation d'un plancher": "isolationPlancher",
   // --- Fenêtres / vitrages / volets ---
   "Fenêtres et vitrages isolants": "fenetres",
   "Fenêtre ou porte-fenêtre avec vitrage isolant": "fenetres",
