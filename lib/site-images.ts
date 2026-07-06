@@ -243,8 +243,8 @@ export const SITE_IMAGES = {
     },
     // Section « Un accompagnement dédié au secteur public »
     accompagnement: {
-      src: U("1742675416657-55d043ce8dce"),
-      alt: "Bâtiment public moderne accompagné dans sa rénovation énergétique",
+      src: "/images/accompagnement-secteur-public.webp",
+      alt: "Équipe échangeant avec un élu autour d'un dossier CEE pour le secteur public",
     },
     // Section « Types de projets » — image de gauche
     typesProjets: {
