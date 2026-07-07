@@ -54,7 +54,7 @@ export const SITE_IMAGES = {
   // ─────────────────────────────────────────────────────────────
   particuliers: {
     hero: {
-      src: U("1752594756894-bcf378884a09", 1700),
+      src: "/images/chauffage-eau-chaude.png",
       alt: "Accompagnement des particuliers en rénovation énergétique",
     },
     // Vignettes des 5 thématiques (grille de navigation) — mêmes photos que les héros des sous-pages
@@ -125,7 +125,7 @@ export const SITE_IMAGES = {
   // ─────────────────────────────────────────────────────────────
   professionnels: {
     hero: {
-      src: U("1742675416657-55d043ce8dce", 1600),
+      src: "/images/accompagnement-secteur-public.webp",
       alt: "Bâtiments professionnels accompagnés en CEE",
     },
     // Bloc « Tertiaire »
@@ -145,7 +145,7 @@ export const SITE_IMAGES = {
     },
     // Section « Supervision »
     supervision: {
-      src: U("1766414629984-73a93e7caba0"),
+      src: "/images/accompagnement-industrie.webp",
       alt: "Supervision technique d'un projet tertiaire et industriel",
     },
   },
