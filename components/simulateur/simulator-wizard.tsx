@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { type ComponentType, useMemo, useState } from "react";
+import { CONVERSION_FORM, reportConversion } from "@/lib/gtag";
 
 type Profile = "particulier" | "professionnel" | "collectivite";
 type BuildingType = "maison" | "appartement" | "batiment_pro";
@@ -239,6 +240,7 @@ export function SimulatorWizard() {
       }
 
       setIsSubmitted(true);
+      reportConversion(CONVERSION_FORM);
     } catch {
       setFormError(
         "Une erreur est survenue lors de l'envoi. Merci de réessayer dans quelques instants.",

@@ -7,6 +7,7 @@ import { useConsent } from "@/components/cookies/use-consent";
 import { TurnstileWidget } from "@/components/contact/turnstile-widget";
 import { Reveal } from "@/components/ui/reveal";
 import { COOKIE_CONSENT_OPEN_EVENT } from "@/lib/cookie-consent";
+import { CONVERSION_FORM, reportConversion } from "@/lib/gtag";
 import { siteConfig } from "@/lib/site-data";
 
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
@@ -76,6 +77,7 @@ export function ContactFormsSection({
         status: "success",
         message,
       });
+      reportConversion(CONVERSION_FORM);
       form.reset();
     } catch (error) {
       const message =
