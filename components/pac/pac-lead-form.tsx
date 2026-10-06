@@ -2,18 +2,23 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Building, CheckCircle2, Flame, Home, Zap } from "lucide-react";
+import Link from "next/link";
 import { type ComponentType, type FormEvent, useMemo, useState } from "react";
 import { TurnstileWidget } from "@/components/contact/turnstile-widget";
 import { CONVERSION_FORM, reportConversion } from "@/lib/gtag";
 import {
   INCOME_BANDS,
   INCOME_BAND_LABEL,
+  MENTION_INTERMEDIAIRE,
+  MENTION_MONTANT_INDICATIF,
   PRIME_ESTIMEE_PAR_TRANCHE,
   RESTE_A_CHARGE_PAR_TRANCHE,
   type IncomeBand,
 } from "@/lib/pac-constants";
+import { siteConfig } from "@/lib/site-data";
 
 type Housing = "maison" | "appartement";
+type Surface = "moins_70" | "70_100" | "100_130" | "130_160" | "plus_160";
 type Heating = "fioul" | "gaz" | "charbon" | "electrique" | "autre";
 
 type LeadContact = {
@@ -22,13 +27,21 @@ type LeadContact = {
   email: string;
 };
 
-const STEPS_COUNT = 5;
+const STEPS_COUNT = 6;
 
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 const housingOptions: { id: Housing; label: string; icon: ComponentType<{ className?: string }> }[] = [
   { id: "maison", label: "Maison", icon: Home },
   { id: "appartement", label: "Appartement", icon: Building },
+];
+
+const surfaceOptions: { id: Surface; label: string }[] = [
+  { id: "moins_70", label: "Moins de 70 m²" },
+  { id: "70_100", label: "70 – 100 m²" },
+  { id: "100_130", label: "100 – 130 m²" },
+  { id: "130_160", label: "130 – 160 m²" },
+  { id: "plus_160", label: "Plus de 160 m²" },
 ];
 
 const heatingOptions: { id: Heating; label: string; icon: ComponentType<{ className?: string }> }[] = [
@@ -48,6 +61,15 @@ function normalizePhone(phone: string) {
   return phone.replace(/\s+/g, "");
 }
 
+const housingLabel: Record<Housing, string> = {
+  maison: "Maison",
+  appartement: "Appartement",
+};
+
+const surfaceLabel: Record<Surface, string> = Object.fromEntries(
+  surfaceOptions.map((option) => [option.id, option.label]),
+) as Record<Surface, string>;
+
 const heatingLabel: Record<Heating, string> = {
   fioul: "Fioul",
   gaz: "Gaz",
@@ -61,22 +83,33 @@ const FOSSIL_HEATINGS: Heating[] = ["fioul", "gaz", "charbon"];
 
 function buildEstimate(incomeBand: IncomeBand, heating: Heating) {
   if (incomeBand === "tres_modestes" && FOSSIL_HEATINGS.includes(heating)) {
-    return {
-      label: "Reste à charge estimé",
-      value: RESTE_A_CHARGE_PAR_TRANCHE.tres_modestes.value,
-    };
+    const reste = RESTE_A_CHARGE_PAR_TRANCHE.tres_modestes;
+    return { label: "Reste à charge estimé", value: reste.value, note: reste.note };
   }
   const prime = PRIME_ESTIMEE_PAR_TRANCHE[incomeBand];
   return {
     label: "Votre prime estimée",
     value: `${prime.qualifier} ${prime.amount.toLocaleString("fr-FR")} €`,
+    note: undefined,
   };
 }
 
-const housingLabel: Record<Housing, string> = {
-  maison: "Maison",
-  appartement: "Appartement",
+const stepMotion = {
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -16 },
+  transition: { duration: 0.25 },
 };
+
+const choiceClass = (selected: boolean) =>
+  `rounded-2xl border p-4 text-left transition ${
+    selected
+      ? "border-forest-soft bg-sage"
+      : "border-ink/10 hover:-translate-y-0.5 hover:border-forest-soft"
+  }`;
+
+const inputClass =
+  "w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100";
 
 export function PacLeadForm() {
   const [step, setStep] = useState(1);
@@ -85,18 +118,21 @@ export function PacLeadForm() {
   const [formError, setFormError] = useState("");
 
   const [housing, setHousing] = useState<Housing | null>(null);
+  const [surface, setSurface] = useState<Surface | null>(null);
   const [heating, setHeating] = useState<Heating | null>(null);
   const [postalCode, setPostalCode] = useState("");
   const [incomeBand, setIncomeBand] = useState<IncomeBand | null>(null);
   const [contact, setContact] = useState<LeadContact>({ name: "", phone: "", email: "" });
+  const [consent, setConsent] = useState(false);
 
   const progress = useMemo(() => (step / STEPS_COUNT) * 100, [step]);
 
   const canContinue = () => {
     if (step === 1) return housing !== null;
-    if (step === 2) return heating !== null;
-    if (step === 3) return /^[0-9]{5}$/.test(postalCode);
-    if (step === 4) return incomeBand !== null;
+    if (step === 2) return surface !== null;
+    if (step === 3) return heating !== null;
+    if (step === 4) return /^[0-9]{5}$/.test(postalCode);
+    if (step === 5) return incomeBand !== null;
     return true;
   };
 
@@ -114,7 +150,7 @@ export function PacLeadForm() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!housing || !heating || !incomeBand) return;
+    if (!housing || !surface || !heating || !incomeBand) return;
 
     if (!contact.name.trim() || contact.name.trim().length < 2) {
       setFormError("Merci d'indiquer votre nom.");
@@ -128,6 +164,10 @@ export function PacLeadForm() {
       setFormError("Merci de saisir un numéro de téléphone français valide.");
       return;
     }
+    if (!consent) {
+      setFormError("Merci d'accepter d'être recontacté pour envoyer votre demande.");
+      return;
+    }
 
     const formData = new FormData(event.currentTarget);
 
@@ -139,10 +179,12 @@ export function PacLeadForm() {
     const message = [
       "Nouvelle demande — landing page /pac (pompe à chaleur air/eau)",
       `Logement : ${housingLabel[housing]}`,
+      `Surface : ${surfaceLabel[surface]}`,
       `Chauffage actuel : ${heatingLabel[heating]}`,
       `Code postal : ${postalCode}`,
       `Tranche de revenus MaPrimeRénov' : ${INCOME_BAND_LABEL[incomeBand]}`,
       `Affiché à l'écran : ${estimate.label} — ${estimate.value}`,
+      "Consentement recontact (RGPD) : oui",
     ].join("\n");
 
     const payload: Record<string, unknown> = {
@@ -153,9 +195,11 @@ export function PacLeadForm() {
       message,
       source: "pac-landing",
       housing,
+      surface,
       heating,
       postalCode,
       incomeBand,
+      consent: true,
     };
     const turnstileToken = formData.get("cf-turnstile-response");
     if (turnstileToken) payload["cf-turnstile-response"] = turnstileToken;
@@ -174,9 +218,7 @@ export function PacLeadForm() {
       setIsSubmitted(true);
       reportConversion(CONVERSION_FORM);
     } catch {
-      setFormError(
-        "Une erreur est survenue lors de l'envoi. Merci de réessayer ou de nous appeler directement.",
-      );
+      setFormError("Une erreur est survenue lors de l'envoi. Merci de réessayer dans quelques instants.");
     } finally {
       setIsSubmitting(false);
     }
@@ -192,17 +234,19 @@ export function PacLeadForm() {
         <p className="mt-5 text-sm font-semibold uppercase tracking-wide text-ink-soft">
           {estimate.label}
         </p>
-        <p className="mt-2 font-display text-4xl font-light text-ink">
-          {estimate.value}
-        </p>
+        <p className="mt-2 font-display text-4xl font-light text-ink">{estimate.value}</p>
+        {estimate.note ? (
+          <p className="mt-2 text-sm font-medium text-emerald-700">{estimate.note}</p>
+        ) : null}
+        <p className="mt-3 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
         <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-          Votre demande a bien été reçue. Montant indicatif, sous conditions
-          d&apos;éligibilité : un conseiller Pioud Energy vous recontacte sous
-          24 h ouvrées pour le confirmer sur devis.
+          Votre demande a bien été reçue. Un conseiller Pioud Energy vous recontacte
+          sous 24 h ouvrées pour confirmer ce chiffrage sur devis.
         </p>
         <p className="mt-6 text-xs font-medium text-ink-soft">
           Sans engagement · Réponse sous 24 h · Conseiller dédié
         </p>
+        <p className="mt-3 text-[11px] leading-relaxed text-ink-soft">{MENTION_INTERMEDIAIRE}</p>
       </div>
     );
   }
@@ -227,13 +271,7 @@ export function PacLeadForm() {
       <form onSubmit={handleSubmit}>
         <AnimatePresence mode="wait">
           {step === 1 && (
-            <motion.section
-              key="step-1"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.25 }}
-            >
+            <motion.section key="step-1" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Vous habitez en...</h2>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {housingOptions.map((option) => (
@@ -241,11 +279,7 @@ export function PacLeadForm() {
                     key={option.id}
                     type="button"
                     onClick={() => setHousing(option.id)}
-                    className={`rounded-2xl border p-5 text-left transition ${
-                      housing === option.id
-                        ? "border-forest-soft bg-sage"
-                        : "border-ink/10 hover:-translate-y-0.5 hover:border-forest-soft"
-                    }`}
+                    className={choiceClass(housing === option.id)}
                   >
                     <span className="inline-flex rounded-lg bg-white p-2 text-forest-soft">
                       <option.icon className="h-5 w-5" />
@@ -258,13 +292,28 @@ export function PacLeadForm() {
           )}
 
           {step === 2 && (
-            <motion.section
-              key="step-2"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.25 }}
-            >
+            <motion.section key="step-2" {...stepMotion}>
+              <h2 className="text-xl font-bold text-ink">Surface de votre logement</h2>
+              <p className="mt-2 text-sm text-ink-muted">
+                Pour dimensionner la pompe à chaleur adaptée.
+              </p>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                {surfaceOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    onClick={() => setSurface(option.id)}
+                    className={choiceClass(surface === option.id)}
+                  >
+                    <p className="text-sm font-semibold text-ink">{option.label}</p>
+                  </button>
+                ))}
+              </div>
+            </motion.section>
+          )}
+
+          {step === 3 && (
+            <motion.section key="step-3" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Votre chauffage actuel</h2>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {heatingOptions.map((option) => (
@@ -272,11 +321,7 @@ export function PacLeadForm() {
                     key={option.id}
                     type="button"
                     onClick={() => setHeating(option.id)}
-                    className={`rounded-2xl border p-4 text-left transition ${
-                      heating === option.id
-                        ? "border-forest-soft bg-sage"
-                        : "border-ink/10 hover:-translate-y-0.5 hover:border-forest-soft"
-                    }`}
+                    className={choiceClass(heating === option.id)}
                   >
                     <span className="inline-flex rounded-lg bg-white p-2 text-forest-soft">
                       <option.icon className="h-4 w-4" />
@@ -288,14 +333,8 @@ export function PacLeadForm() {
             </motion.section>
           )}
 
-          {step === 3 && (
-            <motion.section
-              key="step-3"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.25 }}
-            >
+          {step === 4 && (
+            <motion.section key="step-4" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Votre code postal</h2>
               <p className="mt-2 text-sm text-ink-muted">
                 Pour vérifier l&apos;éligibilité de votre zone aux aides 2026.
@@ -305,19 +344,13 @@ export function PacLeadForm() {
                 onChange={(e) => setPostalCode(e.target.value.replace(/\D/g, "").slice(0, 5))}
                 inputMode="numeric"
                 placeholder="75001"
-                className="mt-5 w-full rounded-xl border border-ink/10 px-4 py-3 text-lg outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                className={`mt-5 text-lg ${inputClass}`}
               />
             </motion.section>
           )}
 
-          {step === 4 && (
-            <motion.section
-              key="step-4"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.25 }}
-            >
+          {step === 5 && (
+            <motion.section key="step-5" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Votre tranche de revenus</h2>
               <p className="mt-2 text-sm text-ink-muted">
                 Détermine votre plafond d&apos;aides MaPrimeRénov&apos;.
@@ -328,28 +361,22 @@ export function PacLeadForm() {
                     key={option.id}
                     type="button"
                     onClick={() => setIncomeBand(option.id)}
-                    className={`block w-full rounded-2xl border p-4 text-left transition ${
-                      incomeBand === option.id
-                        ? "border-forest-soft bg-sage"
-                        : "border-ink/10 hover:-translate-y-0.5 hover:border-forest-soft"
-                    }`}
+                    className={`block w-full ${choiceClass(incomeBand === option.id)}`}
                   >
                     <p className="text-sm font-semibold text-ink">{option.label}</p>
                     <p className="mt-0.5 text-xs text-ink-soft">{option.hint}</p>
                   </button>
                 ))}
               </div>
+              <p className="mt-3 text-xs text-ink-soft">
+                Revenu fiscal de référence du foyer, barème Île-de-France — à titre
+                indicatif.
+              </p>
             </motion.section>
           )}
 
-          {step === 5 && (
-            <motion.section
-              key="step-5"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.25 }}
-            >
+          {step === 6 && (
+            <motion.section key="step-6" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Vos coordonnées</h2>
               <p className="mt-2 text-sm text-ink-muted">
                 Pour vous transmettre votre estimation personnalisée.
@@ -361,7 +388,7 @@ export function PacLeadForm() {
                   value={contact.name}
                   onChange={(e) => setContact((c) => ({ ...c, name: e.target.value }))}
                   placeholder="Nom et prénom"
-                  className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                  className={inputClass}
                 />
                 <input
                   name="phone"
@@ -370,7 +397,7 @@ export function PacLeadForm() {
                   value={contact.phone}
                   onChange={(e) => setContact((c) => ({ ...c, phone: e.target.value }))}
                   placeholder="06 12 34 56 78"
-                  className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                  className={inputClass}
                 />
                 <input
                   name="email"
@@ -379,11 +406,37 @@ export function PacLeadForm() {
                   value={contact.email}
                   onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
                   placeholder="vous@email.fr"
-                  className="w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+                  className={inputClass}
                 />
               </div>
 
-              {turnstileSiteKey ? <div className="mt-4"><TurnstileWidget siteKey={turnstileSiteKey} /></div> : null}
+              <label className="mt-4 flex items-start gap-3 rounded-xl border border-ink/10 bg-cream-soft px-4 py-3">
+                <input
+                  type="checkbox"
+                  name="consent"
+                  required
+                  checked={consent}
+                  onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-1 h-4 w-4 accent-emerald-500"
+                />
+                <span className="text-xs leading-relaxed text-ink-muted">
+                  J&apos;accepte que Pioud Energy me recontacte au sujet de ma demande.
+                  Données conservées 3 ans, droits d&apos;accès et d&apos;opposition :{" "}
+                  {siteConfig.email}.{" "}
+                  <Link
+                    href="/politique-confidentialite"
+                    className="font-semibold text-ink underline underline-offset-2"
+                  >
+                    Politique de confidentialité
+                  </Link>
+                </span>
+              </label>
+
+              {turnstileSiteKey ? (
+                <div className="mt-4">
+                  <TurnstileWidget siteKey={turnstileSiteKey} />
+                </div>
+              ) : null}
             </motion.section>
           )}
         </AnimatePresence>
@@ -440,6 +493,9 @@ export function PacLeadForm() {
 
       <p className="mt-6 text-center text-xs font-medium text-ink-soft">
         Sans engagement · Réponse sous 24 h · Conseiller dédié
+      </p>
+      <p className="mt-3 text-center text-[11px] leading-relaxed text-ink-soft">
+        {MENTION_INTERMEDIAIRE}
       </p>
     </div>
   );

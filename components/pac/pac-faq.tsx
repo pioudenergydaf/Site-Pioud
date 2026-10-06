@@ -19,7 +19,7 @@ const faqItems: FaqItem[] = [
   {
     question: "Ma maison est-elle compatible avec une PAC air/eau ?",
     answer:
-      "La grande majorité des logements chauffés au fioul, au gaz ou à l'électrique sont compatibles. Une visite technique gratuite permet de confirmer la faisabilité et de dimensionner l'installation adaptée.",
+      "La grande majorité des logements chauffés au fioul, au gaz ou à l'électrique sont compatibles. Une visite technique permet de confirmer la faisabilité et de dimensionner l'installation adaptée.",
   },
   {
     question: "Quelle est la durée d'installation ?",

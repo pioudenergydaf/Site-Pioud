@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import {
   Award,
@@ -9,8 +8,6 @@ import {
   FileCheck2,
   Flame,
   Hammer,
-  Phone,
-  PhoneCall,
   ShieldCheck,
   Star,
   Wrench,
@@ -19,23 +16,28 @@ import { PacFaq } from "@/components/pac/pac-faq";
 import { PacLeadForm } from "@/components/pac/pac-lead-form";
 import { CountUp } from "@/components/ui/count-up";
 import { Reveal } from "@/components/ui/reveal";
-import { INCOME_BANDS, RESTE_A_CHARGE_PAR_TRANCHE } from "@/lib/pac-constants";
-import { SITE_IMAGES } from "@/lib/site-images";
+import {
+  INCOME_BANDS,
+  MENTION_INTERMEDIAIRE,
+  MENTION_MONTANT_INDICATIF,
+  RESTE_A_CHARGE_PAR_TRANCHE,
+} from "@/lib/pac-constants";
+import { siteConfig } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Pompe à chaleur air/eau : 0 € d'avance de frais | Pioud Energy",
   description:
-    "Vérifiez en 30 secondes votre éligibilité aux aides pour l'installation d'une pompe à chaleur air/eau. Prime CEE de 5 000 € à 12 000 € (fiche BAR-TH-171, Coup de pouce x5) et MaPrimeRénov' déduites du devis, installateur RGE QualiPAC.",
+    "Vérifiez en 1 minute votre éligibilité aux aides pour l'installation d'une pompe à chaleur air/eau. Prime CEE de 5 000 € à 12 000 € (fiche BAR-TH-171, Coup de pouce x5) et MaPrimeRénov' déduites du devis, installateur RGE QualiPAC. Montants indicatifs, sous conditions de ressources et d'éligibilité.",
   robots: {
     index: false,
     follow: false,
   },
 };
 
-// Numéro dédié à cette page d'atterrissage — volontairement non repris dans
-// le reste du site (voir lib/site-data.ts).
-const PHONE_DISPLAY = "01 89 70 45 20";
-const PHONE_E164 = "+33189704520";
+// Seul canal de contact sur cette page : le formulaire (aucun téléphone).
+// Identité légale affichée dans le pied de page (conformité DGCCRF/DDPP).
+const LEGAL_NAME = "PIOUD ENERGY SAS";
+const LEGAL_SIREN = "SIREN 927 628 446";
 
 // Montants alignés sur la carte BAR-TH-171 de /particuliers/chauffage.
 const benefits = [
@@ -43,8 +45,6 @@ const benefits = [
   "Démarches MaPrimeRénov' et CEE gérées sans frais par notre équipe",
   "Installation par un professionnel certifié RGE QualiPAC",
 ];
-
-const heroImage = SITE_IMAGES.fiches.pompeAirEau;
 
 // PLACEHOLDER — chiffres à remplacer par les statistiques réelles une fois disponibles.
 const trustStats = [
@@ -65,7 +65,7 @@ const steps = [
   {
     title: "Éligibilité sous 24 h",
     description: "Nous étudions votre profil et confirmons votre éligibilité aux aides 2026.",
-    icon: PhoneCall,
+    icon: BadgeCheck,
   },
   {
     title: "Visite technique",
@@ -129,7 +129,7 @@ const reviews = [
   },
   {
     quote:
-      "Un conseiller dédié a répondu à toutes mes questions, du premier appel jusqu'au versement de la prime.",
+      "Un conseiller dédié a répondu à toutes mes questions, du premier échange jusqu'au versement de la prime.",
     author: "Philippe T.",
     role: "Maison individuelle — Seine-et-Marne",
   },
@@ -137,7 +137,7 @@ const reviews = [
 
 export default function PacLandingPage() {
   return (
-    <div className="bg-cream pb-24 text-ink md:pb-0">
+    <div className="bg-cream text-ink">
       {/* 1. Barre haute */}
       <header className="sticky top-0 z-40 border-b border-ink/10 bg-white/95 backdrop-blur-md">
         <div className="section-shell flex items-center justify-between gap-4 py-3">
@@ -150,21 +150,9 @@ export default function PacLandingPage() {
             PIOUD ENERGY
           </span>
 
-          <div className="flex items-center gap-2 sm:gap-4">
-            <a
-              href={`tel:${PHONE_E164}`}
-              className="hidden items-center gap-2 text-sm font-semibold text-ink transition hover:text-emerald-600 sm:flex"
-            >
-              <Phone className="h-4 w-4 text-emerald-600" />
-              <span>
-                Appel gratuit ·{" "}
-                <span className="whitespace-nowrap">{PHONE_DISPLAY}</span>
-              </span>
-            </a>
-            <a href="#pac-form" className="btn-primary px-4 py-2.5 text-sm sm:px-6 sm:py-3">
-              Je veux être rappelé
-            </a>
-          </div>
+          <a href="#pac-form" className="btn-primary px-4 py-2.5 text-sm sm:px-6 sm:py-3">
+            Vérifier mon éligibilité
+          </a>
         </div>
       </header>
 
@@ -207,18 +195,7 @@ export default function PacLandingPage() {
               <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-emerald-300">
                 Fiche CEE BAR-TH-171 · Pompe à chaleur air/eau
               </p>
-
-              <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-card-lg border border-white/20 shadow-xl shadow-[0_16px_36px_rgba(0,0,0,0.25)]">
-                <Image
-                  src={heroImage.src}
-                  alt={heroImage.alt}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-forest/35 via-transparent to-transparent" />
-              </div>
+              <p className="mt-2 text-xs text-white/70">{MENTION_MONTANT_INDICATIF}</p>
 
               <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/20 pt-8">
                 {trustStats.map((stat, index) => (
@@ -270,6 +247,7 @@ export default function PacLandingPage() {
               pouce x5) et MaPrimeRénov&apos; sont déduites directement de votre
               devis.
             </p>
+            <p className="mt-2 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
           </div>
         </Reveal>
 
@@ -293,6 +271,7 @@ export default function PacLandingPage() {
                     {reste.note ? (
                       <p className="mt-2 text-sm font-medium text-emerald-700">{reste.note}</p>
                     ) : null}
+                    <p className="mt-3 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
                   </div>
                   <a href="#pac-form" className="btn-secondary mt-6 w-full justify-center">
                     Vérifier mon éligibilité
@@ -304,8 +283,7 @@ export default function PacLandingPage() {
         </div>
 
         <p className="mt-6 text-center text-xs text-ink-soft">
-          Montants indicatifs, sous conditions d&apos;éligibilité et de nature des
-          travaux. Chiffrage définitif établi sur devis après visite technique.
+          {MENTION_MONTANT_INDICATIF} {MENTION_INTERMEDIAIRE}
         </p>
       </section>
 
@@ -322,6 +300,7 @@ export default function PacLandingPage() {
               de 5 000 € à 12 000 €, Coup de pouce x5) et MaPrimeRénov&apos; sont
               déduites directement de votre devis.
             </p>
+            <p className="mt-2 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
           </div>
         </Reveal>
 
@@ -349,8 +328,7 @@ export default function PacLandingPage() {
             Vérifier mon éligibilité
           </a>
           <p className="text-center text-xs text-ink-soft">
-            Sous conditions d&apos;éligibilité aux aides. Devis définitif établi
-            après visite technique.
+            {MENTION_MONTANT_INDICATIF} {MENTION_INTERMEDIAIRE}
           </p>
         </div>
       </section>
@@ -437,7 +415,7 @@ export default function PacLandingPage() {
           <div className="flex flex-col items-center gap-6 text-center">
             <Hammer className="h-8 w-8 text-emerald-300" />
             <h2 className="font-display text-3xl font-light sm:text-4xl">
-              Vérifiez vos aides en 30 secondes
+              Vérifiez votre éligibilité en 1 minute
             </h2>
             <p className="max-w-xl text-white/85">
               Simulation gratuite et sans engagement. Un conseiller dédié vous
@@ -448,29 +426,34 @@ export default function PacLandingPage() {
               className="inline-flex items-center gap-2 rounded-pill bg-emerald-500 px-7 py-3 font-medium text-white shadow-lg shadow-emerald-500/30 transition hover:bg-emerald-600"
             >
               <CalendarCheck className="h-4 w-4" />
-              Je lance ma simulation
+              Vérifier mon éligibilité en 1 minute
             </a>
           </div>
         </Reveal>
       </section>
 
+      {/* Pied de page légal — seuls liens sortants autorisés : mentions
+          légales et politique de confidentialité. */}
       <footer className="border-t border-ink/10 py-8 text-center text-xs text-ink-soft">
-        <p>PIOUD ENERGY — 8 Rue Henri Dunant, 94370 Sucy-en-Brie</p>
-        <p className="mt-1">
-          <Link href="/mentions-legales" className="underline underline-offset-2 hover:text-ink">
-            Mentions légales
-          </Link>
-        </p>
+        <div className="section-shell space-y-2">
+          <p className="font-semibold text-ink">
+            {LEGAL_NAME} · {LEGAL_SIREN}
+          </p>
+          <p>{siteConfig.address}</p>
+          <p className="mx-auto max-w-2xl leading-relaxed">{MENTION_INTERMEDIAIRE}</p>
+          <p className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 pt-1">
+            <Link href="/mentions-legales" className="underline underline-offset-2 hover:text-ink">
+              Mentions légales
+            </Link>
+            <Link
+              href="/politique-confidentialite"
+              className="underline underline-offset-2 hover:text-ink"
+            >
+              Politique de confidentialité
+            </Link>
+          </p>
+        </div>
       </footer>
-
-      {/* Bouton d'appel sticky mobile */}
-      <a
-        href={`tel:${PHONE_E164}`}
-        className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-center gap-2 bg-emerald-500 py-4 text-sm font-semibold text-white shadow-[0_-4px_16px_rgba(0,0,0,0.12)] md:hidden"
-      >
-        <Phone className="h-4 w-4" />
-        Appel gratuit · {PHONE_DISPLAY}
-      </a>
     </div>
   );
 }
