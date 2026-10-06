@@ -140,15 +140,15 @@ export default function PacLandingPage() {
       </header>
 
       {/* 2. Hero */}
-      <section className="relative overflow-hidden pt-10 sm:pt-14">
-        <div className="pointer-events-none absolute -right-20 top-10 h-[320px] w-[320px] rounded-pill bg-sage/70 blur-3xl" />
-        <div className="pointer-events-none absolute -left-16 bottom-0 h-[260px] w-[260px] rounded-pill bg-emerald-100/60 blur-3xl" />
+      <section className="relative overflow-hidden bg-forest pt-10 text-white sm:pt-14">
+        <div className="pointer-events-none absolute -right-20 top-10 h-[320px] w-[320px] rounded-pill bg-emerald-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute -left-16 bottom-0 h-[260px] w-[260px] rounded-pill bg-emerald-500/10 blur-3xl" />
 
         <div className="section-shell relative grid gap-10 pb-16 lg:grid-cols-2 lg:items-center lg:gap-14">
           <Reveal>
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-2 rounded-pill border border-ink/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-forest-soft shadow-sm">
+                <span className="inline-flex items-center gap-2 rounded-pill border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white backdrop-blur-md">
                   <span className="h-1.5 w-1.5 rounded-pill bg-pioud-orange" />
                   Aides 2026 · Île-de-France
                 </span>
@@ -157,9 +157,9 @@ export default function PacLandingPage() {
                 </span>
               </div>
 
-              <h1 className="mt-6 font-display text-4xl font-light leading-[1.1] text-ink sm:text-5xl">
+              <h1 className="mt-6 font-display text-4xl font-light leading-[1.1] text-white sm:text-5xl lg:text-[3.5rem]">
                 Pompe à chaleur air/eau :{" "}
-                <span className="whitespace-nowrap italic text-emerald-600">
+                <span className="whitespace-nowrap italic text-emerald-400">
                   0 € d&apos;avance de frais
                 </span>
               </h1>
@@ -167,16 +167,16 @@ export default function PacLandingPage() {
               <ul className="mt-7 space-y-3">
                 {benefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-3">
-                    <BadgeCheck className="mt-0.5 h-5 w-5 flex-none text-emerald-500" />
-                    <span className="text-base text-ink-muted">{benefit}</span>
+                    <BadgeCheck className="mt-0.5 h-5 w-5 flex-none text-emerald-400" />
+                    <span className="text-base text-white/85">{benefit}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-ink-soft">
+              <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-emerald-300">
                 Fiche CEE BAR-TH-171 · Pompe à chaleur air/eau
               </p>
 
-              <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-card-lg border border-ink/10 shadow-xl shadow-[0_16px_36px_rgba(31,58,46,0.12)]">
+              <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-card-lg border border-white/20 shadow-xl shadow-[0_16px_36px_rgba(0,0,0,0.25)]">
                 <Image
                   src={heroImage.src}
                   alt={heroImage.alt}
@@ -188,14 +188,14 @@ export default function PacLandingPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-forest/35 via-transparent to-transparent" />
               </div>
 
-              <div className="mt-8 grid grid-cols-3 gap-4 border-t border-ink/10 pt-8">
+              <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/20 pt-8">
                 {trustStats.map((stat, index) => (
-                  <div key={stat.label} className={index > 0 ? "border-l border-ink/10 pl-4" : ""}>
-                    <p className="whitespace-nowrap font-display text-3xl font-light text-ink sm:text-4xl">
+                  <div key={stat.label} className={index > 0 ? "border-l border-white/20 pl-4" : ""}>
+                    <p className="whitespace-nowrap font-display text-3xl font-light text-white sm:text-4xl">
                       <CountUp to={stat.to} />
-                      <span className="text-emerald-600">{stat.suffix}</span>
+                      <span className="text-emerald-300">{stat.suffix}</span>
                     </p>
-                    <p className="mt-1 text-xs uppercase tracking-wide text-ink-soft">
+                    <p className="mt-1 text-xs uppercase tracking-wide text-emerald-300">
                       {stat.label}
                     </p>
                   </div>
@@ -347,9 +347,9 @@ export default function PacLandingPage() {
       </section>
 
       {/* 8. CTA final + footer minimal */}
-      <section className="section-shell py-16 sm:py-20">
-        <Reveal>
-          <div className="card-surface flex flex-col items-center gap-6 bg-gradient-to-r from-forest to-forest-soft p-8 text-center text-white sm:p-12">
+      <section className="bg-forest py-16 text-white sm:py-20">
+        <Reveal className="section-shell">
+          <div className="flex flex-col items-center gap-6 text-center">
             <Hammer className="h-8 w-8 text-emerald-300" />
             <h2 className="font-display text-3xl font-light sm:text-4xl">
               Vérifiez vos aides en 30 secondes
