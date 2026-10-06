@@ -8,11 +8,13 @@ import { CONVERSION_FORM, reportConversion } from "@/lib/gtag";
 import {
   INCOME_BANDS,
   INCOME_BAND_LABEL,
+  PRIME_ESTIMEE_PAR_TRANCHE,
+  RESTE_A_CHARGE_PAR_TRANCHE,
   type IncomeBand,
 } from "@/lib/pac-constants";
 
 type Housing = "maison" | "appartement";
-type Heating = "fioul" | "gaz" | "electrique" | "autre";
+type Heating = "fioul" | "gaz" | "charbon" | "electrique" | "autre";
 
 type LeadContact = {
   name: string;
@@ -32,6 +34,7 @@ const housingOptions: { id: Housing; label: string; icon: ComponentType<{ classN
 const heatingOptions: { id: Heating; label: string; icon: ComponentType<{ className?: string }> }[] = [
   { id: "fioul", label: "Fioul", icon: Flame },
   { id: "gaz", label: "Gaz", icon: Flame },
+  { id: "charbon", label: "Charbon", icon: Flame },
   { id: "electrique", label: "Électrique", icon: Zap },
   { id: "autre", label: "Autre", icon: Home },
 ];
@@ -48,9 +51,27 @@ function normalizePhone(phone: string) {
 const heatingLabel: Record<Heating, string> = {
   fioul: "Fioul",
   gaz: "Gaz",
+  charbon: "Charbon",
   electrique: "Électrique",
   autre: "Autre",
 };
+
+// Chauffages fossiles ouvrant droit au Coup de pouce x5 (fiche BAR-TH-171).
+const FOSSIL_HEATINGS: Heating[] = ["fioul", "gaz", "charbon"];
+
+function buildEstimate(incomeBand: IncomeBand, heating: Heating) {
+  if (incomeBand === "tres_modestes" && FOSSIL_HEATINGS.includes(heating)) {
+    return {
+      label: "Reste à charge estimé",
+      value: RESTE_A_CHARGE_PAR_TRANCHE.tres_modestes.value,
+    };
+  }
+  const prime = PRIME_ESTIMEE_PAR_TRANCHE[incomeBand];
+  return {
+    label: "Votre prime estimée",
+    value: `${prime.qualifier} ${prime.amount.toLocaleString("fr-FR")} €`,
+  };
+}
 
 const housingLabel: Record<Housing, string> = {
   maison: "Maison",
@@ -113,12 +134,15 @@ export function PacLeadForm() {
     setIsSubmitting(true);
     setFormError("");
 
+    const estimate = buildEstimate(incomeBand, heating);
+
     const message = [
       "Nouvelle demande — landing page /pac (pompe à chaleur air/eau)",
       `Logement : ${housingLabel[housing]}`,
       `Chauffage actuel : ${heatingLabel[heating]}`,
       `Code postal : ${postalCode}`,
       `Tranche de revenus MaPrimeRénov' : ${INCOME_BAND_LABEL[incomeBand]}`,
+      `Affiché à l'écran : ${estimate.label} — ${estimate.value}`,
     ].join("\n");
 
     const payload: Record<string, unknown> = {
@@ -158,19 +182,23 @@ export function PacLeadForm() {
     }
   };
 
-  if (isSubmitted) {
+  if (isSubmitted && incomeBand && heating) {
+    const estimate = buildEstimate(incomeBand, heating);
     return (
       <div className="card-surface p-6 text-center sm:p-8">
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-pill bg-emerald-100 text-emerald-600">
           <CheckCircle2 className="h-9 w-9" />
         </span>
-        <h2 className="mt-5 font-display text-3xl font-light text-ink">
-          Votre demande a bien été reçue
-        </h2>
+        <p className="mt-5 text-sm font-semibold uppercase tracking-wide text-ink-soft">
+          {estimate.label}
+        </p>
+        <p className="mt-2 font-display text-4xl font-light text-ink">
+          {estimate.value}
+        </p>
         <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-          Un conseiller Pioud Energy étudie votre projet et vous recontacte
-          sous 24 h ouvrées pour vous transmettre une estimation personnalisée,
-          aides déduites.
+          Votre demande a bien été reçue. Montant indicatif, sous conditions
+          d&apos;éligibilité : un conseiller Pioud Energy vous recontacte sous
+          24 h ouvrées pour le confirmer sur devis.
         </p>
         <p className="mt-6 text-xs font-medium text-ink-soft">
           Sans engagement · Réponse sous 24 h · Conseiller dédié

@@ -19,6 +19,7 @@ import { PacFaq } from "@/components/pac/pac-faq";
 import { PacLeadForm } from "@/components/pac/pac-lead-form";
 import { CountUp } from "@/components/ui/count-up";
 import { Reveal } from "@/components/ui/reveal";
+import { INCOME_BANDS, RESTE_A_CHARGE_PAR_TRANCHE } from "@/lib/pac-constants";
 import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
@@ -191,8 +192,11 @@ export default function PacLandingPage() {
                   0 € d&apos;avance de frais
                 </span>
               </h1>
+              <p className="mt-4 text-lg font-medium text-white/90">
+                Jusqu&apos;à 100 % financé par les aides selon vos revenus
+              </p>
 
-              <ul className="mt-7 space-y-3">
+              <ul className="mt-6 space-y-3">
                 {benefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-3">
                     <BadgeCheck className="mt-0.5 h-5 w-5 flex-none text-emerald-400" />
@@ -254,7 +258,58 @@ export default function PacLandingPage() {
         </div>
       </section>
 
-      {/* 4. Ce que comprend l'accompagnement */}
+      {/* 4. Votre reste à charge par tranche de revenus */}
+      <section className="section-shell py-16 sm:py-20">
+        <Reveal>
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-3xl font-light text-ink sm:text-4xl">
+              Votre reste à charge selon vos revenus
+            </h2>
+            <p className="mt-4 text-lg text-ink-muted">
+              La prime CEE (fiche BAR-TH-171, de 5 000 € à 12 000 €, Coup de
+              pouce x5) et MaPrimeRénov&apos; sont déduites directement de votre
+              devis.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {INCOME_BANDS.map((band, index) => {
+            const reste = RESTE_A_CHARGE_PAR_TRANCHE[band.id];
+            return (
+              <Reveal key={band.id} delay={index * 0.08}>
+                <article className="card-surface flex h-full flex-col p-6 text-center">
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
+                      {band.label}
+                    </p>
+                    <p className="mt-1 text-xs text-ink-soft">{band.hint}</p>
+                    <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-ink-soft">
+                      Reste à charge
+                    </p>
+                    <p className="mt-1 font-display text-3xl font-light text-ink">
+                      {reste.value}
+                    </p>
+                    {reste.note ? (
+                      <p className="mt-2 text-sm font-medium text-emerald-700">{reste.note}</p>
+                    ) : null}
+                  </div>
+                  <a href="#pac-form" className="btn-secondary mt-6 w-full justify-center">
+                    Vérifier mon éligibilité
+                  </a>
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
+
+        <p className="mt-6 text-center text-xs text-ink-soft">
+          Montants indicatifs, sous conditions d&apos;éligibilité et de nature des
+          travaux. Chiffrage définitif établi sur devis après visite technique.
+        </p>
+      </section>
+
+      {/* 4b. Ce que comprend l'accompagnement */}
       <section className="section-shell py-16 sm:py-20">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
