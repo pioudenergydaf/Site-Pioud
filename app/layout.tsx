@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Inter, Manrope } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { CookieBanner } from "@/components/cookies/cookie-banner";
 import { Footer } from "@/components/layout/footer";
@@ -95,6 +96,18 @@ export default function RootLayout({
           <Footer />
         </div>
         <CookieBanner />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18497703928"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18497703928');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
