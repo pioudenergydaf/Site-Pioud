@@ -19,13 +19,12 @@ import { PacFaq } from "@/components/pac/pac-faq";
 import { PacLeadForm } from "@/components/pac/pac-lead-form";
 import { CountUp } from "@/components/ui/count-up";
 import { Reveal } from "@/components/ui/reveal";
-import { INCOME_BANDS, RESTE_A_CHARGE_PAR_TRANCHE } from "@/lib/pac-constants";
 import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "Pompe à chaleur air/eau : 0 € d'avance de frais | Pioud Energy",
   description:
-    "Simulez en 30 secondes votre reste à charge pour l'installation d'une pompe à chaleur air/eau. Prime CEE de 5 000 € à 12 000 € (fiche BAR-TH-171, Coup de pouce x5) et MaPrimeRénov' déduites du devis, installateur RGE QualiPAC.",
+    "Vérifiez en 30 secondes votre éligibilité aux aides pour l'installation d'une pompe à chaleur air/eau. Prime CEE de 5 000 € à 12 000 € (fiche BAR-TH-171, Coup de pouce x5) et MaPrimeRénov' déduites du devis, installateur RGE QualiPAC.",
   robots: {
     index: false,
     follow: false,
@@ -80,6 +79,35 @@ const steps = [
   {
     title: "Installation RGE",
     description: "Pose réalisée par un installateur certifié RGE QualiPAC, garantie décennale.",
+    icon: Wrench,
+  },
+];
+
+// Inclusions (ce qui est pris en charge), pas des étapes : le déroulé
+// chronologique est déjà dans la section « Comment ça se passe ».
+const inclusions = [
+  {
+    title: "Visite technique à domicile",
+    description:
+      "Un technicien évalue votre logement, vérifie la compatibilité et dimensionne la pompe à chaleur adaptée.",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "Dossier d'aides monté par nos soins",
+    description:
+      "MaPrimeRénov' et prime CEE : constitution, dépôt et suivi du dossier jusqu'au versement, sans frais de dossier.",
+    icon: FileCheck2,
+  },
+  {
+    title: "Devis unique, aides déjà déduites",
+    description:
+      "Vous recevez un devis clair avec les aides directement soustraites : 0 € d'avance sur la part financée.",
+    icon: BadgeCheck,
+  },
+  {
+    title: "Pose et mise en service RGE QualiPAC",
+    description:
+      "Installation par un professionnel certifié, mise en service et garantie décennale incluses.",
     icon: Wrench,
   },
 ];
@@ -226,48 +254,50 @@ export default function PacLandingPage() {
         </div>
       </section>
 
-      {/* 4. Votre reste à charge */}
+      {/* 4. Ce que comprend l'accompagnement */}
       <section className="section-shell py-16 sm:py-20">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="font-display text-3xl font-light text-ink sm:text-4xl">
-              Votre reste à charge estimé
+              Ce que comprend l&apos;accompagnement
             </h2>
             <p className="mt-4 text-lg text-ink-muted">
-              Selon votre tranche de revenus et votre zone climatique, la prime CEE
-              (fiche BAR-TH-171, de 5 000 € à 12 000 €, Coup de pouce x5) et
-              MaPrimeRénov&apos; viennent réduire directement le montant de votre devis.
+              Tout est pris en charge par Pioud Energy, de la première visite
+              jusqu&apos;au versement de la prime. La prime CEE (fiche BAR-TH-171,
+              de 5 000 € à 12 000 €, Coup de pouce x5) et MaPrimeRénov&apos; sont
+              déduites directement de votre devis.
             </p>
           </div>
         </Reveal>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {INCOME_BANDS.map((band, index) => (
-            <Reveal key={band.id} delay={index * 0.08}>
-              <article className="card-surface flex h-full flex-col p-6 text-center">
-                <p className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
-                  {band.label}
-                </p>
-                <p className="mt-1 text-xs text-ink-soft">{band.hint}</p>
-                <p className="mt-5 font-display text-4xl font-light text-ink">
-                  {RESTE_A_CHARGE_PAR_TRANCHE[band.id].toLocaleString("fr-FR")} €
-                </p>
-                <p className="mt-1 text-xs text-ink-soft">reste à charge estimé</p>
-                <a
-                  href="#pac-form"
-                  className="btn-secondary mt-6 w-full justify-center"
-                >
-                  Estimer mon reste à charge
-                </a>
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+          {inclusions.map((item, index) => (
+            <Reveal key={item.title} delay={index * 0.08}>
+              <article className="card-surface flex h-full gap-4 p-6">
+                <span className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-sage text-forest-soft">
+                  <item.icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <span className="rounded-pill bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-forest">
+                    Inclus
+                  </span>
+                  <h3 className="mt-2 text-lg font-semibold text-ink">{item.title}</h3>
+                  <p className="mt-1 text-sm text-ink-muted">{item.description}</p>
+                </div>
               </article>
             </Reveal>
           ))}
         </div>
 
-        <p className="mt-6 text-center text-xs text-ink-soft">
-          Montants indicatifs, sous conditions d&apos;éligibilité et de nature des
-          travaux. Chiffrage définitif établi sur devis après visite technique.
-        </p>
+        <div className="mt-8 flex flex-col items-center gap-3">
+          <a href="#pac-form" className="btn-primary">
+            Vérifier mon éligibilité
+          </a>
+          <p className="text-center text-xs text-ink-soft">
+            Sous conditions d&apos;éligibilité aux aides. Devis définitif établi
+            après visite technique.
+          </p>
+        </div>
       </section>
 
       {/* 5. 4 étapes */}

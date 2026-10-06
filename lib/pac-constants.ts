@@ -11,11 +11,3 @@ export const INCOME_BAND_LABEL: Record<IncomeBand, string> = {
   modestes: "Modestes",
   intermediaires: "Intermédiaires",
 };
-
-// PLACEHOLDER — montants indicatifs à remplacer par les vraies grilles d'aides
-// une fois les barèmes 2026 confirmés.
-export const RESTE_A_CHARGE_PAR_TRANCHE: Record<IncomeBand, number> = {
-  tres_modestes: 1490,
-  modestes: 2490,
-  intermediaires: 4490,
-};

@@ -8,7 +8,6 @@ import { CONVERSION_FORM, reportConversion } from "@/lib/gtag";
 import {
   INCOME_BANDS,
   INCOME_BAND_LABEL,
-  RESTE_A_CHARGE_PAR_TRANCHE,
   type IncomeBand,
 } from "@/lib/pac-constants";
 
@@ -38,8 +37,6 @@ const heatingOptions: { id: Heating; label: string; icon: ComponentType<{ classN
 ];
 
 const incomeBandOptions: { id: IncomeBand; label: string; hint: string }[] = INCOME_BANDS;
-
-// PLACEHOLDER — montants indicatifs à remplacer par les vraies grilles d'aides.
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^(0|\+33)[1-9](\d{2}){4}$/;
@@ -122,7 +119,6 @@ export function PacLeadForm() {
       `Chauffage actuel : ${heatingLabel[heating]}`,
       `Code postal : ${postalCode}`,
       `Tranche de revenus MaPrimeRénov' : ${INCOME_BAND_LABEL[incomeBand]}`,
-      `Reste à charge estimé affiché : ${RESTE_A_CHARGE_PAR_TRANCHE[incomeBand]} €`,
     ].join("\n");
 
     const payload: Record<string, unknown> = {
@@ -162,22 +158,19 @@ export function PacLeadForm() {
     }
   };
 
-  if (isSubmitted && incomeBand) {
+  if (isSubmitted) {
     return (
       <div className="card-surface p-6 text-center sm:p-8">
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-pill bg-emerald-100 text-emerald-600">
           <CheckCircle2 className="h-9 w-9" />
         </span>
-        <p className="mt-5 text-sm font-semibold uppercase tracking-wide text-ink-soft">
-          Votre reste à charge estimé
-        </p>
-        <p className="mt-2 font-display text-5xl font-light text-ink">
-          {RESTE_A_CHARGE_PAR_TRANCHE[incomeBand].toLocaleString("fr-FR")} €
-        </p>
+        <h2 className="mt-5 font-display text-3xl font-light text-ink">
+          Votre demande a bien été reçue
+        </h2>
         <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-          Montant indicatif, sous conditions d&apos;éligibilité. Un conseiller
-          Pioud Energy vous recontacte sous 24h ouvrées pour confirmer ce
-          chiffrage sur devis.
+          Un conseiller Pioud Energy étudie votre projet et vous recontacte
+          sous 24 h ouvrées pour vous transmettre une estimation personnalisée,
+          aides déduites.
         </p>
         <p className="mt-6 text-xs font-medium text-ink-soft">
           Sans engagement · Réponse sous 24 h · Conseiller dédié
@@ -331,7 +324,7 @@ export function PacLeadForm() {
             >
               <h2 className="text-xl font-bold text-ink">Vos coordonnées</h2>
               <p className="mt-2 text-sm text-ink-muted">
-                Pour vous transmettre votre estimation de reste à charge.
+                Pour vous transmettre votre estimation personnalisée.
               </p>
               <div className="mt-5 space-y-4">
                 <input
@@ -401,7 +394,7 @@ export function PacLeadForm() {
                 disabled={isSubmitting}
                 className="btn-primary w-full justify-center disabled:cursor-not-allowed disabled:opacity-70"
               >
-                {isSubmitting ? "Envoi en cours..." : "Je calcule mon reste à charge"}
+                {isSubmitting ? "Envoi en cours..." : "Recevoir mon estimation personnalisée"}
                 <ArrowRight className="h-4 w-4" />
               </button>
               <button
