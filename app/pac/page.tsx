@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Award,
@@ -6,6 +7,7 @@ import {
   CalendarCheck,
   ClipboardCheck,
   FileCheck2,
+  Flame,
   Hammer,
   Phone,
   PhoneCall,
@@ -18,11 +20,12 @@ import { PacLeadForm } from "@/components/pac/pac-lead-form";
 import { CountUp } from "@/components/ui/count-up";
 import { Reveal } from "@/components/ui/reveal";
 import { INCOME_BANDS, RESTE_A_CHARGE_PAR_TRANCHE } from "@/lib/pac-constants";
+import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
   title: "Pompe à chaleur air/eau : 0 € d'avance de frais | Pioud Energy",
   description:
-    "Simulez en 30 secondes votre reste à charge pour l'installation d'une pompe à chaleur air/eau. Aides CEE et MaPrimeRénov' déduites du devis, installateur RGE QualiPAC.",
+    "Simulez en 30 secondes votre reste à charge pour l'installation d'une pompe à chaleur air/eau. Prime CEE de 5 000 € à 12 000 € (fiche BAR-TH-171, Coup de pouce x5) et MaPrimeRénov' déduites du devis, installateur RGE QualiPAC.",
   robots: {
     index: false,
     follow: false,
@@ -34,11 +37,14 @@ export const metadata: Metadata = {
 const PHONE_DISPLAY = "01 89 70 45 20";
 const PHONE_E164 = "+33189704520";
 
+// Montants alignés sur la carte BAR-TH-171 de /particuliers/chauffage.
 const benefits = [
-  "Aides jusqu'à 11 800 € déduites directement du devis",
+  "Prime CEE de 5 000 € à 12 000 € déduite du devis, selon revenus et zone climatique",
   "Démarches MaPrimeRénov' et CEE gérées sans frais par notre équipe",
   "Installation par un professionnel certifié RGE QualiPAC",
 ];
+
+const heroImage = SITE_IMAGES.fiches.pompeAirEau;
 
 // PLACEHOLDER — chiffres à remplacer par les statistiques réelles une fois disponibles.
 const trustStats = [
@@ -51,6 +57,7 @@ const trustBadges = [
   { label: "RGE QualiPAC", icon: BadgeCheck },
   { label: "Mandataire CEE", icon: ShieldCheck },
   { label: "MaPrimeRénov'", icon: FileCheck2 },
+  { label: "Coup de pouce x5", icon: Flame },
   { label: "Garantie décennale", icon: Award },
 ];
 
@@ -140,10 +147,15 @@ export default function PacLandingPage() {
         <div className="section-shell relative grid gap-10 pb-16 lg:grid-cols-2 lg:items-center lg:gap-14">
           <Reveal>
             <div>
-              <span className="inline-flex items-center gap-2 rounded-pill border border-ink/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-forest-soft shadow-sm">
-                <span className="h-1.5 w-1.5 rounded-pill bg-pioud-orange" />
-                Aides 2026 · Île-de-France
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-2 rounded-pill border border-ink/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-forest-soft shadow-sm">
+                  <span className="h-1.5 w-1.5 rounded-pill bg-pioud-orange" />
+                  Aides 2026 · Île-de-France
+                </span>
+                <span className="rounded-pill bg-emerald-100 px-3 py-1 text-xs font-semibold text-forest">
+                  🔥 Coup de pouce x5
+                </span>
+              </div>
 
               <h1 className="mt-6 font-display text-4xl font-light leading-[1.1] text-ink sm:text-5xl">
                 Pompe à chaleur air/eau :{" "}
@@ -160,8 +172,23 @@ export default function PacLandingPage() {
                   </li>
                 ))}
               </ul>
+              <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-ink-soft">
+                Fiche CEE BAR-TH-171 · Pompe à chaleur air/eau
+              </p>
 
-              <div className="mt-10 grid grid-cols-3 gap-4 border-t border-ink/10 pt-8">
+              <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-card-lg border border-ink/10 shadow-xl shadow-[0_16px_36px_rgba(31,58,46,0.12)]">
+                <Image
+                  src={heroImage.src}
+                  alt={heroImage.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-forest/35 via-transparent to-transparent" />
+              </div>
+
+              <div className="mt-8 grid grid-cols-3 gap-4 border-t border-ink/10 pt-8">
                 {trustStats.map((stat, index) => (
                   <div key={stat.label} className={index > 0 ? "border-l border-ink/10 pl-4" : ""}>
                     <p className="whitespace-nowrap font-display text-3xl font-light text-ink sm:text-4xl">
@@ -187,7 +214,7 @@ export default function PacLandingPage() {
 
       {/* 3. Bandeau 4 pastilles */}
       <section className="border-y border-ink/10 bg-white py-8">
-        <div className="section-shell grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="section-shell grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {trustBadges.map((badge) => (
             <div key={badge.label} className="flex items-center gap-3">
               <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-sage text-forest-soft">
@@ -207,8 +234,9 @@ export default function PacLandingPage() {
               Votre reste à charge estimé
             </h2>
             <p className="mt-4 text-lg text-ink-muted">
-              Selon votre tranche de revenus, les aides CEE et MaPrimeRénov&apos;
-              viennent réduire directement le montant de votre devis.
+              Selon votre tranche de revenus et votre zone climatique, la prime CEE
+              (fiche BAR-TH-171, de 5 000 € à 12 000 €, Coup de pouce x5) et
+              MaPrimeRénov&apos; viennent réduire directement le montant de votre devis.
             </p>
           </div>
         </Reveal>
