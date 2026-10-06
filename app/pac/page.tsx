@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Award,
@@ -23,6 +24,10 @@ import {
   RESTE_A_CHARGE_PAR_TRANCHE,
 } from "@/lib/pac-constants";
 import { siteConfig } from "@/lib/site-data";
+import { SITE_IMAGES } from "@/lib/site-images";
+
+// Photo de la carte « Pompe à chaleur air/eau » (section Opérations éligibles).
+const heroImage = SITE_IMAGES.fiches.pompeAirEau;
 
 export const metadata: Metadata = {
   title: "Pompe à chaleur air/eau : 0 € d'avance de frais | Pioud Energy",
@@ -196,6 +201,18 @@ export default function PacLandingPage() {
                 Fiche CEE BAR-TH-171 · Pompe à chaleur air/eau
               </p>
               <p className="mt-2 text-xs text-white/70">{MENTION_MONTANT_INDICATIF}</p>
+
+              <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-card-lg border border-white/20 shadow-[0_16px_36px_rgba(0,0,0,0.25)]">
+                <Image
+                  src={heroImage.src}
+                  alt={heroImage.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-forest/35 via-transparent to-transparent" />
+              </div>
 
               <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/20 pt-8">
                 {trustStats.map((stat, index) => (
