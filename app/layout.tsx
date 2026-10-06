@@ -3,8 +3,7 @@ import { DM_Serif_Display, Inter, Manrope } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { CookieBanner } from "@/components/cookies/cookie-banner";
-import { Footer } from "@/components/layout/footer";
-import { Navbar } from "@/components/layout/navbar";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { siteConfig } from "@/lib/site-data";
 
 const dmSerif = DM_Serif_Display({
@@ -90,11 +89,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${dmSerif.variable} ${manrope.variable} font-sans antialiased`}
       >
-        <div className="flex min-h-screen flex-col">
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        <SiteChrome>{children}</SiteChrome>
         <CookieBanner />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-18497703928"
