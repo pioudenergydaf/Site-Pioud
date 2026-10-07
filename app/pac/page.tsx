@@ -271,9 +271,20 @@ export default function PacLandingPage() {
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {INCOME_BANDS.map((band, index) => {
             const reste = RESTE_A_CHARGE_PAR_TRANCHE[band.id];
+            // Carte mise en avant : reste à charge minimal (très modestes).
+            const isHighlight = band.id === "tres_modestes";
             return (
-              <Reveal key={band.id} delay={index * 0.08}>
-                <article className="card-surface flex h-full flex-col p-6 text-center">
+              <Reveal key={band.id} delay={index * 0.08} className={isHighlight ? "md:-mt-4" : ""}>
+                <article
+                  className={`card-surface relative flex h-full flex-col overflow-visible p-6 text-center ${
+                    isHighlight ? "border-2 border-emerald-400 pt-8" : ""
+                  }`}
+                >
+                  {isHighlight ? (
+                    <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-pill bg-emerald-400 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-forest shadow-md">
+                      Reste à charge minimal
+                    </span>
+                  ) : null}
                   <div className="flex-1">
                     <p className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
                       {band.label}
@@ -282,9 +293,18 @@ export default function PacLandingPage() {
                     <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-ink-soft">
                       Reste à charge
                     </p>
-                    <p className="mt-1 font-display text-3xl font-light text-ink">
-                      {reste.value}
-                    </p>
+                    {isHighlight ? (
+                      <p className="mt-1 font-display font-light leading-none text-ink">
+                        <span className="block text-xl">à partir de</span>
+                        <span className="mt-1 block text-5xl text-emerald-400 lg:text-[3.5rem]">
+                          0 €
+                        </span>
+                      </p>
+                    ) : (
+                      <p className="mt-1 font-display text-3xl font-light text-ink">
+                        {reste.value}
+                      </p>
+                    )}
                     {reste.note ? (
                       <p className="mt-2 text-sm font-medium text-emerald-700">{reste.note}</p>
                     ) : null}
