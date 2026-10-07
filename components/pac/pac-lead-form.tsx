@@ -10,7 +10,6 @@ import {
   INCOME_BANDS,
   INCOME_BAND_LABEL,
   MENTION_INTERMEDIAIRE,
-  MENTION_MONTANT_INDICATIF,
   PRIME_ESTIMEE_PAR_TRANCHE,
   RESTE_A_CHARGE_PAR_TRANCHE,
   type IncomeBand,
@@ -27,7 +26,13 @@ type LeadContact = {
   email: string;
 };
 
-const STEPS_COUNT = 6;
+// 1 logement · 2 surface · 3 chauffage · 4 code postal · 5 revenus ·
+// 6 résultat · 7 coordonnées (envoi + conversion).
+const STEPS_COUNT = 7;
+const STEP_RESULT = 6;
+const STEP_CONTACT = 7;
+// Étapes à choix unique : le clic enchaîne directement l'étape suivante.
+const AUTO_ADVANCE_DELAY_MS = 180;
 
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
@@ -111,6 +116,9 @@ const choiceClass = (selected: boolean) =>
 const inputClass =
   "w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100";
 
+const backButtonClass =
+  "rounded-pill border border-ink/10 px-5 py-2 text-sm font-semibold text-ink-muted transition hover:border-ink/15 disabled:cursor-not-allowed disabled:opacity-40";
+
 export function PacLeadForm() {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -126,31 +134,31 @@ export function PacLeadForm() {
   const [consent, setConsent] = useState(false);
 
   const progress = useMemo(() => (step / STEPS_COUNT) * 100, [step]);
+  const estimate = useMemo(
+    () => (incomeBand && heating ? buildEstimate(incomeBand, heating) : null),
+    [incomeBand, heating],
+  );
 
-  const canContinue = () => {
-    if (step === 1) return housing !== null;
-    if (step === 2) return surface !== null;
-    if (step === 3) return heating !== null;
-    if (step === 4) return /^[0-9]{5}$/.test(postalCode);
-    if (step === 5) return incomeBand !== null;
-    return true;
+  const goTo = (next: number) => {
+    setFormError("");
+    setStep(Math.min(Math.max(next, 1), STEPS_COUNT));
   };
 
-  const goNext = () => {
-    if (!canContinue()) return;
-    if (step < STEPS_COUNT) setStep((current) => current + 1);
+  // Sélection d'un choix puis passage automatique à l'étape suivante.
+  const choose = <T,>(setter: (value: T) => void, value: T) => {
+    setter(value);
+    window.setTimeout(() => setStep((current) => Math.min(current + 1, STEPS_COUNT)), AUTO_ADVANCE_DELAY_MS);
   };
 
   const goBack = () => {
-    if (step > 1 && !isSubmitting) {
-      setStep((current) => current - 1);
-      setFormError("");
-    }
+    if (step > 1 && !isSubmitting) goTo(step - 1);
   };
+
+  const postalCodeValid = /^[0-9]{5}$/.test(postalCode);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!housing || !surface || !heating || !incomeBand) return;
+    if (step !== STEP_CONTACT || !housing || !surface || !heating || !incomeBand || !estimate) return;
 
     if (!contact.name.trim() || contact.name.trim().length < 2) {
       setFormError("Merci d'indiquer votre nom.");
@@ -173,8 +181,6 @@ export function PacLeadForm() {
 
     setIsSubmitting(true);
     setFormError("");
-
-    const estimate = buildEstimate(incomeBand, heating);
 
     const message = [
       "Nouvelle demande — landing page /pac (pompe à chaleur air/eau)",
@@ -216,6 +222,7 @@ export function PacLeadForm() {
       }
 
       setIsSubmitted(true);
+      // Conversion Google Ads : uniquement à l'envoi final réussi.
       reportConversion(CONVERSION_FORM);
     } catch {
       setFormError("Une erreur est survenue lors de l'envoi. Merci de réessayer dans quelques instants.");
@@ -224,25 +231,24 @@ export function PacLeadForm() {
     }
   };
 
-  if (isSubmitted && incomeBand && heating) {
-    const estimate = buildEstimate(incomeBand, heating);
+  if (isSubmitted && estimate) {
     return (
       <div className="card-surface p-6 text-center sm:p-8">
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-pill bg-emerald-100 text-emerald-600">
           <CheckCircle2 className="h-9 w-9" />
         </span>
-        <p className="mt-5 text-sm font-semibold uppercase tracking-wide text-ink-soft">
+        <h2 className="mt-5 text-xl font-bold text-ink">Votre demande a bien été reçue</h2>
+        <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+          Un conseiller Pioud Energy vous recontacte sous 24 h ouvrées pour confirmer
+          votre étude détaillée sur devis.
+        </p>
+        <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-ink-soft">
           {estimate.label}
         </p>
-        <p className="mt-2 font-display text-4xl font-light text-ink">{estimate.value}</p>
+        <p className="mt-1 font-display text-3xl font-light text-ink">{estimate.value}</p>
         {estimate.note ? (
           <p className="mt-2 text-sm font-medium text-emerald-700">{estimate.note}</p>
         ) : null}
-        <p className="mt-3 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
-        <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-          Votre demande a bien été reçue. Un conseiller Pioud Energy vous recontacte
-          sous 24 h ouvrées pour confirmer ce chiffrage sur devis.
-        </p>
         <p className="mt-6 text-xs font-medium text-ink-soft">
           Sans engagement · Réponse sous 24 h · Conseiller dédié
         </p>
@@ -278,7 +284,7 @@ export function PacLeadForm() {
                   <button
                     key={option.id}
                     type="button"
-                    onClick={() => setHousing(option.id)}
+                    onClick={() => choose(setHousing, option.id)}
                     className={choiceClass(housing === option.id)}
                   >
                     <span className="inline-flex rounded-lg bg-white p-2 text-forest-soft">
@@ -302,7 +308,7 @@ export function PacLeadForm() {
                   <button
                     key={option.id}
                     type="button"
-                    onClick={() => setSurface(option.id)}
+                    onClick={() => choose(setSurface, option.id)}
                     className={choiceClass(surface === option.id)}
                   >
                     <p className="text-sm font-semibold text-ink">{option.label}</p>
@@ -320,7 +326,7 @@ export function PacLeadForm() {
                   <button
                     key={option.id}
                     type="button"
-                    onClick={() => setHeating(option.id)}
+                    onClick={() => choose(setHeating, option.id)}
                     className={choiceClass(heating === option.id)}
                   >
                     <span className="inline-flex rounded-lg bg-white p-2 text-forest-soft">
@@ -342,6 +348,12 @@ export function PacLeadForm() {
               <input
                 value={postalCode}
                 onChange={(e) => setPostalCode(e.target.value.replace(/\D/g, "").slice(0, 5))}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    if (postalCodeValid) goTo(5);
+                  }
+                }}
                 inputMode="numeric"
                 placeholder="75001"
                 className={`mt-5 text-lg ${inputClass}`}
@@ -360,7 +372,7 @@ export function PacLeadForm() {
                   <button
                     key={option.id}
                     type="button"
-                    onClick={() => setIncomeBand(option.id)}
+                    onClick={() => choose(setIncomeBand, option.id)}
                     className={`block w-full ${choiceClass(incomeBand === option.id)}`}
                   >
                     <p className="text-sm font-semibold text-ink">{option.label}</p>
@@ -375,11 +387,32 @@ export function PacLeadForm() {
             </motion.section>
           )}
 
-          {step === 6 && (
-            <motion.section key="step-6" {...stepMotion}>
+          {step === STEP_RESULT && estimate && (
+            <motion.section key="step-result" {...stepMotion} className="text-center">
+              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-pill bg-emerald-100 text-emerald-600">
+                <CheckCircle2 className="h-8 w-8" />
+              </span>
+              <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-ink-soft">
+                {estimate.label}
+              </p>
+              <p className="mt-2 font-display text-4xl font-light text-ink sm:text-5xl">
+                {estimate.value}
+              </p>
+              {estimate.note ? (
+                <p className="mt-2 text-sm font-medium text-emerald-700">{estimate.note}</p>
+              ) : null}
+              <p className="mt-4 text-sm leading-relaxed text-ink-muted">
+                Recevez votre étude détaillée : un conseiller Pioud Energy confirme ce
+                chiffrage sur devis après visite technique.
+              </p>
+            </motion.section>
+          )}
+
+          {step === STEP_CONTACT && (
+            <motion.section key="step-contact" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Vos coordonnées</h2>
               <p className="mt-2 text-sm text-ink-muted">
-                Pour vous transmettre votre estimation personnalisée.
+                Pour vous transmettre votre étude détaillée.
               </p>
               <div className="mt-5 space-y-4">
                 <input
@@ -447,48 +480,71 @@ export function PacLeadForm() {
           </p>
         ) : null}
 
-        <div className="mt-7">
-          {step < STEPS_COUNT ? (
-            <div className="flex items-center justify-between gap-3">
-              <button
-                type="button"
-                onClick={goBack}
-                disabled={step === 1}
-                className="rounded-pill border border-ink/10 px-5 py-2 text-sm font-semibold text-ink-muted transition hover:border-ink/15 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                ← Retour
-              </button>
-              <button
-                type="button"
-                onClick={goNext}
-                disabled={!canContinue()}
-                className="btn-primary disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                Continuer
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn-primary w-full justify-center disabled:cursor-not-allowed disabled:opacity-70"
-              >
-                {isSubmitting ? "Envoi en cours..." : "Recevoir mon estimation personnalisée"}
-                <ArrowRight className="h-4 w-4" />
-              </button>
-              <button
-                type="button"
-                onClick={goBack}
-                disabled={isSubmitting}
-                className="block w-full text-center text-sm font-semibold text-ink-muted transition hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                ← Retour
-              </button>
-            </div>
-          )}
-        </div>
+        {step === 4 && (
+          <div className="mt-7 flex items-center justify-between gap-3">
+            <button type="button" onClick={goBack} className={backButtonClass}>
+              ← Retour
+            </button>
+            <button
+              type="button"
+              onClick={() => goTo(5)}
+              disabled={!postalCodeValid}
+              className="btn-primary disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Continuer
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+
+        {(step === 2 || step === 3 || step === 5) && (
+          <div className="mt-7">
+            <button type="button" onClick={goBack} className={backButtonClass}>
+              ← Retour
+            </button>
+          </div>
+        )}
+
+        {step === STEP_RESULT && (
+          <div className="mt-7 space-y-3">
+            <button
+              type="button"
+              onClick={() => goTo(STEP_CONTACT)}
+              className="btn-primary w-full justify-center"
+            >
+              Recevoir mon étude détaillée
+              <ArrowRight className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={goBack}
+              className="block w-full text-center text-sm font-semibold text-ink-muted transition hover:text-ink"
+            >
+              ← Retour
+            </button>
+          </div>
+        )}
+
+        {step === STEP_CONTACT && (
+          <div className="mt-7 space-y-3">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="btn-primary w-full justify-center disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {isSubmitting ? "Envoi en cours..." : "Recevoir mon étude détaillée"}
+              <ArrowRight className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={goBack}
+              disabled={isSubmitting}
+              className="block w-full text-center text-sm font-semibold text-ink-muted transition hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              ← Retour
+            </button>
+          </div>
+        )}
       </form>
 
       <p className="mt-6 text-center text-xs font-medium text-ink-soft">

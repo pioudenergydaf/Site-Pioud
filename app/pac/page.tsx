@@ -10,12 +10,11 @@ import {
   Flame,
   Hammer,
   ShieldCheck,
-  Star,
   Wrench,
 } from "lucide-react";
 import { PacFaq } from "@/components/pac/pac-faq";
 import { PacLeadForm } from "@/components/pac/pac-lead-form";
-import { CountUp } from "@/components/ui/count-up";
+import { PacStickyCta } from "@/components/pac/pac-sticky-cta";
 import { Reveal } from "@/components/ui/reveal";
 import {
   INCOME_BANDS,
@@ -49,13 +48,6 @@ const benefits = [
   "Prime CEE de 5 000 € à 12 000 € déduite du devis, selon revenus et zone climatique",
   "Démarches MaPrimeRénov' et CEE gérées sans frais par notre équipe",
   "Installation par un professionnel certifié RGE QualiPAC",
-];
-
-// PLACEHOLDER — chiffres à remplacer par les statistiques réelles une fois disponibles.
-const trustStats = [
-  { to: 500, suffix: "+", label: "Installations accompagnées" },
-  { to: 24, suffix: "h", label: "Délai de réponse moyen" },
-  { to: 98, suffix: "%", label: "Clients satisfaits" },
 ];
 
 const trustBadges = [
@@ -118,31 +110,9 @@ const inclusions = [
   },
 ];
 
-// PLACEHOLDER — avis à remplacer par de vrais témoignages clients.
-const reviews = [
-  {
-    quote:
-      "Dossier d'aides pris en charge de A à Z, je n'ai eu aucune démarche administrative à faire.",
-    author: "Marc D.",
-    role: "Maison individuelle — Val-de-Marne",
-  },
-  {
-    quote:
-      "Devis clair avec les aides déjà déduites, installation réalisée en une journée par une équipe sérieuse.",
-    author: "Nadia B.",
-    role: "Maison individuelle — Essonne",
-  },
-  {
-    quote:
-      "Un conseiller dédié a répondu à toutes mes questions, du premier échange jusqu'au versement de la prime.",
-    author: "Philippe T.",
-    role: "Maison individuelle — Seine-et-Marne",
-  },
-];
-
 export default function PacLandingPage() {
   return (
-    <div className="bg-cream text-ink">
+    <div className="bg-cream pb-20 text-ink md:pb-0">
       {/* 1. Barre haute */}
       <header className="sticky top-0 z-40 border-b border-ink/10 bg-white/95 backdrop-blur-md">
         <div className="section-shell flex items-center justify-between gap-4 py-3">
@@ -214,26 +184,15 @@ export default function PacLandingPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-forest/35 via-transparent to-transparent" />
               </div>
-
-              <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/20 pt-8">
-                {trustStats.map((stat, index) => (
-                  <div key={stat.label} className={index > 0 ? "border-l border-white/20 pl-4" : ""}>
-                    <p className="whitespace-nowrap font-display text-3xl font-light text-white sm:text-4xl">
-                      <CountUp to={stat.to} />
-                      <span className="text-emerald-300">{stat.suffix}</span>
-                    </p>
-                    <p className="mt-1 text-xs uppercase tracking-wide text-emerald-300">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </div>
           </Reveal>
 
           <Reveal delay={0.1}>
             <div id="pac-form" className="scroll-mt-24">
               <PacLeadForm />
+              <p className="mt-4 text-center text-xs font-medium text-white/80">
+                Entreprise basée à Sucy-en-Brie (94) · Intervention en Île-de-France
+              </p>
             </div>
           </Reveal>
         </div>
@@ -265,7 +224,6 @@ export default function PacLandingPage() {
               pouce x5) et MaPrimeRénov&apos; sont déduites directement de votre
               devis.
             </p>
-            <p className="mt-2 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
           </div>
         </Reveal>
 
@@ -309,7 +267,6 @@ export default function PacLandingPage() {
                     {reste.note ? (
                       <p className="mt-2 text-sm font-medium text-emerald-700">{reste.note}</p>
                     ) : null}
-                    <p className="mt-3 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
                   </div>
                   <a href="#pac-form" className="btn-secondary btn-wipe mt-6 w-full justify-center">
                     <span>Vérifier mon éligibilité</span>
@@ -320,9 +277,7 @@ export default function PacLandingPage() {
           })}
         </div>
 
-        <p className="mt-6 text-center text-xs text-ink-soft">
-          {MENTION_MONTANT_INDICATIF} {MENTION_INTERMEDIAIRE}
-        </p>
+        <p className="mt-6 text-center text-xs text-ink-soft">{MENTION_INTERMEDIAIRE}</p>
       </section>
 
       {/* 4b. Ce que comprend l'accompagnement */}
@@ -339,7 +294,6 @@ export default function PacLandingPage() {
               directement de votre devis : aucune avance de votre part sur la part
               financée.
             </p>
-            <p className="mt-2 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
           </div>
         </Reveal>
 
@@ -366,9 +320,7 @@ export default function PacLandingPage() {
           <a href="#pac-form" className="btn-primary">
             Vérifier mon éligibilité
           </a>
-          <p className="text-center text-xs text-ink-soft">
-            {MENTION_MONTANT_INDICATIF} {MENTION_INTERMEDIAIRE}
-          </p>
+          <p className="text-center text-xs text-ink-soft">{MENTION_INTERMEDIAIRE}</p>
         </div>
       </section>
 
@@ -402,40 +354,8 @@ export default function PacLandingPage() {
         </div>
       </section>
 
-      {/* 6. Avis clients */}
-      <section className="section-shell py-16 sm:py-20">
-        <Reveal>
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-display text-3xl font-light text-ink sm:text-4xl">
-              Ils ont fait confiance à Pioud Energy
-            </h2>
-          </div>
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {reviews.map((review, index) => (
-            <Reveal key={review.author} delay={index * 0.08}>
-              <article className="card-surface flex h-full flex-col p-6">
-                <div className="flex gap-0.5 text-peach">
-                  {Array.from({ length: 5 }).map((_, starIndex) => (
-                    <Star key={starIndex} className="h-4 w-4 fill-current" />
-                  ))}
-                </div>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-ink-muted">
-                  &ldquo;{review.quote}&rdquo;
-                </p>
-                <footer className="mt-4">
-                  <p className="text-sm font-semibold text-ink">{review.author}</p>
-                  <p className="text-xs text-ink-soft">{review.role}</p>
-                </footer>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* 7. FAQ */}
-      <section className="bg-white py-16 sm:py-20">
+      {/* 6. FAQ (section avis retirée en attendant des avis clients réels) */}
+      <section className="py-16 sm:py-20">
         <div className="section-shell max-w-3xl">
           <Reveal>
             <h2 className="text-center font-display text-3xl font-light text-ink sm:text-4xl">
@@ -479,7 +399,9 @@ export default function PacLandingPage() {
             {LEGAL_NAME} · {LEGAL_SIREN}
           </p>
           <p>{siteConfig.address}</p>
-          <p className="mx-auto max-w-2xl leading-relaxed">{MENTION_INTERMEDIAIRE}</p>
+          <p className="mx-auto max-w-2xl leading-relaxed">
+            {MENTION_MONTANT_INDICATIF} {MENTION_INTERMEDIAIRE}
+          </p>
           <p className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 pt-1">
             <Link href="/mentions-legales" className="underline underline-offset-2 hover:text-ink">
               Mentions légales
@@ -493,6 +415,8 @@ export default function PacLandingPage() {
           </p>
         </div>
       </footer>
+
+      <PacStickyCta targetId="pac-form" />
     </div>
   );
 }
