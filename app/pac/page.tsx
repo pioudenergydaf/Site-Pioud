@@ -54,8 +54,14 @@ const benefits = [
   "Installation par un professionnel certifié RGE QualiPAC",
 ];
 
+const QUALIPAC_LOGO = {
+  src: "/logos/rge-qualipac-2026.png",
+  alt: "RGE QualiPAC 2026",
+  width: 1200,
+  height: 590,
+};
+
 const trustBadges = [
-  { label: "RGE QualiPAC", icon: BadgeCheck },
   { label: "Mandataire CEE", icon: ShieldCheck },
   { label: "MaPrimeRénov'", icon: FileCheck2 },
   { label: "Coup de pouce x5", icon: Flame },
@@ -172,9 +178,18 @@ export default function PacLandingPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-emerald-300">
-                Fiche CEE BAR-TH-171 · Pompe à chaleur air/eau
-              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-emerald-300">
+                  Fiche CEE BAR-TH-171 · Pompe à chaleur air/eau
+                </p>
+                <Image
+                  src={QUALIPAC_LOGO.src}
+                  alt={QUALIPAC_LOGO.alt}
+                  width={QUALIPAC_LOGO.width}
+                  height={QUALIPAC_LOGO.height}
+                  className="h-10 w-auto rounded-lg bg-white px-1.5 py-1"
+                />
+              </div>
               <p className="mt-2 text-xs text-white/70">{MENTION_MONTANT_INDICATIF}</p>
 
               <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-card-lg border border-white/20 shadow-[0_16px_36px_rgba(0,0,0,0.25)]">
@@ -204,7 +219,16 @@ export default function PacLandingPage() {
 
       {/* 3. Bandeau 4 pastilles */}
       <section className="border-y border-ink/10 bg-white py-8">
-        <div className="section-shell grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="section-shell grid grid-cols-2 items-center gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="flex items-center">
+            <Image
+              src={QUALIPAC_LOGO.src}
+              alt={QUALIPAC_LOGO.alt}
+              width={QUALIPAC_LOGO.width}
+              height={QUALIPAC_LOGO.height}
+              className="h-14 w-auto"
+            />
+          </div>
           {trustBadges.map((badge) => (
             <div key={badge.label} className="flex items-center gap-3">
               <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-sage text-forest-soft">

@@ -113,8 +113,7 @@ const choiceClass = (selected: boolean) =>
       : "border-ink/10 hover:-translate-y-0.5 hover:border-forest-soft"
   }`;
 
-const inputClass =
-  "w-full rounded-xl border border-ink/10 px-4 py-3 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100";
+const inputClass = "pac-input";
 
 const backButtonClass =
   "rounded-pill border border-ink/10 px-5 py-2 text-sm font-semibold text-ink-muted transition hover:border-ink/15 disabled:cursor-not-allowed disabled:opacity-40";

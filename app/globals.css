@@ -54,6 +54,21 @@ h6 {
     @apply relative z-10;
   }
 
+  /* Champs texte de la landing /pac : texte vert foncé lisible,
+     placeholder gris moyen, fond blanc, bordure verte au focus. */
+  .pac-input {
+    @apply w-full rounded-xl border border-ink/10 bg-white px-4 py-3 text-forest caret-forest outline-none transition placeholder:text-ink-soft focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100;
+  }
+  .pac-input:-webkit-autofill,
+  .pac-input:-webkit-autofill:hover,
+  .pac-input:-webkit-autofill:focus {
+    -webkit-text-fill-color: theme("colors.forest");
+    -webkit-box-shadow: 0 0 0 1000px #fff inset;
+    box-shadow: 0 0 0 1000px #fff inset;
+    caret-color: theme("colors.forest");
+    transition: background-color 9999s ease-in-out 0s;
+  }
+
   .card-surface {
     @apply rounded-card border border-ink/10 bg-white shadow-[0_10px_28px_rgba(31,58,46,0.06)];
   }
