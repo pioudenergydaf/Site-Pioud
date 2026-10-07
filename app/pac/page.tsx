@@ -12,6 +12,7 @@ import {
   Wrench,
 } from "lucide-react";
 import { PacFaq } from "@/components/pac/pac-faq";
+import { HeroCheck, PacIcon } from "@/components/pac/pac-icon";
 import { PacLeadForm } from "@/components/pac/pac-lead-form";
 import { PacStickyCta } from "@/components/pac/pac-sticky-cta";
 import { Reveal } from "@/components/ui/reveal";
@@ -62,11 +63,14 @@ const QUALIPAC_LOGO = {
 };
 
 const trustBadges = [
-  { label: "Mandataire CEE", icon: ShieldCheck },
-  { label: "MaPrimeRénov'", icon: FileCheck2 },
-  { label: "Coup de pouce x5", icon: Flame },
-  { label: "Garantie décennale", icon: Award },
+  { label: "Mandataire CEE", sublabel: "Mandataire auprès des obligés", icon: ShieldCheck },
+  { label: "MaPrimeRénov'", sublabel: "Aide de l'État", icon: FileCheck2 },
+  { label: "Coup de pouce x5", sublabel: "Prime bonifiée", icon: Flame },
+  { label: "Garantie décennale", sublabel: "Assurance travaux", icon: Award },
 ];
+
+const trustTileClass =
+  "group flex h-full flex-col items-center gap-3 rounded-[20px] border border-forest/10 bg-white p-5 text-center shadow-[0_4px_12px_rgba(0,0,0,0.04)]";
 
 const steps = [
   {
@@ -173,7 +177,7 @@ export default function PacLandingPage() {
               <ul className="mt-6 space-y-3">
                 {benefits.map((benefit) => (
                   <li key={benefit} className="flex items-start gap-3">
-                    <BadgeCheck className="mt-0.5 h-5 w-5 flex-none text-emerald-400" />
+                    <HeroCheck className="mt-0.5" />
                     <span className="text-base text-white/85">{benefit}</span>
                   </li>
                 ))}
@@ -217,24 +221,31 @@ export default function PacLandingPage() {
         </div>
       </section>
 
-      {/* 3. Bandeau 4 pastilles */}
-      <section className="border-y border-ink/10 bg-white py-8">
-        <div className="section-shell grid grid-cols-2 items-center gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          <div className="flex items-center">
-            <Image
-              src={QUALIPAC_LOGO.src}
-              alt={QUALIPAC_LOGO.alt}
-              width={QUALIPAC_LOGO.width}
-              height={QUALIPAC_LOGO.height}
-              className="h-14 w-auto"
-            />
+      {/* 3. Bandeau de confiance : 5 tuiles égales */}
+      <section className="border-y border-ink/10 bg-cream-soft py-10">
+        <div className="section-shell grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          <div className={trustTileClass}>
+            <span className="flex h-14 items-center">
+              <Image
+                src={QUALIPAC_LOGO.src}
+                alt={QUALIPAC_LOGO.alt}
+                width={QUALIPAC_LOGO.width}
+                height={QUALIPAC_LOGO.height}
+                className="h-14 w-auto"
+              />
+            </span>
+            <span>
+              <span className="block text-sm font-semibold text-ink">RGE QualiPAC</span>
+              <span className="mt-0.5 block text-xs text-ink-soft">Qualification installateur</span>
+            </span>
           </div>
           {trustBadges.map((badge) => (
-            <div key={badge.label} className="flex items-center gap-3">
-              <span className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-sage text-forest-soft">
-                <badge.icon className="h-5 w-5" />
+            <div key={badge.label} className={trustTileClass}>
+              <PacIcon icon={badge.icon} />
+              <span>
+                <span className="block text-sm font-semibold text-ink">{badge.label}</span>
+                <span className="mt-0.5 block text-xs text-ink-soft">{badge.sublabel}</span>
               </span>
-              <span className="text-sm font-semibold text-ink">{badge.label}</span>
             </div>
           ))}
         </div>
@@ -328,10 +339,8 @@ export default function PacLandingPage() {
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {inclusions.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.08}>
-              <article className="card-surface flex h-full gap-4 p-6">
-                <span className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-sage text-forest-soft">
-                  <item.icon className="h-5 w-5" />
-                </span>
+              <article className="card-surface group flex h-full gap-4 p-6">
+                <PacIcon icon={item.icon} />
                 <div>
                   <span className="rounded-pill bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-forest">
                     Inclus
@@ -363,21 +372,32 @@ export default function PacLandingPage() {
             </div>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((step, index) => (
-              <Reveal key={step.title} delay={index * 0.08}>
-                <article className="card-surface h-full p-6">
-                  <span className="inline-flex rounded-lg bg-sage p-3 text-forest-soft">
-                    <step.icon className="h-5 w-5" />
-                  </span>
-                  <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-ink-soft">
-                    Étape {index + 1}
-                  </p>
-                  <h3 className="mt-1 text-lg font-semibold text-ink">{step.title}</h3>
-                  <p className="mt-2 text-sm text-ink-muted">{step.description}</p>
-                </article>
-              </Reveal>
-            ))}
+          <div className="relative isolate mt-10">
+            {/* Ligne de liaison entre les étapes (desktop), à hauteur des pastilles */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-[12.5%] top-[52px] -z-10 hidden h-px bg-forest/15 lg:block"
+            />
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {steps.map((step, index) => (
+                <Reveal key={step.title} delay={index * 0.08}>
+                  <article className="card-surface group relative h-full p-6">
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute right-5 top-4 font-display text-[40px] font-light leading-none text-emerald-400/30"
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <PacIcon icon={step.icon} />
+                    <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-ink-soft">
+                      Étape {index + 1}
+                    </p>
+                    <h3 className="mt-1 text-lg font-semibold text-ink">{step.title}</h3>
+                    <p className="mt-2 text-sm text-ink-muted">{step.description}</p>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
