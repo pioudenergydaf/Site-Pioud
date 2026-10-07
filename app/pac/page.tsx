@@ -91,10 +91,9 @@ const trustBadges: TrustBadge[] = [
     sublabel: "Prime bonifiée",
     logo: { src: "/logos/coup-de-pouce.png", alt: "Prime Coup de pouce", width: 1200, height: 900, className: "h-16 w-auto" },
   },
-  // PLACEHOLDER — numéro de contrat à compléter.
   {
     label: "Garantie décennale",
-    sublabel: "Assuré par APRIL · n° [à compléter]",
+    sublabel: "Assuré par APRIL",
     logo: { ...APRIL_LOGO, className: "h-8 w-auto" },
   },
 ];
@@ -298,13 +297,16 @@ export default function PacLandingPage() {
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="font-display text-3xl font-light text-ink sm:text-4xl">
-              Votre reste à charge selon vos revenus
+              Et si votre pompe à chaleur ne vous coûtait rien ?
             </h2>
             <p className="mt-4 text-lg text-ink-muted">
-              La prime CEE (fiche BAR-TH-171, de 5 000 € à 12 000 €, Coup de
-              pouce x5) et MaPrimeRénov&apos; sont déduites directement de votre
-              devis.
+              Pour les ménages très modestes remplaçant une chaudière fioul, gaz
+              ou charbon, les aides cumulées peuvent couvrir{" "}
+              <span className="font-semibold text-emerald-400">100 %</span> du devis.
+              Reste à charge : à partir de{" "}
+              <span className="font-semibold text-emerald-400">0 €</span>.
             </p>
+            <p className="mt-3 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
           </div>
         </Reveal>
 
