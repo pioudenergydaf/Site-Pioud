@@ -40,6 +40,11 @@ export const INCOME_BANDS: { id: IncomeBand; label: string; hint: string }[] = (
   ["tres_modestes", "modestes", "intermediaires"] as const
 ).map((id) => ({ id, label: INCOME_BAND_LABEL[id], hint: incomeBandHint(id) }));
 
+// Texte exact de la case RGPD (affiché dans le formulaire et archivé dans
+// la preuve de consentement de chaque lead).
+export const CONSENT_TEXT =
+  "J'accepte que Pioud Energy me recontacte au sujet de ma demande. Données conservées 3 ans, droits d'accès et d'opposition : contact@pioudenergy.fr. Politique de confidentialité : https://www.pioudenergy.fr/politique-confidentialite";
+
 // Mentions de conformité (DGCCRF/DDPP) à afficher avec tout montant.
 export const MENTION_MONTANT_INDICATIF =
   "Montant indicatif, sous conditions de ressources et d'éligibilité, soumis à visite technique.";

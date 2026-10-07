@@ -4,23 +4,29 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Check, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { type FormEvent, useMemo, useState } from "react";
+import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { TurnstileWidget } from "@/components/contact/turnstile-widget";
 import { PacReassurance } from "@/components/pac/pac-icon";
 import { CONVERSION_FORM, reportConversion } from "@/lib/gtag";
+import { CONSENT_TEXT, MENTION_INTERMEDIAIRE } from "@/lib/pac-constants";
 import {
-  MENTION_INTERMEDIAIRE,
-  PRIME_ESTIMEE_PAR_TRANCHE,
-  RESTE_A_CHARGE_PAR_TRANCHE,
-} from "@/lib/pac-constants";
+  ATTRIBUTION_PARAMS,
+  type Attribution,
+  buildEstimate,
+  EMAIL_REGEX,
+  type Heating,
+  type Housing,
+  maskPhone,
+  normalizePhone,
+  PHONE_REGEX,
+  POSTAL_CODE_REGEX,
+  type Surface,
+} from "@/lib/pac-estimate";
 import { siteConfig } from "@/lib/site-data";
 
-type Housing = "maison" | "appartement";
-type Surface = "moins_70" | "70_100" | "100_130" | "130_160" | "plus_160";
-type Heating = "fioul" | "gaz" | "charbon" | "electrique" | "autre";
-
 type LeadContact = {
-  name: string;
+  firstName: string;
+  lastName: string;
   phone: string;
   email: string;
 };
@@ -70,50 +76,32 @@ const heatingOptions: { id: Heating; label: string; image: string; alt: string }
   { id: "autre", label: "Autre", image: "/images/pac/chauffage/autre.jpg", alt: "Bûches de bois" },
 ];
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_REGEX = /^(0|\+33)[1-9](\d{2}){4}$/;
+// ── Attribution (UTM / gclid) : lue dans l'URL à l'arrivée, conservée en
+// sessionStorage pendant tout le parcours, envoyée avec le lead.
+const ATTRIBUTION_KEY = "pac_attribution";
 
-function normalizePhone(phone: string) {
-  return phone.replace(/\s+/g, "");
+function readStoredAttribution(): Attribution {
+  try {
+    return JSON.parse(window.sessionStorage.getItem(ATTRIBUTION_KEY) ?? "{}") as Attribution;
+  } catch {
+    return {};
+  }
 }
 
-const housingLabel: Record<Housing, string> = {
-  maison: "Maison",
-  appartement: "Appartement",
-};
-
-const surfaceLabel: Record<Surface, string> = Object.fromEntries(
-  surfaceOptions.map((option) => [option.id, option.label]),
-) as Record<Surface, string>;
-
-const heatingLabel: Record<Heating, string> = {
-  fioul: "Fioul",
-  gaz: "Gaz",
-  charbon: "Charbon",
-  electrique: "Électrique",
-  autre: "Autre",
-};
-
-// Chauffages fossiles ouvrant droit au Coup de pouce x5 (fiche BAR-TH-171).
-const FOSSIL_HEATINGS: Heating[] = ["fioul", "gaz", "charbon"];
-
-const euros = (amount: number) => `${amount.toLocaleString("fr-FR")} €`;
-
-// Sans tranche de revenus : fourchette de la fiche (de 5 000 € à 12 000 €
-// selon revenus) ; pour un chauffage fossile, reste à charge « à partir de
-// 0 € » toujours accompagné de sa mention très modestes.
-function buildEstimate(heating: Heating) {
-  if (FOSSIL_HEATINGS.includes(heating)) {
-    const reste = RESTE_A_CHARGE_PAR_TRANCHE.tres_modestes;
-    return { label: "Reste à charge estimé", value: reste.value, note: reste.note };
+function captureAttribution() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const next: Attribution = { ...readStoredAttribution() };
+    for (const key of ATTRIBUTION_PARAMS) {
+      const value = params.get(key);
+      if (value) next[key] = value.slice(0, 200);
+    }
+    if (!next.landingUrl) next.landingUrl = window.location.href.slice(0, 500);
+    if (!next.referrer && document.referrer) next.referrer = document.referrer.slice(0, 500);
+    window.sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(next));
+  } catch {
+    // sessionStorage indisponible (navigation privée stricte) : on continue sans.
   }
-  const min = PRIME_ESTIMEE_PAR_TRANCHE.intermediaires.amount;
-  const max = PRIME_ESTIMEE_PAR_TRANCHE.tres_modestes.amount;
-  return {
-    label: "Votre prime estimée",
-    value: `de ${euros(min)} à ${euros(max)}`,
-    note: "selon vos revenus et votre zone climatique",
-  };
 }
 
 const stepMotion = {
@@ -182,15 +170,35 @@ const backButtonClass =
 export function PacLeadForm() {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState<{ confirmationSent: boolean } | null>(null);
   const [formError, setFormError] = useState("");
+  const submitLock = useRef(false);
+  const conversionReported = useRef(false);
 
   const [housing, setHousing] = useState<Housing | null>(null);
   const [surface, setSurface] = useState<Surface | null>(null);
   const [heating, setHeating] = useState<Heating | null>(null);
   const [postalCode, setPostalCode] = useState("");
-  const [contact, setContact] = useState<LeadContact>({ name: "", phone: "", email: "" });
+  const [contact, setContact] = useState<LeadContact>({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+  });
   const [consent, setConsent] = useState(false);
+
+  useEffect(() => {
+    captureAttribution();
+  }, []);
+
+  // Conversion Google Ads : une seule fois, à l'affichage de l'écran de
+  // remerciement (donc après la réponse OK du serveur).
+  useEffect(() => {
+    if (submitted && !conversionReported.current) {
+      conversionReported.current = true;
+      reportConversion(CONVERSION_FORM);
+    }
+  }, [submitted]);
 
   const progress = useMemo(() => (step / STEPS_COUNT) * 100, [step]);
   const estimate = useMemo(() => (heating ? buildEstimate(heating) : null), [heating]);
@@ -210,13 +218,18 @@ export function PacLeadForm() {
     if (step > 1 && !isSubmitting) goTo(step - 1);
   };
 
-  const postalCodeValid = /^[0-9]{5}$/.test(postalCode);
+  const postalCodeValid = POSTAL_CODE_REGEX.test(postalCode);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitLock.current) return;
     if (step !== STEP_CONTACT || !housing || !surface || !heating || !estimate) return;
 
-    if (!contact.name.trim() || contact.name.trim().length < 2) {
+    if (contact.firstName.trim().length < 2) {
+      setFormError("Merci d'indiquer votre prénom.");
+      return;
+    }
+    if (contact.lastName.trim().length < 2) {
       setFormError("Merci d'indiquer votre nom.");
       return;
     }
@@ -235,32 +248,24 @@ export function PacLeadForm() {
 
     const formData = new FormData(event.currentTarget);
 
+    submitLock.current = true;
     setIsSubmitting(true);
     setFormError("");
 
-    const message = [
-      "Nouvelle demande — landing page /pac (pompe à chaleur air/eau)",
-      `Logement : ${housingLabel[housing]}`,
-      `Surface : ${surfaceLabel[surface]}`,
-      `Chauffage actuel : ${heatingLabel[heating]}`,
-      `Code postal : ${postalCode}`,
-      "Tranche de revenus : non demandée (à qualifier lors du rappel)",
-      `Affiché à l'écran : ${estimate.label} — ${estimate.value}`,
-      "Consentement recontact (RGPD) : oui",
-    ].join("\n");
-
     const payload: Record<string, unknown> = {
-      name: contact.name.trim(),
+      source: "pac-landing",
+      firstName: contact.firstName.trim(),
+      lastName: contact.lastName.trim(),
+      name: `${contact.firstName.trim()} ${contact.lastName.trim()}`,
       email: contact.email.trim(),
       phone: normalizePhone(contact.phone),
-      subject: "Demande pompe à chaleur — landing /pac",
-      message,
-      source: "pac-landing",
       housing,
       surface,
       heating,
       postalCode,
       consent: true,
+      consentText: CONSENT_TEXT,
+      attribution: readStoredAttribution(),
     };
     const turnstileToken = formData.get("cf-turnstile-response");
     if (turnstileToken) payload["cf-turnstile-response"] = turnstileToken;
@@ -271,31 +276,45 @@ export function PacLeadForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+      const data = (await response.json().catch(() => ({}))) as {
+        success?: boolean;
+        message?: string;
+        confirmationSent?: boolean;
+      };
 
-      if (!response.ok) {
-        throw new Error("Network error");
+      if (!response.ok || !data.success) {
+        setFormError(
+          data.message ||
+            "Une erreur est survenue lors de l'envoi. Merci de réessayer dans quelques instants.",
+        );
+        submitLock.current = false;
+        return;
       }
 
-      setIsSubmitted(true);
-      // Conversion Google Ads : uniquement à l'envoi final réussi.
-      reportConversion(CONVERSION_FORM);
+      setSubmitted({ confirmationSent: data.confirmationSent !== false });
     } catch {
       setFormError("Une erreur est survenue lors de l'envoi. Merci de réessayer dans quelques instants.");
+      submitLock.current = false;
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (isSubmitted && estimate) {
+  if (submitted && estimate) {
     return (
       <div className="card-surface p-6 text-center sm:p-8">
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-pill bg-emerald-100 text-emerald-600">
           <CheckCircle2 className="h-9 w-9" />
         </span>
-        <h2 className="mt-5 text-xl font-bold text-ink">Votre demande a bien été reçue</h2>
+        <h2 className="mt-5 text-xl font-bold text-ink">
+          Merci {contact.firstName.trim()}, votre demande est bien enregistrée.
+        </h2>
         <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-          Un conseiller Pioud Energy vous recontacte sous 24 h ouvrées pour confirmer
-          votre étude détaillée sur devis.
+          Un conseiller vous appelle sous 24 h ouvrées au{" "}
+          <span className="whitespace-nowrap font-semibold text-ink">{maskPhone(contact.phone)}</span>.
+          {submitted.confirmationSent
+            ? " Un récapitulatif vient de vous être envoyé par email."
+            : " Le récapitulatif par email n'a pas pu être envoyé ; votre demande est bien prise en compte."}
         </p>
         <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-ink-soft">
           {estimate.label}
@@ -327,7 +346,7 @@ export function PacLeadForm() {
         />
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.section key="step-1" {...stepMotion}>
@@ -437,17 +456,30 @@ export function PacLeadForm() {
                 Pour vous transmettre votre étude détaillée.
               </p>
               <div className="mt-5 space-y-4">
-                <input
-                  name="name"
-                  required
-                  value={contact.name}
-                  onChange={(e) => setContact((c) => ({ ...c, name: e.target.value }))}
-                  placeholder="Nom et prénom"
-                  className={inputClass}
-                />
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <input
+                    name="firstName"
+                    autoComplete="given-name"
+                    required
+                    value={contact.firstName}
+                    onChange={(e) => setContact((c) => ({ ...c, firstName: e.target.value }))}
+                    placeholder="Prénom"
+                    className={inputClass}
+                  />
+                  <input
+                    name="lastName"
+                    autoComplete="family-name"
+                    required
+                    value={contact.lastName}
+                    onChange={(e) => setContact((c) => ({ ...c, lastName: e.target.value }))}
+                    placeholder="Nom"
+                    className={inputClass}
+                  />
+                </div>
                 <input
                   name="phone"
                   type="tel"
+                  autoComplete="tel"
                   required
                   value={contact.phone}
                   onChange={(e) => setContact((c) => ({ ...c, phone: e.target.value }))}
@@ -457,6 +489,7 @@ export function PacLeadForm() {
                 <input
                   name="email"
                   type="email"
+                  autoComplete="email"
                   required
                   value={contact.email}
                   onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
@@ -497,7 +530,7 @@ export function PacLeadForm() {
         </AnimatePresence>
 
         {formError ? (
-          <p className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <p role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {formError}
           </p>
         ) : null}
@@ -552,6 +585,7 @@ export function PacLeadForm() {
             <button
               type="submit"
               disabled={isSubmitting}
+              aria-busy={isSubmitting}
               className="btn-primary w-full justify-center disabled:cursor-not-allowed disabled:opacity-70"
             >
               {isSubmitting ? "Envoi en cours..." : "Recevoir mon étude détaillée"}
