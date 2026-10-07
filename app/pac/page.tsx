@@ -8,7 +8,6 @@ import {
   ClipboardCheck,
   FileCheck2,
   Flame,
-  Hammer,
   ShieldCheck,
   Wrench,
 } from "lucide-react";
@@ -27,6 +26,11 @@ import { SITE_IMAGES } from "@/lib/site-images";
 
 // Photo de la carte « Pompe à chaleur air/eau » (section Opérations éligibles).
 const heroImage = SITE_IMAGES.fiches.pompeAirEau;
+// Photo du CTA final : équipe de conseillers (hero de la page Professionnels).
+const ctaImage = {
+  src: SITE_IMAGES.professionnels.hero.src,
+  alt: "Conseillers Pioud Energy étudiant un dossier d'aides",
+};
 
 export const metadata: Metadata = {
   title: "Pompe à chaleur air/eau : 0 € d'avance de frais | Pioud Energy",
@@ -142,7 +146,7 @@ export default function PacLandingPage() {
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-2 rounded-pill border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white backdrop-blur-md">
                   <span className="h-1.5 w-1.5 rounded-pill bg-pioud-orange" />
-                  Aides 2026 · Île-de-France
+                  Aides 2026
                 </span>
                 <span className="rounded-pill bg-emerald-100 px-3 py-1 text-xs font-semibold text-forest">
                   🔥 Coup de pouce x5
@@ -370,25 +374,37 @@ export default function PacLandingPage() {
 
       {/* 8. CTA final + footer minimal */}
       <section className="bg-forest py-16 text-white sm:py-20">
-        <Reveal className="section-shell">
-          <div className="flex flex-col items-center gap-6 text-center">
-            <Hammer className="h-8 w-8 text-emerald-300" />
-            <h2 className="font-display text-3xl font-light sm:text-4xl">
-              Vérifiez votre éligibilité en 1 minute
-            </h2>
-            <p className="max-w-xl text-white/85">
-              Simulation gratuite et sans engagement. Un conseiller dédié vous
-              recontacte sous 24 h ouvrées.
-            </p>
-            <a
-              href="#pac-form"
-              className="btn-wipe inline-flex items-center gap-2 rounded-pill bg-emerald-500 px-7 py-3 font-medium text-white shadow-lg shadow-emerald-500/30"
-            >
-              <CalendarCheck className="h-4 w-4" />
-              <span>Vérifier mon éligibilité en 1 minute</span>
-            </a>
-          </div>
-        </Reveal>
+        <div className="section-shell grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
+          <Reveal>
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-card-lg border border-white/20 shadow-[0_16px_36px_rgba(0,0,0,0.25)] lg:mx-0">
+              <Image
+                src={ctaImage.src}
+                alt={ctaImage.alt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
+              <h2 className="font-display text-3xl font-light sm:text-4xl">
+                Vérifiez votre éligibilité en 1 minute
+              </h2>
+              <p className="max-w-xl text-white/85">
+                Simulation gratuite et sans engagement. Un conseiller dédié vous
+                recontacte sous 24 h ouvrées.
+              </p>
+              <a
+                href="#pac-form"
+                className="btn-wipe inline-flex items-center gap-2 rounded-pill bg-emerald-500 px-7 py-3 font-medium text-white shadow-lg shadow-emerald-500/30"
+              >
+                <CalendarCheck className="h-4 w-4" />
+                <span>Vérifier mon éligibilité en 1 minute</span>
+              </a>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       {/* Pied de page légal — seuls liens sortants autorisés : mentions
