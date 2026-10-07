@@ -1,4 +1,4 @@
-import { Check, type LucideIcon } from "lucide-react";
+import { Check, Clock, Headset, type LucideIcon, ShieldCheck } from "lucide-react";
 
 // Pastille d'icône « duotone » maison : trait 1,5 px vert foncé + formes
 // remplies vert clair à 15 %. Au survol de la pastille ou de la carte
@@ -15,6 +15,30 @@ export function PacIcon({ icon: Icon, className = "" }: { icon: LucideIcon; clas
         className="h-6 w-6 fill-emerald-400/15 text-forest transition duration-[250ms] group-hover/tile:fill-white/20 group-hover/tile:text-white group-hover:fill-white/20 group-hover:text-white"
       />
     </span>
+  );
+}
+
+// Pastilles de réassurance sous le formulaire : fond vert clair, texte vert
+// foncé semi-bold 13 px, petite icône duotone. En colonne sur mobile.
+const reassuranceItems: { label: string; icon: LucideIcon }[] = [
+  { label: "Sans engagement", icon: ShieldCheck },
+  { label: "Réponse sous 24 h", icon: Clock },
+  { label: "Conseiller dédié", icon: Headset },
+];
+
+export function PacReassurance({ className = "" }: { className?: string }) {
+  return (
+    <ul className={`flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-center ${className}`}>
+      {reassuranceItems.map((item) => (
+        <li
+          key={item.label}
+          className="inline-flex items-center gap-2 rounded-pill bg-emerald-100 px-4 py-2 text-[13px] font-semibold text-forest"
+        >
+          <item.icon strokeWidth={1.5} aria-hidden className="h-4 w-4 fill-emerald-400/15" />
+          {item.label}
+        </li>
+      ))}
+    </ul>
   );
 }
 

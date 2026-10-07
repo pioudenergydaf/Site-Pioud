@@ -5,6 +5,7 @@ import { ArrowRight, Building, CheckCircle2, Flame, Home, Zap } from "lucide-rea
 import Link from "next/link";
 import { type ComponentType, type FormEvent, useMemo, useState } from "react";
 import { TurnstileWidget } from "@/components/contact/turnstile-widget";
+import { PacReassurance } from "@/components/pac/pac-icon";
 import { CONVERSION_FORM, reportConversion } from "@/lib/gtag";
 import {
   INCOME_BANDS,
@@ -248,10 +249,8 @@ export function PacLeadForm() {
         {estimate.note ? (
           <p className="mt-2 text-sm font-medium text-emerald-700">{estimate.note}</p>
         ) : null}
-        <p className="mt-6 text-xs font-medium text-ink-soft">
-          Sans engagement · Réponse sous 24 h · Conseiller dédié
-        </p>
-        <p className="mt-3 text-[11px] leading-relaxed text-ink-soft">{MENTION_INTERMEDIAIRE}</p>
+        <PacReassurance className="mt-7" />
+        <p className="mt-4 text-[11px] leading-relaxed text-ink-soft">{MENTION_INTERMEDIAIRE}</p>
       </div>
     );
   }
@@ -546,10 +545,8 @@ export function PacLeadForm() {
         )}
       </form>
 
-      <p className="mt-6 text-center text-xs font-medium text-ink-soft">
-        Sans engagement · Réponse sous 24 h · Conseiller dédié
-      </p>
-      <p className="mt-3 text-center text-[11px] leading-relaxed text-ink-soft">
+      <PacReassurance className="mt-7" />
+      <p className="mt-4 text-center text-[11px] leading-relaxed text-ink-soft">
         {MENTION_INTERMEDIAIRE}
       </p>
     </div>
