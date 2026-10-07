@@ -9,12 +9,9 @@ import { TurnstileWidget } from "@/components/contact/turnstile-widget";
 import { PacReassurance } from "@/components/pac/pac-icon";
 import { CONVERSION_FORM, reportConversion } from "@/lib/gtag";
 import {
-  INCOME_BANDS,
-  INCOME_BAND_LABEL,
   MENTION_INTERMEDIAIRE,
   PRIME_ESTIMEE_PAR_TRANCHE,
   RESTE_A_CHARGE_PAR_TRANCHE,
-  type IncomeBand,
 } from "@/lib/pac-constants";
 import { siteConfig } from "@/lib/site-data";
 
@@ -28,11 +25,13 @@ type LeadContact = {
   email: string;
 };
 
-// 1 logement · 2 surface · 3 chauffage · 4 code postal · 5 revenus ·
-// 6 résultat · 7 coordonnées (envoi + conversion).
-const STEPS_COUNT = 7;
-const STEP_RESULT = 6;
-const STEP_CONTACT = 7;
+// 1 logement · 2 surface · 3 chauffage · 4 code postal · 5 résultat ·
+// 6 coordonnées (envoi + conversion). La tranche de revenus n'est pas
+// demandée : elle est qualifiée par le conseiller lors du rappel.
+const STEPS_COUNT = 6;
+const STEP_POSTAL = 4;
+const STEP_RESULT = 5;
+const STEP_CONTACT = 6;
 // Étapes à choix unique : le clic enchaîne directement l'étape suivante.
 const AUTO_ADVANCE_DELAY_MS = 180;
 
@@ -71,8 +70,6 @@ const heatingOptions: { id: Heating; label: string; image: string; alt: string }
   { id: "autre", label: "Autre", image: "/images/pac/chauffage/autre.jpg", alt: "Bûches de bois" },
 ];
 
-const incomeBandOptions: { id: IncomeBand; label: string; hint: string }[] = INCOME_BANDS;
-
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^(0|\+33)[1-9](\d{2}){4}$/;
 
@@ -100,16 +97,22 @@ const heatingLabel: Record<Heating, string> = {
 // Chauffages fossiles ouvrant droit au Coup de pouce x5 (fiche BAR-TH-171).
 const FOSSIL_HEATINGS: Heating[] = ["fioul", "gaz", "charbon"];
 
-function buildEstimate(incomeBand: IncomeBand, heating: Heating) {
-  if (incomeBand === "tres_modestes" && FOSSIL_HEATINGS.includes(heating)) {
+const euros = (amount: number) => `${amount.toLocaleString("fr-FR")} €`;
+
+// Sans tranche de revenus : fourchette de la fiche (de 5 000 € à 12 000 €
+// selon revenus) ; pour un chauffage fossile, reste à charge « à partir de
+// 0 € » toujours accompagné de sa mention très modestes.
+function buildEstimate(heating: Heating) {
+  if (FOSSIL_HEATINGS.includes(heating)) {
     const reste = RESTE_A_CHARGE_PAR_TRANCHE.tres_modestes;
     return { label: "Reste à charge estimé", value: reste.value, note: reste.note };
   }
-  const prime = PRIME_ESTIMEE_PAR_TRANCHE[incomeBand];
+  const min = PRIME_ESTIMEE_PAR_TRANCHE.intermediaires.amount;
+  const max = PRIME_ESTIMEE_PAR_TRANCHE.tres_modestes.amount;
   return {
     label: "Votre prime estimée",
-    value: `${prime.qualifier} ${prime.amount.toLocaleString("fr-FR")} €`,
-    note: undefined,
+    value: `de ${euros(min)} à ${euros(max)}`,
+    note: "selon vos revenus et votre zone climatique",
   };
 }
 
@@ -186,15 +189,11 @@ export function PacLeadForm() {
   const [surface, setSurface] = useState<Surface | null>(null);
   const [heating, setHeating] = useState<Heating | null>(null);
   const [postalCode, setPostalCode] = useState("");
-  const [incomeBand, setIncomeBand] = useState<IncomeBand | null>(null);
   const [contact, setContact] = useState<LeadContact>({ name: "", phone: "", email: "" });
   const [consent, setConsent] = useState(false);
 
   const progress = useMemo(() => (step / STEPS_COUNT) * 100, [step]);
-  const estimate = useMemo(
-    () => (incomeBand && heating ? buildEstimate(incomeBand, heating) : null),
-    [incomeBand, heating],
-  );
+  const estimate = useMemo(() => (heating ? buildEstimate(heating) : null), [heating]);
 
   const goTo = (next: number) => {
     setFormError("");
@@ -215,7 +214,7 @@ export function PacLeadForm() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (step !== STEP_CONTACT || !housing || !surface || !heating || !incomeBand || !estimate) return;
+    if (step !== STEP_CONTACT || !housing || !surface || !heating || !estimate) return;
 
     if (!contact.name.trim() || contact.name.trim().length < 2) {
       setFormError("Merci d'indiquer votre nom.");
@@ -245,7 +244,7 @@ export function PacLeadForm() {
       `Surface : ${surfaceLabel[surface]}`,
       `Chauffage actuel : ${heatingLabel[heating]}`,
       `Code postal : ${postalCode}`,
-      `Tranche de revenus MaPrimeRénov' : ${INCOME_BAND_LABEL[incomeBand]}`,
+      "Tranche de revenus : non demandée (à qualifier lors du rappel)",
       `Affiché à l'écran : ${estimate.label} — ${estimate.value}`,
       "Consentement recontact (RGPD) : oui",
     ].join("\n");
@@ -261,7 +260,6 @@ export function PacLeadForm() {
       surface,
       heating,
       postalCode,
-      incomeBand,
       consent: true,
     };
     const turnstileToken = formData.get("cf-turnstile-response");
@@ -389,8 +387,8 @@ export function PacLeadForm() {
             </motion.section>
           )}
 
-          {step === 4 && (
-            <motion.section key="step-4" {...stepMotion}>
+          {step === STEP_POSTAL && (
+            <motion.section key="step-postal" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Votre code postal</h2>
               <p className="mt-2 text-sm text-ink-muted">
                 Pour vérifier l&apos;éligibilité de votre zone aux aides 2026.
@@ -401,39 +399,13 @@ export function PacLeadForm() {
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();
-                    if (postalCodeValid) goTo(5);
+                    if (postalCodeValid) goTo(STEP_RESULT);
                   }
                 }}
                 inputMode="numeric"
                 placeholder="75001"
                 className={`mt-5 text-lg ${inputClass}`}
               />
-            </motion.section>
-          )}
-
-          {step === 5 && (
-            <motion.section key="step-5" {...stepMotion}>
-              <h2 className="text-xl font-bold text-ink">Votre tranche de revenus</h2>
-              <p className="mt-2 text-sm text-ink-muted">
-                Détermine votre plafond d&apos;aides MaPrimeRénov&apos;.
-              </p>
-              <div className="mt-5 space-y-3">
-                {incomeBandOptions.map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    onClick={() => choose(setIncomeBand, option.id)}
-                    className={`block w-full ${choiceClass(incomeBand === option.id)}`}
-                  >
-                    <p className="text-sm font-semibold text-ink">{option.label}</p>
-                    <p className="mt-0.5 text-xs text-ink-soft">{option.hint}</p>
-                  </button>
-                ))}
-              </div>
-              <p className="mt-3 text-xs text-ink-soft">
-                Revenu fiscal de référence du foyer, barème Île-de-France — à titre
-                indicatif.
-              </p>
             </motion.section>
           )}
 
@@ -530,14 +502,14 @@ export function PacLeadForm() {
           </p>
         ) : null}
 
-        {step === 4 && (
+        {step === STEP_POSTAL && (
           <div className="mt-7 flex items-center justify-between gap-3">
             <button type="button" onClick={goBack} className={backButtonClass}>
               ← Retour
             </button>
             <button
               type="button"
-              onClick={() => goTo(5)}
+              onClick={() => goTo(STEP_RESULT)}
               disabled={!postalCodeValid}
               className="btn-primary disabled:cursor-not-allowed disabled:opacity-40"
             >
@@ -547,7 +519,7 @@ export function PacLeadForm() {
           </div>
         )}
 
-        {(step === 2 || step === 3 || step === 5) && (
+        {(step === 2 || step === 3) && (
           <div className="mt-7">
             <button type="button" onClick={goBack} className={backButtonClass}>
               ← Retour
