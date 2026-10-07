@@ -333,10 +333,11 @@ export default function PacLandingPage() {
               Ce que comprend l&apos;accompagnement
             </h2>
             <p className="mt-4 text-lg text-ink-muted">
-              Tout est pris en charge par Pioud Energy, de la première visite
-              jusqu&apos;au versement de la prime. La prime CEE (fiche BAR-TH-171,
-              de 5 000 € à 12 000 €, Coup de pouce x5) et MaPrimeRénov&apos; sont
-              déduites directement de votre devis.
+              Pioud Energy s&apos;occupe de tout, de la première visite jusqu&apos;au
+              versement de la prime. Votre prime CEE (fiche BAR-TH-171, Coup de
+              pouce x5 : de 5 000 € à 12 000 €) et MaPrimeRénov&apos; sont déduites
+              directement de votre devis : aucune avance de votre part sur la part
+              financée.
             </p>
             <p className="mt-2 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
           </div>
