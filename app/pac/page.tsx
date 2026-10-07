@@ -6,8 +6,6 @@ import {
   CalendarCheck,
   ClipboardCheck,
   FileCheck2,
-  Flame,
-  ShieldCheck,
   Wrench,
   type LucideIcon,
 } from "lucide-react";
@@ -66,19 +64,39 @@ const QUALIPAC_LOGO = {
 // si une version vectorielle est déposée dans public/logos/).
 const APRIL_LOGO = { src: "/logos/april.png", alt: "APRIL", width: 1568, height: 671 };
 
+type TrustLogo = { src: string; alt: string; width: number; height: number; className: string };
+
 type TrustBadge = {
   label: string;
   sublabel: string;
   icon?: LucideIcon;
-  logo?: { src: string; alt: string; width: number; height: number };
+  logo?: TrustLogo;
 };
 
+// Logos du bandeau (public/logos/), hauteur 64 px, centrés sur la même
+// zone que le logo RGE QualiPAC.
 const trustBadges: TrustBadge[] = [
-  { label: "Mandataire CEE", sublabel: "Mandataire auprès des obligés", icon: ShieldCheck },
-  { label: "MaPrimeRénov'", sublabel: "Aide de l'État", icon: FileCheck2 },
-  { label: "Coup de pouce x5", sublabel: "Prime bonifiée", icon: Flame },
+  {
+    label: "Mandataire CEE",
+    sublabel: "Mandataire auprès des obligés",
+    logo: { src: "/logos/cee.png", alt: "Certificats d'Économies d'Énergie", width: 690, height: 400, className: "h-16 w-auto" },
+  },
+  {
+    label: "MaPrimeRénov'",
+    sublabel: "Condition d'accès aux aides",
+    logo: { src: "/logos/rge.png", alt: "MaPrimeRénov'", width: 512, height: 512, className: "h-16 w-auto" },
+  },
+  {
+    label: "Coup de pouce x5",
+    sublabel: "Prime bonifiée",
+    logo: { src: "/logos/coup-de-pouce.png", alt: "Prime Coup de pouce", width: 1200, height: 900, className: "h-16 w-auto" },
+  },
   // PLACEHOLDER — numéro de contrat à compléter.
-  { label: "Garantie décennale", sublabel: "Assuré par APRIL · n° [à compléter]", logo: APRIL_LOGO },
+  {
+    label: "Garantie décennale",
+    sublabel: "Assuré par APRIL · n° [à compléter]",
+    logo: { ...APRIL_LOGO, className: "h-8 w-auto" },
+  },
 ];
 
 const trustTileClass =
@@ -237,7 +255,7 @@ export default function PacLandingPage() {
       <section className="border-y border-ink/10 bg-cream-soft py-10">
         <div className="section-shell grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           <div className={trustTileClass}>
-            <span className="flex h-14 items-center">
+            <span className="flex h-16 items-center justify-center">
               <Image
                 src={QUALIPAC_LOGO.src}
                 alt={QUALIPAC_LOGO.alt}
@@ -254,13 +272,13 @@ export default function PacLandingPage() {
           {trustBadges.map((badge) => (
             <div key={badge.label} className={trustTileClass}>
               {badge.logo ? (
-                <span className="flex h-14 items-center justify-center">
+                <span className="flex h-16 items-center justify-center">
                   <Image
                     src={badge.logo.src}
                     alt={badge.logo.alt}
                     width={badge.logo.width}
                     height={badge.logo.height}
-                    className="h-8 w-auto"
+                    className={badge.logo.className}
                   />
                 </span>
               ) : badge.icon ? (
