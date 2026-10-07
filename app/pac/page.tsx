@@ -185,8 +185,9 @@ export default function PacLandingPage() {
                   0 € d&apos;avance de frais
                 </span>
               </h1>
-              <p className="mt-4 text-lg font-medium text-white/90">
-                Jusqu&apos;à 100 % financé par les aides selon vos revenus
+              <p className="mt-5 inline-block rounded-pill border border-emerald-400/30 bg-emerald-400/15 px-5 py-2.5 text-xl font-semibold leading-snug text-white sm:text-[1.625rem]">
+                Jusqu&apos;à <span className="text-emerald-400">100 %</span> financé par les
+                aides selon vos revenus
               </p>
 
               <ul className="mt-6 space-y-3">
