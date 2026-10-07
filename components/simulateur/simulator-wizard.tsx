@@ -481,7 +481,7 @@ export function SimulatorWizard() {
                     onChange={(e) =>
                       setPostalCode(e.target.value.replace(/\D/g, "").slice(0, 5))
                     }
-                    placeholder="94370"
+                    placeholder="92100"
                     className="mt-2 w-full rounded-xl border border-ink/10 px-4 py-3 outline-none focus:border-forest-soft focus:ring-2 focus:ring-sage"
                   />
                 </label>

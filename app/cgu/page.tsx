@@ -65,7 +65,7 @@ export default function CguPage() {
         <section className="space-y-2">
           <h2 className="text-xl font-semibold text-ink">6. Tribunal compétent</h2>
           <p className="text-ink-muted">
-            En cas de litige, compétence expresse est attribuée au Tribunal de Créteil,
+            En cas de litige, compétence expresse est attribuée au Tribunal de Nanterre,
             sauf disposition légale contraire.
           </p>
         </section>

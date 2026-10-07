@@ -243,7 +243,7 @@ export default function PacLandingPage() {
             <div id="pac-form" className="scroll-mt-24">
               <PacLeadForm />
               <p className="mt-4 text-center text-xs font-medium text-white/80">
-                Entreprise basée à Sucy-en-Brie (94) · Intervention en Île-de-France
+                Entreprise basée à Boulogne-Billancourt (92) · Intervention en Île-de-France
               </p>
             </div>
           </Reveal>

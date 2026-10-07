@@ -27,8 +27,8 @@ export default function PolitiqueConfidentialitePage() {
             1. Responsable de traitement
           </h2>
           <p className="text-ink-muted">
-            PIOUD ENERGY SAS, SIREN 927 628 446, 8 Rue Henri Dunant, 94370
-            Sucy-en-Brie. Directeur de publication : Filip Chrétien.
+            PIOUD ENERGY SAS, SIREN 927 628 446, 32 Rue de Paris, 92100
+            Boulogne-Billancourt. Directeur de publication : Filip Chrétien.
           </p>
         </section>
 

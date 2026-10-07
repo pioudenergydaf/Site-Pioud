@@ -71,9 +71,9 @@ const localBusinessSchema = {
   email: siteConfig.email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "8 Rue Henri Dunant",
-    postalCode: "94370",
-    addressLocality: "Sucy-en-Brie",
+    streetAddress: "32 Rue de Paris",
+    postalCode: "92100",
+    addressLocality: "Boulogne-Billancourt",
     addressCountry: "FR",
   },
   url: siteConfig.url,

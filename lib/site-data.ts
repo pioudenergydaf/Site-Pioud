@@ -5,7 +5,7 @@ export const siteConfig = {
   url: "https://pioudenergy.fr",
   simulatorUrl: "https://simulateur.pioudenergy.fr",
   email: "contact@pioudenergy.fr",
-  address: "8 Rue Henri Dunant, 94370 Sucy-en-Brie",
+  address: "32 Rue de Paris, 92100 Boulogne-Billancourt",
   socials: {
     linkedin: "",
     youtube: "",

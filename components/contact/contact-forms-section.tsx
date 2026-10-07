@@ -269,7 +269,7 @@ export function ContactFormsSection({
             {canLoadMap ? (
               <iframe
                 title="Carte Google Maps - Pioud Energy"
-                src="https://www.google.com/maps?q=8+Rue+Henri+Dunant,+94370+Sucy-en-Brie&output=embed"
+                src="https://www.google.com/maps?q=32+Rue+de+Paris,+92100+Boulogne-Billancourt&output=embed"
                 className="h-full min-h-[430px] w-full border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
