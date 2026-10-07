@@ -1,10 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Check, CheckCircle2, Flame, Home, Zap } from "lucide-react";
+import { ArrowRight, Check, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { type ComponentType, type FormEvent, useMemo, useState } from "react";
+import { type FormEvent, useMemo, useState } from "react";
 import { TurnstileWidget } from "@/components/contact/turnstile-widget";
 import { PacReassurance } from "@/components/pac/pac-icon";
 import { CONVERSION_FORM, reportConversion } from "@/lib/gtag";
@@ -57,12 +57,18 @@ const surfaceOptions: { id: Surface; label: string }[] = [
   { id: "plus_160", label: "Plus de 160 m²" },
 ];
 
-const heatingOptions: { id: Heating; label: string; icon: ComponentType<{ className?: string }> }[] = [
-  { id: "fioul", label: "Fioul", icon: Flame },
-  { id: "gaz", label: "Gaz", icon: Flame },
-  { id: "charbon", label: "Charbon", icon: Flame },
-  { id: "electrique", label: "Électrique", icon: Zap },
-  { id: "autre", label: "Autre", icon: Home },
+// Cartes photo (public/images/pac/chauffage/).
+const heatingOptions: { id: Heating; label: string; image: string; alt: string }[] = [
+  { id: "fioul", label: "Fioul", image: "/images/pac/chauffage/fioul.jpg", alt: "Cuve de fioul" },
+  { id: "gaz", label: "Gaz", image: "/images/pac/chauffage/gaz.jpg", alt: "Chaudière gaz murale" },
+  { id: "charbon", label: "Charbon", image: "/images/pac/chauffage/charbon.jpg", alt: "Poêle à charbon" },
+  {
+    id: "electrique",
+    label: "Électrique",
+    image: "/images/pac/chauffage/electrique.jpg",
+    alt: "Convecteur électrique",
+  },
+  { id: "autre", label: "Autre", image: "/images/pac/chauffage/autre.jpg", alt: "Bûches de bois" },
 ];
 
 const incomeBandOptions: { id: IncomeBand; label: string; hint: string }[] = INCOME_BANDS;
@@ -122,6 +128,50 @@ const choiceClass = (selected: boolean) =>
   }`;
 
 const inputClass = "pac-input";
+
+// Carte de choix à fond photo : dégradé forest en bas, libellé blanc,
+// zoom + bordure vert vif au survol, bordure + coche quand sélectionnée.
+function PhotoChoice({
+  label,
+  image,
+  alt,
+  selected,
+  onSelect,
+  ratioClass = "aspect-[4/3]",
+}: {
+  label: string;
+  image: string;
+  alt: string;
+  selected: boolean;
+  onSelect: () => void;
+  ratioClass?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-pressed={selected}
+      className={`group relative ${ratioClass} overflow-hidden rounded-2xl border-2 text-left transition-colors duration-[400ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 ${
+        selected ? "border-emerald-400" : "border-transparent hover:border-emerald-400"
+      }`}
+    >
+      <Image
+        src={image}
+        alt={alt}
+        fill
+        sizes="(max-width: 640px) 50vw, 280px"
+        className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-105"
+      />
+      <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest/70 via-forest/20 to-transparent" />
+      <span className="absolute bottom-3 left-4 text-lg font-semibold text-white">{label}</span>
+      {selected ? (
+        <span className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-pill bg-emerald-400 text-white shadow-md">
+          <Check strokeWidth={2.5} aria-hidden className="h-4 w-4" />
+        </span>
+      ) : null}
+    </button>
+  );
+}
 
 const backButtonClass =
   "rounded-pill border border-ink/10 px-5 py-2 text-sm font-semibold text-ink-muted transition hover:border-ink/15 disabled:cursor-not-allowed disabled:opacity-40";
@@ -285,37 +335,16 @@ export function PacLeadForm() {
             <motion.section key="step-1" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Vous habitez en...</h2>
               <div className="mt-5 grid grid-cols-2 gap-3">
-                {housingOptions.map((option) => {
-                  const selected = housing === option.id;
-                  return (
-                    <button
-                      key={option.id}
-                      type="button"
-                      onClick={() => choose(setHousing, option.id)}
-                      aria-pressed={selected}
-                      className={`group relative aspect-[4/3] overflow-hidden rounded-2xl border-2 text-left transition-colors duration-[400ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 ${
-                        selected ? "border-emerald-400" : "border-transparent hover:border-emerald-400"
-                      }`}
-                    >
-                      <Image
-                        src={option.image}
-                        alt={option.alt}
-                        fill
-                        sizes="(max-width: 640px) 50vw, 280px"
-                        className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-105"
-                      />
-                      <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest/70 via-forest/20 to-transparent" />
-                      <span className="absolute bottom-3 left-4 text-lg font-semibold text-white">
-                        {option.label}
-                      </span>
-                      {selected ? (
-                        <span className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-pill bg-emerald-400 text-white shadow-md">
-                          <Check strokeWidth={2.5} aria-hidden className="h-4 w-4" />
-                        </span>
-                      ) : null}
-                    </button>
-                  );
-                })}
+                {housingOptions.map((option) => (
+                  <PhotoChoice
+                    key={option.id}
+                    label={option.label}
+                    image={option.image}
+                    alt={option.alt}
+                    selected={housing === option.id}
+                    onSelect={() => choose(setHousing, option.id)}
+                  />
+                ))}
               </div>
             </motion.section>
           )}
@@ -346,17 +375,15 @@ export function PacLeadForm() {
               <h2 className="text-xl font-bold text-ink">Votre chauffage actuel</h2>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {heatingOptions.map((option) => (
-                  <button
+                  <PhotoChoice
                     key={option.id}
-                    type="button"
-                    onClick={() => choose(setHeating, option.id)}
-                    className={choiceClass(heating === option.id)}
-                  >
-                    <span className="inline-flex rounded-lg bg-white p-2 text-forest-soft">
-                      <option.icon className="h-4 w-4" />
-                    </span>
-                    <p className="mt-3 text-sm font-semibold text-ink">{option.label}</p>
-                  </button>
+                    label={option.label}
+                    image={option.image}
+                    alt={option.alt}
+                    selected={heating === option.id}
+                    onSelect={() => choose(setHeating, option.id)}
+                    ratioClass="aspect-square sm:aspect-[4/3]"
+                  />
                 ))}
               </div>
             </motion.section>
