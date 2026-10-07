@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Check, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Check, CheckCircle2, Info } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
@@ -12,15 +12,24 @@ import { CONSENT_TEXT, MENTION_INTERMEDIAIRE } from "@/lib/pac-constants";
 import {
   ATTRIBUTION_PARAMS,
   type Attribution,
+  BUILDING_HEATING_LABEL,
+  type BuildingHeating,
+  buildCollectiveEstimate,
   buildEstimate,
   EMAIL_REGEX,
+  type Estimate,
+  flowFor,
   type Heating,
   type Housing,
   maskPhone,
   normalizePhone,
   PHONE_REGEX,
   POSTAL_CODE_REGEX,
+  ROLE_LABEL,
+  type Role,
   type Surface,
+  UNITS_LABEL,
+  type Units,
 } from "@/lib/pac-estimate";
 import { siteConfig } from "@/lib/site-data";
 
@@ -31,13 +40,31 @@ type LeadContact = {
   email: string;
 };
 
-// 1 logement · 2 surface · 3 chauffage · 4 code postal · 5 résultat ·
-// 6 coordonnées (envoi + conversion). La tranche de revenus n'est pas
-// demandée : elle est qualifiée par le conseiller lors du rappel.
-const STEPS_COUNT = 6;
-const STEP_POSTAL = 4;
-const STEP_RESULT = 5;
-const STEP_CONTACT = 6;
+// Étapes possibles ; la séquence effective dépend du parcours :
+// - maison : logement · surface · chauffage · code postal · résultat · coordonnées
+// - copro  : logement · rôle · chauffage immeuble · nb logements · code postal · résultat · coordonnées
+// - copro, chauffage individuel : logement · rôle · chauffage immeuble · résultat · coordonnées
+type StepId =
+  | "housing"
+  | "surface"
+  | "heating"
+  | "role"
+  | "buildingHeating"
+  | "units"
+  | "postal"
+  | "result"
+  | "contact";
+
+function buildSequence(housing: Housing | null, buildingHeating: BuildingHeating | null): StepId[] {
+  if (housing === "appartement") {
+    if (buildingHeating === "individuel") {
+      return ["housing", "role", "buildingHeating", "result", "contact"];
+    }
+    return ["housing", "role", "buildingHeating", "units", "postal", "result", "contact"];
+  }
+  return ["housing", "surface", "heating", "postal", "result", "contact"];
+}
+
 // Étapes à choix unique : le clic enchaîne directement l'étape suivante.
 const AUTO_ADVANCE_DELAY_MS = 180;
 
@@ -75,6 +102,39 @@ const heatingOptions: { id: Heating; label: string; image: string; alt: string }
   },
   { id: "autre", label: "Autre", image: "/images/pac/chauffage/autre.jpg", alt: "Bûches de bois" },
 ];
+
+// Parcours copropriété
+const roleOptions = (Object.keys(ROLE_LABEL) as Role[]).map((id) => ({ id, label: ROLE_LABEL[id] }));
+
+// Cartes photo (public/images/pac/copro/).
+const buildingHeatingOptions: { id: BuildingHeating; label: string; image: string; alt: string }[] = [
+  {
+    id: "gaz_collectif",
+    label: BUILDING_HEATING_LABEL.gaz_collectif,
+    image: "/images/pac/copro/gaz-collectif.jpg",
+    alt: "Chaufferie gaz collective",
+  },
+  {
+    id: "fioul_collectif",
+    label: BUILDING_HEATING_LABEL.fioul_collectif,
+    image: "/images/pac/copro/fioul-collectif.jpg",
+    alt: "Cuve de fioul collective",
+  },
+  {
+    id: "reseau_chaleur",
+    label: BUILDING_HEATING_LABEL.reseau_chaleur,
+    image: "/images/pac/copro/reseau-chaleur.jpg",
+    alt: "Sous-station de réseau de chaleur",
+  },
+  {
+    id: "individuel",
+    label: BUILDING_HEATING_LABEL.individuel,
+    image: "/images/pac/copro/individuel.jpg",
+    alt: "Radiateur individuel",
+  },
+];
+
+const unitsOptions = (Object.keys(UNITS_LABEL) as Units[]).map((id) => ({ id, label: UNITS_LABEL[id] }));
 
 // ── Attribution (UTM / gclid) : lue dans l'URL à l'arrivée, conservée en
 // sessionStorage pendant tout le parcours, envoyée avec le lead.
@@ -164,11 +224,50 @@ function PhotoChoice({
   );
 }
 
+// Liste de choix texte (surface, rôle, nombre de logements).
+function TextChoices<T extends string>({
+  options,
+  selected,
+  onSelect,
+}: {
+  options: { id: T; label: string }[];
+  selected: T | null;
+  onSelect: (id: T) => void;
+}) {
+  return (
+    <div className="mt-5 grid grid-cols-2 gap-3">
+      {options.map((option) => (
+        <button
+          key={option.id}
+          type="button"
+          onClick={() => onSelect(option.id)}
+          className={choiceClass(selected === option.id)}
+        >
+          <p className="text-sm font-semibold text-ink">{option.label}</p>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 const backButtonClass =
   "rounded-pill border border-ink/10 px-5 py-2 text-sm font-semibold text-ink-muted transition hover:border-ink/15 disabled:cursor-not-allowed disabled:opacity-40";
 
+// Libellés du bouton d'action selon le résultat affiché.
+const CTA_LABEL: Record<Estimate["kind"], string> = {
+  amount: "Recevoir mon étude détaillée",
+  collective: "Demander mon étude gratuite",
+  individual: "Laisser mes coordonnées",
+};
+
+const CALLBACK_DELAY: Record<Estimate["kind"], string> = {
+  amount: "24 h ouvrées",
+  collective: "48 h ouvrées",
+  individual: "24 h ouvrées",
+};
+
 export function PacLeadForm() {
-  const [step, setStep] = useState(1);
+  const [stepIndex, setStepIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState<{ confirmationSent: boolean } | null>(null);
   const [formError, setFormError] = useState("");
@@ -178,6 +277,9 @@ export function PacLeadForm() {
   const [housing, setHousing] = useState<Housing | null>(null);
   const [surface, setSurface] = useState<Surface | null>(null);
   const [heating, setHeating] = useState<Heating | null>(null);
+  const [role, setRole] = useState<Role | null>(null);
+  const [buildingHeating, setBuildingHeating] = useState<BuildingHeating | null>(null);
+  const [units, setUnits] = useState<Units | null>(null);
   const [postalCode, setPostalCode] = useState("");
   const [contact, setContact] = useState<LeadContact>({
     firstName: "",
@@ -200,30 +302,41 @@ export function PacLeadForm() {
     }
   }, [submitted]);
 
-  const progress = useMemo(() => (step / STEPS_COUNT) * 100, [step]);
-  const estimate = useMemo(() => (heating ? buildEstimate(heating) : null), [heating]);
+  const sequence = useMemo(() => buildSequence(housing, buildingHeating), [housing, buildingHeating]);
+  const stepsCount = sequence.length;
+  const safeIndex = Math.min(stepIndex, stepsCount - 1);
+  const stepId = sequence[safeIndex];
+  const progress = ((safeIndex + 1) / stepsCount) * 100;
+  const flow = housing ? flowFor(housing) : "maison";
 
-  const goTo = (next: number) => {
+  const estimate = useMemo<Estimate | null>(() => {
+    if (flow === "copro") return buildingHeating ? buildCollectiveEstimate(buildingHeating) : null;
+    return heating ? buildEstimate(heating) : null;
+  }, [flow, buildingHeating, heating]);
+
+  const goTo = (index: number) => {
     setFormError("");
-    setStep(Math.min(Math.max(next, 1), STEPS_COUNT));
+    setStepIndex(Math.min(Math.max(index, 0), stepsCount - 1));
   };
 
   // Sélection d'un choix puis passage automatique à l'étape suivante.
   const choose = <T,>(setter: (value: T) => void, value: T) => {
     setter(value);
-    window.setTimeout(() => setStep((current) => Math.min(current + 1, STEPS_COUNT)), AUTO_ADVANCE_DELAY_MS);
+    window.setTimeout(() => setStepIndex((current) => current + 1), AUTO_ADVANCE_DELAY_MS);
   };
 
   const goBack = () => {
-    if (step > 1 && !isSubmitting) goTo(step - 1);
+    if (safeIndex > 0 && !isSubmitting) goTo(safeIndex - 1);
   };
+  const goNext = () => goTo(safeIndex + 1);
 
   const postalCodeValid = POSTAL_CODE_REGEX.test(postalCode);
+  const ctaLabel = estimate ? CTA_LABEL[estimate.kind] : CTA_LABEL.amount;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (submitLock.current) return;
-    if (step !== STEP_CONTACT || !housing || !surface || !heating || !estimate) return;
+    if (stepId !== "contact" || !housing || !estimate) return;
 
     if (contact.firstName.trim().length < 2) {
       setFormError("Merci d'indiquer votre prénom.");
@@ -254,19 +367,29 @@ export function PacLeadForm() {
 
     const payload: Record<string, unknown> = {
       source: "pac-landing",
+      flow,
       firstName: contact.firstName.trim(),
       lastName: contact.lastName.trim(),
       name: `${contact.firstName.trim()} ${contact.lastName.trim()}`,
       email: contact.email.trim(),
       phone: normalizePhone(contact.phone),
       housing,
-      surface,
-      heating,
-      postalCode,
       consent: true,
       consentText: CONSENT_TEXT,
       attribution: readStoredAttribution(),
     };
+    if (flow === "copro") {
+      payload.role = role;
+      payload.buildingHeating = buildingHeating;
+      if (buildingHeating !== "individuel") {
+        payload.units = units;
+        payload.postalCode = postalCode;
+      }
+    } else {
+      payload.surface = surface;
+      payload.heating = heating;
+      payload.postalCode = postalCode;
+    }
     const turnstileToken = formData.get("cf-turnstile-response");
     if (turnstileToken) payload["cf-turnstile-response"] = turnstileToken;
 
@@ -310,7 +433,7 @@ export function PacLeadForm() {
           Merci {contact.firstName.trim()}, votre demande est bien enregistrée.
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-          Un conseiller vous appelle sous 24 h ouvrées au{" "}
+          Un conseiller vous appelle sous {CALLBACK_DELAY[estimate.kind]} au{" "}
           <span className="whitespace-nowrap font-semibold text-ink">{maskPhone(contact.phone)}</span>.
           {submitted.confirmationSent
             ? " Un récapitulatif vient de vous être envoyé par email."
@@ -319,7 +442,13 @@ export function PacLeadForm() {
         <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-ink-soft">
           {estimate.label}
         </p>
-        <p className="mt-1 font-display text-3xl font-light text-ink">{estimate.value}</p>
+        <p
+          className={`mt-1 font-display font-light text-ink ${
+            estimate.kind === "amount" ? "text-3xl" : "text-xl"
+          }`}
+        >
+          {estimate.value}
+        </p>
         {estimate.note ? (
           <p className="mt-2 text-sm font-medium text-emerald-700">{estimate.note}</p>
         ) : null}
@@ -333,7 +462,7 @@ export function PacLeadForm() {
     <div className="card-surface p-6 sm:p-8">
       <div className="mb-6 flex items-center justify-between">
         <span className="rounded-pill bg-sage px-3 py-1 text-xs font-semibold uppercase tracking-wide text-forest">
-          Étape {step} / {STEPS_COUNT}
+          Étape {safeIndex + 1} / {stepsCount}
         </span>
         <span className="text-xs font-semibold text-ink-soft">Simulation gratuite</span>
       </div>
@@ -348,8 +477,8 @@ export function PacLeadForm() {
 
       <form onSubmit={handleSubmit} noValidate>
         <AnimatePresence mode="wait">
-          {step === 1 && (
-            <motion.section key="step-1" {...stepMotion}>
+          {stepId === "housing" && (
+            <motion.section key="housing" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Vous habitez en...</h2>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {housingOptions.map((option) => (
@@ -366,29 +495,22 @@ export function PacLeadForm() {
             </motion.section>
           )}
 
-          {step === 2 && (
-            <motion.section key="step-2" {...stepMotion}>
+          {stepId === "surface" && (
+            <motion.section key="surface" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Surface de votre logement</h2>
               <p className="mt-2 text-sm text-ink-muted">
                 Pour dimensionner la pompe à chaleur adaptée.
               </p>
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                {surfaceOptions.map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    onClick={() => choose(setSurface, option.id)}
-                    className={choiceClass(surface === option.id)}
-                  >
-                    <p className="text-sm font-semibold text-ink">{option.label}</p>
-                  </button>
-                ))}
-              </div>
+              <TextChoices
+                options={surfaceOptions}
+                selected={surface}
+                onSelect={(id) => choose(setSurface, id)}
+              />
             </motion.section>
           )}
 
-          {step === 3 && (
-            <motion.section key="step-3" {...stepMotion}>
+          {stepId === "heating" && (
+            <motion.section key="heating" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Votre chauffage actuel</h2>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {heatingOptions.map((option) => (
@@ -406,8 +528,45 @@ export function PacLeadForm() {
             </motion.section>
           )}
 
-          {step === STEP_POSTAL && (
-            <motion.section key="step-postal" {...stepMotion}>
+          {stepId === "role" && (
+            <motion.section key="role" {...stepMotion}>
+              <h2 className="text-xl font-bold text-ink">Vous êtes</h2>
+              <p className="mt-2 text-sm text-ink-muted">
+                Votre rôle dans la copropriété.
+              </p>
+              <TextChoices options={roleOptions} selected={role} onSelect={(id) => choose(setRole, id)} />
+            </motion.section>
+          )}
+
+          {stepId === "buildingHeating" && (
+            <motion.section key="buildingHeating" {...stepMotion}>
+              <h2 className="text-xl font-bold text-ink">Chauffage de l&apos;immeuble</h2>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                {buildingHeatingOptions.map((option) => (
+                  <PhotoChoice
+                    key={option.id}
+                    label={option.label}
+                    image={option.image}
+                    alt={option.alt}
+                    selected={buildingHeating === option.id}
+                    onSelect={() => choose(setBuildingHeating, option.id)}
+                    ratioClass="aspect-square sm:aspect-[4/3]"
+                  />
+                ))}
+              </div>
+            </motion.section>
+          )}
+
+          {stepId === "units" && (
+            <motion.section key="units" {...stepMotion}>
+              <h2 className="text-xl font-bold text-ink">Nombre de logements</h2>
+              <p className="mt-2 text-sm text-ink-muted">Dans l&apos;immeuble ou la copropriété.</p>
+              <TextChoices options={unitsOptions} selected={units} onSelect={(id) => choose(setUnits, id)} />
+            </motion.section>
+          )}
+
+          {stepId === "postal" && (
+            <motion.section key="postal" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Votre code postal</h2>
               <p className="mt-2 text-sm text-ink-muted">
                 Pour vérifier l&apos;éligibilité de votre zone aux aides 2026.
@@ -418,7 +577,7 @@ export function PacLeadForm() {
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();
-                    if (postalCodeValid) goTo(STEP_RESULT);
+                    if (postalCodeValid) goNext();
                   }
                 }}
                 inputMode="numeric"
@@ -428,32 +587,55 @@ export function PacLeadForm() {
             </motion.section>
           )}
 
-          {step === STEP_RESULT && estimate && (
-            <motion.section key="step-result" {...stepMotion} className="text-center">
-              <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-pill bg-emerald-100 text-emerald-600">
-                <CheckCircle2 className="h-8 w-8" />
+          {stepId === "result" && estimate && (
+            <motion.section key="result" {...stepMotion} className="text-center">
+              <span
+                className={`mx-auto flex h-14 w-14 items-center justify-center rounded-pill ${
+                  estimate.kind === "individual"
+                    ? "bg-cream-soft text-ink-muted"
+                    : "bg-emerald-100 text-emerald-600"
+                }`}
+              >
+                {estimate.kind === "individual" ? (
+                  <Info className="h-8 w-8" />
+                ) : (
+                  <CheckCircle2 className="h-8 w-8" />
+                )}
               </span>
               <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-ink-soft">
                 {estimate.label}
               </p>
-              <p className="mt-2 font-display text-4xl font-light text-ink sm:text-5xl">
+              <p
+                className={`mt-2 font-display font-light text-ink ${
+                  estimate.kind === "amount" ? "text-4xl sm:text-5xl" : "text-2xl sm:text-3xl"
+                }`}
+              >
                 {estimate.value}
               </p>
               {estimate.note ? (
                 <p className="mt-2 text-sm font-medium text-emerald-700">{estimate.note}</p>
               ) : null}
-              <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-                Recevez votre étude détaillée : un conseiller Pioud Energy confirme ce
-                chiffrage sur devis après visite technique.
-              </p>
+              {estimate.kind === "amount" ? (
+                <p className="mt-4 text-sm leading-relaxed text-ink-muted">
+                  Recevez votre étude détaillée : un conseiller Pioud Energy confirme ce
+                  chiffrage sur devis après visite technique.
+                </p>
+              ) : estimate.kind === "collective" ? (
+                <p className="mt-4 text-sm leading-relaxed text-ink-muted">
+                  Sous conditions d&apos;éligibilité. Un conseiller Pioud Energy cadre
+                  l&apos;étude avec vous après visite technique de la chaufferie.
+                </p>
+              ) : null}
             </motion.section>
           )}
 
-          {step === STEP_CONTACT && (
-            <motion.section key="step-contact" {...stepMotion}>
+          {stepId === "contact" && (
+            <motion.section key="contact" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Vos coordonnées</h2>
               <p className="mt-2 text-sm text-ink-muted">
-                Pour vous transmettre votre étude détaillée.
+                {flow === "copro"
+                  ? "Pour organiser votre étude."
+                  : "Pour vous transmettre votre étude détaillée."}
               </p>
               <div className="mt-5 space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -535,14 +717,14 @@ export function PacLeadForm() {
           </p>
         ) : null}
 
-        {step === STEP_POSTAL && (
+        {stepId === "postal" && (
           <div className="mt-7 flex items-center justify-between gap-3">
             <button type="button" onClick={goBack} className={backButtonClass}>
               ← Retour
             </button>
             <button
               type="button"
-              onClick={() => goTo(STEP_RESULT)}
+              onClick={goNext}
               disabled={!postalCodeValid}
               className="btn-primary disabled:cursor-not-allowed disabled:opacity-40"
             >
@@ -552,7 +734,11 @@ export function PacLeadForm() {
           </div>
         )}
 
-        {(step === 2 || step === 3) && (
+        {(stepId === "surface" ||
+          stepId === "heating" ||
+          stepId === "role" ||
+          stepId === "buildingHeating" ||
+          stepId === "units") && (
           <div className="mt-7">
             <button type="button" onClick={goBack} className={backButtonClass}>
               ← Retour
@@ -560,14 +746,10 @@ export function PacLeadForm() {
           </div>
         )}
 
-        {step === STEP_RESULT && (
+        {stepId === "result" && (
           <div className="mt-7 space-y-3">
-            <button
-              type="button"
-              onClick={() => goTo(STEP_CONTACT)}
-              className="btn-primary w-full justify-center"
-            >
-              Recevoir mon étude détaillée
+            <button type="button" onClick={goNext} className="btn-primary w-full justify-center">
+              {ctaLabel}
               <ArrowRight className="h-4 w-4" />
             </button>
             <button
@@ -580,7 +762,7 @@ export function PacLeadForm() {
           </div>
         )}
 
-        {step === STEP_CONTACT && (
+        {stepId === "contact" && (
           <div className="mt-7 space-y-3">
             <button
               type="submit"
@@ -588,7 +770,7 @@ export function PacLeadForm() {
               aria-busy={isSubmitting}
               className="btn-primary w-full justify-center disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {isSubmitting ? "Envoi en cours..." : "Recevoir mon étude détaillée"}
+              {isSubmitting ? "Envoi en cours..." : ctaLabel}
               <ArrowRight className="h-4 w-4" />
             </button>
             <button

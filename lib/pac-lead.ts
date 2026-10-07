@@ -1,15 +1,22 @@
 // Traitement serveur des leads de la landing /pac (appelé par /api/contact
 // quand source === "pac-landing") : validation, rate-limit, e-mail interne
 // avec preuve de consentement, ligne Google Sheet via webhook, e-mail de
-// confirmation au visiteur.
+// confirmation au visiteur. Deux parcours : maison (PAC individuelle,
+// BAR-TH-171) et copro (PAC collective, BAR-TH-179).
 import type { Resend } from "resend";
 import { CONSENT_TEXT } from "@/lib/pac-constants";
 import {
   ATTRIBUTION_PARAMS,
   type Attribution,
+  BUILDING_HEATING_IDS,
+  BUILDING_HEATING_LABEL,
+  type BuildingHeating,
+  buildCollectiveEstimate,
   buildEstimate,
   EMAIL_REGEX,
   type Estimate,
+  type Flow,
+  flowFor,
   HEATING_IDS,
   HEATING_LABEL,
   type Heating,
@@ -19,21 +26,34 @@ import {
   normalizePhone,
   PHONE_REGEX,
   POSTAL_CODE_REGEX,
+  ROLE_IDS,
+  ROLE_LABEL,
+  type Role,
   SURFACE_IDS,
   SURFACE_LABEL,
   type Surface,
+  UNITS_IDS,
+  UNITS_LABEL,
+  type Units,
 } from "@/lib/pac-estimate";
 import { siteConfig } from "@/lib/site-data";
 
 export type PacLead = {
+  flow: Flow;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   housing: Housing;
-  surface: Surface;
-  heating: Heating;
-  postalCode: string;
+  // Parcours maison
+  surface?: Surface;
+  heating?: Heating;
+  // Parcours copro
+  role?: Role;
+  buildingHeating?: BuildingHeating;
+  units?: Units;
+  // Non demandé quand le chauffage de l'immeuble est individuel.
+  postalCode?: string;
   attribution: Attribution;
   estimate: Estimate;
 };
@@ -42,6 +62,7 @@ export type ClientMeta = { ip: string; userAgent: string; receivedAt: Date };
 
 const MAX_FIELD_LENGTH = 500;
 const INCOME_BAND_NOTE = "Non demandée (à qualifier lors du rappel)";
+const NOT_PROVIDED = "—";
 
 function str(value: unknown): string {
   return typeof value === "string" ? value.trim().slice(0, MAX_FIELD_LENGTH) : "";
@@ -63,17 +84,12 @@ export function parsePacLead(
   const phone = normalizePhone(str(payload.phone));
   const postalCode = str(payload.postalCode);
   const housing = oneOf(payload.housing, HOUSING_IDS);
-  const surface = oneOf(payload.surface, SURFACE_IDS);
-  const heating = oneOf(payload.heating, HEATING_IDS);
 
   if (firstName.length < 2) return { error: "Merci d'indiquer votre prénom." };
   if (lastName.length < 2) return { error: "Merci d'indiquer votre nom." };
   if (!EMAIL_REGEX.test(email)) return { error: "Adresse email invalide." };
   if (!PHONE_REGEX.test(phone)) return { error: "Numéro de téléphone invalide." };
-  if (!POSTAL_CODE_REGEX.test(postalCode)) return { error: "Code postal invalide." };
   if (!housing) return { error: "Type de logement invalide." };
-  if (!surface) return { error: "Surface invalide." };
-  if (!heating) return { error: "Chauffage actuel invalide." };
   if (payload.consent !== true) {
     return { error: "Votre consentement est nécessaire pour traiter la demande." };
   }
@@ -92,19 +108,51 @@ export function parsePacLead(
   if (landingUrl) attribution.landingUrl = landingUrl;
   if (referrer) attribution.referrer = referrer;
 
+  const base = { firstName, lastName, email, phone, housing, attribution };
+  const flow = flowFor(housing);
+
+  if (flow === "maison") {
+    const surface = oneOf(payload.surface, SURFACE_IDS);
+    const heating = oneOf(payload.heating, HEATING_IDS);
+    if (!surface) return { error: "Surface invalide." };
+    if (!heating) return { error: "Chauffage actuel invalide." };
+    if (!POSTAL_CODE_REGEX.test(postalCode)) return { error: "Code postal invalide." };
+    return {
+      lead: {
+        ...base,
+        flow,
+        surface,
+        heating,
+        postalCode,
+        // Recalculée côté serveur : la valeur envoyée par le client n'est pas utilisée.
+        estimate: buildEstimate(heating),
+      },
+    };
+  }
+
+  const role = oneOf(payload.role, ROLE_IDS);
+  const buildingHeating = oneOf(payload.buildingHeating, BUILDING_HEATING_IDS);
+  if (!role) return { error: "Merci d'indiquer votre rôle dans la copropriété." };
+  if (!buildingHeating) return { error: "Chauffage de l'immeuble invalide." };
+
+  if (buildingHeating === "individuel") {
+    return {
+      lead: { ...base, flow, role, buildingHeating, estimate: buildCollectiveEstimate(buildingHeating) },
+    };
+  }
+
+  const units = oneOf(payload.units, UNITS_IDS);
+  if (!units) return { error: "Nombre de logements invalide." };
+  if (!POSTAL_CODE_REGEX.test(postalCode)) return { error: "Code postal invalide." };
   return {
     lead: {
-      firstName,
-      lastName,
-      email,
-      phone,
-      housing,
-      surface,
-      heating,
+      ...base,
+      flow,
+      role,
+      buildingHeating,
+      units,
       postalCode,
-      attribution,
-      // Recalculée côté serveur : la valeur envoyée par le client n'est pas utilisée.
-      estimate: buildEstimate(heating),
+      estimate: buildCollectiveEstimate(buildingHeating),
     },
   };
 }
@@ -178,35 +226,62 @@ function rowsText(rows: Row[]) {
   return rows.map(([label, value]) => `${label} : ${value}`).join("\n");
 }
 
+const estimateText = (estimate: Estimate) =>
+  estimate.note ? `${estimate.value} (${estimate.note})` : estimate.value;
+
+// Réponses du formulaire (hors résultat affiché).
 function answerRows(lead: PacLead): Row[] {
+  if (lead.flow === "copro") {
+    return [
+      ["Logement", "Appartement (copropriété)"],
+      ["Vous êtes", lead.role ? ROLE_LABEL[lead.role] : NOT_PROVIDED],
+      [
+        "Chauffage de l'immeuble",
+        lead.buildingHeating ? BUILDING_HEATING_LABEL[lead.buildingHeating] : NOT_PROVIDED,
+      ],
+      ["Nombre de logements", lead.units ? UNITS_LABEL[lead.units] : NOT_PROVIDED],
+      ["Code postal", lead.postalCode ?? NOT_PROVIDED],
+    ];
+  }
   return [
     ["Logement", HOUSING_LABEL[lead.housing]],
-    ["Chauffage actuel", HEATING_LABEL[lead.heating]],
-    ["Surface", SURFACE_LABEL[lead.surface]],
-    ["Code postal", lead.postalCode],
+    ["Chauffage actuel", lead.heating ? HEATING_LABEL[lead.heating] : NOT_PROVIDED],
+    ["Surface", lead.surface ? SURFACE_LABEL[lead.surface] : NOT_PROVIDED],
+    ["Code postal", lead.postalCode ?? NOT_PROVIDED],
     ["Tranche de revenus", INCOME_BAND_NOTE],
-    [lead.estimate.label, lead.estimate.note ? `${lead.estimate.value} (${lead.estimate.note})` : lead.estimate.value],
   ];
 }
 
 function sourceRows(attribution: Attribution): Row[] {
   const rows: Row[] = [];
   for (const key of ATTRIBUTION_PARAMS) {
-    rows.push([key, attribution[key] ?? "—"]);
+    rows.push([key, attribution[key] ?? NOT_PROVIDED]);
   }
-  rows.push(["Page d'entrée", attribution.landingUrl ?? "—"]);
-  rows.push(["Référent", attribution.referrer ?? "—"]);
+  rows.push(["Page d'entrée", attribution.landingUrl ?? NOT_PROVIDED]);
+  rows.push(["Référent", attribution.referrer ?? NOT_PROVIDED]);
   return rows;
+}
+
+function internalSubject(lead: PacLead) {
+  if (lead.flow === "copro") {
+    const role = lead.role ? ROLE_LABEL[lead.role] : NOT_PROVIDED;
+    const units = lead.units ? `${UNITS_LABEL[lead.units]} logements` : "chauffage individuel";
+    return `Nouveau lead PAC COLLECTIVE — ${role} — ${units} — ${lead.postalCode ?? "CP non renseigné"}`;
+  }
+  const kind = lead.estimate.label === "Votre prime estimée" ? "prime estimée" : "reste à charge";
+  return `Nouveau lead PAC — ${lead.firstName} — ${lead.postalCode ?? NOT_PROVIDED} — ${kind} ${lead.estimate.value}`;
 }
 
 // ── E-mail interne ──────────────────────────────────────────────────────
 export function buildInternalEmail(lead: PacLead, meta: ClientMeta) {
   const { day, time } = formatParis(meta.receivedAt);
-  const subject = `Nouveau lead PAC — ${lead.firstName} — ${lead.postalCode} — ${
-    lead.estimate.label === "Votre prime estimée" ? "prime estimée" : "reste à charge"
-  } ${lead.estimate.value}`;
+  const subject = internalSubject(lead);
+  const title =
+    lead.flow === "copro"
+      ? "Nouveau lead PAC COLLECTIVE (landing /pac)"
+      : "Nouveau lead PAC (landing /pac)";
 
-  const answers = answerRows(lead);
+  const answers: Row[] = [...answerRows(lead), ["Résultat affiché", estimateText(lead.estimate)]];
   const contact: Row[] = [
     ["Prénom", lead.firstName],
     ["Nom", lead.lastName],
@@ -222,10 +297,10 @@ export function buildInternalEmail(lead: PacLead, meta: ClientMeta) {
     ["Case cochée", CONSENT_TEXT],
   ];
 
-  const h = (title: string) =>
-    `<h3 style="margin:24px 0 8px;font-size:15px;color:#1F3A2E">${escapeHtml(title)}</h3>`;
+  const h = (heading: string) =>
+    `<h3 style="margin:24px 0 8px;font-size:15px;color:#1F3A2E">${escapeHtml(heading)}</h3>`;
   const html = `<div style="font-family:Inter,Arial,sans-serif;color:#1F3A2E">
-    <h2 style="margin:0 0 4px;font-size:20px">Nouveau lead PAC (landing /pac)</h2>
+    <h2 style="margin:0 0 4px;font-size:20px">${escapeHtml(title)}</h2>
     <p style="margin:0;color:#6b7280;font-size:13px">Reçu le ${escapeHtml(day)} à ${escapeHtml(time)}</p>
     ${h("Réponses du formulaire")}${rowsHtml(answers)}
     ${h("Contact")}${rowsHtml(contact)}
@@ -234,7 +309,7 @@ export function buildInternalEmail(lead: PacLead, meta: ClientMeta) {
   </div>`;
 
   const text = [
-    "Nouveau lead PAC (landing /pac)",
+    title,
     `Reçu le ${day} à ${time}`,
     "",
     "RÉPONSES DU FORMULAIRE",
@@ -254,18 +329,48 @@ export function buildInternalEmail(lead: PacLead, meta: ClientMeta) {
 }
 
 // ── E-mail de confirmation au visiteur ──────────────────────────────────
+const CONFIRMATION = {
+  maison: {
+    subject: "Votre estimation pompe à chaleur — Pioud Energy",
+    intro:
+      "Merci pour votre demande d'estimation pour une pompe à chaleur air/eau. Voici le récapitulatif de vos réponses.",
+    steps: [
+      "Un conseiller Pioud Energy vous appelle sous 24 h ouvrées pour confirmer votre éligibilité.",
+      "Visite technique à domicile pour dimensionner la pompe à chaleur adaptée.",
+      "Devis détaillé, aides CEE et MaPrimeRénov' déjà déduites.",
+    ],
+  },
+  collective: {
+    subject: "Votre étude pompe à chaleur collective — Pioud Energy",
+    intro:
+      "Merci pour votre demande d'étude pour une pompe à chaleur collective. Voici le récapitulatif de vos réponses.",
+    steps: [
+      "Un conseiller Pioud Energy vous appelle sous 48 h ouvrées pour cadrer l'étude gratuite.",
+      "Visite technique de la chaufferie et de l'immeuble.",
+      "Étude et chiffrage, prime CEE BAR-TH-179 (Coup de pouce chauffage collectif) déduite.",
+    ],
+  },
+  individual: {
+    subject: "Votre demande pompe à chaleur — Pioud Energy",
+    intro:
+      "Merci pour votre demande. Le chauffage de votre immeuble étant individuel, la pompe à chaleur collective ne s'applique pas : nous étudions une solution individuelle avec vous.",
+    steps: [
+      "Un conseiller Pioud Energy vous appelle sous 24 h ouvrées pour étudier votre situation.",
+      "Visite technique de votre logement si une solution individuelle est envisageable.",
+      "Devis détaillé, aides éventuelles déjà déduites.",
+    ],
+  },
+} as const;
+
 export function buildConfirmationEmail(lead: PacLead, meta: ClientMeta) {
   const { day, time } = formatParis(meta.receivedAt);
-  const subject = "Votre estimation pompe à chaleur — Pioud Energy";
-  // L'estimation est affichée dans le bloc mis en avant, pas dans le tableau.
-  const recap = answerRows(lead).filter(
-    ([label]) => label !== "Tranche de revenus" && label !== lead.estimate.label,
-  );
-  const steps = [
-    "Un conseiller Pioud Energy vous appelle sous 24 h ouvrées pour confirmer votre éligibilité.",
-    "Visite technique à domicile pour dimensionner la pompe à chaleur adaptée.",
-    "Devis détaillé, aides CEE et MaPrimeRénov' déjà déduites.",
-  ];
+  const variant =
+    lead.estimate.kind === "amount"
+      ? CONFIRMATION.maison
+      : lead.estimate.kind === "collective"
+        ? CONFIRMATION.collective
+        : CONFIRMATION.individual;
+  const recap = answerRows(lead).filter(([label]) => label !== "Tranche de revenus");
   const legal = [
     "Les montants indiqués sont des estimations indicatives calculées à partir de vos déclarations. Ils ne constituent pas un engagement contractuel et seront confirmés après visite technique et vérification de votre éligibilité par les organismes compétents (Anah, obligés CEE).",
     `Pioud Energy SAS (SIREN 927 628 446, ${siteConfig.address}) intervient en qualité de mandataire CEE et d'installateur certifié RGE QualiPAC. Les aides MaPrimeRénov' et CEE sont versées par les organismes compétents, sous conditions de ressources et d'éligibilité.`,
@@ -277,15 +382,15 @@ export function buildConfirmationEmail(lead: PacLead, meta: ClientMeta) {
 
   const html = `<div style="font-family:Inter,Arial,sans-serif;color:#1F3A2E;max-width:600px">
     <h2 style="margin:0 0 16px;font-size:20px">Bonjour ${escapeHtml(lead.firstName)},</h2>
-    <p style="margin:0 0 16px;font-size:15px;line-height:1.5">Merci pour votre demande d'estimation pour une pompe à chaleur air/eau. Voici le récapitulatif de vos réponses.</p>
+    <p style="margin:0 0 16px;font-size:15px;line-height:1.5">${escapeHtml(variant.intro)}</p>
     ${rowsHtml(recap)}
     <div style="margin:20px 0;padding:16px 20px;border-radius:12px;background:#E6F4EE">
       <p style="margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#4b5563">${escapeHtml(lead.estimate.label)}</p>
-      <p style="margin:4px 0 0;font-size:24px;font-weight:600;color:#1F3A2E">${escapeHtml(lead.estimate.value)}</p>
+      <p style="margin:4px 0 0;font-size:${lead.estimate.kind === "amount" ? 24 : 18}px;font-weight:600;color:#1F3A2E">${escapeHtml(lead.estimate.value)}</p>
       ${lead.estimate.note ? `<p style="margin:4px 0 0;font-size:13px;color:#047857">${escapeHtml(lead.estimate.note)}</p>` : ""}
     </div>
     <h3 style="margin:24px 0 8px;font-size:15px">Les prochaines étapes</h3>
-    <ol style="margin:0;padding-left:20px;font-size:14px;line-height:1.6">${steps
+    <ol style="margin:0;padding-left:20px;font-size:14px;line-height:1.6">${variant.steps
       .map((step) => `<li>${escapeHtml(step)}</li>`)
       .join("")}</ol>
     <h3 style="margin:28px 0 8px;font-size:13px;color:#6b7280">Informations importantes</h3>
@@ -301,14 +406,14 @@ export function buildConfirmationEmail(lead: PacLead, meta: ClientMeta) {
   const text = [
     `Bonjour ${lead.firstName},`,
     "",
-    "Merci pour votre demande d'estimation pour une pompe à chaleur air/eau. Voici le récapitulatif de vos réponses.",
+    variant.intro,
     "",
     rowsText(recap),
     "",
-    `${lead.estimate.label} : ${lead.estimate.value}${lead.estimate.note ? ` (${lead.estimate.note})` : ""}`,
+    `${lead.estimate.label} : ${estimateText(lead.estimate)}`,
     "",
     "LES PROCHAINES ÉTAPES",
-    ...steps.map((step, index) => `${index + 1}. ${step}`),
+    ...variant.steps.map((step, index) => `${index + 1}. ${step}`),
     "",
     "INFORMATIONS IMPORTANTES",
     ...legal.map((line) => `— ${line}`),
@@ -316,27 +421,31 @@ export function buildConfirmationEmail(lead: PacLead, meta: ClientMeta) {
     `Pioud Energy · ${siteConfig.address} · ${siteConfig.email}`,
   ].join("\n");
 
-  return { subject, html, text };
+  return { subject: variant.subject, html, text };
 }
 
 // ── Webhook Google Sheet (Make / Zapier / Apps Script) ──────────────────
 const WEBHOOK_TIMEOUT_MS = 5000;
 
-export function buildWebhookRow(lead: PacLead, meta: ClientMeta) {
+export function buildWebhookRow(lead: PacLead, meta: ClientMeta): Record<string, string> {
   const { day, time } = formatParis(meta.receivedAt);
   return {
     receivedAt: meta.receivedAt.toISOString(),
     date: day,
     heure: time,
+    parcours: lead.flow === "copro" ? "PAC collective" : "PAC individuelle",
     prenom: lead.firstName,
     nom: lead.lastName,
     telephone: lead.phone,
     email: lead.email,
     logement: HOUSING_LABEL[lead.housing],
-    chauffage_actuel: HEATING_LABEL[lead.heating],
-    surface: SURFACE_LABEL[lead.surface],
-    code_postal: lead.postalCode,
-    tranche_revenus: INCOME_BAND_NOTE,
+    chauffage_actuel: lead.heating ? HEATING_LABEL[lead.heating] : "",
+    surface: lead.surface ? SURFACE_LABEL[lead.surface] : "",
+    role: lead.role ? ROLE_LABEL[lead.role] : "",
+    chauffage_immeuble: lead.buildingHeating ? BUILDING_HEATING_LABEL[lead.buildingHeating] : "",
+    nb_logements: lead.units ? UNITS_LABEL[lead.units] : "",
+    code_postal: lead.postalCode ?? "",
+    tranche_revenus: lead.flow === "maison" ? INCOME_BAND_NOTE : "",
     estimation_libelle: lead.estimate.label,
     estimation_valeur: lead.estimate.value,
     estimation_note: lead.estimate.note ?? "",
