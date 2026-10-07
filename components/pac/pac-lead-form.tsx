@@ -132,6 +132,12 @@ const buildingHeatingOptions: { id: BuildingHeating; label: string; image: strin
     image: "/images/pac/copro/individuel.jpg",
     alt: "Radiateur individuel",
   },
+  {
+    id: "autre",
+    label: BUILDING_HEATING_LABEL.autre,
+    image: "/images/pac/copro/autre.jpg",
+    alt: "Autre mode de chauffage",
+  },
 ];
 
 const unitsOptions = (Object.keys(UNITS_LABEL) as Units[]).map((id) => ({ id, label: UNITS_LABEL[id] }));

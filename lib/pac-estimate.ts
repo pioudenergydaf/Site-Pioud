@@ -38,6 +38,7 @@ export const BUILDING_HEATING_LABEL = {
   fioul_collectif: "Fioul collectif",
   reseau_chaleur: "Réseau de chaleur",
   individuel: "Individuel",
+  autre: "Autre",
 } as const;
 
 export const UNITS_LABEL = {
@@ -105,6 +106,15 @@ export function buildCollectiveEstimate(buildingHeating: BuildingHeating): Estim
       label: "Chauffage individuel",
       value: "La PAC collective ne s'applique pas à votre immeuble",
       note: "Laissez vos coordonnées et nous étudions une solution individuelle.",
+    };
+  }
+  if (buildingHeating === "autre") {
+    // Chauffage non identifié : pas d'affirmation d'éligibilité.
+    return {
+      kind: "collective",
+      label: "Prime CEE BAR-TH-179",
+      value: "Votre copropriété peut bénéficier de la prime CEE BAR-TH-179",
+      note: "Coup de pouce chauffage collectif · étude gratuite sous 48 h",
     };
   }
   return {
