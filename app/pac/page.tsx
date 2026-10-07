@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Award,
   BadgeCheck,
   CalendarCheck,
   ClipboardCheck,
@@ -10,6 +9,7 @@ import {
   Flame,
   ShieldCheck,
   Wrench,
+  type LucideIcon,
 } from "lucide-react";
 import { PacFaq } from "@/components/pac/pac-faq";
 import { HeroCheck, PacIcon } from "@/components/pac/pac-icon";
@@ -62,11 +62,23 @@ const QUALIPAC_LOGO = {
   height: 590,
 };
 
-const trustBadges = [
+// Logo de l'assureur décennale (fichier PNG fourni ; remplacer par april.svg
+// si une version vectorielle est déposée dans public/logos/).
+const APRIL_LOGO = { src: "/logos/april.png", alt: "APRIL", width: 1568, height: 671 };
+
+type TrustBadge = {
+  label: string;
+  sublabel: string;
+  icon?: LucideIcon;
+  logo?: { src: string; alt: string; width: number; height: number };
+};
+
+const trustBadges: TrustBadge[] = [
   { label: "Mandataire CEE", sublabel: "Mandataire auprès des obligés", icon: ShieldCheck },
   { label: "MaPrimeRénov'", sublabel: "Aide de l'État", icon: FileCheck2 },
   { label: "Coup de pouce x5", sublabel: "Prime bonifiée", icon: Flame },
-  { label: "Garantie décennale", sublabel: "Assurance travaux", icon: Award },
+  // PLACEHOLDER — numéro de contrat à compléter.
+  { label: "Garantie décennale", sublabel: "Assuré par APRIL · n° [à compléter]", logo: APRIL_LOGO },
 ];
 
 const trustTileClass =
@@ -241,7 +253,19 @@ export default function PacLandingPage() {
           </div>
           {trustBadges.map((badge) => (
             <div key={badge.label} className={trustTileClass}>
-              <PacIcon icon={badge.icon} />
+              {badge.logo ? (
+                <span className="flex h-14 items-center justify-center">
+                  <Image
+                    src={badge.logo.src}
+                    alt={badge.logo.alt}
+                    width={badge.logo.width}
+                    height={badge.logo.height}
+                    className="h-8 w-auto"
+                  />
+                </span>
+              ) : badge.icon ? (
+                <PacIcon icon={badge.icon} />
+              ) : null}
               <span>
                 <span className="block text-sm font-semibold text-ink">{badge.label}</span>
                 <span className="mt-0.5 block text-xs text-ink-soft">{badge.sublabel}</span>
