@@ -155,8 +155,8 @@ export default function PacLandingPage() {
             PIOUD ENERGY
           </span>
 
-          <a href="#pac-form" className="btn-primary px-4 py-2.5 text-sm sm:px-6 sm:py-3">
-            Vérifier mon éligibilité
+          <a href="#pac-form" className="btn-primary btn-wipe px-4 py-2.5 text-sm sm:px-6 sm:py-3">
+            <span>Vérifier mon éligibilité</span>
           </a>
         </div>
       </header>
@@ -290,8 +290,8 @@ export default function PacLandingPage() {
                     ) : null}
                     <p className="mt-3 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
                   </div>
-                  <a href="#pac-form" className="btn-secondary mt-6 w-full justify-center">
-                    Vérifier mon éligibilité
+                  <a href="#pac-form" className="btn-secondary btn-wipe mt-6 w-full justify-center">
+                    <span>Vérifier mon éligibilité</span>
                   </a>
                 </article>
               </Reveal>
@@ -440,10 +440,10 @@ export default function PacLandingPage() {
             </p>
             <a
               href="#pac-form"
-              className="inline-flex items-center gap-2 rounded-pill bg-emerald-500 px-7 py-3 font-medium text-white shadow-lg shadow-emerald-500/30 transition hover:bg-emerald-600"
+              className="btn-wipe inline-flex items-center gap-2 rounded-pill bg-emerald-500 px-7 py-3 font-medium text-white shadow-lg shadow-emerald-500/30"
             >
               <CalendarCheck className="h-4 w-4" />
-              Vérifier mon éligibilité en 1 minute
+              <span>Vérifier mon éligibilité en 1 minute</span>
             </a>
           </div>
         </Reveal>
