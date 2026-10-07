@@ -1,7 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Building, CheckCircle2, Flame, Home, Zap } from "lucide-react";
+import { ArrowRight, Check, CheckCircle2, Flame, Home, Zap } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { type ComponentType, type FormEvent, useMemo, useState } from "react";
 import { TurnstileWidget } from "@/components/contact/turnstile-widget";
@@ -37,9 +38,15 @@ const AUTO_ADVANCE_DELAY_MS = 180;
 
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
-const housingOptions: { id: Housing; label: string; icon: ComponentType<{ className?: string }> }[] = [
-  { id: "maison", label: "Maison", icon: Home },
-  { id: "appartement", label: "Appartement", icon: Building },
+// Cartes photo (public/images/pac/) : image en fond, dégradé forest en bas.
+const housingOptions: { id: Housing; label: string; image: string; alt: string }[] = [
+  { id: "maison", label: "Maison", image: "/images/pac/maison.jpg", alt: "Maison individuelle" },
+  {
+    id: "appartement",
+    label: "Appartement",
+    image: "/images/pac/appartement.jpg",
+    alt: "Immeuble d'appartements",
+  },
 ];
 
 const surfaceOptions: { id: Surface; label: string }[] = [
@@ -278,19 +285,37 @@ export function PacLeadForm() {
             <motion.section key="step-1" {...stepMotion}>
               <h2 className="text-xl font-bold text-ink">Vous habitez en...</h2>
               <div className="mt-5 grid grid-cols-2 gap-3">
-                {housingOptions.map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    onClick={() => choose(setHousing, option.id)}
-                    className={choiceClass(housing === option.id)}
-                  >
-                    <span className="inline-flex rounded-lg bg-white p-2 text-forest-soft">
-                      <option.icon className="h-5 w-5" />
-                    </span>
-                    <p className="mt-3 text-sm font-semibold text-ink">{option.label}</p>
-                  </button>
-                ))}
+                {housingOptions.map((option) => {
+                  const selected = housing === option.id;
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => choose(setHousing, option.id)}
+                      aria-pressed={selected}
+                      className={`group relative aspect-[4/3] overflow-hidden rounded-2xl border-2 text-left transition-colors duration-[400ms] focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 ${
+                        selected ? "border-emerald-400" : "border-transparent hover:border-emerald-400"
+                      }`}
+                    >
+                      <Image
+                        src={option.image}
+                        alt={option.alt}
+                        fill
+                        sizes="(max-width: 640px) 50vw, 280px"
+                        className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-105"
+                      />
+                      <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest/70 via-forest/20 to-transparent" />
+                      <span className="absolute bottom-3 left-4 text-lg font-semibold text-white">
+                        {option.label}
+                      </span>
+                      {selected ? (
+                        <span className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-pill bg-emerald-400 text-white shadow-md">
+                          <Check strokeWidth={2.5} aria-hidden className="h-4 w-4" />
+                        </span>
+                      ) : null}
+                    </button>
+                  );
+                })}
               </div>
             </motion.section>
           )}
