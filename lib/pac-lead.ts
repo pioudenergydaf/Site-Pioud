@@ -543,14 +543,15 @@ export async function processPacLead(options: {
   sender: string;
   // Boîte de réception interne : CONTACT_RECIPIENT_EMAIL (même que le
   // formulaire générique), repli sur l'adresse publique du site.
-  recipient?: string;
+  recipient?: string | string[];
   antiSpamWarning?: string;
 }): Promise<
   | { ok: true; confirmationSent: boolean; webhookSent: boolean | null }
   | { ok: false; message: string; code: string }
 > {
   const { lead, meta, resend, sender, antiSpamWarning } = options;
-  const recipient = options.recipient || siteConfig.email;
+  const recipient =
+    options.recipient && options.recipient.length > 0 ? options.recipient : siteConfig.email;
 
   // Seul l'e-mail interne est bloquant : c'est lui qui matérialise le lead.
   // Le message d'erreur Resend complet est journalisé par sendMail (serveur

@@ -66,9 +66,22 @@ export function resolveSender(configured: string | undefined): { from: string; w
   return { from: parsed.name ? `${parsed.name} <${parsed.address}>` : parsed.address };
 }
 
+// « a@x.fr, b@y.fr » → liste d'adresses valides, dédoublonnées.
+export function parseRecipients(value: string | undefined): string[] {
+  return Array.from(
+    new Set(
+      (value ?? "")
+        .split(/[,;]/)
+        .map((s) => s.trim().toLowerCase())
+        .filter((s) => EMAIL_REGEX.test(s)),
+    ),
+  );
+}
+
 export type MailParams = {
   from: string;
-  to: string;
+  // Une adresse ou plusieurs (même e-mail envoyé à chacune).
+  to: string | string[];
   subject: string;
   html: string;
   text: string;
@@ -95,10 +108,11 @@ export async function sendMail(
   params: MailParams,
   context: string,
 ): Promise<MailResult> {
-  const to = params.to.trim();
+  const toList = (Array.isArray(params.to) ? params.to : [params.to]).map((s) => s.trim());
+  const to = toList.length === 1 ? toList[0] : toList;
   const subject = params.subject.trim();
-  if (!EMAIL_REGEX.test(to)) {
-    console.error(`[mailer:${context}] destinataire invalide:`, JSON.stringify(to));
+  if (toList.length === 0 || toList.some((address) => !EMAIL_REGEX.test(address))) {
+    console.error(`[mailer:${context}] destinataire invalide:`, JSON.stringify(toList));
     return { ok: false, name: "invalid_recipient", message: "Destinataire invalide." };
   }
   if (!subject || !params.html.trim() || !params.text.trim()) {

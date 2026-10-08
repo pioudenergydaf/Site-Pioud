@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { EMAIL_REGEX as MAIL_REGEX, resolveSender, sendMail } from "@/lib/mailer";
+import { parseRecipients, resolveSender, sendMail } from "@/lib/mailer";
 import { getClientMeta, isRateLimited, parsePacLead, processPacLead } from "@/lib/pac-lead";
 
 // Limites strictes du formulaire de contact générique.
@@ -154,13 +154,14 @@ async function checkTurnstile(payload: ContactPayload): Promise<TurnstileResult>
   return { ok: true };
 }
 
-function getMailConfig(): { resend: Resend; sender: string; recipient: string } | NextResponse {
+function getMailConfig(): { resend: Resend; sender: string; recipient: string[] } | NextResponse {
   const apiKey = process.env.RESEND_API_KEY;
-  const recipient = process.env.CONTACT_RECIPIENT_EMAIL?.trim();
+  // Une ou plusieurs adresses séparées par des virgules : chacune reçoit le message.
+  const recipient = parseRecipients(process.env.CONTACT_RECIPIENT_EMAIL);
 
   const missingEnv: string[] = [];
   if (!apiKey) missingEnv.push("RESEND_API_KEY");
-  if (!recipient || !MAIL_REGEX.test(recipient)) missingEnv.push("CONTACT_RECIPIENT_EMAIL (absent ou invalide)");
+  if (recipient.length === 0) missingEnv.push("CONTACT_RECIPIENT_EMAIL (absent ou invalide)");
 
   if (missingEnv.length > 0) {
     // Détail dans les journaux serveur uniquement, jamais renvoyé au client.
@@ -170,7 +171,7 @@ function getMailConfig(): { resend: Resend; sender: string; recipient: string } 
   // Expéditeur : domaine vérifié requis, repli sur onboarding@resend.dev sinon.
   const sender = resolveSender(process.env.CONTACT_SENDER_EMAIL);
   if (sender.warning) console.warn("[api/contact]", sender.warning);
-  return { resend: new Resend(apiKey), sender: sender.from, recipient: recipient! };
+  return { resend: new Resend(apiKey), sender: sender.from, recipient };
 }
 
 // ── Leads de la landing /pac ────────────────────────────────────────────
