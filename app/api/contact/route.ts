@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { EMAIL_REGEX as MAIL_REGEX, resolveSender, sendMail } from "@/lib/mailer";
 import { getClientMeta, isRateLimited, parsePacLead, processPacLead } from "@/lib/pac-lead";
 
 // Limites strictes du formulaire de contact générique.
@@ -155,20 +156,21 @@ async function checkTurnstile(payload: ContactPayload): Promise<TurnstileResult>
 
 function getMailConfig(): { resend: Resend; sender: string; recipient: string } | NextResponse {
   const apiKey = process.env.RESEND_API_KEY;
-  const recipient = process.env.CONTACT_RECIPIENT_EMAIL;
-  const sender = process.env.CONTACT_SENDER_EMAIL;
+  const recipient = process.env.CONTACT_RECIPIENT_EMAIL?.trim();
 
   const missingEnv: string[] = [];
   if (!apiKey) missingEnv.push("RESEND_API_KEY");
-  if (!recipient) missingEnv.push("CONTACT_RECIPIENT_EMAIL");
-  if (!sender) missingEnv.push("CONTACT_SENDER_EMAIL");
+  if (!recipient || !MAIL_REGEX.test(recipient)) missingEnv.push("CONTACT_RECIPIENT_EMAIL (absent ou invalide)");
 
   if (missingEnv.length > 0) {
     // Détail dans les journaux serveur uniquement, jamais renvoyé au client.
     console.error("[api/contact] missing env vars:", missingEnv.join(", "));
     return fail("Service d'envoi indisponible. Merci de réessayer plus tard.", 500);
   }
-  return { resend: new Resend(apiKey), sender: sender!, recipient: recipient! };
+  // Expéditeur : domaine vérifié requis, repli sur onboarding@resend.dev sinon.
+  const sender = resolveSender(process.env.CONTACT_SENDER_EMAIL);
+  if (sender.warning) console.warn("[api/contact]", sender.warning);
+  return { resend: new Resend(apiKey), sender: sender.from, recipient: recipient! };
 }
 
 // ── Leads de la landing /pac ────────────────────────────────────────────
@@ -262,26 +264,28 @@ export async function POST(request: Request) {
   const config = getMailConfig();
   if (config instanceof NextResponse) return config;
 
-  try {
-    const email = buildEmail(payload);
-    const replyTo = isString(payload.email) ? payload.email.trim() : undefined;
-
-    const { error } = await config.resend.emails.send({
+  const email = buildEmail(payload);
+  const sent = await sendMail(
+    config.resend,
+    {
       from: config.sender,
       to: config.recipient,
       subject: `[Site Pioud] ${email.subject}`,
       html: email.html,
       text: email.text,
-      replyTo,
-    });
-
-    if (error) {
-      console.error("[api/contact] resend error:", error.name, error.message);
-      return fail("L'envoi a échoué. Merci de réessayer dans quelques instants.", 502);
-    }
-  } catch (err) {
-    console.error("[api/contact] resend exception:", errorMessage(err));
-    return fail("L'envoi a échoué. Merci de réessayer dans quelques instants.", 502);
+      replyTo: isString(payload.email) ? payload.email.trim() : undefined,
+    },
+    "contact",
+  );
+  if (!sent.ok) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "L'envoi a échoué. Merci de réessayer dans quelques instants.",
+        code: `resend_${sent.name}`,
+      },
+      { status: 502 },
+    );
   }
 
   return NextResponse.json({

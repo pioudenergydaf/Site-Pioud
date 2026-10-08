@@ -4,6 +4,7 @@
 // confirmation au visiteur. Deux parcours : maison (PAC individuelle,
 // BAR-TH-171) et copro (PAC collective, BAR-TH-179).
 import type { Resend } from "resend";
+import { FALLBACK_FROM, sendMail } from "@/lib/mailer";
 import { CONSENT_TEXT } from "@/lib/pac-constants";
 import {
   ATTRIBUTION_PARAMS,
@@ -552,33 +553,31 @@ export async function processPacLead(options: {
   const recipient = options.recipient || siteConfig.email;
 
   // Seul l'e-mail interne est bloquant : c'est lui qui matérialise le lead.
+  // Le message d'erreur Resend complet est journalisé par sendMail (serveur
+  // uniquement) ; repli automatique sur onboarding@resend.dev si le domaine
+  // de l'expéditeur n'est pas vérifié.
   const internal = buildInternalEmail(lead, meta, antiSpamWarning);
-  let error: { name?: string; message?: string } | null = null;
-  try {
-    ({ error } = await resend.emails.send({
+  const sent = await sendMail(
+    resend,
+    {
       from: sender,
       to: recipient,
       subject: internal.subject,
       html: internal.html,
       text: internal.text,
       replyTo: lead.email,
-    }));
-  } catch (err) {
-    error = { name: "exception", message: errorMessage(err) };
-  }
-  if (error) {
-    // Cause exacte dans les journaux Vercel (onglet Logs, filtre « pac-lead »).
-    console.error(
-      `[pac-lead] internal email REJECTED (from=${sender} to=${recipient}):`,
-      error.name,
-      error.message,
-    );
+    },
+    "pac-lead/interne",
+  );
+  if (!sent.ok) {
     return {
       ok: false,
       message: "L'envoi de votre demande a échoué. Merci de réessayer.",
-      code: `resend_${error.name ?? "error"}`,
+      code: `resend_${sent.name}`,
     };
   }
+  // Si le repli a servi, la confirmation au visiteur part avec le même expéditeur.
+  const confirmationFrom = sent.usedFallback ? FALLBACK_FROM : sender;
 
   // Webhook et confirmation : en parallèle, non bloquants pour le lead.
   const webhookUrl = process.env.LEADS_WEBHOOK_URL;
@@ -589,24 +588,19 @@ export async function processPacLead(options: {
       : Promise.resolve(null),
     (async () => {
       const email = buildConfirmationEmail(lead, meta);
-      try {
-        const result = await resend.emails.send({
-          from: sender,
+      const result = await sendMail(
+        resend,
+        {
+          from: confirmationFrom,
           to: lead.email,
           subject: email.subject,
           html: email.html,
           text: email.text,
           replyTo: siteConfig.email,
-        });
-        if (result.error) {
-          console.error("[pac-lead] confirmation email error:", result.error.name, result.error.message);
-          return false;
-        }
-        return true;
-      } catch (err) {
-        console.error("[pac-lead] confirmation email exception:", errorMessage(err));
-        return false;
-      }
+        },
+        "pac-lead/confirmation",
+      );
+      return result.ok;
     })(),
   ]);
 
