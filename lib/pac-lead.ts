@@ -104,12 +104,18 @@ function oneOf<T extends string>(value: unknown, allowed: readonly T[]): T | nul
 export function parsePacLead(
   payload: Record<string, unknown>,
 ): { lead: PacLead; error?: undefined } | { lead?: undefined; error: string } {
-  const firstName = str(payload.firstName);
-  const lastName = str(payload.lastName);
+  // Compatibilité avec un bundle client plus ancien : champ `name` unique
+  // (« Prénom Nom ») et type de logement déduit du type de formulaire.
+  const legacyName = str(payload.name).split(/\s+/).filter(Boolean);
+  const firstName = str(payload.firstName) || legacyName[0] || "";
+  const lastName =
+    str(payload.lastName) || legacyName.slice(1).join(" ") || (legacyName[0] ? "(non renseigné)" : "");
   const email = str(payload.email);
   const phone = normalizePhone(str(payload.phone));
   const postalCode = str(payload.postalCode);
-  const housing = oneOf(payload.housing, HOUSING_IDS);
+  const housing =
+    oneOf(payload.housing, HOUSING_IDS) ??
+    (payload.form === "pac-copro" ? "appartement" : payload.form === "pac" ? "maison" : null);
 
   if (firstName.length < 2) return { error: "Merci d'indiquer votre prénom." };
   if (lastName.length < 2) return { error: "Merci d'indiquer votre nom." };

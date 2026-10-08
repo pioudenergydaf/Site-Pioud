@@ -23,6 +23,8 @@ type ContactPayload = {
   subject?: unknown;
   consent?: unknown;
   source?: unknown;
+  form?: unknown;
+  housing?: unknown;
   [key: string]: unknown;
 };
 
@@ -170,6 +172,15 @@ function getMailConfig(): { resend: Resend; sender: string; recipient: string } 
 }
 
 // ── Leads de la landing /pac ────────────────────────────────────────────
+// Détection du type de formulaire : champ `form` ("pac" | "pac-copro"),
+// ancien marqueur `source`, ou à défaut un payload de simulateur (champ
+// `housing` sans `message`) envoyé par un bundle client plus ancien.
+function isPacPayload(payload: ContactPayload): boolean {
+  if (payload.form === "pac" || payload.form === "pac-copro") return true;
+  if (payload.source === "pac-landing") return true;
+  return isString(payload.housing) && !isString(payload.message);
+}
+
 async function handlePacLead(request: Request, payload: ContactPayload) {
   const meta = getClientMeta(request);
   if (isRateLimited(meta.ip)) {
@@ -232,7 +243,7 @@ export async function POST(request: Request) {
     return fail("Requête invalide.", 400);
   }
 
-  if (payload.source === "pac-landing") {
+  if (isPacPayload(payload)) {
     return handlePacLead(request, payload);
   }
 

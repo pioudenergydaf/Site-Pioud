@@ -372,6 +372,8 @@ export function PacLeadForm() {
     setFormError("");
 
     const payload: Record<string, unknown> = {
+      // Type de formulaire : aiguille la validation dédiée côté API.
+      form: flow === "copro" ? "pac-copro" : "pac",
       source: "pac-landing",
       flow,
       firstName: contact.firstName.trim(),
