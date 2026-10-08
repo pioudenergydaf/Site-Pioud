@@ -301,9 +301,9 @@ function internalSubject(lead: PacLead) {
 }
 
 // ── E-mail interne ──────────────────────────────────────────────────────
-export function buildInternalEmail(lead: PacLead, meta: ClientMeta) {
+export function buildInternalEmail(lead: PacLead, meta: ClientMeta, antiSpamWarning?: string) {
   const { day, time } = formatParis(meta.receivedAt);
-  const subject = internalSubject(lead);
+  const subject = `${antiSpamWarning ? "[À VÉRIFIER] " : ""}${internalSubject(lead)}`;
   const title =
     lead.flow === "copro"
       ? "Nouveau lead PAC COLLECTIVE (landing /pac)"
@@ -323,6 +323,7 @@ export function buildInternalEmail(lead: PacLead, meta: ClientMeta) {
     ["Adresse IP", meta.ip],
     ["User-agent", meta.userAgent],
     ["Case cochée", CONSENT_TEXT],
+    ["Anti-spam", antiSpamWarning ? `Non vérifié — ${antiSpamWarning}` : "Vérifié ou non configuré"],
   ];
 
   const h = (heading: string) =>
@@ -533,24 +534,44 @@ export async function processPacLead(options: {
   meta: ClientMeta;
   resend: Resend;
   sender: string;
+  // Boîte de réception interne : CONTACT_RECIPIENT_EMAIL (même que le
+  // formulaire générique), repli sur l'adresse publique du site.
+  recipient?: string;
+  antiSpamWarning?: string;
 }): Promise<
   | { ok: true; confirmationSent: boolean; webhookSent: boolean | null }
-  | { ok: false; message: string }
+  | { ok: false; message: string; code: string }
 > {
-  const { lead, meta, resend, sender } = options;
+  const { lead, meta, resend, sender, antiSpamWarning } = options;
+  const recipient = options.recipient || siteConfig.email;
 
-  const internal = buildInternalEmail(lead, meta);
-  const { error } = await resend.emails.send({
-    from: sender,
-    to: siteConfig.email,
-    subject: internal.subject,
-    html: internal.html,
-    text: internal.text,
-    replyTo: lead.email,
-  });
+  // Seul l'e-mail interne est bloquant : c'est lui qui matérialise le lead.
+  const internal = buildInternalEmail(lead, meta, antiSpamWarning);
+  let error: { name?: string; message?: string } | null = null;
+  try {
+    ({ error } = await resend.emails.send({
+      from: sender,
+      to: recipient,
+      subject: internal.subject,
+      html: internal.html,
+      text: internal.text,
+      replyTo: lead.email,
+    }));
+  } catch (err) {
+    error = { name: "exception", message: errorMessage(err) };
+  }
   if (error) {
-    console.error("[pac-lead] internal email error:", error.name, error.message);
-    return { ok: false, message: "L'envoi de votre demande a échoué. Merci de réessayer." };
+    // Cause exacte dans les journaux Vercel (onglet Logs, filtre « pac-lead »).
+    console.error(
+      `[pac-lead] internal email REJECTED (from=${sender} to=${recipient}):`,
+      error.name,
+      error.message,
+    );
+    return {
+      ok: false,
+      message: "L'envoi de votre demande a échoué. Merci de réessayer.",
+      code: `resend_${error.name ?? "error"}`,
+    };
   }
 
   // Webhook et confirmation : en parallèle, non bloquants pour le lead.

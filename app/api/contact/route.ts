@@ -119,14 +119,16 @@ function fail(message: string, status: number) {
 }
 
 // Vérification Cloudflare Turnstile, uniquement si la clé secrète est configurée.
-async function verifyTurnstile(payload: ContactPayload): Promise<NextResponse | null> {
+type TurnstileResult = { ok: true } | { ok: false; reason: string; status: number };
+
+async function checkTurnstile(payload: ContactPayload): Promise<TurnstileResult> {
   const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
-  if (!turnstileSecret) return null;
+  if (!turnstileSecret) return { ok: true };
 
   const token = isString(payload["cf-turnstile-response"])
     ? payload["cf-turnstile-response"].trim()
     : "";
-  if (!token) return fail("Vérification anti-spam manquante.", 422);
+  if (!token) return { ok: false, reason: "Vérification anti-spam manquante.", status: 422 };
 
   try {
     const verifyBody = new URLSearchParams({ secret: turnstileSecret, response: token });
@@ -139,12 +141,14 @@ async function verifyTurnstile(payload: ContactPayload): Promise<NextResponse | 
       },
     );
     const verifyJson = (await verifyResponse.json()) as { success?: boolean };
-    if (!verifyJson.success) return fail("Vérification anti-spam échouée.", 422);
+    if (!verifyJson.success) {
+      return { ok: false, reason: "Vérification anti-spam échouée.", status: 422 };
+    }
   } catch (err) {
     console.error("[api/contact] turnstile verify exception:", errorMessage(err));
-    return fail("Vérification anti-spam indisponible.", 502);
+    return { ok: false, reason: "Vérification anti-spam indisponible.", status: 502 };
   }
-  return null;
+  return { ok: true };
 }
 
 function getMailConfig(): { resend: Resend; sender: string; recipient: string } | NextResponse {
@@ -176,8 +180,11 @@ async function handlePacLead(request: Request, payload: ContactPayload) {
   const lead = parsed.lead;
   if (!lead) return fail(parsed.error ?? "Données invalides.", 422);
 
-  const turnstileFailure = await verifyTurnstile(payload);
-  if (turnstileFailure) return turnstileFailure;
+  // Anti-spam non bloquant pour un lead : en cas d'échec ou d'indisponibilité
+  // de Turnstile, le lead part quand même, signalé « à vérifier » en interne.
+  const turnstile = await checkTurnstile(payload);
+  const antiSpamWarning = turnstile.ok ? undefined : turnstile.reason;
+  if (antiSpamWarning) console.warn("[api/contact] pac lead sans vérification anti-spam:", antiSpamWarning);
 
   const config = getMailConfig();
   if (config instanceof NextResponse) return config;
@@ -188,16 +195,32 @@ async function handlePacLead(request: Request, payload: ContactPayload) {
       meta,
       resend: config.resend,
       sender: config.sender,
+      // Même boîte que le formulaire de contact (adresse validée côté Resend).
+      recipient: config.recipient,
+      antiSpamWarning,
     });
-    if (!result.ok) return fail(result.message, 502);
+    if (!result.ok) {
+      return NextResponse.json(
+        { success: false, message: result.message, code: result.code },
+        { status: 502 },
+      );
+    }
     return NextResponse.json({
       success: true,
       confirmationSent: result.confirmationSent,
+      webhookSent: result.webhookSent,
       message: "Votre demande a bien été enregistrée.",
     });
   } catch (err) {
     console.error("[api/contact] pac lead exception:", errorMessage(err));
-    return fail("L'envoi de votre demande a échoué. Merci de réessayer.", 502);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "L'envoi de votre demande a échoué. Merci de réessayer.",
+        code: "exception",
+      },
+      { status: 502 },
+    );
   }
 }
 
@@ -222,8 +245,8 @@ export async function POST(request: Request) {
   const validationError = validate(payload);
   if (validationError) return fail(validationError, 422);
 
-  const turnstileFailure = await verifyTurnstile(payload);
-  if (turnstileFailure) return turnstileFailure;
+  const turnstile = await checkTurnstile(payload);
+  if (!turnstile.ok) return fail(turnstile.reason, turnstile.status);
 
   const config = getMailConfig();
   if (config instanceof NextResponse) return config;

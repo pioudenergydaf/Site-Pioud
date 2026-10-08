@@ -408,14 +408,16 @@ export function PacLeadForm() {
       const data = (await response.json().catch(() => ({}))) as {
         success?: boolean;
         message?: string;
+        code?: string;
         confirmationSent?: boolean;
       };
 
       if (!response.ok || !data.success) {
-        setFormError(
+        // Le code technique aide le support à identifier la cause sans les journaux.
+        const base =
           data.message ||
-            "Une erreur est survenue lors de l'envoi. Merci de réessayer dans quelques instants.",
-        );
+          "Une erreur est survenue lors de l'envoi. Merci de réessayer dans quelques instants.";
+        setFormError(data.code ? `${base} (code : ${data.code})` : base);
         submitLock.current = false;
         return;
       }
