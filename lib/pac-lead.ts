@@ -68,6 +68,32 @@ function str(value: unknown): string {
   return typeof value === "string" ? value.trim().slice(0, MAX_FIELD_LENGTH) : "";
 }
 
+// Garde origine + chemin ; pour la page d'entrée, seuls les paramètres
+// d'attribution connus sont conservés (jamais d'autres query strings).
+function sanitizeUrl(value: string, keepAttributionParams: boolean): string {
+  if (!value) return "";
+  try {
+    const url = new URL(value);
+    if (!/^https?:$/.test(url.protocol)) return "";
+    const kept = new URLSearchParams();
+    if (keepAttributionParams) {
+      for (const key of ATTRIBUTION_PARAMS) {
+        const param = url.searchParams.get(key);
+        if (param) kept.set(key, param.slice(0, 200));
+      }
+    }
+    const query = kept.toString();
+    return `${url.origin}${url.pathname}${query ? `?${query}` : ""}`.slice(0, 500);
+  } catch {
+    return "";
+  }
+}
+
+// Journalisation sans données personnelles : message d'erreur uniquement.
+function errorMessage(err: unknown): string {
+  return err instanceof Error ? err.message : "erreur inconnue";
+}
+
 function oneOf<T extends string>(value: unknown, allowed: readonly T[]): T | null {
   return typeof value === "string" && (allowed as readonly string[]).includes(value)
     ? (value as T)
@@ -103,8 +129,10 @@ export function parsePacLead(
     const value = str(rawAttribution[key]);
     if (value) attribution[key] = value;
   }
-  const landingUrl = str(rawAttribution.landingUrl);
-  const referrer = str(rawAttribution.referrer);
+  // URLs réduites à l'essentiel : aucune donnée personnelle ne doit
+  // transiter par un paramètre d'URL jusqu'aux e-mails ou au Sheet.
+  const landingUrl = sanitizeUrl(str(rawAttribution.landingUrl), true);
+  const referrer = sanitizeUrl(str(rawAttribution.referrer), false);
   if (landingUrl) attribution.landingUrl = landingUrl;
   if (referrer) attribution.referrer = referrer;
 
@@ -465,20 +493,34 @@ export function buildWebhookRow(lead: PacLead, meta: ClientMeta): Record<string,
   };
 }
 
-export async function sendWebhook(url: string, row: Record<string, string>): Promise<boolean> {
+// Jeton partagé (LEADS_WEBHOOK_SECRET) transmis en en-tête et dans le corps
+// (Apps Script ne lit pas les en-têtes) : le scénario doit le vérifier
+// avant d'écrire dans le Sheet.
+export async function sendWebhook(
+  url: string,
+  row: Record<string, string>,
+  secret?: string,
+): Promise<boolean> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS);
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  const body: Record<string, string> = { ...row };
+  if (secret) {
+    headers.Authorization = `Bearer ${secret}`;
+    headers["X-Webhook-Token"] = secret;
+    body.token = secret;
+  }
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(row),
+      headers,
+      body: JSON.stringify(body),
       signal: controller.signal,
     });
     if (!response.ok) console.error("[pac-lead] webhook status:", response.status);
     return response.ok;
   } catch (err) {
-    console.error("[pac-lead] webhook exception:", err);
+    console.error("[pac-lead] webhook exception:", errorMessage(err));
     return false;
   } finally {
     clearTimeout(timer);
@@ -507,14 +549,17 @@ export async function processPacLead(options: {
     replyTo: lead.email,
   });
   if (error) {
-    console.error("[pac-lead] internal email error:", error);
+    console.error("[pac-lead] internal email error:", error.name, error.message);
     return { ok: false, message: "L'envoi de votre demande a échoué. Merci de réessayer." };
   }
 
   // Webhook et confirmation : en parallèle, non bloquants pour le lead.
   const webhookUrl = process.env.LEADS_WEBHOOK_URL;
+  const webhookSecret = process.env.LEADS_WEBHOOK_SECRET;
   const [webhookSent, confirmation] = await Promise.all([
-    webhookUrl ? sendWebhook(webhookUrl, buildWebhookRow(lead, meta)) : Promise.resolve(null),
+    webhookUrl
+      ? sendWebhook(webhookUrl, buildWebhookRow(lead, meta), webhookSecret)
+      : Promise.resolve(null),
     (async () => {
       const email = buildConfirmationEmail(lead, meta);
       try {
@@ -527,12 +572,12 @@ export async function processPacLead(options: {
           replyTo: siteConfig.email,
         });
         if (result.error) {
-          console.error("[pac-lead] confirmation email error:", result.error);
+          console.error("[pac-lead] confirmation email error:", result.error.name, result.error.message);
           return false;
         }
         return true;
       } catch (err) {
-        console.error("[pac-lead] confirmation email exception:", err);
+        console.error("[pac-lead] confirmation email exception:", errorMessage(err));
         return false;
       }
     })(),

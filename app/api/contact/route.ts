@@ -2,8 +2,18 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { getClientMeta, isRateLimited, parsePacLead, processPacLead } from "@/lib/pac-lead";
 
+// Limites strictes du formulaire de contact générique.
 const MAX_FIELD_LENGTH = 5000;
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_SUBJECT_LENGTH = 200;
+const MAX_MESSAGE_LENGTH = 5000;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_REGEX = /^(0|\+33)[1-9](\d{2}){4}$/;
+
+function errorMessage(err: unknown): string {
+  return err instanceof Error ? err.message : "erreur inconnue";
+}
 
 type ContactPayload = {
   name?: unknown;
@@ -21,14 +31,33 @@ function isString(value: unknown): value is string {
 }
 
 function validate(payload: ContactPayload): string | null {
-  if (!isString(payload.name) || payload.name.trim().length < 2) {
+  const name = isString(payload.name) ? payload.name.trim() : "";
+  const email = isString(payload.email) ? payload.email.trim() : "";
+  const message = isString(payload.message) ? payload.message.trim() : "";
+  const phone = isString(payload.phone) ? payload.phone.replace(/\s+/g, "") : "";
+  const subject = isString(payload.subject) ? payload.subject.trim() : "";
+
+  if (name.length < 2 || name.length > MAX_NAME_LENGTH) {
     return "Merci d'indiquer votre nom.";
   }
-  if (!isString(payload.email) || !EMAIL_REGEX.test(payload.email.trim())) {
+  if (email.length > MAX_EMAIL_LENGTH || !EMAIL_REGEX.test(email)) {
     return "Adresse email invalide.";
   }
-  if (!isString(payload.message) || payload.message.trim().length < 10) {
+  if (message.length < 10) {
     return "Votre message doit contenir au moins 10 caractères.";
+  }
+  if (message.length > MAX_MESSAGE_LENGTH) {
+    return "Votre message est trop long.";
+  }
+  if (phone && !PHONE_REGEX.test(phone)) {
+    return "Numéro de téléphone invalide.";
+  }
+  if (subject.length > MAX_SUBJECT_LENGTH) {
+    return "Le sujet est trop long.";
+  }
+  // Injection d'en-têtes : aucun retour à la ligne dans les champs courts.
+  if (/[\r\n]/.test(name) || /[\r\n]/.test(email) || /[\r\n]/.test(subject)) {
+    return "Caractères non autorisés.";
   }
   for (const value of Object.values(payload)) {
     if (isString(value) && value.length > MAX_FIELD_LENGTH) {
@@ -112,7 +141,7 @@ async function verifyTurnstile(payload: ContactPayload): Promise<NextResponse | 
     const verifyJson = (await verifyResponse.json()) as { success?: boolean };
     if (!verifyJson.success) return fail("Vérification anti-spam échouée.", 422);
   } catch (err) {
-    console.error("[api/contact] turnstile verify exception:", err);
+    console.error("[api/contact] turnstile verify exception:", errorMessage(err));
     return fail("Vérification anti-spam indisponible.", 502);
   }
   return null;
@@ -129,11 +158,9 @@ function getMailConfig(): { resend: Resend; sender: string; recipient: string } 
   if (!sender) missingEnv.push("CONTACT_SENDER_EMAIL");
 
   if (missingEnv.length > 0) {
+    // Détail dans les journaux serveur uniquement, jamais renvoyé au client.
     console.error("[api/contact] missing env vars:", missingEnv.join(", "));
-    return fail(
-      `Configuration serveur incomplète (manque: ${missingEnv.join(", ")}). Contactez l'administrateur.`,
-      500,
-    );
+    return fail("Service d'envoi indisponible. Merci de réessayer plus tard.", 500);
   }
   return { resend: new Resend(apiKey), sender: sender!, recipient: recipient! };
 }
@@ -169,7 +196,7 @@ async function handlePacLead(request: Request, payload: ContactPayload) {
       message: "Votre demande a bien été enregistrée.",
     });
   } catch (err) {
-    console.error("[api/contact] pac lead exception:", err);
+    console.error("[api/contact] pac lead exception:", errorMessage(err));
     return fail("L'envoi de votre demande a échoué. Merci de réessayer.", 502);
   }
 }
@@ -184,6 +211,12 @@ export async function POST(request: Request) {
 
   if (payload.source === "pac-landing") {
     return handlePacLead(request, payload);
+  }
+
+  // Formulaire générique : même rate-limit par IP que les leads /pac.
+  const meta = getClientMeta(request);
+  if (isRateLimited(meta.ip)) {
+    return fail("Trop de demandes depuis votre connexion. Merci de réessayer dans quelques minutes.", 429);
   }
 
   const validationError = validate(payload);
@@ -209,17 +242,12 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error("[api/contact] resend error:", error);
-      return fail(`Envoi refusé par Resend: ${error.message ?? "erreur inconnue"}`, 502);
+      console.error("[api/contact] resend error:", error.name, error.message);
+      return fail("L'envoi a échoué. Merci de réessayer dans quelques instants.", 502);
     }
   } catch (err) {
-    console.error("[api/contact] resend exception:", err);
-    return fail(
-      err instanceof Error
-        ? `Erreur d'envoi: ${err.message}`
-        : "L'envoi a échoué. Merci de réessayer ou de nous appeler.",
-      502,
-    );
+    console.error("[api/contact] resend exception:", errorMessage(err));
+    return fail("L'envoi a échoué. Merci de réessayer dans quelques instants.", 502);
   }
 
   return NextResponse.json({
