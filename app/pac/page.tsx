@@ -242,9 +242,6 @@ export default function PacLandingPage() {
           <Reveal delay={0.1}>
             <div id="pac-form" className="scroll-mt-24">
               <PacLeadForm />
-              <p className="mt-4 text-center text-xs font-medium text-white/80">
-                Entreprise basée à Boulogne-Billancourt (92) · Intervention en Île-de-France
-              </p>
             </div>
           </Reveal>
         </div>
