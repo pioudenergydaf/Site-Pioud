@@ -39,12 +39,13 @@ export const metadata: Metadata = {
 const LEGAL_NAME = "PIOUD ENERGY SAS";
 const LEGAL_SIREN = "SIREN 927 628 446";
 
-// Section « Qui installe chez vous ».
-// PLACEHOLDER — photo d'équipe à remplacer dans public/images/pac/equipe.jpg,
-// numéro RGE à compléter, ville de l'équipe à confirmer (siège : Boulogne-Billancourt).
-const TEAM_PHOTO = { src: "/images/pac/equipe.jpg", alt: "L'équipe Pioud Energy" };
-const TEAM_CITY = "Sucy-en-Brie (94)";
-const RGE_NUMBER = "n° [à compléter]";
+// Photo pleine largeur (chantier). PLACEHOLDER — public/images/pac/chantier.jpg
+// contient pour l'instant une copie de la photo PAC de la carte BAR-TH-171 ;
+// remplacer le fichier par la vraie photo de chantier, sans toucher au code.
+const CHANTIER_PHOTO = {
+  src: "/images/pac/chantier.jpg",
+  alt: "Installation d'une pompe à chaleur air/eau par Pioud Energy",
+};
 
 // Montants alignés sur la carte BAR-TH-171 de /particuliers/chauffage.
 const benefits = [
@@ -265,20 +266,21 @@ export default function PacLandingPage() {
         </div>
       </section>
 
-      {/* 4a. Un seul chiffre : la prime maximale de la fiche BAR-TH-171 */}
+      {/* 4a. Un seul chiffre : le reste à charge minimal. Élément le plus visible
+          de la page après le H1 (serif 120 px sur desktop). */}
       <section className="bg-cream-soft">
         <div className="section-shell grid gap-8 py-16 sm:py-20 lg:grid-cols-12 lg:items-center lg:gap-10">
-          <p className="font-display text-7xl font-light leading-none tracking-[-0.03em] text-forest sm:text-8xl lg:col-span-6 lg:text-[120px]">
-            12 000 €
+          <p className="font-display text-8xl font-light leading-none tracking-[-0.03em] text-forest sm:text-9xl lg:col-span-5 lg:text-[120px]">
+            0 €
           </p>
-          <div className="lg:col-span-5 lg:col-start-8">
-            <p className="text-lg leading-relaxed text-ink sm:text-xl">
-              C&apos;est le montant maximal de la prime CEE pour une pompe à chaleur air/eau
-              (fiche BAR-TH-171, Coup de pouce x5), déduite directement du devis. Entre 5 000 €
-              et 12 000 € selon vos revenus et votre zone climatique, avant MaPrimeRénov&apos;.
+          <div className="lg:col-span-6 lg:col-start-7">
+            <p className="font-display text-2xl font-light leading-snug text-ink [text-wrap:balance] sm:text-3xl">
+              Votre pompe à chaleur peut ne rien vous coûter, selon vos revenus et votre
+              chauffage actuel.
             </p>
-            <p className="mt-4 max-w-[60ch] text-xs leading-relaxed text-ink-soft">
-              {MENTION_MONTANT_INDICATIF}
+            <p className="mt-5 max-w-[60ch] text-base leading-relaxed text-ink-muted">
+              Jusqu&apos;à 12 000 € de prime CEE + MaPrimeRénov&apos; déduits du devis. Montant
+              indicatif, sous conditions d&apos;éligibilité.
             </p>
           </div>
         </div>
@@ -411,27 +413,16 @@ export default function PacLandingPage() {
         </div>
       </section>
 
-      {/* 6b. Qui installe chez vous : photo pleine largeur, trois lignes */}
+      {/* 6b. Photo de chantier pleine largeur */}
       <section className="border-t border-ink/10">
         <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]">
           <Image
-            src={TEAM_PHOTO.src}
-            alt={TEAM_PHOTO.alt}
+            src={CHANTIER_PHOTO.src}
+            alt={CHANTIER_PHOTO.alt}
             fill
             sizes="100vw"
             className="object-cover"
           />
-        </div>
-        <div className="section-shell grid gap-8 py-12 sm:py-16 lg:grid-cols-12">
-          <h2 className={`${h2Class} lg:col-span-5`}>Qui installe chez vous</h2>
-          <dl className="grid gap-y-4 text-base sm:grid-cols-[auto_1fr] sm:gap-x-10 lg:col-span-6 lg:col-start-7 lg:self-end">
-            <dt className="text-sm text-ink-soft">Entreprise</dt>
-            <dd className="font-semibold text-ink">{LEGAL_NAME}</dd>
-            <dt className="text-sm text-ink-soft">Équipe basée à</dt>
-            <dd className="font-semibold text-ink">{TEAM_CITY}</dd>
-            <dt className="text-sm text-ink-soft">Qualification</dt>
-            <dd className="font-semibold text-ink">RGE QualiPAC · {RGE_NUMBER}</dd>
-          </dl>
         </div>
       </section>
 
