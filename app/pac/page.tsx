@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, ClipboardCheck, FileCheck2, Wrench } from "lucide-react";
 import { PacFaq } from "@/components/pac/pac-faq";
-import { HeroCheck, PacIcon } from "@/components/pac/pac-icon";
+import { HeroCheck } from "@/components/pac/pac-icon";
 import { PacLeadForm } from "@/components/pac/pac-lead-form";
 import { PacStickyCta } from "@/components/pac/pac-sticky-cta";
 import { Reveal } from "@/components/ui/reveal";
@@ -38,6 +38,13 @@ export const metadata: Metadata = {
 // Identité légale affichée dans le pied de page (conformité DGCCRF/DDPP).
 const LEGAL_NAME = "PIOUD ENERGY SAS";
 const LEGAL_SIREN = "SIREN 927 628 446";
+
+// Section « Qui installe chez vous ».
+// PLACEHOLDER — photo d'équipe à remplacer dans public/images/pac/equipe.jpg,
+// numéro RGE à compléter, ville de l'équipe à confirmer (siège : Boulogne-Billancourt).
+const TEAM_PHOTO = { src: "/images/pac/equipe.jpg", alt: "L'équipe Pioud Energy" };
+const TEAM_CITY = "Sucy-en-Brie (94)";
+const RGE_NUMBER = "n° [à compléter]";
 
 // Montants alignés sur la carte BAR-TH-171 de /particuliers/chauffage.
 const benefits = [
@@ -258,6 +265,25 @@ export default function PacLandingPage() {
         </div>
       </section>
 
+      {/* 4a. Un seul chiffre : la prime maximale de la fiche BAR-TH-171 */}
+      <section className="bg-cream-soft">
+        <div className="section-shell grid gap-8 py-16 sm:py-20 lg:grid-cols-12 lg:items-center lg:gap-10">
+          <p className="font-display text-7xl font-light leading-none tracking-[-0.03em] text-forest sm:text-8xl lg:col-span-6 lg:text-[120px]">
+            12 000 €
+          </p>
+          <div className="lg:col-span-5 lg:col-start-8">
+            <p className="text-lg leading-relaxed text-ink sm:text-xl">
+              C&apos;est le montant maximal de la prime CEE pour une pompe à chaleur air/eau
+              (fiche BAR-TH-171, Coup de pouce x5), déduite directement du devis. Entre 5 000 €
+              et 12 000 € selon vos revenus et votre zone climatique, avant MaPrimeRénov&apos;.
+            </p>
+            <p className="mt-4 max-w-[60ch] text-xs leading-relaxed text-ink-soft">
+              {MENTION_MONTANT_INDICATIF}
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* 4. Reste à charge : argument à gauche, barème en liste à droite */}
       <section className="section-shell py-20 sm:py-28">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
@@ -340,8 +366,12 @@ export default function PacLandingPage() {
           </div>
           <ul className="divide-y divide-ink/10 lg:col-span-7 lg:col-start-6">
             {inclusions.map((item) => (
-              <li key={item.title} className="group flex gap-5 py-7 first:pt-0 sm:gap-7">
-                <PacIcon icon={item.icon} />
+              <li key={item.title} className="flex gap-4 py-7 first:pt-0">
+                <item.icon
+                  aria-hidden
+                  strokeWidth={1.5}
+                  className="mt-1 h-5 w-5 flex-none text-forest"
+                />
                 <div className="max-w-[52ch]">
                   <h3 className="text-xl font-semibold leading-snug text-ink">{item.title}</h3>
                   <p className="mt-2 text-base leading-relaxed text-ink-muted">{item.description}</p>
@@ -378,6 +408,30 @@ export default function PacLandingPage() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* 6b. Qui installe chez vous : photo pleine largeur, trois lignes */}
+      <section className="border-t border-ink/10">
+        <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]">
+          <Image
+            src={TEAM_PHOTO.src}
+            alt={TEAM_PHOTO.alt}
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+        <div className="section-shell grid gap-8 py-12 sm:py-16 lg:grid-cols-12">
+          <h2 className={`${h2Class} lg:col-span-5`}>Qui installe chez vous</h2>
+          <dl className="grid gap-y-4 text-base sm:grid-cols-[auto_1fr] sm:gap-x-10 lg:col-span-6 lg:col-start-7 lg:self-end">
+            <dt className="text-sm text-ink-soft">Entreprise</dt>
+            <dd className="font-semibold text-ink">{LEGAL_NAME}</dd>
+            <dt className="text-sm text-ink-soft">Équipe basée à</dt>
+            <dd className="font-semibold text-ink">{TEAM_CITY}</dd>
+            <dt className="text-sm text-ink-soft">Qualification</dt>
+            <dd className="font-semibold text-ink">RGE QualiPAC · {RGE_NUMBER}</dd>
+          </dl>
         </div>
       </section>
 

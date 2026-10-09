@@ -259,6 +259,10 @@ function TextChoices<T extends string>({
 const backButtonClass =
   "rounded-pill border border-ink/10 px-5 py-2 text-sm font-semibold text-ink-muted transition hover:border-ink/15 disabled:cursor-not-allowed disabled:opacity-40";
 
+// Carte du formulaire : coins 8 px, bord fin, ombre très légère.
+const formCardClass =
+  "rounded-lg border border-ink/10 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_-16px_rgba(31,58,46,0.25)]";
+
 // Libellés du bouton d'action selon le résultat affiché.
 const CTA_LABEL: Record<Estimate["kind"], string> = {
   amount: "Recevoir mon étude détaillée",
@@ -312,7 +316,6 @@ export function PacLeadForm() {
   const stepsCount = sequence.length;
   const safeIndex = Math.min(stepIndex, stepsCount - 1);
   const stepId = sequence[safeIndex];
-  const progress = ((safeIndex + 1) / stepsCount) * 100;
   const flow = housing ? flowFor(housing) : "maison";
 
   const estimate = useMemo<Estimate | null>(() => {
@@ -435,7 +438,7 @@ export function PacLeadForm() {
 
   if (submitted && estimate) {
     return (
-      <div className="card-surface p-6 text-center sm:p-8">
+      <div className={`${formCardClass} p-6 text-center sm:p-8`}>
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-pill bg-emerald-100 text-emerald-600">
           <CheckCircle2 className="h-9 w-9" />
         </span>
@@ -469,20 +472,14 @@ export function PacLeadForm() {
   }
 
   return (
-    <div className="card-surface p-6 sm:p-8">
-      <div className="mb-6 flex items-center justify-between">
-        <span className="rounded-pill bg-sage px-3 py-1 text-xs font-semibold uppercase tracking-wide text-forest">
-          Étape {safeIndex + 1} / {stepsCount}
+    <div className={`${formCardClass} p-6 sm:p-8`}>
+      <div className="mb-7 flex items-baseline justify-between border-b border-ink/10 pb-4">
+        <p className="text-sm text-ink-muted" aria-live="polite">
+          <span className="font-semibold text-ink">{safeIndex + 1}</span> sur {stepsCount}
+        </p>
+        <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-soft">
+          Simulation gratuite
         </span>
-        <span className="text-xs font-semibold text-ink-soft">Simulation gratuite</span>
-      </div>
-      <div className="mb-6 h-2 w-full rounded-pill bg-cream-soft">
-        <motion.div
-          className="h-2 rounded-pill bg-gradient-to-r from-forest to-emerald-500"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-        />
       </div>
 
       <form onSubmit={handleSubmit} noValidate>
