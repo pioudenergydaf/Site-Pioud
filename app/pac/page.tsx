@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  BadgeCheck,
-  CalendarCheck,
-  ClipboardCheck,
-  FileCheck2,
-  Wrench,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight, BadgeCheck, ClipboardCheck, FileCheck2, Wrench } from "lucide-react";
 import { PacFaq } from "@/components/pac/pac-faq";
 import { HeroCheck, PacIcon } from "@/components/pac/pac-icon";
 import { PacLeadForm } from "@/components/pac/pac-lead-form";
@@ -66,61 +59,52 @@ const APRIL_LOGO = { src: "/logos/april.png", alt: "APRIL", width: 1568, height:
 
 type TrustLogo = { src: string; alt: string; width: number; height: number; className: string };
 
-type TrustBadge = {
-  label: string;
-  sublabel: string;
-  icon?: LucideIcon;
-  logo?: TrustLogo;
-};
-
-// Logos du bandeau (public/logos/), hauteur 64 px, centrés sur la même
-// zone que le logo RGE QualiPAC.
-const trustBadges: TrustBadge[] = [
+// Garanties : une rangée éditoriale séparée par des filets, pas des tuiles.
+const trustItems: { label: string; sublabel: string; logo: TrustLogo }[] = [
+  {
+    label: "RGE QualiPAC",
+    sublabel: "Qualification installateur",
+    logo: { ...QUALIPAC_LOGO, className: "h-12 w-auto" },
+  },
   {
     label: "Mandataire CEE",
     sublabel: "Mandataire auprès des obligés",
-    logo: { src: "/logos/cee.png", alt: "Certificats d'Économies d'Énergie", width: 690, height: 400, className: "h-16 w-auto" },
+    logo: { src: "/logos/cee.png", alt: "Certificats d'Économies d'Énergie", width: 690, height: 400, className: "h-12 w-auto" },
   },
   {
     label: "MaPrimeRénov'",
     sublabel: "Condition d'accès aux aides",
-    logo: { src: "/logos/rge.png", alt: "MaPrimeRénov'", width: 512, height: 512, className: "h-16 w-auto" },
+    logo: { src: "/logos/rge.png", alt: "MaPrimeRénov'", width: 512, height: 512, className: "h-12 w-auto" },
   },
   {
     label: "Coup de pouce x5",
     sublabel: "Prime bonifiée",
-    logo: { src: "/logos/coup-de-pouce.png", alt: "Prime Coup de pouce", width: 1200, height: 900, className: "h-16 w-auto" },
+    logo: { src: "/logos/coup-de-pouce.png", alt: "Prime Coup de pouce", width: 1200, height: 900, className: "h-12 w-auto" },
   },
   {
     label: "Garantie décennale",
     sublabel: "Assuré par APRIL",
-    logo: { ...APRIL_LOGO, className: "h-8 w-auto" },
+    logo: { ...APRIL_LOGO, className: "h-7 w-auto" },
   },
 ];
 
-const trustTileClass =
-  "group flex h-full flex-col items-center gap-3 rounded-[20px] border border-forest/10 bg-white p-5 text-center shadow-[0_4px_12px_rgba(0,0,0,0.04)]";
-
+// La séquence porte l'information : les numéros sont le marqueur principal.
 const steps = [
   {
     title: "Éligibilité sous 24 h",
     description: "Nous étudions votre profil et confirmons votre éligibilité aux aides 2026.",
-    icon: BadgeCheck,
   },
   {
     title: "Visite technique",
     description: "Un technicien évalue votre logement et dimensionne la PAC adaptée.",
-    icon: ClipboardCheck,
   },
   {
     title: "Devis aides déduites",
     description: "Vous recevez un devis détaillé, aides CEE et MaPrimeRénov' déjà déduites.",
-    icon: FileCheck2,
   },
   {
     title: "Installation RGE",
     description: "Pose réalisée par un installateur certifié RGE QualiPAC, garantie décennale.",
-    icon: Wrench,
   },
 ];
 
@@ -153,6 +137,11 @@ const inclusions = [
   },
 ];
 
+// Hiérarchie typographique de la page (une seule échelle, réutilisée).
+const h2Class =
+  "font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] text-ink sm:text-5xl [text-wrap:balance]";
+const leadClass = "max-w-[60ch] text-lg leading-relaxed text-ink-muted sm:text-xl";
+
 export default function PacLandingPage() {
   return (
     <div className="bg-cream pb-20 text-ink md:pb-0">
@@ -174,345 +163,295 @@ export default function PacLandingPage() {
         </div>
       </header>
 
-      {/* 2. Hero */}
-      <section className="relative overflow-hidden bg-forest pt-10 text-white sm:pt-14">
-        <div className="pointer-events-none absolute -right-20 top-10 h-[320px] w-[320px] rounded-pill bg-emerald-500/20 blur-3xl" />
-        <div className="pointer-events-none absolute -left-16 bottom-0 h-[260px] w-[260px] rounded-pill bg-emerald-500/10 blur-3xl" />
-
-        <div className="section-shell relative grid gap-10 pb-16 lg:grid-cols-2 lg:items-center lg:gap-14">
-          <Reveal>
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-2 rounded-pill border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.15em] text-white backdrop-blur-md">
-                  <span className="h-1.5 w-1.5 rounded-pill bg-pioud-orange" />
-                  Aides 2026
-                </span>
-                <span className="rounded-pill bg-emerald-100 px-3 py-1 text-xs font-semibold text-forest">
-                  🔥 Coup de pouce x5
-                </span>
-              </div>
-
-              <h1 className="mt-6 font-display text-4xl font-light leading-[1.1] text-white sm:text-5xl lg:text-[3.5rem]">
+      {/* 2. Hero : titre éditorial à gauche (colonne large), formulaire à droite */}
+      <section className="bg-forest pt-12 text-white sm:pt-16 lg:pt-20">
+        <div className="section-shell grid gap-12 pb-16 lg:grid-cols-[1.15fr_0.85fr] lg:grid-rows-[auto_auto] lg:items-start lg:gap-x-16 lg:gap-y-10 lg:pb-24">
+          <Reveal className="lg:col-start-1 lg:row-start-1">
+            <div className="lg:pr-6">
+              <h1 className="font-display text-5xl font-light leading-[1.02] tracking-[-0.02em] text-white [text-wrap:balance] sm:text-6xl lg:text-[4.5rem]">
                 Pompe à chaleur air/eau :{" "}
-                <span className="whitespace-nowrap italic text-emerald-400">
-                  0 € d&apos;avance de frais
-                </span>
+                <span className="italic text-emerald-400">0 € d&apos;avance de frais</span>
               </h1>
-              <p className="mt-5 inline-block rounded-pill border border-emerald-400/30 bg-emerald-400/15 px-5 py-2.5 text-xl font-semibold leading-snug text-white sm:text-[1.625rem]">
+              <p className="mt-7 max-w-[26ch] font-display text-2xl font-light leading-snug text-white/90 sm:text-3xl">
                 Jusqu&apos;à <span className="text-emerald-400">100 %</span> financé par les
-                aides selon vos revenus
+                aides, selon vos revenus.
               </p>
 
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-10 max-w-[58ch] divide-y divide-white/15 border-y border-white/15">
                 {benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-3">
+                  <li key={benefit} className="flex items-start gap-4 py-4">
                     <HeroCheck className="mt-0.5" />
-                    <span className="text-base text-white/85">{benefit}</span>
+                    <span className="text-base leading-relaxed text-white/90 sm:text-[17px]">
+                      {benefit}
+                    </span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-3 flex flex-wrap items-center gap-3">
-                <p className="text-xs font-semibold uppercase tracking-wide text-emerald-300">
-                  Fiche CEE BAR-TH-171 · Pompe à chaleur air/eau
-                </p>
+
+              <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
                 <Image
                   src={QUALIPAC_LOGO.src}
                   alt={QUALIPAC_LOGO.alt}
                   width={QUALIPAC_LOGO.width}
                   height={QUALIPAC_LOGO.height}
-                  className="h-10 w-auto rounded-lg bg-white px-1.5 py-1"
+                  className="h-10 w-auto rounded-md bg-white px-1.5 py-1"
                 />
+                <p className="text-sm text-emerald-200">
+                  Fiche CEE BAR-TH-171 · Coup de pouce x5 · Aides 2026
+                </p>
               </div>
-              <p className="mt-2 text-xs text-white/70">{MENTION_MONTANT_INDICATIF}</p>
-
-              <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-card-lg border border-white/20 shadow-[0_16px_36px_rgba(0,0,0,0.25)]">
-                <Image
-                  src={heroImage.src}
-                  alt={heroImage.alt}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-forest/35 via-transparent to-transparent" />
-              </div>
+              <p className="mt-3 max-w-[60ch] text-xs leading-relaxed text-emerald-100/70">
+                {MENTION_MONTANT_INDICATIF}
+              </p>
             </div>
           </Reveal>
 
-          <Reveal delay={0.1}>
-            <div id="pac-form" className="scroll-mt-24">
+          {/* Formulaire : juste après le titre sur mobile, colonne droite collante sur desktop. */}
+          <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:self-stretch">
+            <div id="pac-form" className="scroll-mt-24 lg:sticky lg:top-24 lg:mt-2">
               <PacLeadForm />
             </div>
-          </Reveal>
+          </div>
+
+          {/* Photo décalée hors de la colonne : rompt la symétrie du hero. */}
+          <div className="relative aspect-[16/10] overflow-hidden rounded-card-lg shadow-[0_24px_48px_-12px_rgba(0,0,0,0.45)] lg:col-start-1 lg:row-start-2 lg:-ml-10 lg:w-[calc(100%+2.5rem)]">
+            <Image
+              src={heroImage.src}
+              alt={heroImage.alt}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 55vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       </section>
 
-      {/* 3. Bandeau de confiance : 5 tuiles égales */}
-      <section className="border-y border-ink/10 bg-cream-soft py-10">
-        <div className="section-shell grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          <div className={trustTileClass}>
-            <span className="flex h-16 items-center justify-center">
-              <Image
-                src={QUALIPAC_LOGO.src}
-                alt={QUALIPAC_LOGO.alt}
-                width={QUALIPAC_LOGO.width}
-                height={QUALIPAC_LOGO.height}
-                className="h-14 w-auto"
-              />
-            </span>
-            <span>
-              <span className="block text-sm font-semibold text-ink">RGE QualiPAC</span>
-              <span className="mt-0.5 block text-xs text-ink-soft">Qualification installateur</span>
-            </span>
-          </div>
-          {trustBadges.map((badge) => (
-            <div key={badge.label} className={trustTileClass}>
-              {badge.logo ? (
-                <span className="flex h-16 items-center justify-center">
+      {/* 3. Garanties : rangée séparée par des filets */}
+      <section className="border-b border-ink/10 bg-cream-soft">
+        <div className="section-shell">
+          <div className="grid gap-y-6 py-8 sm:grid-cols-2 lg:grid-cols-[auto_repeat(5,minmax(0,1fr))] lg:gap-y-0 lg:py-0">
+            <p className="font-display text-xl font-light italic leading-tight text-ink sm:col-span-2 lg:col-span-1 lg:max-w-[12ch] lg:self-center lg:py-8 lg:pr-8">
+              Des garanties vérifiables, pas des promesses.
+            </p>
+            {trustItems.map((item) => (
+              <div
+                key={item.label}
+                className="flex items-center gap-4 lg:flex-col lg:items-start lg:justify-center lg:gap-3 lg:border-l lg:border-ink/10 lg:px-6 lg:py-8"
+              >
+                <span className="flex h-12 w-24 flex-none items-center lg:w-auto">
                   <Image
-                    src={badge.logo.src}
-                    alt={badge.logo.alt}
-                    width={badge.logo.width}
-                    height={badge.logo.height}
-                    className={badge.logo.className}
+                    src={item.logo.src}
+                    alt={item.logo.alt}
+                    width={item.logo.width}
+                    height={item.logo.height}
+                    className={item.logo.className}
                   />
                 </span>
-              ) : badge.icon ? (
-                <PacIcon icon={badge.icon} />
-              ) : null}
-              <span>
-                <span className="block text-sm font-semibold text-ink">{badge.label}</span>
-                <span className="mt-0.5 block text-xs text-ink-soft">{badge.sublabel}</span>
-              </span>
+                <span>
+                  <span className="block text-sm font-semibold text-ink">{item.label}</span>
+                  <span className="mt-0.5 block text-xs leading-snug text-ink-muted">{item.sublabel}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Reste à charge : argument à gauche, barème en liste à droite */}
+      <section className="section-shell py-20 sm:py-28">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-5">
+            <h2 className={h2Class}>Et si votre pompe à chaleur ne vous coûtait rien&nbsp;?</h2>
+            <p className={`mt-6 ${leadClass}`}>
+              Pour les ménages très modestes remplaçant une chaudière fioul, gaz ou charbon,
+              les aides cumulées peuvent couvrir{" "}
+              <strong className="font-semibold text-emerald-700">100 %</strong> du devis. Reste
+              à charge : à partir de{" "}
+              <strong className="font-semibold text-emerald-700">0 €</strong>.
+            </p>
+            <p className="mt-4 max-w-[60ch] text-xs leading-relaxed text-ink-soft">
+              {MENTION_MONTANT_INDICATIF}
+            </p>
+          </div>
+
+          <div className="lg:col-span-6 lg:col-start-7">
+            <ol className="divide-y divide-ink/10 border-y border-ink/10">
+              {INCOME_BANDS.map((band) => {
+                const reste = RESTE_A_CHARGE_PAR_TRANCHE[band.id];
+                const isHighlight = band.id === "tres_modestes";
+                return (
+                  <li
+                    key={band.id}
+                    className={`grid gap-x-6 gap-y-2 py-6 sm:grid-cols-[1fr_auto] sm:items-baseline ${
+                      isHighlight ? "py-8" : ""
+                    }`}
+                  >
+                    <div>
+                      <p className="font-display text-2xl font-light text-ink">{band.label}</p>
+                      <p className="mt-1 text-sm text-ink-muted">{band.hint}</p>
+                      {reste.note ? (
+                        <p className="mt-3 max-w-[44ch] text-sm leading-relaxed text-emerald-700">
+                          {reste.note}
+                        </p>
+                      ) : null}
+                    </div>
+                    <div className="sm:text-right">
+                      <p className="text-xs text-ink-soft">Reste à charge</p>
+                      {isHighlight ? (
+                        <p className="mt-1 font-display font-light leading-none text-ink">
+                          <span className="text-lg">à partir de</span>{" "}
+                          <span className="text-5xl text-emerald-700 sm:text-6xl">0 €</span>
+                        </p>
+                      ) : (
+                        <p className="mt-1 font-display text-2xl font-light text-ink">
+                          {reste.value}
+                        </p>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <a href="#pac-form" className="btn-primary btn-wipe">
+                <span>Vérifier mon éligibilité</span>
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <p className="max-w-[46ch] text-xs leading-relaxed text-ink-soft">
+                {MENTION_INTERMEDIAIRE}
+              </p>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* 4. Votre reste à charge par tranche de revenus */}
-      <section className="section-shell py-16 sm:py-20">
-        <Reveal>
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-display text-3xl font-light text-ink sm:text-4xl">
-              Et si votre pompe à chaleur ne vous coûtait rien ?
-            </h2>
-            <p className="mt-4 text-lg text-ink-muted">
-              Pour les ménages très modestes remplaçant une chaudière fioul, gaz
-              ou charbon, les aides cumulées peuvent couvrir{" "}
-              <span className="font-semibold text-emerald-400">100 %</span> du devis.
-              Reste à charge : à partir de{" "}
-              <span className="font-semibold text-emerald-400">0 €</span>.
-            </p>
-            <p className="mt-3 text-xs text-ink-soft">{MENTION_MONTANT_INDICATIF}</p>
-          </div>
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {INCOME_BANDS.map((band, index) => {
-            const reste = RESTE_A_CHARGE_PAR_TRANCHE[band.id];
-            // Carte mise en avant : reste à charge minimal (très modestes).
-            const isHighlight = band.id === "tres_modestes";
-            return (
-              <Reveal key={band.id} delay={index * 0.08} className={isHighlight ? "md:-mt-4" : ""}>
-                <article
-                  className={`card-surface relative flex h-full flex-col overflow-visible p-6 text-center ${
-                    isHighlight ? "border-2 border-emerald-400 pt-8" : ""
-                  }`}
-                >
-                  {isHighlight ? (
-                    <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-pill bg-emerald-400 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-forest shadow-md">
-                      Reste à charge minimal
-                    </span>
-                  ) : null}
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
-                      {band.label}
-                    </p>
-                    <p className="mt-1 text-xs text-ink-soft">{band.hint}</p>
-                    <p className="mt-5 text-xs font-semibold uppercase tracking-wide text-ink-soft">
-                      Reste à charge
-                    </p>
-                    {isHighlight ? (
-                      <p className="mt-1 font-display font-light leading-none text-ink">
-                        <span className="block text-xl">à partir de</span>
-                        <span className="mt-1 block text-5xl text-emerald-400 lg:text-[3.5rem]">
-                          0 €
-                        </span>
-                      </p>
-                    ) : (
-                      <p className="mt-1 font-display text-3xl font-light text-ink">
-                        {reste.value}
-                      </p>
-                    )}
-                    {reste.note ? (
-                      <p className="mt-2 text-sm font-medium text-emerald-700">{reste.note}</p>
-                    ) : null}
-                  </div>
-                  <a href="#pac-form" className="btn-secondary btn-wipe mt-6 w-full justify-center">
-                    <span>Vérifier mon éligibilité</span>
-                  </a>
-                </article>
-              </Reveal>
-            );
-          })}
-        </div>
-
-        <p className="mt-6 text-center text-xs text-ink-soft">{MENTION_INTERMEDIAIRE}</p>
-      </section>
-
-      {/* 4b. Ce que comprend l'accompagnement */}
-      <section className="section-shell py-16 sm:py-20">
-        <Reveal>
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="font-display text-3xl font-light text-ink sm:text-4xl">
-              Ce que comprend l&apos;accompagnement
-            </h2>
-            <p className="mt-4 text-lg text-ink-muted">
-              Pioud Energy s&apos;occupe de tout, de la première visite jusqu&apos;au
-              versement de la prime. Votre prime CEE (fiche BAR-TH-171, Coup de
-              pouce x5 : de 5 000 € à 12 000 €) et MaPrimeRénov&apos; sont déduites
-              directement de votre devis : aucune avance de votre part sur la part
-              financée.
+      {/* 5. Accompagnement : titre en colonne étroite, liste en colonne large */}
+      <section className="border-t border-ink/10">
+        <div className="section-shell grid gap-10 py-14 sm:py-20 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-4">
+            <h2 className={h2Class}>Ce que comprend l&apos;accompagnement</h2>
+            <p className={`mt-6 ${leadClass} lg:text-lg`}>
+              Pioud Energy s&apos;occupe de tout, de la première visite jusqu&apos;au versement
+              de la prime. Votre prime CEE (fiche BAR-TH-171, Coup de pouce x5 : de 5 000 € à
+              12 000 €) et MaPrimeRénov&apos; sont déduites directement de votre devis : aucune
+              avance de votre part sur la part financée.
             </p>
           </div>
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          {inclusions.map((item, index) => (
-            <Reveal key={item.title} delay={index * 0.08}>
-              <article className="card-surface group flex h-full gap-4 p-6">
+          <ul className="divide-y divide-ink/10 lg:col-span-7 lg:col-start-6">
+            {inclusions.map((item) => (
+              <li key={item.title} className="group flex gap-5 py-7 first:pt-0 sm:gap-7">
                 <PacIcon icon={item.icon} />
-                <div>
-                  <span className="rounded-pill bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-forest">
-                    Inclus
-                  </span>
-                  <h3 className="mt-2 text-lg font-semibold text-ink">{item.title}</h3>
-                  <p className="mt-1 text-sm text-ink-muted">{item.description}</p>
+                <div className="max-w-[52ch]">
+                  <h3 className="text-xl font-semibold leading-snug text-ink">{item.title}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-ink-muted">{item.description}</p>
                 </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-8 flex flex-col items-center gap-3">
-          <a href="#pac-form" className="btn-primary">
-            Vérifier mon éligibilité
-          </a>
-          <p className="text-center text-xs text-ink-soft">{MENTION_INTERMEDIAIRE}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* 5. 4 étapes */}
-      <section className="bg-white py-16 sm:py-20">
+      {/* 6. Déroulé : quatre colonnes numérotées, sans cartes */}
+      <section className="bg-white py-20 sm:py-28">
         <div className="section-shell">
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="font-display text-3xl font-light text-ink sm:text-4xl">
-                Comment ça se passe
-              </h2>
-            </div>
-          </Reveal>
-
-          <div className="relative isolate mt-10">
-            {/* Ligne de liaison entre les étapes (desktop), à hauteur des pastilles */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-[12.5%] top-[52px] -z-10 hidden h-px bg-forest/15 lg:block"
-            />
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {steps.map((step, index) => (
-                <Reveal key={step.title} delay={index * 0.08}>
-                  <article className="card-surface group relative h-full p-6">
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute right-5 top-4 font-display text-[40px] font-light leading-none text-emerald-400/30"
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <PacIcon icon={step.icon} />
-                    <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-ink-soft">
-                      Étape {index + 1}
-                    </p>
-                    <h3 className="mt-1 text-lg font-semibold text-ink">{step.title}</h3>
-                    <p className="mt-2 text-sm text-ink-muted">{step.description}</p>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
+          <div className="grid gap-8 lg:grid-cols-12">
+            <h2 className={`${h2Class} lg:col-span-5`}>Comment ça se passe</h2>
+            <p className={`${leadClass} lg:col-span-6 lg:col-start-7 lg:self-end lg:text-lg`}>
+              Quatre étapes, un seul interlocuteur. Le premier échange a lieu sous 24 h ouvrées
+              après votre demande.
+            </p>
           </div>
+          <ol className="mt-14 grid gap-10 border-t border-ink/10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            {steps.map((step, index) => (
+              <li key={step.title} className="pt-6 lg:border-l lg:border-ink/10 lg:pl-6 lg:first:border-l-0 lg:first:pl-0">
+                <span
+                  aria-hidden
+                  className="block font-display text-6xl font-light leading-none tracking-[-0.02em] text-emerald-600/80"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-6 text-xl font-semibold leading-snug text-ink">{step.title}</h3>
+                <p className="mt-2 max-w-[34ch] text-base leading-relaxed text-ink-muted">
+                  {step.description}
+                </p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* 6. FAQ (section avis retirée en attendant des avis clients réels) */}
-      <section className="py-16 sm:py-20">
-        <div className="section-shell max-w-3xl">
-          <Reveal>
-            <h2 className="text-center font-display text-3xl font-light text-ink sm:text-4xl">
-              Questions fréquentes
-            </h2>
-          </Reveal>
-          <div className="mt-10">
+      {/* 7. FAQ : titre à gauche, questions en filets à droite */}
+      <section className="py-16 sm:py-24">
+        <div className="section-shell grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <h2 className={h2Class}>Questions fréquentes</h2>
+            <p className={`mt-6 ${leadClass} lg:text-lg`}>
+              Les réponses aux questions que l&apos;on nous pose avant la visite technique.
+            </p>
+          </div>
+          <div className="lg:col-span-7 lg:col-start-6">
             <PacFaq />
           </div>
         </div>
       </section>
 
-      {/* 8. CTA final + footer minimal */}
-      <section className="bg-forest py-16 text-white sm:py-20">
-        <div className="section-shell grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
-          <Reveal>
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-card-lg border border-white/20 shadow-[0_16px_36px_rgba(0,0,0,0.25)] lg:mx-0">
+      {/* 8. CTA final : photo étroite, texte large */}
+      <section className="bg-forest py-20 text-white sm:py-28">
+        <div className="section-shell grid gap-10 lg:grid-cols-12 lg:items-center">
+          <Reveal className="lg:col-span-4">
+            <div className="relative aspect-[4/5] max-w-sm overflow-hidden rounded-card-lg shadow-[0_24px_48px_-12px_rgba(0,0,0,0.45)]">
               <Image
                 src={ctaImage.src}
                 alt={ctaImage.alt}
                 fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 33vw"
                 className="object-cover"
               />
             </div>
           </Reveal>
-          <Reveal delay={0.1}>
-            <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
-              <h2 className="font-display text-3xl font-light sm:text-4xl">
-                Vérifiez votre éligibilité en 1 minute
-              </h2>
-              <p className="max-w-xl text-white/85">
-                Simulation gratuite et sans engagement. Un conseiller dédié vous
-                recontacte sous 24 h ouvrées.
-              </p>
-              <a
-                href="#pac-form"
-                className="btn-wipe inline-flex items-center gap-2 rounded-pill bg-emerald-500 px-7 py-3 font-medium text-white shadow-lg shadow-emerald-500/30"
-              >
-                <CalendarCheck className="h-4 w-4" />
-                <span>Vérifier mon éligibilité en 1 minute</span>
-              </a>
-            </div>
-          </Reveal>
+          <div className="lg:col-span-7 lg:col-start-6">
+            <h2 className="font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] text-white [text-wrap:balance] sm:text-5xl lg:text-6xl">
+              Vérifiez votre éligibilité en 1 minute
+            </h2>
+            <p className="mt-6 max-w-[48ch] text-lg leading-relaxed text-emerald-100/85 sm:text-xl">
+              Simulation gratuite et sans engagement. Un conseiller dédié vous recontacte sous
+              24 h ouvrées.
+            </p>
+            <a
+              href="#pac-form"
+              className="btn-wipe mt-9 inline-flex items-center gap-2 rounded-pill bg-emerald-500 px-7 py-3.5 font-medium text-white shadow-[0_12px_28px_-8px_rgba(16,185,129,0.6)]"
+            >
+              <span>Vérifier mon éligibilité en 1 minute</span>
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
         </div>
       </section>
 
       {/* Pied de page légal — seuls liens sortants autorisés : mentions
           légales et politique de confidentialité. */}
-      <footer className="border-t border-ink/10 py-8 text-center text-xs text-ink-soft">
-        <div className="section-shell space-y-2">
-          <p className="font-semibold text-ink">
-            {LEGAL_NAME} · {LEGAL_SIREN}
-          </p>
-          <p>{siteConfig.address}</p>
-          <p className="mx-auto max-w-2xl leading-relaxed">
+      <footer className="border-t border-ink/10 py-10 text-xs text-ink-soft">
+        <div className="section-shell grid gap-6 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <p className="font-semibold text-ink">
+              {LEGAL_NAME} · {LEGAL_SIREN}
+            </p>
+            <p className="mt-1">{siteConfig.address}</p>
+            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+              <Link href="/mentions-legales" className="underline underline-offset-2 hover:text-ink">
+                Mentions légales
+              </Link>
+              <Link
+                href="/politique-confidentialite"
+                className="underline underline-offset-2 hover:text-ink"
+              >
+                Politique de confidentialité
+              </Link>
+            </p>
+          </div>
+          <p className="max-w-[72ch] leading-relaxed lg:col-span-7 lg:col-start-6">
             {MENTION_MONTANT_INDICATIF} {MENTION_INTERMEDIAIRE}
-          </p>
-          <p className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 pt-1">
-            <Link href="/mentions-legales" className="underline underline-offset-2 hover:text-ink">
-              Mentions légales
-            </Link>
-            <Link
-              href="/politique-confidentialite"
-              className="underline underline-offset-2 hover:text-ink"
-            >
-              Politique de confidentialité
-            </Link>
           </p>
         </div>
       </footer>
