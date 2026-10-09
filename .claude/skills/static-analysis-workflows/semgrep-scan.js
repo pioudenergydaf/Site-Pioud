@@ -203,7 +203,7 @@ const RESOLVE_SKILL_DIR = skillHint
       'Locate the semgrep skill directory. Run these in order and stop at the first that',
       '   prints a path:',
       '',
-      '     ls "$CLAUDE_PLUGIN_ROOT/skills/semgrep/scripts/run-scans.sh" 2>/dev/null',
+      '     ls ".claude/skills/semgrep/scripts/run-scans.sh" 2>/dev/null',
       '     ls ~/.claude/plugins/cache/*/static-analysis/*/skills/semgrep/scripts/run-scans.sh 2>/dev/null | sort -V | tail -1',
       "     find . -maxdepth 6 -type f -path '*static-analysis/skills/semgrep/scripts/run-scans.sh' 2>/dev/null | head -1",
       "     find \"$HOME\" -maxdepth 9 -type f -path '*static-analysis/skills/semgrep/scripts/run-scans.sh' 2>/dev/null | head -1",

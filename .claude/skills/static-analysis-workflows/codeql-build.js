@@ -26,7 +26,7 @@ const SKILL_DIR_PROBE = [
   '   scripts/. Every step below and both phases after this one read files under it. Try in',
   '   order, first hit wins, and accept a candidate only when $SKILL_DIR/scripts/build_log.sh',
   '   is a file:',
-  '     a. "$CLAUDE_PLUGIN_ROOT/skills/codeql"',
+  '     a. ".claude/skills/codeql"',
   '     b. "$CODEX_PLUGIN_ROOT/skills/codeql"',
   "     c. find ~/.claude ~/.codex . -path '*/static-analysis/skills/codeql/scripts/build_log.sh' -print -quit 2>/dev/null,",
   '        then strip the trailing /scripts/build_log.sh. The home directories are searched',
