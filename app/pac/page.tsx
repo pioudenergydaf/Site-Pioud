@@ -249,8 +249,10 @@ export default function PacLandingPage() {
             {trustItems.map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-4 lg:flex-col lg:items-start lg:justify-center lg:gap-3 lg:border-l lg:border-ink/10 lg:px-6 lg:py-8"
+                className="flex items-center gap-4 lg:flex-col lg:items-start lg:justify-start lg:gap-4 lg:border-l lg:border-ink/10 lg:px-6 lg:py-8"
               >
+                {/* Zone logo à hauteur fixe : les cinq logos et les cinq libellés
+                    partent de la même ligne quelle que soit la longueur du texte. */}
                 <span className="flex h-[52px] w-28 flex-none items-center lg:w-auto">
                   <Image
                     src={item.logo.src}
