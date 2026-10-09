@@ -5,9 +5,9 @@ declare global {
 }
 
 // Identifiant de conversion Google Ads pour les soumissions de formulaire
-// (contact + simulateur). Remplacer XXXXXXXXX par le libellé de conversion
-// fourni dans Google Ads (Outils > Conversions > cette action > Balise).
-export const CONVERSION_FORM = "AW-18497703928/XXXXXXXXX";
+// (contact, simulateur, landing /pac). Libellé fourni dans Google Ads
+// (Objectifs > Conversions > cette action > Balise).
+export const CONVERSION_FORM = "AW-18497703928/ul6MCITV-pYdEPifsvRE";
 
 // Déclenche une conversion Google Ads. `sendTo` est l'identifiant
 // "AW-XXXXXXXXX/yyyyyyyyyy" fourni par Google Ads pour l'action suivie.
