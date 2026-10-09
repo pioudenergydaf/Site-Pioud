@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { CookieBanner } from "@/components/cookies/cookie-banner";
 import { SiteChrome } from "@/components/layout/site-chrome";
+import { COOKIE_CONSENT_STORAGE_KEY } from "@/lib/cookie-consent";
 import { siteConfig } from "@/lib/site-data";
 
 const dmSerif = DM_Serif_Display({
@@ -91,6 +92,36 @@ export default function RootLayout({
       >
         <SiteChrome>{children}</SiteChrome>
         <CookieBanner />
+        {/* Google Consent Mode v2 : état par défaut « tout refusé » posé avant
+            le chargement de gtag.js (beforeInteractive est injecté dans <head>).
+            Un choix déjà enregistré dans la bannière cookies est rejoué aussitôt. */}
+        <Script id="google-consent-default" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              analytics_storage: 'denied',
+              wait_for_update: 500
+            });
+            gtag('set', 'ads_data_redaction', true);
+            try {
+              var stored = window.localStorage.getItem('${COOKIE_CONSENT_STORAGE_KEY}');
+              if (stored) {
+                var choice = JSON.parse(stored);
+                var ads = choice.marketing ? 'granted' : 'denied';
+                gtag('consent', 'update', {
+                  ad_storage: ads,
+                  ad_user_data: ads,
+                  ad_personalization: ads,
+                  analytics_storage: choice.analytics ? 'granted' : 'denied'
+                });
+              }
+            } catch (e) {}
+          `}
+        </Script>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-18497703928"
           strategy="afterInteractive"
