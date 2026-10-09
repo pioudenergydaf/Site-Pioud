@@ -416,15 +416,18 @@ export default function PacLandingPage() {
         </div>
       </section>
 
-      {/* 6b. Photo de chantier pleine largeur */}
-      <div className="relative aspect-[16/9] w-full overflow-hidden border-t border-ink/10 sm:aspect-[21/9]">
-        <Image
-          src={SITE_PHOTO.src}
-          alt={SITE_PHOTO.alt}
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
+      {/* 6b. Photo de chantier : largeur contenue (source 612 px, à remplacer par un fichier ≥ 1600 px) */}
+      <div className="section-shell border-t border-ink/10 py-12 sm:py-16">
+        <div className="relative mx-auto aspect-video w-full max-w-[960px] overflow-hidden rounded-xl">
+          <Image
+            src={SITE_PHOTO.src}
+            alt={SITE_PHOTO.alt}
+            fill
+            quality={85}
+            sizes="(max-width: 1024px) 100vw, 960px"
+            className="object-cover"
+          />
+        </div>
       </div>
 
       {/* 7. FAQ : titre à gauche, questions en filets à droite */}
