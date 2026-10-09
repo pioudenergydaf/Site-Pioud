@@ -179,9 +179,10 @@ export default function PacLandingPage() {
                 Pompe à chaleur air/eau :{" "}
                 <span className="italic text-emerald-400">0 € d&apos;avance de frais</span>
               </h1>
-              <p className="mt-7 max-w-[26ch] font-display text-2xl font-light leading-snug text-white/90 sm:text-3xl">
-                Jusqu&apos;à <span className="text-emerald-400">100 %</span> financé par les
-                aides, selon vos revenus.
+              <p className="mt-8 max-w-[24ch] font-display text-3xl font-light leading-[1.15] text-white [text-wrap:balance] sm:text-4xl lg:text-[2.75rem]">
+                Jusqu&apos;à{" "}
+                <span className="italic text-emerald-400 lg:text-[3.25rem]">100 %</span> financé
+                par les aides, selon vos revenus.
               </p>
 
               <ul className="mt-10 max-w-[58ch] divide-y divide-white/15 border-y border-white/15">
