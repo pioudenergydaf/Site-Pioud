@@ -155,7 +155,7 @@ const leadClass = "max-w-[60ch] text-lg leading-relaxed text-ink-muted sm:text-x
 
 export default function PacLandingPage() {
   return (
-    <div className="bg-cream pb-20 text-ink md:pb-0">
+    <div className="pac-theme bg-cream pb-20 text-ink md:pb-0">
       {/* 1. Barre haute */}
       <header className="sticky top-0 z-40 border-b border-ink/10 bg-white/95 backdrop-blur-md">
         <div className="section-shell flex items-center justify-between gap-4 py-3">
@@ -264,7 +264,7 @@ export default function PacLandingPage() {
                 </span>
                 <span>
                   <span className="block text-sm font-semibold text-ink">{item.label}</span>
-                  <span className="mt-0.5 block text-xs leading-snug text-ink-muted">{item.sublabel}</span>
+                  <span className="mt-0.5 block text-[13px] leading-snug text-ink-muted">{item.sublabel}</span>
                 </span>
               </div>
             ))}
