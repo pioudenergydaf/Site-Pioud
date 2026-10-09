@@ -66,32 +66,36 @@ const APRIL_LOGO = { src: "/logos/april.png", alt: "APRIL", width: 1568, height:
 
 type TrustLogo = { src: string; alt: string; width: number; height: number; className: string };
 
+// Même hauteur visuelle pour les cinq logos ; le mode multiply fait
+// disparaître tout fond blanc résiduel sur le crème du bandeau.
+const LOGO_CLASS = "h-[52px] w-auto mix-blend-multiply";
+
 // Garanties : une rangée éditoriale séparée par des filets, pas des tuiles.
 const trustItems: { label: string; sublabel: string; logo: TrustLogo }[] = [
   {
     label: "RGE QualiPAC",
     sublabel: "Qualification installateur",
-    logo: { ...QUALIPAC_LOGO, className: "h-12 w-auto" },
+    logo: { ...QUALIPAC_LOGO, className: LOGO_CLASS },
   },
   {
     label: "Mandataire CEE",
     sublabel: "Mandataire auprès des obligés",
-    logo: { src: "/logos/cee.png", alt: "Certificats d'Économies d'Énergie", width: 690, height: 400, className: "h-12 w-auto" },
+    logo: { src: "/logos/cee.png", alt: "Certificats d'Économies d'Énergie", width: 371, height: 366, className: LOGO_CLASS },
   },
   {
     label: "MaPrimeRénov'",
     sublabel: "Condition d'accès aux aides",
-    logo: { src: "/logos/rge.png", alt: "MaPrimeRénov'", width: 512, height: 512, className: "h-12 w-auto" },
+    logo: { src: "/logos/rge.png", alt: "MaPrimeRénov'", width: 512, height: 512, className: LOGO_CLASS },
   },
   {
     label: "Coup de pouce x5",
     sublabel: "Prime bonifiée",
-    logo: { src: "/logos/coup-de-pouce.png", alt: "Prime Coup de pouce", width: 1200, height: 900, className: "h-12 w-auto" },
+    logo: { src: "/logos/coup-de-pouce.png", alt: "Prime Coup de pouce", width: 564, height: 777, className: LOGO_CLASS },
   },
   {
     label: "Garantie décennale",
     sublabel: "Assuré par APRIL",
-    logo: { ...APRIL_LOGO, className: "h-7 w-auto" },
+    logo: { ...APRIL_LOGO, className: LOGO_CLASS },
   },
 ];
 
@@ -247,7 +251,7 @@ export default function PacLandingPage() {
                 key={item.label}
                 className="flex items-center gap-4 lg:flex-col lg:items-start lg:justify-center lg:gap-3 lg:border-l lg:border-ink/10 lg:px-6 lg:py-8"
               >
-                <span className="flex h-12 w-24 flex-none items-center lg:w-auto">
+                <span className="flex h-[52px] w-28 flex-none items-center lg:w-auto">
                   <Image
                     src={item.logo.src}
                     alt={item.logo.alt}
