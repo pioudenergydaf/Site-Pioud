@@ -27,7 +27,9 @@ export function PacStickyCta({ targetId }: { targetId: string }) {
         isTargetVisible ? "pointer-events-none translate-y-24 opacity-0" : "translate-y-0 opacity-100"
       }`}
     >
-      Vérifier mon éligibilité
+      <span className="font-display text-base font-normal">Reste à charge dès 0 €</span>
+      <span aria-hidden className="mx-2 opacity-60">·</span>
+      <span>Vérifier</span>
     </a>
   );
 }
