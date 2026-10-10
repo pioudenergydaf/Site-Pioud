@@ -70,6 +70,17 @@ type TrustLogo = { src: string; alt: string; width: number; height: number; clas
 // disparaître tout fond blanc résiduel sur le crème du bandeau.
 const LOGO_CLASS = "h-[52px] w-auto mix-blend-multiply";
 
+// Marques installées (bande sous le hero). SVG monochromes tracés depuis les
+// logos officiels, dans public/logos/marques/ ; dimensions = viewBox du fichier.
+// Chappee en tête : c'est la marque proposée par défaut (badge « Notre sélection »).
+const brandLogos: { name: string; src: string; width: number; height: number; featured?: boolean }[] = [
+  { name: "Chappee", src: "/logos/marques/chappee.svg", width: 1786, height: 394, featured: true },
+  { name: "Daikin", src: "/logos/marques/daikin.svg", width: 1448, height: 308 },
+  { name: "Atlantic", src: "/logos/marques/atlantic.svg", width: 1790, height: 332 },
+  { name: "Mitsubishi Electric", src: "/logos/marques/mitsubishi-electric.svg", width: 1349, height: 461 },
+  { name: "Panasonic", src: "/logos/marques/panasonic.svg", width: 1682, height: 263 },
+];
+
 // Garanties : une rangée éditoriale séparée par des filets, pas des tuiles.
 const trustItems: { label: string; sublabel: string; logo: TrustLogo }[] = [
   {
@@ -236,6 +247,47 @@ export default function PacLandingPage() {
               className="object-cover"
             />
           </div>
+        </div>
+      </section>
+
+      {/* 2b. Marques installées : bande blanche pleine largeur, logos monochromes */}
+      <section className="border-y border-slate-100 bg-white py-10">
+        <div className="section-shell text-center">
+          <p className="text-xs uppercase tracking-widest text-slate-400">
+            Des équipements de marques reconnues
+          </p>
+          <h2 className="mt-2 font-serif text-2xl font-bold text-[#1F3D2E] [text-wrap:balance]">
+            Nous installons et entretenons les grandes marques du marché
+          </h2>
+          <p className="mx-auto mt-2 max-w-2xl text-sm text-slate-500">
+            Pompes à chaleur air/eau sélectionnées pour leur fiabilité, leur rendement et la
+            disponibilité des pièces en France.
+          </p>
+
+          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-6 sm:gap-x-12">
+            {brandLogos.map((brand) => (
+              <li key={brand.name} className="relative flex items-center">
+                {brand.featured ? (
+                  <span className="absolute -top-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#6EE7A8] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#1F3D2E]">
+                    Notre sélection
+                  </span>
+                ) : null}
+                <Image
+                  src={brand.src}
+                  alt={brand.name}
+                  width={brand.width}
+                  height={brand.height}
+                  unoptimized
+                  className="h-[26px] w-auto opacity-60 grayscale transition hover:opacity-100 sm:h-8"
+                />
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-6 text-xs text-slate-400">
+            Le modèle proposé est déterminé lors de la visite technique selon votre logement et
+            votre installation existante.
+          </p>
         </div>
       </section>
 
