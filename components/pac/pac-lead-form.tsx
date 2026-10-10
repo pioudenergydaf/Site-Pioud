@@ -501,11 +501,11 @@ export function PacLeadForm() {
   return (
     <div className={formCardClass}>
       <SimulatorBadge />
-      <div className="px-5 pb-6 pt-8 sm:px-8 sm:pb-8 sm:pt-9">
-        <h2 className="font-serif text-3xl font-bold leading-tight text-[#1F3D2E]">
+      <div className="px-5 pb-6 pt-8 sm:px-8 sm:pb-8 sm:pt-9 lg:px-10 lg:pb-10 lg:pt-11">
+        <h2 className="font-serif text-3xl font-bold leading-tight text-[#1F3D2E] lg:text-4xl">
           Calculez vos aides en 2 minutes
         </h2>
-        <p className="mt-1 text-sm text-slate-500">Résultat immédiat · 0 € d&apos;avance de frais</p>
+        <p className="mt-1 text-sm text-slate-500 lg:text-base">Résultat immédiat · 0 € d&apos;avance de frais</p>
 
         <div className="mt-6 flex items-center justify-between text-xs text-slate-500" aria-live="polite">
           <p>
@@ -532,7 +532,7 @@ export function PacLeadForm() {
         <AnimatePresence mode="wait">
           {stepId === "housing" && (
             <motion.section key="housing" {...stepMotion}>
-              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E]">Vous habitez en...</h3>
+              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E] lg:text-3xl">Vous habitez en...</h3>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {housingOptions.map((option) => (
                   <PhotoChoice
@@ -550,7 +550,7 @@ export function PacLeadForm() {
 
           {stepId === "surface" && (
             <motion.section key="surface" {...stepMotion}>
-              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E]">Surface de votre logement</h3>
+              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E] lg:text-3xl">Surface de votre logement</h3>
               <p className="mt-2 text-sm text-ink-muted">
                 Pour dimensionner la pompe à chaleur adaptée.
               </p>
@@ -564,7 +564,7 @@ export function PacLeadForm() {
 
           {stepId === "heating" && (
             <motion.section key="heating" {...stepMotion}>
-              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E]">Votre chauffage actuel</h3>
+              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E] lg:text-3xl">Votre chauffage actuel</h3>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {heatingOptions.map((option) => (
                   <PhotoChoice
@@ -583,7 +583,7 @@ export function PacLeadForm() {
 
           {stepId === "role" && (
             <motion.section key="role" {...stepMotion}>
-              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E]">Vous êtes</h3>
+              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E] lg:text-3xl">Vous êtes</h3>
               <p className="mt-2 text-sm text-ink-muted">
                 Votre rôle dans la copropriété.
               </p>
@@ -593,7 +593,7 @@ export function PacLeadForm() {
 
           {stepId === "buildingHeating" && (
             <motion.section key="buildingHeating" {...stepMotion}>
-              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E]">Chauffage de l&apos;immeuble</h3>
+              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E] lg:text-3xl">Chauffage de l&apos;immeuble</h3>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {buildingHeatingOptions.map((option) => (
                   <PhotoChoice
@@ -612,7 +612,7 @@ export function PacLeadForm() {
 
           {stepId === "units" && (
             <motion.section key="units" {...stepMotion}>
-              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E]">Nombre de logements</h3>
+              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E] lg:text-3xl">Nombre de logements</h3>
               <p className="mt-2 text-sm text-ink-muted">Dans l&apos;immeuble ou la copropriété.</p>
               <TextChoices options={unitsOptions} selected={units} onSelect={(id) => choose(setUnits, id)} />
             </motion.section>
@@ -620,7 +620,7 @@ export function PacLeadForm() {
 
           {stepId === "postal" && (
             <motion.section key="postal" {...stepMotion}>
-              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E]">Votre code postal</h3>
+              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E] lg:text-3xl">Votre code postal</h3>
               <p className="mt-2 text-sm text-ink-muted">
                 Pour vérifier l&apos;éligibilité de votre zone aux aides 2026.
               </p>
@@ -690,7 +690,7 @@ export function PacLeadForm() {
 
           {stepId === "contact" && (
             <motion.section key="contact" {...stepMotion}>
-              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E]">Vos coordonnées</h3>
+              <h3 className="mt-8 font-serif text-2xl font-bold text-[#1F3D2E] lg:text-3xl">Vos coordonnées</h3>
               <p className="mt-2 text-sm text-ink-muted">
                 {flow === "copro"
                   ? "Pour organiser votre étude."

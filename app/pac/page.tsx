@@ -211,7 +211,7 @@ export default function PacLandingPage() {
 
       {/* 2. Hero : titre éditorial à gauche (colonne large), formulaire à droite */}
       <section className="bg-forest pt-12 text-white sm:pt-16 lg:pt-20">
-        <div className="section-shell grid gap-12 pb-16 lg:grid-cols-[1.15fr_0.85fr] lg:grid-rows-[auto_auto] lg:items-start lg:gap-x-16 lg:gap-y-10 lg:pb-24">
+        <div className="section-shell grid gap-12 pb-16 lg:grid-cols-[1fr_1fr] lg:grid-rows-[auto_auto] lg:items-start lg:gap-x-12 lg:gap-y-10 lg:pb-24">
           <Reveal className="lg:col-start-1 lg:row-start-1">
             <div className="lg:pr-6">
               <h1 className="font-display text-5xl font-light leading-[1.02] tracking-[-0.02em] text-white [text-wrap:balance] sm:text-6xl lg:text-[4.5rem]">
