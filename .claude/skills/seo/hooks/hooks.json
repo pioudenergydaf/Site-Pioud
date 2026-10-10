@@ -1,0 +1,20 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": [
+              ".claude/skills/seo/hooks/run-python-hook.js",
+              ".claude/skills/seo/hooks/validate-schema.py",
+              "${tool_input.file_path}"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

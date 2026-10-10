@@ -39,12 +39,11 @@ export const metadata: Metadata = {
 const LEGAL_NAME = "PIOUD ENERGY SAS";
 const LEGAL_SIREN = "SIREN 927 628 446";
 
-// Photo pleine largeur (chantier). PLACEHOLDER — public/images/pac/chantier.jpg
-// contient pour l'instant une copie de la photo PAC de la carte BAR-TH-171 ;
-// remplacer le fichier par la vraie photo de chantier, sans toucher au code.
-const CHANTIER_PHOTO = {
+// Photo pleine largeur entre le déroulé et la FAQ (public/images/pac/chantier.jpg,
+// 640 × 360 pour l'instant : à remplacer par le fichier définitif, plus grand).
+const SITE_PHOTO = {
   src: "/images/pac/chantier.jpg",
-  alt: "Installation d'une pompe à chaleur air/eau par Pioud Energy",
+  alt: "Unité extérieure de pompe à chaleur air/eau installée contre une façade",
 };
 
 // Montants alignés sur la carte BAR-TH-171 de /particuliers/chauffage.
@@ -67,32 +66,36 @@ const APRIL_LOGO = { src: "/logos/april.png", alt: "APRIL", width: 1568, height:
 
 type TrustLogo = { src: string; alt: string; width: number; height: number; className: string };
 
+// Même hauteur visuelle pour les cinq logos ; le mode multiply fait
+// disparaître tout fond blanc résiduel sur le crème du bandeau.
+const LOGO_CLASS = "h-[52px] w-auto mix-blend-multiply";
+
 // Garanties : une rangée éditoriale séparée par des filets, pas des tuiles.
 const trustItems: { label: string; sublabel: string; logo: TrustLogo }[] = [
   {
     label: "RGE QualiPAC",
     sublabel: "Qualification installateur",
-    logo: { ...QUALIPAC_LOGO, className: "h-12 w-auto" },
+    logo: { ...QUALIPAC_LOGO, className: LOGO_CLASS },
   },
   {
     label: "Mandataire CEE",
     sublabel: "Mandataire auprès des obligés",
-    logo: { src: "/logos/cee.png", alt: "Certificats d'Économies d'Énergie", width: 690, height: 400, className: "h-12 w-auto" },
+    logo: { src: "/logos/cee.png", alt: "Certificats d'Économies d'Énergie", width: 371, height: 366, className: LOGO_CLASS },
   },
   {
     label: "MaPrimeRénov'",
     sublabel: "Condition d'accès aux aides",
-    logo: { src: "/logos/rge.png", alt: "MaPrimeRénov'", width: 512, height: 512, className: "h-12 w-auto" },
+    logo: { src: "/logos/rge.png", alt: "MaPrimeRénov'", width: 512, height: 512, className: LOGO_CLASS },
   },
   {
     label: "Coup de pouce x5",
     sublabel: "Prime bonifiée",
-    logo: { src: "/logos/coup-de-pouce.png", alt: "Prime Coup de pouce", width: 1200, height: 900, className: "h-12 w-auto" },
+    logo: { src: "/logos/coup-de-pouce.png", alt: "Prime Coup de pouce", width: 564, height: 777, className: LOGO_CLASS },
   },
   {
     label: "Garantie décennale",
     sublabel: "Assuré par APRIL",
-    logo: { ...APRIL_LOGO, className: "h-7 w-auto" },
+    logo: { ...APRIL_LOGO, className: LOGO_CLASS },
   },
 ];
 
@@ -152,7 +155,7 @@ const leadClass = "max-w-[60ch] text-lg leading-relaxed text-ink-muted sm:text-x
 
 export default function PacLandingPage() {
   return (
-    <div className="bg-cream pb-20 text-ink md:pb-0">
+    <div className="pac-theme bg-cream pb-20 text-ink md:pb-0">
       {/* 1. Barre haute */}
       <header className="sticky top-0 z-40 border-b border-ink/10 bg-white/95 backdrop-blur-md">
         <div className="section-shell flex items-center justify-between gap-4 py-3">
@@ -180,9 +183,10 @@ export default function PacLandingPage() {
                 Pompe à chaleur air/eau :{" "}
                 <span className="italic text-emerald-400">0 € d&apos;avance de frais</span>
               </h1>
-              <p className="mt-7 max-w-[26ch] font-display text-2xl font-light leading-snug text-white/90 sm:text-3xl">
-                Jusqu&apos;à <span className="text-emerald-400">100 %</span> financé par les
-                aides, selon vos revenus.
+              <p className="mt-8 max-w-[24ch] font-display text-3xl font-light leading-[1.15] text-white [text-wrap:balance] sm:text-4xl lg:text-[2.75rem]">
+                Jusqu&apos;à{" "}
+                <span className="italic text-emerald-400 lg:text-[3.25rem]">100 %</span> financé
+                par les aides, selon vos revenus.
               </p>
 
               <ul className="mt-10 max-w-[58ch] divide-y divide-white/15 border-y border-white/15">
@@ -245,9 +249,11 @@ export default function PacLandingPage() {
             {trustItems.map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-4 lg:flex-col lg:items-start lg:justify-center lg:gap-3 lg:border-l lg:border-ink/10 lg:px-6 lg:py-8"
+                className="flex items-center gap-4 lg:flex-col lg:items-start lg:justify-start lg:gap-4 lg:border-l lg:border-ink/10 lg:px-6 lg:py-8"
               >
-                <span className="flex h-12 w-24 flex-none items-center lg:w-auto">
+                {/* Zone logo à hauteur fixe : les cinq logos et les cinq libellés
+                    partent de la même ligne quelle que soit la longueur du texte. */}
+                <span className="flex h-[52px] w-28 flex-none items-center lg:w-auto">
                   <Image
                     src={item.logo.src}
                     alt={item.logo.alt}
@@ -258,7 +264,7 @@ export default function PacLandingPage() {
                 </span>
                 <span>
                   <span className="block text-sm font-semibold text-ink">{item.label}</span>
-                  <span className="mt-0.5 block text-xs leading-snug text-ink-muted">{item.sublabel}</span>
+                  <span className="mt-0.5 block text-[13px] leading-snug text-ink-muted">{item.sublabel}</span>
                 </span>
               </div>
             ))}
@@ -266,11 +272,10 @@ export default function PacLandingPage() {
         </div>
       </section>
 
-      {/* 4a. Un seul chiffre : le reste à charge minimal. Élément le plus visible
-          de la page après le H1 (serif 120 px sur desktop). */}
+      {/* 4a. Un seul chiffre : le « 0 € », élément le plus visible après le H1 */}
       <section className="bg-cream-soft">
         <div className="section-shell grid gap-8 py-16 sm:py-20 lg:grid-cols-12 lg:items-center lg:gap-10">
-          <p className="font-display text-8xl font-light leading-none tracking-[-0.03em] text-forest sm:text-9xl lg:col-span-5 lg:text-[120px]">
+          <p className="font-display text-8xl font-light leading-none tracking-[-0.03em] text-forest lg:col-span-5 lg:text-[120px]">
             0 €
           </p>
           <div className="lg:col-span-6 lg:col-start-7">
@@ -278,7 +283,7 @@ export default function PacLandingPage() {
               Votre pompe à chaleur peut ne rien vous coûter, selon vos revenus et votre
               chauffage actuel.
             </p>
-            <p className="mt-5 max-w-[60ch] text-base leading-relaxed text-ink-muted">
+            <p className="mt-5 max-w-[56ch] text-base leading-relaxed text-ink-muted">
               Jusqu&apos;à 12 000 € de prime CEE + MaPrimeRénov&apos; déduits du devis. Montant
               indicatif, sous conditions d&apos;éligibilité.
             </p>
@@ -413,18 +418,20 @@ export default function PacLandingPage() {
         </div>
       </section>
 
-      {/* 6b. Photo de chantier pleine largeur */}
-      <section className="border-t border-ink/10">
-        <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[21/9]">
+      {/* 6b. Photo de chantier affichée au plus à sa taille réelle (612 × 344 px)
+          pour rester nette ; un fichier ≥ 1600 px permettra de l'agrandir. */}
+      <div className="section-shell border-t border-ink/10 py-12 sm:py-16">
+        <div className="relative mx-auto aspect-[612/344] w-full max-w-[612px] overflow-hidden rounded-xl">
           <Image
-            src={CHANTIER_PHOTO.src}
-            alt={CHANTIER_PHOTO.alt}
+            src={SITE_PHOTO.src}
+            alt={SITE_PHOTO.alt}
             fill
-            sizes="100vw"
+            quality={90}
+            sizes="(max-width: 640px) 100vw, 612px"
             className="object-cover"
           />
         </div>
-      </section>
+      </div>
 
       {/* 7. FAQ : titre à gauche, questions en filets à droite */}
       <section className="py-16 sm:py-24">

@@ -7,6 +7,7 @@ import {
   COOKIE_CONSENT_UPDATED_EVENT,
   type CookieConsent,
 } from "@/lib/cookie-consent";
+import { updateConsent } from "@/lib/gtag";
 
 function saveConsent(consent: CookieConsent) {
   window.localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, JSON.stringify(consent));
@@ -58,6 +59,9 @@ export function CookieBanner() {
       updatedAt: new Date().toISOString(),
     };
     saveConsent(consent);
+    // Consent Mode v2 : « Accepter tout » accorde tout, « Refuser tout »
+    // refuse tout, « Enregistrer mes choix » suit les cases cochées.
+    updateConsent({ analytics: nextAnalytics, marketing: nextMarketing });
     window.dispatchEvent(new Event(COOKIE_CONSENT_UPDATED_EVENT));
     setIsVisible(false);
     setIsCustomizing(false);

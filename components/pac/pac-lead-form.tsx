@@ -624,7 +624,13 @@ export function PacLeadForm() {
               <p className="mt-2 text-sm text-ink-muted">
                 Pour vérifier l&apos;éligibilité de votre zone aux aides 2026.
               </p>
+              <label htmlFor="pac-postal" className="sr-only">
+                Code postal
+              </label>
               <input
+                id="pac-postal"
+                name="postalCode"
+                autoComplete="postal-code"
                 value={postalCode}
                 onChange={(e) => setPostalCode(e.target.value.replace(/\D/g, "").slice(0, 5))}
                 onKeyDown={(e) => {
@@ -692,45 +698,69 @@ export function PacLeadForm() {
               </p>
               <div className="mt-5 space-y-4">
                 <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="pac-first-name" className="sr-only">
+                      Prénom
+                    </label>
+                    <input
+                      id="pac-first-name"
+                      name="firstName"
+                      autoComplete="given-name"
+                      required
+                      value={contact.firstName}
+                      onChange={(e) => setContact((c) => ({ ...c, firstName: e.target.value }))}
+                      placeholder="Prénom"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="pac-last-name" className="sr-only">
+                      Nom
+                    </label>
+                    <input
+                      id="pac-last-name"
+                      name="lastName"
+                      autoComplete="family-name"
+                      required
+                      value={contact.lastName}
+                      onChange={(e) => setContact((c) => ({ ...c, lastName: e.target.value }))}
+                      placeholder="Nom"
+                      className={inputClass}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="pac-phone" className="sr-only">
+                    Téléphone
+                  </label>
                   <input
-                    name="firstName"
-                    autoComplete="given-name"
+                    id="pac-phone"
+                    name="phone"
+                    type="tel"
+                    autoComplete="tel"
                     required
-                    value={contact.firstName}
-                    onChange={(e) => setContact((c) => ({ ...c, firstName: e.target.value }))}
-                    placeholder="Prénom"
-                    className={inputClass}
-                  />
-                  <input
-                    name="lastName"
-                    autoComplete="family-name"
-                    required
-                    value={contact.lastName}
-                    onChange={(e) => setContact((c) => ({ ...c, lastName: e.target.value }))}
-                    placeholder="Nom"
+                    value={contact.phone}
+                    onChange={(e) => setContact((c) => ({ ...c, phone: e.target.value }))}
+                    placeholder="06 12 34 56 78"
                     className={inputClass}
                   />
                 </div>
-                <input
-                  name="phone"
-                  type="tel"
-                  autoComplete="tel"
-                  required
-                  value={contact.phone}
-                  onChange={(e) => setContact((c) => ({ ...c, phone: e.target.value }))}
-                  placeholder="06 12 34 56 78"
-                  className={inputClass}
-                />
-                <input
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={contact.email}
-                  onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
-                  placeholder="vous@email.fr"
-                  className={inputClass}
-                />
+                <div>
+                  <label htmlFor="pac-email" className="sr-only">
+                    Email
+                  </label>
+                  <input
+                    id="pac-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={contact.email}
+                    onChange={(e) => setContact((c) => ({ ...c, email: e.target.value }))}
+                    placeholder="vous@email.fr"
+                    className={inputClass}
+                  />
+                </div>
               </div>
 
               <label className="mt-4 flex items-start gap-3 rounded-xl border border-ink/10 bg-cream-soft px-4 py-3">

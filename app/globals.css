@@ -54,6 +54,32 @@ h6 {
     @apply relative z-10;
   }
 
+  /* Thème des landing pages Ads (design-system/pioud-pac/MASTER.md) :
+     surfaces navigateur, focus clavier, cibles tactiles, mouvement réduit. */
+  .pac-theme ::selection {
+    @apply bg-emerald-400/30 text-forest;
+  }
+  .pac-theme button,
+  .pac-theme [role="button"],
+  .pac-theme a {
+    @apply cursor-pointer;
+  }
+  .pac-theme :where(a, button, input, [role="button"]):focus-visible {
+    @apply outline-none ring-2 ring-emerald-300 ring-offset-2 ring-offset-cream;
+  }
+  .pac-theme :where(button, a.btn-primary, a.btn-secondary) {
+    @apply min-h-[44px];
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pac-theme .btn-wipe::before,
+    .pac-theme .btn-wipe,
+    .pac-theme .group:hover img,
+    .pac-theme [data-motion] {
+      transition-duration: 0.01ms !important;
+      transform: none !important;
+    }
+  }
+
   /* Champs texte de la landing /pac : texte vert foncé lisible,
      placeholder gris moyen, fond blanc, bordure verte au focus. */
   .pac-input {
