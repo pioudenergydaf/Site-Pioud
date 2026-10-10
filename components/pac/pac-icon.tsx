@@ -21,6 +21,7 @@ export function PacIcon({ icon: Icon, className = "" }: { icon: LucideIcon; clas
 // Réassurance sous le formulaire : une ligne sobre en petites capitales,
 // éléments séparés par des points médians.
 const reassuranceItems = ["Sans engagement", "Réponse sous 24 h", "Conseiller dédié"];
+export const REASSURANCE_TEXT = reassuranceItems.join(" · ");
 
 export function PacReassurance({ className = "" }: { className?: string }) {
   return (
