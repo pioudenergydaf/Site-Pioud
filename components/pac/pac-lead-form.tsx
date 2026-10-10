@@ -259,10 +259,10 @@ function TextChoices<T extends string>({
 const backButtonClass =
   "rounded-pill border border-ink/10 px-5 py-2 text-sm font-semibold text-ink-muted transition hover:border-ink/15 disabled:cursor-not-allowed disabled:opacity-40";
 
-// Carte du simulateur : coins 16 px, ombre profonde, liseré vert clair.
+// Carte du simulateur : coins 16 px, ombre profonde, contour vert clair 2 px.
 // Identifiable comme un outil (étiquette flottante, titre, barre de progression).
 const formCardClass =
-  "relative rounded-2xl bg-white shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] ring-1 ring-[#6EE7A8]/40";
+  "relative rounded-2xl bg-white shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] ring-2 ring-[#6EE7A8]";
 
 // Étiquette flottante « Simulateur gratuit », à cheval sur le bord haut de la carte.
 function SimulatorBadge() {
