@@ -133,3 +133,19 @@ h6 {
     transform: translateX(-50%);
   }
 }
+
+/* Bandeau de logos (/pac) : quatre copies de la série dans le track,
+   une période = 25 % de sa largeur. Pause au survol gérée côté Tailwind. */
+@keyframes pac-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.pac-marquee {
+  animation: pac-marquee 36s linear infinite;
+  will-change: transform;
+}

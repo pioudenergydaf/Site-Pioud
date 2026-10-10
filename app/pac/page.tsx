@@ -70,7 +70,7 @@ type TrustLogo = { src: string; alt: string; width: number; height: number; clas
 // disparaître tout fond blanc résiduel sur le crème du bandeau.
 const LOGO_CLASS = "h-[52px] w-auto mix-blend-multiply";
 
-// Marques installées (bande sous le hero). SVG monochromes tracés depuis les
+// Marques installées (bande sous le hero). SVG en couleurs d'origine tracés depuis les
 // logos officiels, dans public/logos/marques/ ; dimensions = viewBox du fichier.
 // Chappee en tête : c'est la marque proposée par défaut (badge « Notre sélection »).
 const brandLogos: { name: string; src: string; width: number; height: number; featured?: boolean }[] = [
@@ -158,6 +158,30 @@ const inclusions = [
     icon: Wrench,
   },
 ];
+
+type BrandLogoItem = (typeof brandLogos)[number];
+
+// Un logo du bandeau : hauteur fixe (26 px mobile, 32 px desktop), réserve en
+// haut pour le badge « Notre sélection » afin que tous les logos restent alignés.
+function BrandLogo({ brand, decorative = false }: { brand: BrandLogoItem; decorative?: boolean }) {
+  return (
+    <li aria-hidden={decorative || undefined} className="relative flex flex-none items-center pt-6">
+      {brand.featured ? (
+        <span className="absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#6EE7A8] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#1F3D2E]">
+          Notre sélection
+        </span>
+      ) : null}
+      <Image
+        src={brand.src}
+        alt={decorative ? "" : brand.name}
+        width={brand.width}
+        height={brand.height}
+        unoptimized
+        className="h-[26px] w-auto sm:h-8"
+      />
+    </li>
+  );
+}
 
 // Hiérarchie typographique de la page (une seule échelle, réutilisée).
 const h2Class =
@@ -264,23 +288,25 @@ export default function PacLandingPage() {
             disponibilité des pièces en France.
           </p>
 
-          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-6 sm:gap-x-12">
+          {/* Bandeau défilant : quatre copies de la série pour une boucle sans
+              raccord (le padding droit égale le gap, donc 25 % = une série exacte),
+              pause au survol, bords fondus. Rangée statique si l'utilisateur
+              préfère réduire les animations. */}
+          <div
+            className="group relative mt-8 overflow-hidden motion-reduce:hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+            aria-label="Marques installées : Chappee, Daikin, Atlantic, Mitsubishi Electric, Panasonic"
+          >
+            <ul className="pac-marquee flex w-max items-center gap-x-8 pr-8 group-hover:[animation-play-state:paused] sm:gap-x-12 sm:pr-12">
+              {[0, 1, 2, 3].map((copy) =>
+                brandLogos.map((brand) => (
+                  <BrandLogo key={`${copy}-${brand.name}`} brand={brand} decorative={copy > 0} />
+                )),
+              )}
+            </ul>
+          </div>
+          <ul className="mt-8 hidden flex-wrap items-center justify-center gap-x-8 gap-y-6 motion-reduce:flex sm:gap-x-12">
             {brandLogos.map((brand) => (
-              <li key={brand.name} className="relative flex items-center">
-                {brand.featured ? (
-                  <span className="absolute -top-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#6EE7A8] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#1F3D2E]">
-                    Notre sélection
-                  </span>
-                ) : null}
-                <Image
-                  src={brand.src}
-                  alt={brand.name}
-                  width={brand.width}
-                  height={brand.height}
-                  unoptimized
-                  className="h-[26px] w-auto opacity-60 grayscale transition hover:opacity-100 sm:h-8"
-                />
-              </li>
+              <BrandLogo key={brand.name} brand={brand} />
             ))}
           </ul>
 
