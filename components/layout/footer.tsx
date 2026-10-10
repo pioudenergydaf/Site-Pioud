@@ -7,7 +7,7 @@ const footerLinks = navLinks.filter((link) => link.href !== "/");
 export function Footer() {
   return (
     <footer className="mt-12 bg-forest text-cream-soft md:mt-24">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 sm:grid-cols-2 lg:grid-cols-5 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div className="space-y-4">
           <p className="font-display text-lg font-light text-cream">À propos</p>
           <p className="text-sm leading-relaxed text-cream-soft/85">
@@ -59,47 +59,15 @@ export function Footer() {
         <div className="space-y-4">
           <p className="font-display text-lg font-light text-cream">Contact</p>
           <ul className="space-y-2 text-sm text-cream-soft/85">
+            <li className="font-semibold text-cream">
+              {siteConfig.legalName} – SIREN {siteConfig.siren}
+            </li>
             <li>{siteConfig.address}</li>
             <li>
               <a href={`mailto:${siteConfig.email}`} className="transition hover:text-cream">
                 {siteConfig.email}
               </a>
             </li>
-          </ul>
-        </div>
-
-        <div className="space-y-4">
-          <p className="font-display text-lg font-light text-cream">Suivez-nous</p>
-          <ul className="space-y-2 text-sm text-cream-soft/85">
-            {siteConfig.socials.linkedin ? (
-              <li>
-                <a
-                  href={siteConfig.socials.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition hover:text-cream"
-                >
-                  LinkedIn
-                </a>
-              </li>
-            ) : null}
-            {siteConfig.socials.youtube ? (
-              <li>
-                <a
-                  href={siteConfig.socials.youtube}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition hover:text-cream"
-                >
-                  YouTube
-                </a>
-              </li>
-            ) : null}
-            {!siteConfig.socials.linkedin && !siteConfig.socials.youtube ? (
-              <li className="text-cream-soft/70">
-                Bientôt disponibles.
-              </li>
-            ) : null}
           </ul>
         </div>
       </div>
@@ -109,7 +77,9 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} Pioud Energy. Tous droits réservés.
           </p>
-          <p>Mandataire CEE - Solutions d&apos;efficacité énergétique.</p>
+          <p>
+            {siteConfig.legalName} – SIREN {siteConfig.siren} · Mandataire CEE
+          </p>
         </div>
       </div>
     </footer>

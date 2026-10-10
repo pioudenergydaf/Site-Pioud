@@ -3,13 +3,11 @@ export const siteConfig = {
   description:
     "Pioud Energy accompagne particuliers, professionnels, collectivités et grands comptes dans la valorisation des Certificats d'Économies d'Énergie.",
   url: "https://pioudenergy.fr",
-  simulatorUrl: "https://simulateur.pioudenergy.fr",
+  simulatorUrl: "https://pioudenergy.fr/simulateur",
   email: "contact@pioudenergy.fr",
   address: "32 Rue de Paris, 92100 Boulogne-Billancourt",
-  socials: {
-    linkedin: "",
-    youtube: "",
-  },
+  legalName: "PIOUD ENERGY SAS",
+  siren: "927 628 446",
 };
 
 export const navLinks = [
@@ -51,7 +49,7 @@ export const sectors = [
 
 export const keyFigures = [
   { value: "600", suffix: "+", label: "PROJETS ACCOMPAGNÉS" },
-  { value: "100", suffix: "%", label: "FINANCÉ PAR LES CEE" },
+  { prefix: "Jusqu'à", value: "100", suffix: "%", label: "FINANCÉ SELON ÉLIGIBILITÉ" },
   { value: "35 000", suffix: "T", label: "CO₂ ÉVITÉES / AN" },
 ];
 

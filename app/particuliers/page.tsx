@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  AirVent,
   Banknote,
   Calculator,
   FileText,
@@ -43,6 +44,15 @@ const particuliersThemes = [
     cta: "Voir les solutions chauffage",
     image:
       SITE_IMAGES.particuliers.themeChauffage.src,
+  },
+  {
+    title: "Pompe à chaleur air/eau",
+    description:
+      "Prime CEE et MaPrimeRénov' déduites du devis, installation RGE QualiPAC. Vérifiez votre éligibilité en 2 minutes.",
+    icon: AirVent,
+    href: "/pac",
+    cta: "Vérifier mon éligibilité",
+    image: SITE_IMAGES.fiches.pompeAirEau.src,
   },
   {
     title: "Fenêtres & Menuiseries",

@@ -17,7 +17,7 @@ import { keyFigures, sectors, testimonials } from "@/lib/site-data";
 import { SITE_IMAGES } from "@/lib/site-images";
 
 export const metadata: Metadata = {
-  title: "Accueil",
+  title: { absolute: "Pioud Energy – Mandataire CEE" },
   description:
     "PIOUD ENERGY simplifie vos démarches CEE et maximise vos primes pour tous vos projets d'efficacité énergétique.",
 };
@@ -109,8 +109,10 @@ export default function Home() {
               <Reveal key={figure.label} delay={0.1 + index * 0.1}>
                 <article className={`${index > 0 ? "md:border-l md:border-white/40 md:pl-8" : ""}`}>
                   <AnimatedCounter
+                    prefix={figure.prefix}
                     value={figure.value}
                     suffix={figure.suffix}
+                    prefixClassName="mr-2 text-2xl text-white/85 md:text-3xl"
                     className="whitespace-nowrap font-light text-5xl text-white md:text-6xl [text-shadow:_0_2px_8px_rgb(0_0_0_/_40%)]"
                     suffixClassName="text-emerald-300"
                     valueStyle={{ color: "#FFFFFF" }}
