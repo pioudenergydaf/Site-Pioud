@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, ClipboardCheck, FileCheck2, Wrench } from "lucide-react";
 import { PacFaq } from "@/components/pac/pac-faq";
+import { BRAND_LOGO } from "@/components/layout/brand-wordmark";
 import { HeroCheck } from "@/components/pac/pac-icon";
 import { PacLeadForm } from "@/components/pac/pac-lead-form";
 import { PacStickyCta } from "@/components/pac/pac-sticky-cta";
@@ -194,14 +195,14 @@ export default function PacLandingPage() {
       {/* 1. Barre haute */}
       <header className="sticky top-0 z-40 border-b border-ink/10 bg-white/95 backdrop-blur-md">
         <div className="section-shell flex items-center justify-between gap-4 py-3">
-          <span className="flex items-center gap-1.5 font-brand text-xs font-extrabold leading-none tracking-tight text-emerald-600 sm:text-sm">
-            <span className="flex h-4 w-4 items-center justify-center rounded-full border-[1.5px] border-emerald-600 sm:h-[18px] sm:w-[18px]">
-              <svg viewBox="0 0 24 24" className="h-2.5 w-2.5 fill-emerald-600 sm:h-3 sm:w-3">
-                <path d="M20 3c-8 0-15 6-15 14 0 2 .5 3.5 1 4 .5-3 2-6 5-8-2 3-3 6-2.5 9 5-.5 9-3 10.5-8 1-3.5 1-8 1-11z" />
-              </svg>
-            </span>
-            PIOUD ENERGY
-          </span>
+          <Image
+            src={BRAND_LOGO.horizontal.src}
+            alt={BRAND_LOGO.alt}
+            width={BRAND_LOGO.horizontal.width}
+            height={BRAND_LOGO.horizontal.height}
+            priority
+            className="h-9 w-auto sm:h-10"
+          />
 
           <a href="#pac-form" className="btn-primary btn-wipe px-4 py-2.5 text-sm sm:px-6 sm:py-3">
             <span>Vérifier mon éligibilité</span>
