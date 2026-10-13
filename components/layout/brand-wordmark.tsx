@@ -5,6 +5,8 @@ import Image from "next/image";
 // Utilisé par la navbar principale et les landing pages, sur fond clair uniquement.
 export const BRAND_LOGO = {
   horizontal: { src: "/logo/pioud-energy-horizontal.png", width: 1000, height: 256 },
+  // Monochrome crème, pour les fonds vert foncé (pied de page, menu mobile).
+  horizontalLight: { src: "/logo/pioud-energy-horizontal-light.png", width: 1000, height: 256 },
   stacked: { src: "/logo/pioud-energy.png", width: 596, height: 600 },
   alt: "Pioud Energy",
 };

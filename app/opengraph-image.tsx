@@ -5,7 +5,12 @@ export const alt = "Pioud Energy - Votre partenaire expert CEE";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
+  // Logo officiel (public/logo/pioud-energy.png) embarqué au rendu.
+  const logo = await fetch(new URL("../public/logo/pioud-energy.png", import.meta.url)).then(
+    (res) => res.arrayBuffer(),
+  );
+
   return new ImageResponse(
     (
       <div
@@ -13,9 +18,9 @@ export default function OpengraphImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
+          alignItems: "center",
           justifyContent: "space-between",
-          padding: "80px",
+          padding: "72px 80px",
           background:
             "linear-gradient(135deg, #1F3A2D 0%, #2C5440 55%, #3F7A5A 100%)",
           color: "#F4EFE5",
@@ -24,24 +29,49 @@ export default function OpengraphImage() {
       >
         <div
           style={{
-            fontSize: 36,
-            letterSpacing: 6,
-            textTransform: "uppercase",
-            opacity: 0.85,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: "100%",
+            maxWidth: 680,
           }}
         >
-          Pioud Energy
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div style={{ fontSize: 84, fontWeight: 600, lineHeight: 1.05 }}>
-            Votre partenaire expert CEE
+          <div
+            style={{
+              fontSize: 30,
+              letterSpacing: 6,
+              textTransform: "uppercase",
+              opacity: 0.85,
+            }}
+          >
+            Mandataire CEE
           </div>
-          <div style={{ fontSize: 32, opacity: 0.85, maxWidth: 900 }}>
-            Conseils, montage et valorisation des Certificats d&apos;Économies
-            d&apos;Énergie pour particuliers, professionnels et collectivités.
+          <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+            <div style={{ fontSize: 72, fontWeight: 600, lineHeight: 1.05 }}>
+              Votre partenaire expert CEE
+            </div>
+            <div style={{ fontSize: 28, opacity: 0.85 }}>
+              Conseils, montage et valorisation des Certificats d&apos;Économies
+              d&apos;Énergie pour particuliers, professionnels et collectivités.
+            </div>
           </div>
+          <div style={{ fontSize: 26, opacity: 0.7 }}>pioudenergy.fr</div>
         </div>
-        <div style={{ fontSize: 28, opacity: 0.7 }}>pioudenergy.fr</div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 340,
+            height: 340,
+            borderRadius: 40,
+            background: "#FFFFFF",
+            boxShadow: "0 24px 48px rgba(0,0,0,0.35)",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+          <img src={logo as unknown as string} width={260} height={262} />
+        </div>
       </div>
     ),
     { ...size },

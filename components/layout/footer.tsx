@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { BRAND_LOGO } from "@/components/layout/brand-wordmark";
 import { ManageCookiesButton } from "@/components/cookies/manage-cookies-button";
 import { navLinks, siteConfig } from "@/lib/site-data";
 
@@ -9,7 +11,15 @@ export function Footer() {
     <footer className="mt-12 bg-forest text-cream-soft md:mt-24">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div className="space-y-4">
-          <p className="font-display text-lg font-light text-cream">À propos</p>
+          <Link href="/" className="inline-block" aria-label="Pioud Energy, retour à l'accueil">
+            <Image
+              src={BRAND_LOGO.horizontalLight.src}
+              alt={BRAND_LOGO.alt}
+              width={BRAND_LOGO.horizontalLight.width}
+              height={BRAND_LOGO.horizontalLight.height}
+              className="h-11 w-auto"
+            />
+          </Link>
           <p className="text-sm leading-relaxed text-cream-soft/85">
             Pioud Energy accompagne ses clients dans le financement de leurs
             projets d&apos;efficacité énergétique via les dispositifs CEE.

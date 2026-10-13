@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 import { navLinks } from "@/lib/site-data";
 import NavDropdown from "@/components/layout/NavDropdown";
 import { LandingNavbar } from "@/components/layout/landing-navbar";
-import { BrandWordmark } from "@/components/layout/brand-wordmark";
+import Image from "next/image";
+import { BRAND_LOGO, BrandWordmark } from "@/components/layout/brand-wordmark";
 
 const LANDING_PAGES: Record<string, string> = {
   "/professionnels/collectif/bar-th-179": "/professionnels/collectif",
@@ -154,9 +155,16 @@ export function Navbar() {
               Accéder au simulateur
               <ArrowRight className="h-5 w-5" />
             </Link>
-            <p className="mt-6 text-center text-xs text-white/50">
-              Pioud Energy · Mandataire CEE
-            </p>
+            <div className="mt-8 flex flex-col items-center gap-2">
+              <Image
+                src={BRAND_LOGO.horizontalLight.src}
+                alt={BRAND_LOGO.alt}
+                width={BRAND_LOGO.horizontalLight.width}
+                height={BRAND_LOGO.horizontalLight.height}
+                className="h-9 w-auto opacity-80"
+              />
+              <p className="text-xs text-white/50">Mandataire CEE</p>
+            </div>
           </div>
         </div>
       ) : null}
