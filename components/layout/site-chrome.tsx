@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { SimulatorPromo } from "@/components/layout/simulator-promo";
 
 // Routes qui gèrent leur propre layout (pas de header/footer du site
 // principal) — pages d'atterrissage publicitaires autonomes.
@@ -24,6 +25,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <SimulatorPromo />
     </div>
   );
 }
