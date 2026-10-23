@@ -17,7 +17,7 @@ export function Footer() {
               alt={BRAND_LOGO.alt}
               width={BRAND_LOGO.horizontalLight.width}
               height={BRAND_LOGO.horizontalLight.height}
-              className="h-11 w-auto"
+              className="h-12 w-auto"
             />
           </Link>
           <p className="text-sm leading-relaxed text-cream-soft/85">

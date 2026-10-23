@@ -201,7 +201,7 @@ export default function PacLandingPage() {
             width={BRAND_LOGO.horizontal.width}
             height={BRAND_LOGO.horizontal.height}
             priority
-            className="h-9 w-auto sm:h-10"
+            className="h-10 w-auto sm:h-11"
           />
 
           <a href="#pac-form" className="btn-primary btn-wipe px-4 py-2.5 text-sm sm:px-6 sm:py-3">

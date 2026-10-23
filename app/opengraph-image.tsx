@@ -6,8 +6,8 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OpengraphImage() {
-  // Logo officiel (public/logo/pioud-energy.png) embarqué au rendu.
-  const logo = await fetch(new URL("../public/logo/pioud-energy.png", import.meta.url)).then(
+  // Logo officiel (public/logo/pioud-energy-v2.png) embarqué au rendu.
+  const logo = await fetch(new URL("../public/logo/pioud-energy-v2.png", import.meta.url)).then(
     (res) => res.arrayBuffer(),
   );
 
@@ -33,7 +33,7 @@ export default async function OpengraphImage() {
             flexDirection: "column",
             justifyContent: "space-between",
             height: "100%",
-            maxWidth: 680,
+            maxWidth: 620,
           }}
         >
           <div
@@ -62,15 +62,15 @@ export default async function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: 340,
-            height: 340,
-            borderRadius: 40,
+            width: 420,
+            height: 220,
+            borderRadius: 32,
             background: "#FFFFFF",
             boxShadow: "0 24px 48px rgba(0,0,0,0.35)",
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
-          <img src={logo as unknown as string} width={260} height={262} />
+          <img src={logo as unknown as string} width={360} height={120} />
         </div>
       </div>
     ),

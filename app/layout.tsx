@@ -70,8 +70,8 @@ const localBusinessSchema = {
   name: siteConfig.name,
   description: siteConfig.description,
   email: siteConfig.email,
-  logo: `${siteConfig.url}/logo/pioud-energy.png`,
-  image: `${siteConfig.url}/logo/pioud-energy.png`,
+  logo: `${siteConfig.url}/logo/pioud-energy-v2.png`,
+  image: `${siteConfig.url}/logo/pioud-energy-v2.png`,
   address: {
     "@type": "PostalAddress",
     streetAddress: "32 Rue de Paris",

@@ -161,7 +161,7 @@ export function Navbar() {
                 alt={BRAND_LOGO.alt}
                 width={BRAND_LOGO.horizontalLight.width}
                 height={BRAND_LOGO.horizontalLight.height}
-                className="h-9 w-auto opacity-80"
+                className="h-10 w-auto opacity-80"
               />
               <p className="text-xs text-white/50">Mandataire CEE</p>
             </div>

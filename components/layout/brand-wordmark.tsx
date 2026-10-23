@@ -1,13 +1,12 @@
 import Image from "next/image";
 
-// Logo Pioud Energy (repère maison + feuille, logotype à droite), version
-// horizontale dérivée du logo officiel : public/logo/pioud-energy-horizontal.png.
+// Logo Pioud Energy (feuille + logotype), fichier officiel horizontal :
+// public/logo/pioud-energy-horizontal-v2.png.
 // Utilisé par la navbar principale et les landing pages, sur fond clair uniquement.
 export const BRAND_LOGO = {
-  horizontal: { src: "/logo/pioud-energy-horizontal.png", width: 1000, height: 256 },
+  horizontal: { src: "/logo/pioud-energy-horizontal-v2.png", width: 1000, height: 334 },
   // Monochrome crème, pour les fonds vert foncé (pied de page, menu mobile).
-  horizontalLight: { src: "/logo/pioud-energy-horizontal-light.png", width: 1000, height: 256 },
-  stacked: { src: "/logo/pioud-energy.png", width: 596, height: 600 },
+  horizontalLight: { src: "/logo/pioud-energy-horizontal-light-v2.png", width: 1000, height: 334 },
   alt: "Pioud Energy",
 };
 
@@ -20,7 +19,7 @@ export function BrandWordmark() {
         width={BRAND_LOGO.horizontal.width}
         height={BRAND_LOGO.horizontal.height}
         priority
-        className="h-8 w-auto md:h-10"
+        className="h-9 w-auto md:h-11"
       />
       <span className="mt-1 hidden text-[9px] uppercase tracking-widest text-navy-900/55 md:block">
         Certificats d&apos;Économies d&apos;Énergie
