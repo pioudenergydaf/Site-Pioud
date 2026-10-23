@@ -3,7 +3,7 @@ import { readStoredConsent } from "@/lib/cookie-consent";
 // Pixel Meta : chargé uniquement sur la landing /pac (composant MetaPixel),
 // et uniquement avec le consentement « publicité » de la bannière cookies
 // (case `marketing`). Aucun appel n'est fait sans ce consentement.
-export const META_PIXEL_ID = "2207372713531279";
+export const META_PIXEL_ID = "2270372713531279";
 
 declare global {
   interface Window {
