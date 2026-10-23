@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, ClipboardCheck, FileCheck2, Wrench } from "lucide-react";
 import { PacFaq } from "@/components/pac/pac-faq";
+import { MetaPixel } from "@/components/pac/meta-pixel";
 import { BRAND_LOGO } from "@/components/layout/brand-wordmark";
 import { HeroCheck } from "@/components/pac/pac-icon";
 import { PacLeadForm } from "@/components/pac/pac-lead-form";
@@ -587,6 +588,7 @@ export default function PacLandingPage() {
         </div>
       </footer>
 
+      <MetaPixel />
       <PacStickyCta targetId="pac-form" />
     </div>
   );

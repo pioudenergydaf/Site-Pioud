@@ -15,3 +15,14 @@ export const defaultCookieConsent: CookieConsent = {
   marketing: false,
   updatedAt: "",
 };
+
+// Consentement enregistré par la bannière cookies (null si aucun choix).
+export function readStoredConsent(): CookieConsent | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as CookieConsent) : null;
+  } catch {
+    return null;
+  }
+}
