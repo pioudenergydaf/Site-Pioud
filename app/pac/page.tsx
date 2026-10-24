@@ -70,7 +70,18 @@ type TrustLogo = { src: string; alt: string; width: number; height: number; clas
 
 // Même hauteur visuelle pour les cinq logos ; le mode multiply fait
 // disparaître tout fond blanc résiduel sur le crème du bandeau.
-const LOGO_CLASS = "h-[52px] w-auto mix-blend-multiply";
+// Logos de la rangée de garanties : hauteur propre à chaque logo pour un poids
+// visuel équivalent (le rond « Coup de pouce » est plus petit que QualiPAC à
+// hauteur égale), largeur automatique et `flex-none` pour ne jamais être écrasé.
+// Toutes les largeurs restent ≤ 112 px, la largeur de la zone logo sur mobile.
+const LOGO_BASE = "w-auto flex-none mix-blend-multiply";
+const LOGO_CLASS = {
+  qualipac: `${LOGO_BASE} h-[52px]`,
+  cee: `${LOGO_BASE} h-[56px]`,
+  maprimerenov: `${LOGO_BASE} h-[56px]`,
+  coupDePouce: `${LOGO_BASE} h-[64px]`,
+  april: `${LOGO_BASE} h-[48px]`,
+};
 
 // Marques installées (bande sous le hero). SVG en couleurs d'origine tracés depuis les
 // logos officiels, dans public/logos/marques/ ; dimensions = viewBox du fichier.
@@ -88,27 +99,27 @@ const trustItems: { label: string; sublabel: string; logo: TrustLogo }[] = [
   {
     label: "RGE QualiPAC",
     sublabel: "Qualification installateur",
-    logo: { ...QUALIPAC_LOGO, className: LOGO_CLASS },
+    logo: { ...QUALIPAC_LOGO, className: LOGO_CLASS.qualipac },
   },
   {
     label: "Mandataire CEE",
     sublabel: "Mandataire auprès des obligés",
-    logo: { src: "/logos/cee.png", alt: "Certificats d'Économies d'Énergie", width: 371, height: 366, className: LOGO_CLASS },
+    logo: { src: "/logos/cee.png", alt: "Certificats d'Économies d'Énergie", width: 371, height: 366, className: LOGO_CLASS.cee },
   },
   {
     label: "MaPrimeRénov'",
     sublabel: "Condition d'accès aux aides",
-    logo: { src: "/logos/rge.png", alt: "MaPrimeRénov'", width: 512, height: 512, className: LOGO_CLASS },
+    logo: { src: "/logos/rge.png", alt: "MaPrimeRénov'", width: 512, height: 512, className: LOGO_CLASS.maprimerenov },
   },
   {
     label: "Coup de pouce x5",
     sublabel: "Prime bonifiée",
-    logo: { src: "/logos/coup-de-pouce.png", alt: "Prime Coup de pouce", width: 564, height: 777, className: LOGO_CLASS },
+    logo: { src: "/logos/coup-de-pouce.png", alt: "Prime Coup de pouce", width: 564, height: 777, className: LOGO_CLASS.coupDePouce },
   },
   {
     label: "Garantie décennale",
     sublabel: "Assuré par APRIL",
-    logo: { ...APRIL_LOGO, className: LOGO_CLASS },
+    logo: { ...APRIL_LOGO, className: LOGO_CLASS.april },
   },
 ];
 
@@ -331,9 +342,10 @@ export default function PacLandingPage() {
                 key={item.label}
                 className="flex items-center gap-4 lg:flex-col lg:items-start lg:justify-start lg:gap-4 lg:border-l lg:border-ink/10 lg:px-6 lg:py-8"
               >
-                {/* Zone logo à hauteur fixe : les cinq logos et les cinq libellés
-                    partent de la même ligne quelle que soit la longueur du texte. */}
-                <span className="flex h-[52px] w-28 flex-none items-center lg:w-auto">
+                {/* Zone logo de taille fixe (112 × 64 px), logo centré : les cinq
+                    libellés partent du même point, quelle que soit la forme du
+                    logo. En colonnes (lg), le logo s'aligne à gauche, sur le texte. */}
+                <span className="flex h-16 w-28 flex-none items-center justify-center lg:w-auto lg:justify-start">
                   <Image
                     src={item.logo.src}
                     alt={item.logo.alt}
