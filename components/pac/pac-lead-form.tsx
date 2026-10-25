@@ -9,6 +9,7 @@ import { TurnstileWidget } from "@/components/contact/turnstile-widget";
 import { PacReassurance, REASSURANCE_TEXT } from "@/components/pac/pac-icon";
 import { CONVERSION_FORM, reportConversion } from "@/lib/gtag";
 import { trackMetaLead } from "@/lib/meta-pixel";
+import { trackOaiqLead } from "@/lib/oaiq";
 import { CONSENT_TEXT } from "@/lib/pac-constants";
 import {
   ATTRIBUTION_PARAMS,
@@ -337,6 +338,7 @@ export function PacLeadForm() {
       conversionReported.current = true;
       reportConversion(CONVERSION_FORM);
       trackMetaLead();
+      trackOaiqLead();
     }
   }, [submitted]);
 
